@@ -1,0 +1,4 @@
+FROM local/management-service
+
+COPY ./app-config.json ./
+CMD npm start -- --config /opt/orbs/app-config.json

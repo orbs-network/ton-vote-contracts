@@ -1,0 +1,13 @@
+version: '3'
+services:
+    ganache:
+        image: trufflesuite/ganache-cli
+        ports:
+            - 7545
+        command: -p 7545 -i 5777 -a 100 --gasLimit 0x7FFFFFFF --gasPrice 1 -m  "vanish junk genuine web seminar cook absurd royal ability series taste method identify elevator liquid"
+    app:
+        build:
+            context: .
+            dockerfile: ./Dockerfile-app.test
+        ports:
+            - 8080
