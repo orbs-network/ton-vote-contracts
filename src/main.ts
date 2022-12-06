@@ -1,22 +1,22 @@
-import { serve } from '.';
-import { parseArgs } from './cli-args';
-import * as Logger from './logger';
+import { serve } from ".";
+import { parseArgs } from "./cli-args";
+import * as Logger from "./logger";
 
-process.on('uncaughtException', function (err) {
-  Logger.log('Uncaught exception on process, shutting down:');
+process.on("uncaughtException", function (err) {
+  Logger.log("Uncaught exception on process, shutting down:");
   Logger.error(err.stack);
   process.exit(1);
 });
 
 try {
-  Logger.log('Management service started.');
+  Logger.log("Management service started.");
   const config = parseArgs(process.argv);
 
   Logger.log(`Input config: '${JSON.stringify(config)}'.`);
   const server = serve(config);
 
-  process.on('SIGINT', function () {
-    Logger.log('Received SIGINT, shutting down.');
+  process.on("SIGINT", function () {
+    Logger.log("Received SIGINT, shutting down.");
     if (server) {
       server.close(function (err: any) {
         if (err) {
@@ -27,7 +27,7 @@ try {
     }
   });
 } catch (err) {
-  Logger.log('Exception thrown from main, shutting down:');
+  Logger.log("Exception thrown from main, shutting down:");
   Logger.error(err.stack);
   process.exit(128);
 }

@@ -27,7 +27,13 @@ export interface Proposal {
   duration: number;
   description: string;
   choices: Choice[];
-  votingType: "single" | "approval" | "quadratic" | "ranked" | "weighted" | "basic";
+  votingType:
+    | "single"
+    | "approval"
+    | "quadratic"
+    | "ranked"
+    | "weighted"
+    | "basic";
   snapshotLogicalTime: number;
   snapshotStateRoot: string;
   minimumQuorum?: number;

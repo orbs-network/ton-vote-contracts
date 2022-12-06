@@ -1,11 +1,18 @@
-import _ from 'lodash';
-import fs from 'fs';
-import { EventTypes, ContractName } from '../ethereum/types';
-import { getIpFromHex, toNumber, normalizeAddress } from '../helpers';
-import { findAllEventsCoveringRange } from './find';
-import { defaultServiceConfiguration } from '../config';
-import * as Logger from '../logger';
-import {DaoMetadata, Proposal, Vote, Result, PublicKey, Strategy} from "../ton-vote-client";
+import _ from "lodash";
+import fs from "fs";
+import { EventTypes, ContractName } from "../ethereum/types";
+import { getIpFromHex, toNumber, normalizeAddress } from "../helpers";
+import { findAllEventsCoveringRange } from "./find";
+import { defaultServiceConfiguration } from "../config";
+import * as Logger from "../logger";
+import {
+  DaoMetadata,
+  Proposal,
+  Vote,
+  Result,
+  PublicKey,
+  Strategy,
+} from "../ton-vote-client";
 
 const NUM_STANDBYS = 5;
 const NEW_FIX_COMMITTEE_WEIGHTS_BREAKING_CHANGE_TIME = 1656399600; //breaking change time set
@@ -15,10 +22,10 @@ export interface StateSnapshot {
   CurrentRefTime: number; // primary, everything is by time
   CurrentRefBlock: number;
   Daos: { [DaoId: string]: DaoMetadata };
-  Proposals: { [ProposalId: string] : Proposal};
-  Votes: {[ProposalId: string]: { [VoterId: PublicKey] : Vote}};
-  Results: { [ProposalId: string] : Result};
-	Strategies: {[strategyId: string]: Strategy};
+  Proposals: { [ProposalId: string]: Proposal };
+  Votes: { [ProposalId: string]: { [VoterId: PublicKey]: Vote } };
+  Results: { [ProposalId: string]: Result };
+  Strategies: { [strategyId: string]: Strategy };
 
   EventsStats: {
     LastUpdateBlock: number;
@@ -40,7 +47,13 @@ export interface StateSnapshot {
     EffectiveStake: number;
   }[];
   CurrentCandidates: { EthAddress: string; IsStandby: boolean; Name: string }[];
-  CurrentTopology: { EthAddress: string; OrbsAddress: string; Ip: string; Port: number; Name: string }[]; // Port overridden by processor
+  CurrentTopology: {
+    EthAddress: string;
+    OrbsAddress: string;
+    Ip: string;
+    Port: number;
+    Name: string;
+  }[]; // Port overridden by processor
   CommitteeSets: {
     RefTime: number; // primary
     RefBlock: number;
@@ -100,7 +113,12 @@ export interface StateSnapshot {
   SubscriptionEvents: {
     [VirtualChainId: string]: {
       RefTime: number;
-      Data: { Status: 'active' | 'expired'; Tier: string; RolloutGroup: string; IdentityType: number };
+      Data: {
+        Status: "active" | "expired";
+        Tier: string;
+        RolloutGroup: string;
+        IdentityType: number;
+      };
     }[];
   };
   ProtocolVersionEvents: {
@@ -142,14 +160,13 @@ export const defaultStateConfiguration: StateConfiguration = {
 
 export class State {
   private snapshot: StateSnapshot = {
-
     CurrentRefTime: 0,
     CurrentRefBlock: 0,
 
-	Daos: {},
-	Proposals: {},
-	Votes: {},
-	Results: {},
+    Daos: {},
+    Proposals: {},
+    Votes: {},
+    Results: {},
 
     EventsStats: {
       LastUpdateBlock: 0,
@@ -188,13 +205,17 @@ export class State {
     },
     CurrentContractAddress: {},
     ContractAddressChanges: [],
-    CurrentVersion: '',
+    CurrentVersion: "",
   };
 
   constructor(private config = defaultStateConfiguration) {
-    this.snapshot.CurrentContractAddress['contractRegistry'] = config.EthereumGenesisContract;
+    this.snapshot.CurrentContractAddress["contractRegistry"] =
+      config.EthereumGenesisContract;
     try {
-      this.snapshot.CurrentVersion = fs.readFileSync('./version').toString().trim();
+      this.snapshot.CurrentVersion = fs
+        .readFileSync("./version")
+        .toString()
+        .trim();
     } catch (err) {
       Logger.log(`Cound not find version: ${err.message}`);
     }
@@ -212,17 +233,26 @@ export class State {
     // before any state changes
     const committeeEvent = calcNewCommitteeEvent(time, block, this.snapshot);
     const newCommitteeSet = calcCommitteeArraySet(committeeEvent.Committee);
-    const prevCommitteeSet = calcCommitteeArraySet(this.snapshot.LastCommitteeEvent);
+    const prevCommitteeSet = calcCommitteeArraySet(
+      this.snapshot.LastCommitteeEvent
+    );
 
     // see if the committee has changed
-    if (!_.isEqual(committeeEvent.Committee, this.snapshot.LastCommitteeEvent)) {
+    if (
+      !_.isEqual(committeeEvent.Committee, this.snapshot.LastCommitteeEvent)
+    ) {
       this.snapshot.CommitteeEvents.push(committeeEvent);
       updateLastPageCommitteeEvents(time, this.snapshot, committeeEvent);
       this.snapshot.LastCommitteeEvent = _.cloneDeep(committeeEvent.Committee);
     }
 
     // see if the committee set has changed
-    if (!_.isEqual(stringArrToObj(newCommitteeSet), stringArrToObj(prevCommitteeSet))) {
+    if (
+      !_.isEqual(
+        stringArrToObj(newCommitteeSet),
+        stringArrToObj(prevCommitteeSet)
+      )
+    ) {
       // ignore order
       this.snapshot.CommitteeSets.push({
         RefBlock: committeeEvent.RefBlock,
@@ -237,8 +267,12 @@ export class State {
     this.snapshot.CurrentTopology = calcTopology(time, this.snapshot);
   }
 
-  applyNewContractAddressUpdated(time: number, event: EventTypes['ContractAddressUpdated']) {
-    this.snapshot.CurrentContractAddress[event.returnValues.contractName] = event.returnValues.addr;
+  applyNewContractAddressUpdated(
+    time: number,
+    event: EventTypes["ContractAddressUpdated"]
+  ) {
+    this.snapshot.CurrentContractAddress[event.returnValues.contractName] =
+      event.returnValues.addr;
     this.snapshot.ContractAddressChanges.push({
       RefTime: time,
       ContractName: event.returnValues.contractName,
@@ -246,36 +280,55 @@ export class State {
     });
   }
 
-  applyNewCommitteeChange(time: number, event: EventTypes['CommitteeChange']) {
+  applyNewCommitteeChange(time: number, event: EventTypes["CommitteeChange"]) {
     const EthAddress = normalizeAddress(event.returnValues.addr);
-    this.snapshot.CurrentEffectiveStake[EthAddress] = orbitonsToOrbs(event.returnValues.weight);
+    this.snapshot.CurrentEffectiveStake[EthAddress] = orbitonsToOrbs(
+      event.returnValues.weight
+    );
 
     // current committee
-    const previous = _.remove(this.snapshot.CurrentCommittee, (node) => node.EthAddress == EthAddress);
+    const previous = _.remove(
+      this.snapshot.CurrentCommittee,
+      (node) => node.EthAddress == EthAddress
+    );
     if (event.returnValues.inCommittee) {
       this.snapshot.CurrentCommittee.push({
         EthAddress,
         Weight: 0,
         IdentityType: event.returnValues.certification ? 1 : 0,
-        Name: this.snapshot.CurrentRegistrationData[EthAddress]?.Name ?? '',
+        Name: this.snapshot.CurrentRegistrationData[EthAddress]?.Name ?? "",
         EnterTime: previous[0]?.EnterTime ?? time,
         EffectiveStake: this.snapshot.CurrentEffectiveStake[EthAddress],
       });
     }
 
     if (time < NEW_FIX_COMMITTEE_WEIGHTS_BREAKING_CHANGE_TIME) {
-      fixCommitteeWeights(this.snapshot.CurrentCommittee, this.snapshot.CurrentEffectiveStake);
+      fixCommitteeWeights(
+        this.snapshot.CurrentCommittee,
+        this.snapshot.CurrentEffectiveStake
+      );
     } else {
-      fixCommitteeWeightsNew(this.snapshot.CurrentCommittee, this.snapshot.CurrentEffectiveStake);
+      fixCommitteeWeightsNew(
+        this.snapshot.CurrentCommittee,
+        this.snapshot.CurrentEffectiveStake
+      );
     }
 
-    this.snapshot.CurrentCommittee = _.sortBy(this.snapshot.CurrentCommittee, (node) => node.EthAddress);
-    this.snapshot.CurrentCommittee = _.sortBy(this.snapshot.CurrentCommittee, (node) => -1 * node.Weight);
+    this.snapshot.CurrentCommittee = _.sortBy(
+      this.snapshot.CurrentCommittee,
+      (node) => node.EthAddress
+    );
+    this.snapshot.CurrentCommittee = _.sortBy(
+      this.snapshot.CurrentCommittee,
+      (node) => -1 * node.Weight
+    );
   }
 
-  applyNewStakeChanged(_time: number, event: EventTypes['StakeChanged']) {
+  applyNewStakeChanged(_time: number, event: EventTypes["StakeChanged"]) {
     const EthAddress = normalizeAddress(event.returnValues.addr);
-    this.snapshot.CurrentEffectiveStake[EthAddress] = orbitonsToOrbs(event.returnValues.effectiveStake);
+    this.snapshot.CurrentEffectiveStake[EthAddress] = orbitonsToOrbs(
+      event.returnValues.effectiveStake
+    );
     if (this.snapshot.CurrentEffectiveStake[EthAddress] == 0) {
       delete this.snapshot.CurrentEffectiveStake[EthAddress];
     }
@@ -291,7 +344,10 @@ export class State {
     }
   }
 
-  applyNewGuardianDataUpdated(_time: number, event: EventTypes['GuardianDataUpdated']) {
+  applyNewGuardianDataUpdated(
+    _time: number,
+    event: EventTypes["GuardianDataUpdated"]
+  ) {
     const EthAddress = normalizeAddress(event.returnValues.guardian);
     const OrbsAddress = normalizeAddress(event.returnValues.orbsAddr);
     const IpAddress = getIpFromHex(event.returnValues.ip);
@@ -301,7 +357,8 @@ export class State {
       this.snapshot.CurrentRegistrationData[EthAddress] = {
         Name: event.returnValues.name,
         Website: event.returnValues.website,
-        Metadata: this.snapshot.CurrentRegistrationData[EthAddress]?.Metadata ?? {},
+        Metadata:
+          this.snapshot.CurrentRegistrationData[EthAddress]?.Metadata ?? {},
         RegistrationTime: toNumber(event.returnValues.registrationTime),
       };
     } else {
@@ -311,13 +368,21 @@ export class State {
     }
   }
 
-  applyNewGuardianMetadataChanged(_time: number, event: EventTypes['GuardianMetadataChanged']) {
+  applyNewGuardianMetadataChanged(
+    _time: number,
+    event: EventTypes["GuardianMetadataChanged"]
+  ) {
     const EthAddress = normalizeAddress(event.returnValues.guardian);
-    const metadata = this.snapshot.CurrentRegistrationData[EthAddress]?.Metadata;
-    if (metadata) metadata[event.returnValues.key] = event.returnValues.newValue;
+    const metadata =
+      this.snapshot.CurrentRegistrationData[EthAddress]?.Metadata;
+    if (metadata)
+      metadata[event.returnValues.key] = event.returnValues.newValue;
   }
 
-  applyNewGuardianStatusUpdated(time: number, event: EventTypes['GuardianStatusUpdated']) {
+  applyNewGuardianStatusUpdated(
+    time: number,
+    event: EventTypes["GuardianStatusUpdated"]
+  ) {
     const EthAddress = normalizeAddress(event.returnValues.guardian);
     this.snapshot.CurrentElectionsStatus[EthAddress] = {
       LastUpdateTime: time,
@@ -327,12 +392,19 @@ export class State {
     };
   }
 
-  applyNewGuardianCertificationUpdate(_time: number, event: EventTypes['GuardianCertificationUpdate']) {
+  applyNewGuardianCertificationUpdate(
+    _time: number,
+    event: EventTypes["GuardianCertificationUpdate"]
+  ) {
     const EthAddress = normalizeAddress(event.returnValues.guardian);
-    this.snapshot.CurrentCertification[EthAddress] = event.returnValues.isCertified;
+    this.snapshot.CurrentCertification[EthAddress] =
+      event.returnValues.isCertified;
   }
 
-  applyNewSubscriptionChanged(time: number, event: EventTypes['SubscriptionChanged']) {
+  applyNewSubscriptionChanged(
+    time: number,
+    event: EventTypes["SubscriptionChanged"]
+  ) {
     const eventBody = {
       Tier: event.returnValues.tier,
       RolloutGroup: event.returnValues.deploymentSubset,
@@ -346,23 +418,33 @@ export class State {
       Expiration: toNumber(event.returnValues.expiresAt),
       ...eventBody,
     };
-    const existingEvents = this.snapshot.SubscriptionEvents[event.returnValues.vcId] ?? [];
-    const noFutureEvents = _.filter(existingEvents, (event) => event.RefTime <= time);
+    const existingEvents =
+      this.snapshot.SubscriptionEvents[event.returnValues.vcId] ?? [];
+    const noFutureEvents = _.filter(
+      existingEvents,
+      (event) => event.RefTime <= time
+    );
     noFutureEvents.push({
       RefTime: time,
-      Data: { Status: 'active', ...eventBody },
+      Data: { Status: "active", ...eventBody },
     });
     noFutureEvents.push({
       RefTime: toNumber(event.returnValues.expiresAt),
-      Data: { Status: 'expired', ...eventBody },
+      Data: { Status: "expired", ...eventBody },
     });
     this.snapshot.SubscriptionEvents[event.returnValues.vcId] = noFutureEvents;
   }
 
-  applyNewProtocolVersionChanged(time: number, event: EventTypes['ProtocolVersionChanged']) {
+  applyNewProtocolVersionChanged(
+    time: number,
+    event: EventTypes["ProtocolVersionChanged"]
+  ) {
     const rolloutGroup = event.returnValues.deploymentSubset;
     const existingEvents = this.snapshot.ProtocolVersionEvents[rolloutGroup];
-    const noFutureEvents = _.filter(existingEvents, (event) => event.RefTime <= time);
+    const noFutureEvents = _.filter(
+      existingEvents,
+      (event) => event.RefTime <= time
+    );
     noFutureEvents.push({
       RefTime: toNumber(event.returnValues.fromTimestamp),
       Data: { Version: toNumber(event.returnValues.nextVersion) },
@@ -370,14 +452,24 @@ export class State {
     this.snapshot.ProtocolVersionEvents[rolloutGroup] = noFutureEvents;
   }
 
-  applyNewImageVersion(rolloutGroup: string, imageName: string, imageVersion: string) {
+  applyNewImageVersion(
+    rolloutGroup: string,
+    imageName: string,
+    imageVersion: string
+  ) {
     this.snapshot.CurrentImageVersions[rolloutGroup][imageName] = imageVersion;
   }
 
-  applyNewImageVersionPollTime(time: number, rolloutGroup: string, imageName: string) {
-    const updaterStats = this.snapshot.CurrentImageVersionsUpdater[rolloutGroup][imageName] ?? {
+  applyNewImageVersionPollTime(
+    time: number,
+    rolloutGroup: string,
+    imageName: string
+  ) {
+    const updaterStats = this.snapshot.CurrentImageVersionsUpdater[
+      rolloutGroup
+    ][imageName] ?? {
       LastPollTime: 0,
-      PendingVersion: '',
+      PendingVersion: "",
       PendingVersionTime: 0,
     };
     this.snapshot.CurrentImageVersionsUpdater[rolloutGroup][imageName] = {
@@ -387,10 +479,17 @@ export class State {
   }
 
   // defaults in place to show how to clear a pending update
-  applyNewImageVersionPendingUpdate(rolloutGroup: string, imageName: string, pendingVersion = '', pendingTime = 0) {
-    const updaterStats = this.snapshot.CurrentImageVersionsUpdater[rolloutGroup][imageName] ?? {
+  applyNewImageVersionPendingUpdate(
+    rolloutGroup: string,
+    imageName: string,
+    pendingVersion = "",
+    pendingTime = 0
+  ) {
+    const updaterStats = this.snapshot.CurrentImageVersionsUpdater[
+      rolloutGroup
+    ][imageName] ?? {
       LastPollTime: 0,
-      PendingVersion: '',
+      PendingVersion: "",
       PendingVersionTime: 0,
     };
     this.snapshot.CurrentImageVersionsUpdater[rolloutGroup][imageName] = {
@@ -402,7 +501,9 @@ export class State {
 
   applyNewEventsProcessed(block: number, events: string[]) {
     if (block <= this.snapshot.EventsStats.LastUpdateBlock) {
-      Logger.error(` applyEventsStats : already applied stats for block ${block}, events count ${events}  `);
+      Logger.error(
+        ` applyEventsStats : already applied stats for block ${block}, events count ${events}  `
+      );
     }
     events.map((eventName) => {
       const count = this.snapshot.EventsStats.EventCount[eventName]?.Count ?? 0;
@@ -415,8 +516,18 @@ export class State {
 }
 
 type CommiteeNodes = { EthAddress: string; Weight: number; Name: string }[];
-type CandidateNodes = { EthAddress: string; IsStandby: boolean; Name: string }[];
-type TopologyNodes = { EthAddress: string; OrbsAddress: string; Ip: string; Port: number; Name: string }[];
+type CandidateNodes = {
+  EthAddress: string;
+  IsStandby: boolean;
+  Name: string;
+}[];
+type TopologyNodes = {
+  EthAddress: string;
+  OrbsAddress: string;
+  Ip: string;
+  Port: number;
+  Name: string;
+}[];
 type CommitteeMember = {
   EthAddress: string;
   OrbsAddress: string;
@@ -434,20 +545,28 @@ type CommiteeEvent = {
 function calcCandidates(snapshot: StateSnapshot): CandidateNodes {
   const allRegistered = _.clone(snapshot.CurrentOrbsAddress);
   for (const EthAddress of Object.keys(allRegistered)) {
-    if (!snapshot.CurrentElectionsStatus[EthAddress]?.ReadyToSync) delete allRegistered[EthAddress];
+    if (!snapshot.CurrentElectionsStatus[EthAddress]?.ReadyToSync)
+      delete allRegistered[EthAddress];
   }
-  for (const node of snapshot.CurrentCommittee) delete allRegistered[node.EthAddress];
+  for (const node of snapshot.CurrentCommittee)
+    delete allRegistered[node.EthAddress];
   let res = Object.keys(allRegistered).map((EthAddress) => {
     return {
       EthAddress,
       IsStandby: false,
-      Name: snapshot.CurrentRegistrationData[EthAddress]?.Name ?? '',
+      Name: snapshot.CurrentRegistrationData[EthAddress]?.Name ?? "",
     };
   });
   res = _.sortBy(res, (node) => node.EthAddress);
-  res = _.sortBy(res, (node) => -1 * snapshot.CurrentEffectiveStake[node.EthAddress] ?? 0);
-  res = _.sortBy(res, (node) => (snapshot.CurrentElectionsStatus[node.EthAddress]?.TimeToStale > 0 ? 1 : 2));
-  for (let i = 0; i < Math.min(NUM_STANDBYS, res.length); i++) res[i].IsStandby = true;
+  res = _.sortBy(
+    res,
+    (node) => -1 * snapshot.CurrentEffectiveStake[node.EthAddress] ?? 0
+  );
+  res = _.sortBy(res, (node) =>
+    snapshot.CurrentElectionsStatus[node.EthAddress]?.TimeToStale > 0 ? 1 : 2
+  );
+  for (let i = 0; i < Math.min(NUM_STANDBYS, res.length); i++)
+    res[i].IsStandby = true;
   return res;
 }
 
@@ -455,7 +574,11 @@ function calcTopology(time: number, snapshot: StateSnapshot): TopologyNodes {
   const inTopology: { [EthAddress: string]: boolean } = {}; // EthAddress -> true
 
   // take all committee members in last 12 hours
-  const committeesInLast12Hours = findAllEventsCoveringRange(snapshot.CommitteeEvents, time - 12 * 60 * 60, time);
+  const committeesInLast12Hours = findAllEventsCoveringRange(
+    snapshot.CommitteeEvents,
+    time - 12 * 60 * 60,
+    time
+  );
   for (const committeeEvent of committeesInLast12Hours) {
     const commitee = (committeeEvent as CommiteeEvent).Committee;
     for (const node of commitee as { EthAddress: string }[]) {
@@ -474,7 +597,7 @@ function calcTopology(time: number, snapshot: StateSnapshot): TopologyNodes {
     OrbsAddress: snapshot.CurrentOrbsAddress[EthAddress],
     Ip: snapshot.CurrentIp[EthAddress],
     Port: 0,
-    Name: snapshot.CurrentRegistrationData[EthAddress]?.Name ?? '',
+    Name: snapshot.CurrentRegistrationData[EthAddress]?.Name ?? "",
   }));
 
   // remove nodes with missing OrbsAddress or Ip (not supposed to happen)
@@ -483,17 +606,33 @@ function calcTopology(time: number, snapshot: StateSnapshot): TopologyNodes {
   return _.sortBy(res, (node) => node.EthAddress);
 }
 
-function fixCommitteeWeights(committee: CommiteeNodes, stake: { [EthAddress: string]: number }): void {
-  const totalStake = _.sum(_.map(committee, (node) => stake[node.EthAddress] ?? 0));
+function fixCommitteeWeights(
+  committee: CommiteeNodes,
+  stake: { [EthAddress: string]: number }
+): void {
+  const totalStake = _.sum(
+    _.map(committee, (node) => stake[node.EthAddress] ?? 0)
+  );
   for (const node of committee) {
-    node.Weight = Math.max(stake[node.EthAddress] ?? 0, Math.round(totalStake / committee.length));
+    node.Weight = Math.max(
+      stake[node.EthAddress] ?? 0,
+      Math.round(totalStake / committee.length)
+    );
   }
 }
 
-function fixCommitteeWeightsNew(committee: CommiteeNodes, stake: { [EthAddress: string]: number }): void {
-  const totalStake = _.sum(_.map(committee, (node) => stake[node.EthAddress] ?? 0));
+function fixCommitteeWeightsNew(
+  committee: CommiteeNodes,
+  stake: { [EthAddress: string]: number }
+): void {
+  const totalStake = _.sum(
+    _.map(committee, (node) => stake[node.EthAddress] ?? 0)
+  );
   for (const node of committee) {
-    node.Weight = Math.max(stake[node.EthAddress] ?? 0, Math.round(totalStake / ((2 / 3) * committee.length)));
+    node.Weight = Math.max(
+      stake[node.EthAddress] ?? 0,
+      Math.round(totalStake / ((2 / 3) * committee.length))
+    );
   }
 }
 
@@ -501,24 +640,37 @@ function orbitonsToOrbs(stake: string): number {
   return Number(BigInt(stake) / BigInt(1e18));
 }
 
-function calcNewCommitteeEvent(time: number, block: number, snapshot: StateSnapshot): CommiteeEvent {
+function calcNewCommitteeEvent(
+  time: number,
+  block: number,
+  snapshot: StateSnapshot
+): CommiteeEvent {
   return {
     RefTime: time,
     RefBlock: block,
-    Committee: snapshot.CurrentCommittee.map(({ EthAddress, Weight, IdentityType, EffectiveStake }) => ({
-      EthAddress,
-      OrbsAddress: snapshot.CurrentOrbsAddress[EthAddress],
-      Weight,
-      IdentityType,
-      EffectiveStake,
-    })),
+    Committee: snapshot.CurrentCommittee.map(
+      ({ EthAddress, Weight, IdentityType, EffectiveStake }) => ({
+        EthAddress,
+        OrbsAddress: snapshot.CurrentOrbsAddress[EthAddress],
+        Weight,
+        IdentityType,
+        EffectiveStake,
+      })
+    ),
   };
 }
 
-function updateLastPageCommitteeEvents(time: number, snapshot: StateSnapshot, committee: CommiteeEvent) {
+function updateLastPageCommitteeEvents(
+  time: number,
+  snapshot: StateSnapshot,
+  committee: CommiteeEvent
+) {
   snapshot.LastPageCommitteeEvents.push(committee);
   const oldestTime = time - 24 * 60 * 60; // last page currently 24 hours or at least one event
-  while (snapshot.LastPageCommitteeEvents.length > 1 && snapshot.LastPageCommitteeEvents[0].RefTime < oldestTime) {
+  while (
+    snapshot.LastPageCommitteeEvents.length > 1 &&
+    snapshot.LastPageCommitteeEvents[0].RefTime < oldestTime
+  ) {
     snapshot.LastPageCommitteeEvents.shift();
   }
 }
@@ -535,10 +687,15 @@ function calcCommitteeArraySet(member: CommitteeMember[]): string[] {
   return member.map((m) => m.EthAddress);
 }
 
-function calcStaleElectionsUpdates(time: number, snapshot: StateSnapshot, config: StateConfiguration) {
+function calcStaleElectionsUpdates(
+  time: number,
+  snapshot: StateSnapshot,
+  config: StateConfiguration
+) {
   // check who's stale
   for (const status of Object.values(snapshot.CurrentElectionsStatus)) {
-    status.TimeToStale = config.ElectionsStaleUpdateSeconds - (time - status.LastUpdateTime);
+    status.TimeToStale =
+      config.ElectionsStaleUpdateSeconds - (time - status.LastUpdateTime);
     if (status.TimeToStale < 0) status.TimeToStale = 0;
     if (status.ReadyToSync != true) status.TimeToStale = 0;
   }
@@ -546,7 +703,8 @@ function calcStaleElectionsUpdates(time: number, snapshot: StateSnapshot, config
   // all committee members are always not stale
   for (const node of snapshot.CurrentCommittee) {
     if (snapshot.CurrentElectionsStatus[node.EthAddress]) {
-      snapshot.CurrentElectionsStatus[node.EthAddress].TimeToStale = config.ElectionsStaleUpdateSeconds;
+      snapshot.CurrentElectionsStatus[node.EthAddress].TimeToStale =
+        config.ElectionsStaleUpdateSeconds;
     }
   }
 }

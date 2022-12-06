@@ -5,18 +5,20 @@ export function range(length: number) {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function errorString(e: any) {
-  return (e && e.stack) || '' + e;
+  return (e && e.stack) || "" + e;
 }
 
 export function timeout<T>(ms: number, promise: Promise<T>): Promise<T> {
   return Promise.race<T>([
     promise,
-    new Promise<T>((_, reject) => setTimeout(() => reject('Timed out in ' + ms + 'ms.'), ms)),
+    new Promise<T>((_, reject) =>
+      setTimeout(() => reject("Timed out in " + ms + "ms."), ms)
+    ),
   ]);
 }
 
 export function toNumber(val: number | string) {
-  if (typeof val == 'string') {
+  if (typeof val == "string") {
     return parseInt(val);
   } else return val;
 }
@@ -28,7 +30,15 @@ function byte(value: number, byteIdx: number) {
 
 export function getIpFromHex(ipStr: string): string {
   const ipBytes = Number(ipStr);
-  return byte(ipBytes, 3) + '.' + byte(ipBytes, 2) + '.' + byte(ipBytes, 1) + '.' + byte(ipBytes, 0);
+  return (
+    byte(ipBytes, 3) +
+    "." +
+    byte(ipBytes, 2) +
+    "." +
+    byte(ipBytes, 1) +
+    "." +
+    byte(ipBytes, 0)
+  );
 }
 
 export function sleep(ms: number) {
@@ -73,6 +83,6 @@ export class DailyStats {
 
 export function normalizeAddress(address: string): string {
   if (!address) return address;
-  if (address.startsWith('0x')) return address.substr(2).toLowerCase();
+  if (address.startsWith("0x")) return address.substr(2).toLowerCase();
   return address.toLowerCase();
 }

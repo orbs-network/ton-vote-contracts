@@ -1,5 +1,5 @@
-import * as Logger from './logger';
-import { errorString } from './helpers';
+import * as Logger from "./logger";
+import { errorString } from "./helpers";
 
 export class TaskLoop {
   private handle: NodeJS.Timeout | undefined;

@@ -1,8 +1,8 @@
-import test from 'ava';
-import { TaskLoop } from './task-loop';
-import { sleep } from './helpers';
+import test from "ava";
+import { TaskLoop } from "./task-loop";
+import { sleep } from "./helpers";
 
-test('TaskLoop runs the task when started and stops when stopped', async (t) => {
+test("TaskLoop runs the task when started and stops when stopped", async (t) => {
   let counter = 0;
   const runFunc = async () => {
     counter++;
@@ -19,12 +19,12 @@ test('TaskLoop runs the task when started and stops when stopped', async (t) => 
   t.is(counter, counterOnStop);
 });
 
-test('TaskLoop recovers from exceptions thrown in task', async (t) => {
+test("TaskLoop recovers from exceptions thrown in task", async (t) => {
   let counter = 0;
   const throwingFunc = async () => {
     counter++;
     await sleep(0); // for lint
-    throw new Error('oh no!');
+    throw new Error("oh no!");
   };
   const task = new TaskLoop(() => throwingFunc(), 1);
   task.start();
