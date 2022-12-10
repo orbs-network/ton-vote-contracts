@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { StateSnapshot } from "../model/state";
 import { Proposal } from "../ton-vote-client";
-import {verifySignature} from "../helpers";
+import { verifySignature } from "../helpers";
 import { StateManager } from "../model/manager";
 
 export function renderProposal(snapshot: StateSnapshot, proposalId: string) {
@@ -34,8 +34,11 @@ export function renderEndedProposals(snapshot: StateSnapshot, daoId: string) {
   );
 }
 
-export function insertNewProposal(state: StateManager, snapshot: StateSnapshot, proposal: Proposal) {
-
+export function insertNewProposal(
+  state: StateManager,
+  snapshot: StateSnapshot,
+  proposal: Proposal
+) {
   if (!(proposal.daoId in snapshot.Daos)) {
     return {
       code: 400,
@@ -44,24 +47,22 @@ export function insertNewProposal(state: StateManager, snapshot: StateSnapshot, 
   }
 
   let res = verifySignature(
-      Object.assign({}, proposal, { proposerSignature: undefined }),
-	    proposal.proposerSignature,
-	    proposal.proposer
+    Object.assign({}, proposal, { proposerSignature: undefined }),
+    proposal.proposerSignature,
+    proposal.proposer
   );
 
-	if (!res) {
-	  return {
-	    code: 400,
-	    body: "Bad signature",
-	  };
-	}
+  if (!res) {
+    return {
+      code: 400,
+      body: "Bad signature",
+    };
+  }
 
-	const newProposalId = state.insertNewProposal(proposal);
+  const newProposalId = state.insertNewProposal(proposal);
 
   return {
     code: 200,
     body: newProposalId,
   };
-
 }
-

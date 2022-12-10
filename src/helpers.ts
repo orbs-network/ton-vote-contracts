@@ -1,6 +1,6 @@
-import { signVerify } from 'ton-crypto';
-import { mkdirSync, writeFileSync } from 'fs'
-import { dirname } from 'path'
+import { signVerify } from "ton-crypto";
+import { mkdirSync, writeFileSync } from "fs";
+import { dirname } from "path";
 import * as Logger from "./logger";
 
 // create an array of numbers, from 0 to range
@@ -92,8 +92,16 @@ export function normalizeAddress(address: string): string {
   return address.toLowerCase();
 }
 
-export function verifySignature(objectToVerify: object, signature: string, publicKey: string): boolean {
-	return signVerify(Buffer.from(objectToVerify.toString()), Buffer.from(signature), Buffer.from(publicKey))
+export function verifySignature(
+  objectToVerify: object,
+  signature: string,
+  publicKey: string
+): boolean {
+  return signVerify(
+    Buffer.from(objectToVerify.toString()),
+    Buffer.from(signature),
+    Buffer.from(publicKey)
+  );
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

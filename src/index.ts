@@ -7,7 +7,12 @@ import { errorString } from "./helpers";
 import { StateManager } from "./model/manager";
 // import { BlockSync } from './ethereum/block-sync';
 // import { ImagePoll } from './deployment/image-poll';
-import { renderDao, renderDaos, insertNewDao, updateDao } from "./api/render-daos";
+import {
+  renderDao,
+  renderDaos,
+  insertNewDao,
+  updateDao,
+} from "./api/render-daos";
 import {
   renderProposal,
   renderProposalResult,

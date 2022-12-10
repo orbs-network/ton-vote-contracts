@@ -2,7 +2,7 @@ import _ from "lodash";
 import { StateSnapshot } from "../model/state";
 import { Vote } from "../ton-vote-client";
 import { StateManager } from "../model/manager";
-import {verifySignature} from "../helpers";
+import { verifySignature } from "../helpers";
 
 export function renderVotes(snapshot: StateSnapshot, proposalId: string) {
   if (!(proposalId in snapshot.Votes)) {
@@ -34,17 +34,17 @@ export function submitVote(state: StateManager, vote: Vote) {
   }
 
   let res = verifySignature(
-      Object.assign({}, vote, { voterSignature: undefined }),
-	    vote.voterSignature || "",
-	    vote.voter
+    Object.assign({}, vote, { voterSignature: undefined }),
+    vote.voterSignature || "",
+    vote.voter
   );
 
-	if (!res) {
-	  return {
-	    code: 400,
-	    body: "Bad signature",
-	  };
-	}
+  if (!res) {
+    return {
+      code: 400,
+      body: "Bad signature",
+    };
+  }
 
   snapshot.Votes[vote.proposalId][vote.voter] = vote;
 
