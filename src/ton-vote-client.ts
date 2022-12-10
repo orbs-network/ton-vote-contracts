@@ -16,12 +16,13 @@ export interface DaoMetadata {
   limitProposers?: PublicKey[];
   theme?: string;
   hidden?: boolean;
-  adminSignature?: string;
+  adminSignature: string;
+  badge?: "verified" | "warning";
 }
 
 export interface Proposal {
   daoId: string;
-  proposalId: string;
+  proposalId: string | null;
   strategyId: string;
   timestamp: number;
   duration: number;
@@ -38,7 +39,7 @@ export interface Proposal {
   snapshotStateRoot: string;
   minimumQuorum?: number;
   proposer: PublicKey;
-  proposerSignature?: string;
+  proposerSignature: string;
 }
 
 export interface Vote {
@@ -47,7 +48,7 @@ export interface Vote {
   timestamp: number;
   selection: Selection[];
   voter: PublicKey;
-  voterSignature?: string;
+  voterSignature: string;
 }
 
 export interface Result {

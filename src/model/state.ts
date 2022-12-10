@@ -13,6 +13,7 @@ import {
   PublicKey,
   Strategy,
 } from "../ton-vote-client";
+import {writeFile} from "../helpers";
 
 const NUM_STANDBYS = 5;
 const NEW_FIX_COMMITTEE_WEIGHTS_BREAKING_CHANGE_TIME = 1656399600; //breaking change time set
@@ -151,11 +152,21 @@ export interface StateSnapshot {
 export type StateConfiguration = {
   EthereumGenesisContract: string;
   ElectionsStaleUpdateSeconds: number;
+  DaosJsonPath: string;
+  ProposalsJsonPath: string;
+  VotesJsonPath: string;
+  ResultsJsonPath: string;
+  StrategiesJsonPath: string;
 };
 
 export const defaultStateConfiguration: StateConfiguration = {
   EthereumGenesisContract: defaultServiceConfiguration.EthereumGenesisContract,
   ElectionsStaleUpdateSeconds: 7 * 24 * 60 * 60,
+  DaosJsonPath: "./db/daos.json",
+  ProposalsJsonPath: "./db/proposals.json",
+  VotesJsonPath: "./db/votes.json",
+  ResultsJsonPath: "./db/results.json",
+  StrategiesJsonPath: "./db/strategies.json",
 };
 
 export class State {
@@ -167,6 +178,7 @@ export class State {
     Proposals: {},
     Votes: {},
     Results: {},
+		Strategies: {},
 
     EventsStats: {
       LastUpdateBlock: 0,
@@ -225,6 +237,41 @@ export class State {
     return this.snapshot;
   }
 
+	getNewId(keys: string[]) {
+		const ids = keys.map(id => Number(id));
+		return ids.length === 0 ? '0' : String(Math.max(...ids) + 1);
+	}
+
+	insertDao(daoMetadata: DaoMetadata) {
+		daoMetadata.daoId = this.getNewId(Object.keys(this.snapshot.Daos));
+		this.snapshot.Daos[daoMetadata.daoId] = daoMetadata;
+		writeFile(this.config.DaosJsonPath, this.snapshot.Daos);
+		return daoMetadata.daoId;
+	}
+
+	updateDao(daoMetadata: DaoMetadata) {
+		if (daoMetadata.daoId === null) {
+      Logger.log(`daoId should be provided`);
+			return false;
+		}
+
+		if (!(daoMetadata.daoId in this.snapshot)) {
+      Logger.log(`daoId ${daoMetadata.daoId} was not found`);
+			return false;
+		}
+
+		this.snapshot.Daos[daoMetadata.daoId] = daoMetadata;
+		writeFile(this.config.DaosJsonPath, this.snapshot.Daos);
+		return true;
+	}
+
+	insertNewProposal(proposal: Proposal) {
+		proposal.proposalId = this.getNewId(Object.keys(this.snapshot.Proposals));
+		this.snapshot.Proposals[proposal.proposalId] = proposal;
+		writeFile(this.config.ProposalsJsonPath, this.snapshot.Proposals);
+		return proposal.proposalId;
+	}
+  
   applyNewTimeRef(time: number, block: number) {
     this.snapshot.CurrentRefTime = time;
     this.snapshot.CurrentRefBlock = block;

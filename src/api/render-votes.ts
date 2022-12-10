@@ -1,6 +1,8 @@
 import _ from "lodash";
 import { StateSnapshot } from "../model/state";
 import { Vote } from "../ton-vote-client";
+import { StateManager } from "../model/manager";
+import {verifySignature} from "../helpers";
 
 export function renderVotes(snapshot: StateSnapshot, proposalId: string) {
   if (!(proposalId in snapshot.Votes)) {
@@ -16,13 +18,33 @@ export function renderVotes(snapshot: StateSnapshot, proposalId: string) {
   };
 }
 
-export function submitVote(snapshot: StateSnapshot, vote: Vote) {
-  if (!(vote.proposalId in snapshot.Votes)) {
+export function submitVote(state: StateManager, vote: Vote) {
+  if (!(vote.proposalId in snapshot.Propo)) {
     return {
       code: 404,
       body: `ProposalId ${vote.proposalId} not exist`,
     };
   }
+
+  if (vote.voterSignature === null) {
+    return {
+      code: 400,
+      body: "Missing voterSignature",
+    };
+  }
+
+  let res = verifySignature(
+      Object.assign({}, vote, { voterSignature: undefined }),
+	    vote.voterSignature || "",
+	    vote.voter
+  );
+
+	if (!res) {
+	  return {
+	    code: 400,
+	    body: "Bad signature",
+	  };
+	}
 
   snapshot.Votes[vote.proposalId][vote.voter] = vote;
 

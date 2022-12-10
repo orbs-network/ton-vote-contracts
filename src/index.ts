@@ -7,18 +7,13 @@ import { errorString } from "./helpers";
 import { StateManager } from "./model/manager";
 // import { BlockSync } from './ethereum/block-sync';
 // import { ImagePoll } from './deployment/image-poll';
-import {
-  renderDaos,
-  renderDao,
-  renderNewDao,
-  updateDao,
-} from "./api/render-daos";
+import { renderDao, renderDaos, insertNewDao, updateDao } from "./api/render-daos";
 import {
   renderProposal,
   renderProposalResult,
   renderActiveProposals,
   renderEndedProposals,
-  renderNewProposal,
+  insertNewProposal,
 } from "./api/render-proposals";
 import { renderVotes, submitVote } from "./api/render-votes";
 import { renderStrategies } from "./api/render-strategies";
@@ -43,15 +38,15 @@ export function serve(serviceConfig: ServiceConfiguration) {
 
   app.get("/getDaos", (_request, response) => {
     const snapshot = state.getCurrentSnapshot();
-    const body = renderDaos(snapshot);
-    response.status(200).json(body);
+    const res = renderDaos(snapshot);
+    response.status(res.code).json(res.body);
   });
 
   app.get("/getDao/:daoId", (request, response) => {
     const { daoId } = request.params;
     const snapshot = state.getCurrentSnapshot();
-    const body = renderDao(snapshot, daoId);
-    response.status(200).json(body);
+    const res = renderDao(snapshot, daoId);
+    response.status(res.code).json(res.body);
   });
 
   app.get("/getActiveProposals/:daoId", (request, response) => {
@@ -97,22 +92,20 @@ export function serve(serviceConfig: ServiceConfiguration) {
 
   app.post("/registerDao/", (request, response) => {
     const daoMetadata = request.body;
-    const snapshot = state.getCurrentSnapshot();
-    const res = renderNewDao(snapshot, daoMetadata);
+    const res = insertNewDao(state, daoMetadata);
     response.status(res.code).json(res.body);
   });
 
   app.put("/updateDao/", (request, response) => {
     const daoMetadata = request.body;
     const snapshot = state.getCurrentSnapshot();
-    const res = updateDao(snapshot, daoMetadata);
+    const res = updateDao(state, snapshot, daoMetadata);
     response.status(res.code).json(res.body);
   });
 
   app.post("/newProposal/", (request, response) => {
     const daoMetadata = request.body;
-    const snapshot = state.getCurrentSnapshot();
-    const res = renderNewProposal(snapshot, daoMetadata);
+    const res = insertNewProposal(state, daoMetadata);
     response.status(res.code).json(res.body);
   });
 

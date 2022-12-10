@@ -3,6 +3,11 @@ import validate from "validate.js";
 export interface ServiceConfiguration {
   BootstrapMode: boolean;
   Port: number;
+  DaosJsonPath: string;
+  ProposalsJsonPath: string;
+  VotesJsonPath: string;
+  ResultsJsonPath: string;
+  StrategiesJsonPath: string;
   EthereumGenesisContract: string;
   EthereumEndpoint: string;
   MaticEndpoint?: string; // TODO: remove
@@ -28,6 +33,11 @@ export interface ServiceConfiguration {
 export const defaultServiceConfiguration = {
   BootstrapMode: false,
   Port: 8080,
+  DaosJsonPath: "./db/daos.json",
+  ProposalsJsonPath: "./db/proposals.json",
+  VotesJsonPath: "./db/votes.json",
+  ResultsJsonPath: "./db/results.json",
+  StrategiesJsonPath: "./db/strategies.json",
   EthereumGenesisContract: "0xD859701C81119aB12A1e62AF6270aD2AE05c7AB3",
   EthereumFirstBlock: 11191390,
   DeploymentDescriptorUrl: "https://deployment.orbs.network/mainnet.json",

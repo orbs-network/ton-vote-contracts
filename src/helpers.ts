@@ -1,3 +1,8 @@
+import { signVerify } from 'ton-crypto';
+import { mkdirSync, writeFileSync } from 'fs'
+import { dirname } from 'path'
+import * as Logger from "./logger";
+
 // create an array of numbers, from 0 to range
 export function range(length: number) {
   return [...Array(length).keys()];
@@ -85,4 +90,21 @@ export function normalizeAddress(address: string): string {
   if (!address) return address;
   if (address.startsWith("0x")) return address.substr(2).toLowerCase();
   return address.toLowerCase();
+}
+
+export function verifySignature(objectToVerify: object, signature: string, publicKey: string): boolean {
+	return signVerify(Buffer.from(objectToVerify.toString()), Buffer.from(signature), Buffer.from(publicKey))
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function writeFile(filePath: string, jsonObject: any) {
+  ensureFileDirectoryExists(filePath);
+  const content = JSON.stringify(jsonObject, null, 2);
+  writeFileSync(filePath, content);
+  // log progress
+  Logger.log(`Wrote JSON to ${filePath} (${content.length} bytes).`);
+}
+
+export function ensureFileDirectoryExists(filePath: string) {
+  mkdirSync(dirname(filePath), { recursive: true });
 }

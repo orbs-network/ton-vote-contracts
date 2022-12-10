@@ -1,6 +1,8 @@
 import _ from "lodash";
 import { StateSnapshot } from "../model/state";
 import { Proposal } from "../ton-vote-client";
+import {verifySignature} from "../helpers";
+import { StateManager } from "../model/manager";
 
 export function renderProposal(snapshot: StateSnapshot, proposalId: string) {
   return snapshot.Proposals[proposalId];
@@ -32,22 +34,34 @@ export function renderEndedProposals(snapshot: StateSnapshot, daoId: string) {
   );
 }
 
-export function renderNewProposal(snapshot: StateSnapshot, proposal: Proposal) {
-  if (proposal.proposalId in snapshot.Proposals) {
+export function insertNewProposal(state: StateManager, snapshot: StateSnapshot, proposal: Proposal) {
+
+  if (!(proposal.daoId in snapshot.Daos)) {
     return {
-      code: 403,
-      body: `proposalId ${proposal.proposalId} already exists`,
+      code: 400,
+      body: `daoId ${proposal.daoId} was not found`,
     };
   }
-  snapshot.Proposals.proposalId = proposal;
+
+  let res = verifySignature(
+      Object.assign({}, proposal, { proposerSignature: undefined }),
+	    proposal.proposerSignature,
+	    proposal.proposer
+  );
+
+	if (!res) {
+	  return {
+	    code: 400,
+	    body: "Bad signature",
+	  };
+	}
+
+	const newProposalId = state.insertNewProposal(proposal);
 
   return {
     code: 200,
-    body: registerNewProposal(proposal),
+    body: newProposalId,
   };
+
 }
 
-async function registerNewProposal(proposal: Proposal) {
-  throw Error("Not Implemented");
-  return true;
-}
