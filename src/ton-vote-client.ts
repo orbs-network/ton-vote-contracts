@@ -49,6 +49,7 @@ export interface Vote {
   selection: Selection[];
   voter: PublicKey;
   voterSignature: string;
+  votingPower?: string;
 }
 
 export interface Result {
@@ -56,13 +57,18 @@ export interface Result {
   proposalId: string;
   timestamp: number;
   percentage: { [choiceId: string]: number };
-  validatorSignatures: { [validatorPublicKey: string]: string };
+  validatorSignatures?: { [validatorPublicKey: string]: string };
 }
 
 export interface Strategy {
   strategyId: string;
   description: string;
   codeUri?: string;
+}
+
+export interface Selection {
+  choiceId: string;
+  weight: number;
 }
 
 interface Token {
@@ -73,11 +79,6 @@ interface Token {
 interface Choice {
   choiceId: string;
   description: string;
-}
-
-interface Selection {
-  choiceId: string;
-  weight: number;
 }
 
 interface Balance {
@@ -92,11 +93,13 @@ interface VoteSnapshot {
   balanceMerkleProofs: string[];
 }
 
+// @ts-ignore
 interface EndedProposal {
   proposal: Proposal;
   result: Result;
 }
 
+// @ts-ignore
 interface Validator {
   networkAddress: string;
   publicKey: PublicKey;
@@ -109,12 +112,14 @@ interface BlockUri {
   uri: string;
 }
 
+// @ts-ignore
 interface AllDaosBlock {
   blockUri: BlockUri;
   timestamp: number;
   latestActivityBlockUri: { [daoId: string]: BlockUri };
 }
 
+// @ts-ignore
 interface DaoActivityBlock {
   blockUri: BlockUri;
   timestamp: number;

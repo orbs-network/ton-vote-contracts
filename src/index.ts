@@ -75,10 +75,10 @@ export function serve(serviceConfig: ServiceConfiguration) {
     response.status(200).json(body);
   });
 
-  app.get("/getProposalResult/:proposalId", (request, response) => {
+  app.put("/getProposalResult/:proposalId", (request, response) => {
     const { proposalId } = request.params;
     const snapshot = state.getCurrentSnapshot();
-    const body = renderProposalResult(snapshot, proposalId);
+    const body = renderProposalResult(state, snapshot, proposalId);
     response.status(200).json(body);
   });
 
@@ -110,14 +110,15 @@ export function serve(serviceConfig: ServiceConfiguration) {
 
   app.post("/newProposal/", (request, response) => {
     const daoMetadata = request.body;
-    const res = insertNewProposal(state, daoMetadata);
+    const snapshot = state.getCurrentSnapshot();
+    const res = insertNewProposal(state, snapshot, daoMetadata);
     response.status(res.code).json(res.body);
   });
 
-  app.put("/submitVote/", (request, response) => {
+  app.put("/submitVote/", async (request, response) => {
     const vote = request.body;
     const snapshot = state.getCurrentSnapshot();
-    const res = submitVote(snapshot, vote);
+    const res = await submitVote(state, snapshot, vote);
     response.status(res.code).json(res.body);
   });
 

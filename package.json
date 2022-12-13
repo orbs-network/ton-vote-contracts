@@ -26,8 +26,7 @@
     "test:e2e": "ava --verbose --timeout=10m --serial --config ./ava.config.e2e.js",
     "prepack": "npm run build",
     "prettify": "npx prettier \"src/**/*.ts\" --write && npx prettier \"e2e/**/*.ts\" --write",
-    "start": "node --optimize-for-size ./dist/main.js",
-    "start:eth": "ganache-cli -p 7545 -i 5777 -a 100 --gasLimit 0x7FFFFFFF --gasPrice 1 -m  \"vanish junk genuine web seminar cook absurd royal ability series taste method identify elevator liquid\""
+    "start": "node --optimize-for-size ./dist/main.js"
   },
   "husky": {
     "hooks": {
@@ -47,10 +46,8 @@
     "@typescript-eslint/eslint-plugin": "^2.25.0",
     "@typescript-eslint/parser": "^2.25.0",
     "ava": "^3.5.1",
-    "docker-compose-mocha": "^1.2.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.1",
-    "ganache-cli": "^6.9.1",
     "husky": "^4.2.3",
     "mock-fs": "^4.11.0",
     "nock": "^12.0.3",
@@ -58,10 +55,13 @@
     "ts-node": "^8.8.1",
     "ts-retry-promise": "^0.2.0",
     "typescript": "~3.7.5",
-    "ton-crypto": "^3.2.0"
+    "ton-crypto": "^3.2.0",
+    "tonweb": "^0.0.58",
+    "@orbs-network/ton-gateway": "^2.2.0",
+    "ton": "^12.1.5",
+	"bn.js": "^5.2.1"
   },
   "dependencies": {
-    "@orbs-network/orbs-ethereum-contracts-v2": "0.0.38",
     "@types/node-gzip": "^1.1.0",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
