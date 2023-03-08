@@ -1,0 +1,92 @@
+
+;; ops
+const OP::NEW_DAO = 0x1;
+
+;; modes
+const MODE::SEND_MODE_REMAINING_AMOUNT = 64;
+
+
+(int, cell, cell, cell) load_data() inline {
+  var ds = get_data().begin_parse();
+  return (
+    ds~load_uint(64), ;; next_dao_id
+    ds~load_ref(),    ;; content
+    ds~load_ref(),    ;; dao_code
+    ds~load_ref()     ;; proposal_code
+  );
+}
+
+() save_data(int next_dao_id, cell content, cell dao_code, cell proposal_code) impure inline {
+  set_data(begin_cell()
+    .store_uint(next_dao_id, 64)
+    .store_ref(content)
+    .store_ref(dao_code)
+    .store_ref(proposal_code)
+    .end_cell());
+}
+
+cell calculate_dao_state_init(int dao_index, slice owner, cell dao_settings, cell dao_code, cell proposal_code) {
+  var next_proposal_index = 0;
+  cell data = begin_cell().store_slice(my_address()).store_uint(dao_index, 64).store_uint(next_proposal_index, 64).store_slice(owner).store_ref(dao_settings).store_ref(proposal_code).end_cell();
+  return begin_cell().store_uint(0, 2).store_dict(dao_code).store_dict(data).store_uint(0, 1).end_cell();
+}
+
+slice calculate_dao_address(int wc, cell state_init) {
+  return begin_cell().store_uint(4, 3)
+                     .store_int(wc, 8)
+                     .store_uint(cell_hash(state_init), 256)
+                     .end_cell()
+                     .begin_parse();
+}
+
+() deploy_dao(int dao_index, slice owner, cell dao_settings, cell dao_code, cell proposal_code) impure {
+  cell state_init = calculate_dao_state_init(dao_index, owner, dao_settings, dao_code, proposal_code);
+  slice dao_address =  calculate_dao_address(0, state_init);
+  var msg = begin_cell()
+            .store_uint(0x18, 6)
+            .store_slice(dao_address)
+            .store_coins(0)
+            .store_uint(4 + 2 + 0, 1 + 4 + 4 + 64 + 32 + 1 + 1 + 1) ;; send state_init with body in this cell
+            .store_ref(state_init);
+  send_raw_message(msg.end_cell(), MODE::SEND_MODE_REMAINING_AMOUNT); ;; sender pays gas fees
+}
+
+
+() recv_internal(cell in_msg_full, slice in_msg_body) impure {
+    if (in_msg_body.slice_empty?()) { ;; ignore empty messages
+        return ();
+    }
+    slice cs = in_msg_full.begin_parse();
+    int flags = cs~load_uint(4);
+    
+    if (flags & 1) { ;; ignore all bounced messages
+        return ();
+    }
+    slice sender_address = cs~load_msg_addr();
+
+    int op = in_msg_body~load_uint(32);
+    
+    var (next_dao_id, content, dao_code, proposal_code) = load_data();
+    
+    if (op == OP::NEW_DAO) { ;; create new dao
+      cell dao_settings = in_msg_body~load_ref();
+
+      deploy_dao(next_dao_id, sender_address, dao_settings, dao_code, proposal_code);
+      save_data(next_dao_id + 1, content, dao_code, proposal_code);
+      return ();
+    }
+
+}
+
+;; Get methods
+
+int get_next_dao_id() method_id {
+  var (next_dao_id, _, _, _) = load_data();
+  return next_dao_id;
+}
+
+cell get_content() method_id {
+  var (next_dao_id, content, _, _) = load_data();
+  slice cs = content.begin_parse();
+  return cs~load_ref();
+}

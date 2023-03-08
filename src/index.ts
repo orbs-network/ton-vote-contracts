@@ -1,5 +1,6 @@
 import { ServiceConfiguration } from "./config";
 import express, { Request, Response, NextFunction } from "express";
+const bodyParser = require('body-parser')
 // import compression from 'compression';
 import cors from "cors";
 import { errorString } from "./helpers";
@@ -39,6 +40,8 @@ export function serve(serviceConfig: ServiceConfiguration) {
 
   const app = express();
   app.use(cors());
+  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(bodyParser.json());
   app.set("json spaces", 2);
 
   app.get("/getDaos", (_request, response) => {
@@ -82,7 +85,7 @@ export function serve(serviceConfig: ServiceConfiguration) {
     response.status(200).json(body);
   });
 
-  app.get("/getRecentVotes/:proposalId", (request, response) => {
+    app.get("/getRecentVotes/:proposalId", (request, response) => {
     const { proposalId } = request.params;
     const snapshot = state.getCurrentSnapshot();
     const res = renderVotes(snapshot, proposalId);
@@ -95,27 +98,28 @@ export function serve(serviceConfig: ServiceConfiguration) {
     response.status(200).json(res);
   });
 
-  app.post("/registerDao/", (request, response) => {
+  // TODO: improve params validation
+  app.post("/registerDao", (request, response) => {
     const daoMetadata = request.body;
     const res = insertNewDao(state, daoMetadata);
     response.status(res.code).json(res.body);
   });
 
-  app.put("/updateDao/", (request, response) => {
+  app.put("/updateDao", (request, response) => {
     const daoMetadata = request.body;
     const snapshot = state.getCurrentSnapshot();
     const res = updateDao(state, snapshot, daoMetadata);
     response.status(res.code).json(res.body);
   });
 
-  app.post("/newProposal/", (request, response) => {
+  app.post("/newProposal", (request, response) => {
     const daoMetadata = request.body;
     const snapshot = state.getCurrentSnapshot();
     const res = insertNewProposal(state, snapshot, daoMetadata);
     response.status(res.code).json(res.body);
   });
 
-  app.put("/submitVote/", async (request, response) => {
+  app.post("/submitVote/", async (request, response) => {
     const vote = request.body;
     const snapshot = state.getCurrentSnapshot();
     const res = await submitVote(state, snapshot, vote);

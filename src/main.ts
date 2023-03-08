@@ -9,7 +9,7 @@ process.on("uncaughtException", function (err) {
 });
 
 try {
-  Logger.log("Management service started.");
+  Logger.log("Ton Vote started.");
   const config = parseArgs(process.argv);
 
   Logger.log(`Input config: '${JSON.stringify(config)}'.`);

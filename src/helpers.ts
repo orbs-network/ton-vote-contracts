@@ -97,6 +97,7 @@ export function verifySignature(
   signature: string,
   publicKey: string
 ): boolean {
+  console.log(`signature: ${signature}, publicKey=${publicKey}`);
   return signVerify(
     Buffer.from(objectToVerify.toString()),
     Buffer.from(signature),

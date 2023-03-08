@@ -70,4 +70,4 @@ typings/
 # version
 .version
 
-.idea/
+deploy.config.json

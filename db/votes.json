@@ -1,0 +1,32 @@
+{
+  "30301": {
+    "123417a828fc8b7d9918bcb257b51234": {
+      "daoId": "0",
+      "proposalId": "30301",
+      "selection": [
+        {
+          "choiceId": "0",
+          "weight": 100
+        }
+      ],
+      "voterSignature": "465d5d8fa47ab54230022cd9e921ea91a3117a828fc8b7d9918bcb257b5a61d6",
+      "voter": "123417a828fc8b7d9918bcb257b51234",
+      "strategyId": "test-only",
+      "votingPower": "96"
+    },
+    "1a3117a828fc8b7d9918bcb257b5a61d": {
+      "daoId": "0",
+      "proposalId": "30301",
+      "selection": [
+        {
+          "choiceId": "0",
+          "weight": 100
+        }
+      ],
+      "voterSignature": "465d5d8fa47ab54230022cd9e921ea91a3117a828fc8b7d9918bcb257b5a61d6",
+      "voter": "1a3117a828fc8b7d9918bcb257b5a61d",
+      "strategyId": "test-only",
+      "votingPower": "94"
+    }
+  }
+}

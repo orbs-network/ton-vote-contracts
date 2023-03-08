@@ -1,0 +1,87 @@
+"Asm.fif" include
+// automatically generated from `contracts/imports/stdlib.fc` `contracts/proposal.fc` 
+PROGRAM{
+  DECLPROC load_data
+  DECLPROC recv_internal
+  102268 DECLMETHOD get_dao_id
+  126981 DECLMETHOD get_proposal_id
+  112279 DECLMETHOD get_proposal_start_time
+  111979 DECLMETHOD get_proposal_end_time
+  82102 DECLMETHOD get_proposal_snapshot_time
+  87085 DECLMETHOD get_proposal_type
+  86355 DECLMETHOD get_voting_power_strategy
+  load_data PROCINLINE:<{
+    // 
+    c4 PUSH	//  _1
+    CTOS	//  ds
+    64 LDU	//  dao_id ds
+    64 LDU	//  dao_id proposal_id ds
+    64 LDU	//  dao_id proposal_id proposal_start_time ds
+    64 LDU	//  dao_id proposal_id proposal_start_time proposal_end_time ds
+    64 LDU	//  dao_id proposal_id proposal_start_time proposal_end_time proposal_snapshot_time ds
+    8 LDU	//  dao_id proposal_id proposal_start_time proposal_end_time proposal_snapshot_time proposal_type ds
+    8 LDU	//  dao_id proposal_id proposal_start_time proposal_end_time proposal_snapshot_time proposal_type voting_power_strategy ds
+    ENDS
+  }>
+  recv_internal PROC:<{
+    //  msg_value in_msg_full in_msg_body
+    2 1 BLKDROP2	//  in_msg_body
+    SEMPTY	//  _3
+    IFJMP:<{	// 
+    }>	// 
+    load_data INLINECALLDICT	//  _20 _21 _22 _23 _24 _25 _26
+    3 BLKDROP
+    2 2 BLKDROP2	//  proposal_start_time proposal_end_time
+    12 PUSHPOW2	//  proposal_start_time proposal_end_time _12=4096
+    NOW	//  proposal_start_time proposal_end_time _12=4096 _13
+    s0 s3 XCHG2	//  _12=4096 proposal_end_time _13 proposal_start_time
+    GREATER	//  _12=4096 proposal_end_time _14
+    s1 s2 XCHG	//  proposal_end_time _12=4096 _14
+    THROWANYIFNOT
+    4097 PUSHINT	//  proposal_end_time _16=4097
+    NOW
+    ROT	//  _16=4097 _17 proposal_end_time
+    LESS	//  _16=4097 _18
+    THROWANYIFNOT
+  }>
+  get_dao_id PROC:<{
+    // 
+    load_data INLINECALLDICT	//  _8 _9 _10 _11 _12 _13 _14
+    6 BLKDROP	//  dao_id
+  }>
+  get_proposal_id PROC:<{
+    // 
+    load_data INLINECALLDICT	//  _8 _9 _10 _11 _12 _13 _14
+    s5 s6 XCHG
+    6 BLKDROP	//  proposal_id
+  }>
+  get_proposal_start_time PROC:<{
+    // 
+    load_data INLINECALLDICT	//  _8 _9 _10 _11 _12 _13 _14
+    s4 s6 XCHG
+    6 BLKDROP	//  proposal_start_time
+  }>
+  get_proposal_end_time PROC:<{
+    // 
+    load_data INLINECALLDICT	//  _8 _9 _10 _11 _12 _13 _14
+    s3 s6 XCHG
+    6 BLKDROP	//  proposal_end_time
+  }>
+  get_proposal_snapshot_time PROC:<{
+    // 
+    load_data INLINECALLDICT	//  _8 _9 _10 _11 _12 _13 _14
+    s2 s6 XCHG
+    6 BLKDROP	//  proposal_snapshot_time
+  }>
+  get_proposal_type PROC:<{
+    // 
+    load_data INLINECALLDICT	//  _8 _9 _10 _11 _12 _13 _14
+    s1 s6 XCHG
+    6 BLKDROP	//  proposal_type
+  }>
+  get_voting_power_strategy PROC:<{
+    // 
+    load_data INLINECALLDICT	//  _8 _9 _10 _11 _12 _13 _14
+    6 1 BLKDROP2	//  voting_power_strategy
+  }>
+}END>c

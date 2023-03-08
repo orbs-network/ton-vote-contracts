@@ -1,0 +1,79 @@
+{
+  "0": {
+    "daoId": "0",
+    "proposerSignature": "465d5d8fa47ab54230022cd9e921ea91a3117a828fc8b7d9918bcb257b5a61d6",
+    "proposer": "1a3117a828fc8b7d9918bcb257b5a61d",
+    "proposalId": "0",
+    "timestamp": "0",
+    "duration": "0"
+  },
+  "1": {
+    "daoId": "0",
+    "proposerSignature": "465d5d8fa47ab54230022cd9e921ea91a3117a828fc8b7d9918bcb257b5a61d6",
+    "proposer": "1a3117a828fc8b7d9918bcb257b5a61d",
+    "proposalId": "1",
+    "timestamp": "0",
+    "duration": "0"
+  },
+  "3": {
+    "daoId": "0",
+    "proposerSignature": "465d5d8fa47ab54230022cd9e921ea91a3117a828fc8b7d9918bcb257b5a61d6",
+    "proposer": "1a3117a828fc8b7d9918bcb257b5a61d",
+    "timestamp": "0",
+    "duration": "0",
+    "proposalId": "3"
+  },
+  "4": {
+    "daoId": "1",
+    "proposerSignature": "465d5d8fa47ab54230022cd9e921ea91a3117a828fc8b7d9918bcb257b5a61d6",
+    "proposer": "1a3117a828fc8b7d9918bcb257b5a61d",
+    "timestamp": "0",
+    "duration": "0",
+    "proposalId": "4"
+  },
+  "4704": {
+    "daoId": "0",
+    "proposerSignature": "465d5d8fa47ab54230022cd9e921ea91a3117a828fc8b7d9918bcb257b5a61d6",
+    "proposer": "1a3117a828fc8b7d9918bcb257b5a61d",
+    "timestamp": "0",
+    "duration": "1705399821000",
+    "proposalId": "4704",
+    "votingType": "weighted",
+    "choices": [{"choiceId": 0, "description": "This is choice 0"}, {"choiceId": 1, "description": "This is choice 1"}]
+  },
+  "23568": {
+    "daoId": "1",
+    "proposerSignature": "465d5d8fa47ab54230022cd9e921ea91a3117a828fc8b7d9918bcb257b5a61d6",
+    "proposer": "1a3117a828fc8b7d9918bcb257b5a61d",
+    "timestamp": "0",
+    "duration": "0",
+    "proposalId": "23568"
+  },
+  "30301": {
+    "daoId": "0",
+    "proposerSignature": "465d5d8fa47ab54230022cd9e921ea91a3117a828fc8b7d9918bcb257b5a61d6",
+    "proposer": "1a3117a828fc8b7d9918bcb257b5a61d",
+    "timestamp": "0",
+    "duration": "1705399821000",
+    "proposalId": "30301",
+    "votingType": "single",
+    "choices": [{"choiceId": 0, "description": "This is choice 0"}, {"choiceId": 1, "description": "This is choice 1"}],
+    "strategyId": "test-only"
+  },
+  "39242": {
+    "daoId": "1",
+    "proposerSignature": "465d5d8fa47ab54230022cd9e921ea91a3117a828fc8b7d9918bcb257b5a61d6",
+    "proposer": "1a3117a828fc8b7d9918bcb257b5a61d",
+    "timestamp": "0",
+    "duration": "1705399821000",
+    "proposalId": "39242"
+  },
+  "62006": {
+    "daoId": "1",
+    "proposerSignature": "465d5d8fa47ab54230022cd9e921ea91a3117a828fc8b7d9918bcb257b5a61d6",
+    "proposer": "1a3117a828fc8b7d9918bcb257b5a61d",
+    "timestamp": "0",
+    "duration": "1705399821000",
+    "proposalId": "62006"
+  }
+}

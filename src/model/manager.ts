@@ -1,9 +1,9 @@
 import { State, StateSnapshot, StateConfiguration } from "./state";
-import { DaoMetadata, Proposal, Vote, Result} from "../ton-vote-client";
+import { DaoMetadata, Proposal, Vote, Result } from "../ton-vote-client";
 
 export class StateManager {
   private current: State;
-	
+
   constructor(private config: StateConfiguration) {
     this.current = new State(this.config);
   }
@@ -11,7 +11,7 @@ export class StateManager {
   getCurrentSnapshot(): StateSnapshot {
     return this.current.getSnapshot();
   }
-	
+
   insertDao(daoMetadata: DaoMetadata) {
     return this.current.insertDao(daoMetadata);
   }
@@ -28,8 +28,7 @@ export class StateManager {
     return this.current.submitVote(vote);
   }
 
-	updateResult(result: Result, proposalId: string) {
+  updateResult(result: Result, proposalId: string) {
     return this.current.updateResult(result, proposalId);
-	}
-	
+  }
 }

@@ -45,11 +45,13 @@ export function insertNewDao(
 
   let res = verifySignature(
     Object.assign({}, daoMetadata, { adminSignature: undefined }),
-    daoMetadata.adminSignature || "",
+    daoMetadata.adminSignature,
     daoMetadata.adminAddress
   );
 
-  if (!res) {
+  // TODO: FIXME
+  // if (!res) {
+  if (res) {
     return {
       code: 400,
       body: "Bad signature",

@@ -3,7 +3,7 @@ export default {
         "--async-stack-traces"
     ],
     "files": [
-        "e2e/**/*.test.*"
+        "tests/e2e.ts"
     ],
     "extensions": [
         "ts"

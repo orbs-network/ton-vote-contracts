@@ -24,7 +24,7 @@ export interface Proposal {
   daoId: string;
   proposalId: string | null;
   strategyId: string;
-  timestamp: number;
+  timestamp: number; // TODO: FIXME rename to end timestamp
   duration: number;
   description: string;
   choices: Choice[];
