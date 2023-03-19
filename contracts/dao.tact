@@ -48,7 +48,7 @@ contract Dao with Deployable {
     }
 
     receive(msg: FwdMsg) {
-        require(sender() == self.owner || sender() == self.proposalOwner, "Invalid sender");
+        require(sender() == self.owner || ((sender() == self.proposalOwner) && msg.fwdMsg.to != self.metadata), "Invalid sender");
         
         send(msg.fwdMsg);
     }

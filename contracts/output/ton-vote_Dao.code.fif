@@ -7,6 +7,7 @@ PROGRAM{
   DECLPROC __tact_context_get_sender
   DECLPROC __tact_store_bool
   DECLPROC __tact_address_eq
+  DECLPROC __tact_address_neq
   DECLPROC __gen_read_SendParameters
   DECLPROC __gen_read_Deploy
   DECLPROC __gen_write_DeployOk
@@ -108,6 +109,10 @@ PROGRAM{
   }>
   __tact_address_eq PROCINLINE:<{
     SDEQ
+  }>
+  __tact_address_neq PROCINLINE:<{
+    SDEQ
+    NOT
   }>
   __gen_read_SendParameters PROCREF:<{
     1 LDI
@@ -500,6 +505,9 @@ PROGRAM{
     __tact_context_get_sender INLINECALLDICT
     s12 PUSH
     __tact_address_eq INLINECALLDICT
+    s8 s10 PUSH2
+    __tact_address_neq INLINECALLDICT
+    AND
     OR
     THROWANYIFNOT
     $send INLINECALLDICT

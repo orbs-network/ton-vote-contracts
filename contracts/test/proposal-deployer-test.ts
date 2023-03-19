@@ -105,10 +105,6 @@ describe('contract-deployer', () => {
         await system.run();
 
         let res = tracker.collect();
-        console.log(res[0].events[0]);
-        console.log(res[0].events[1]);
-        console.log(res[0].events[2]);
-        console.log(res[0].events[3]);
         
         expect(res[0].events[0].$type).to.eq('deploy');
         expect(res[0].events[2].$type).to.eq('processed');

@@ -1,6 +1,6 @@
 # TACT Compilation Report
 Contract: Dao
-BOC Size: 2121 bytes
+BOC Size: 2127 bytes
 
 # Types
 Total Types: 16

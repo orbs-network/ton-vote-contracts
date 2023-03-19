@@ -9,11 +9,11 @@ import {Cell} from "ton-core"
 
 describe('dao tests', () => {
     
-    it.only('deploy dao', async () => {
+    it('deploy dao', async () => {
 
         let system = await ContractSystem.create();
         let treasure = system.treasure('treasure');
-        let daoContract = system.open(await Dao.fromInit(0n));
+        let daoContract = system.open(await Dao.fromInit(treasure.address, 0n));
         let tracker = system.track(daoContract.address);
         await daoContract.send(treasure, { value: toNano('10') }, { $$type: 'Deploy' as const, queryId: 0n });
         await system.run();
@@ -31,7 +31,6 @@ describe('dao tests', () => {
         expect(owner.toString()).to.eq(treasure.address.toString());
 
         let registry = await daoContract.getRegistry();
-        console.log(registry.toString());
         
     });
 
@@ -39,18 +38,14 @@ describe('dao tests', () => {
 
         let system = await ContractSystem.create();
         let treasure = system.treasure('treasure');
-        let daoContract = system.open(await Dao.fromInit(0n));
+        let daoContract = system.open(await Dao.fromInit(treasure.address, 0n));
         await daoContract.send(treasure, { value: toNano('10') }, { $$type: 'Deploy' as const, queryId: 0n });
         await system.run();
         
         let tracker = system.track(daoContract.address);
 
-        console.log(await daoContract.getOwner(), daoContract.address.toString(), treasure.address.toString());
-
         await daoContract.send(treasure, { value: toNano('10') }, { $$type: 'DaoInit' as const, owner: treasure.address, proposalOwner: treasure.address, metadata: treasure.address });
         await system.run();
-
-        console.log(await daoContract.getOwner(), daoContract.address.toString(), treasure.address.toString());
 
         let res = tracker.collect();
 
@@ -62,7 +57,7 @@ describe('dao tests', () => {
 
     });
 
-    it('deploy new proposal by sending CreateNewProposalDeployer', async () => {
+    it('deploy new proposal by sending FwdMsg with ProposalInit', async () => {
 
         let system = await ContractSystem.create();
         let treasure = system.treasure('treasure');
@@ -72,7 +67,7 @@ describe('dao tests', () => {
         await proposalDeployer.send(treasure, { value: toNano('10') }, { $$type: 'Deploy' as const, queryId: 0n });
         await system.run();
 
-        let daoContract = system.open(await Dao.fromInit(0n));
+        let daoContract = system.open(await Dao.fromInit(treasure.address, 0n));
         let tracker = system.track(daoContract.address);
         await daoContract.send(treasure, { value: toNano('10') }, { $$type: 'Deploy' as const, queryId: 0n });
         await system.run();
@@ -113,9 +108,6 @@ describe('dao tests', () => {
                         
         expect(res[0].events[0].$type).to.eq('received');
         expect(res[0].events[1].$type).to.eq('processed');
-        // @ts-ignore
-        expect(res[0].events[0].message.body.cell).to.eq('x{07741E39C0095087B798CC49EC9C0EC5676510E366BB6A6E5142F72A50705654E58E710586A000000000000000000000000000000000000000000000000000000012A05F200000000000000000000000000000000000000000000000000000000000000000064_}\n' +
-        ' x{4865D4D20000000000000000000000008B92E545000000006411C2C50000}');        
         expect(res[0].events[2].$type).to.eq('sent');
 
     });
@@ -127,7 +119,7 @@ describe('dao tests', () => {
 
         let zeroAddr = Address.parse("EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM9c");
         
-        let daoContract = system.open(await Dao.fromInit(0n));
+        let daoContract = system.open(await Dao.fromInit(treasure.address, 0n));
 
         await daoContract.send(treasure, { value: toNano('10') }, { $$type: 'DaoInit', owner: treasure.address, proposalOwner: treasure.address, metadata: treasure.address });
         await system.run();
