@@ -1,28 +1,7 @@
 import "@stdlib/deploy";
 import "@stdlib/ownable";
+import "./messages";
 import "./proposal";
-
-message SetOwner {
-    newOwner: Address;
-}
-
-message SetProposalOwner {
-    newProposalOwner: Address;
-}
-
-message SetMetadata {
-    newMetadata: Address;
-}
-
-message FwdMsg {
-    fwdMsg: SendParameters;
-}
-
-message DaoInit {
-    owner: Address;
-    proposalOwner: Address;
-    metadata: Address;
-}
 
 
 contract Dao with Deployable {

@@ -313,6 +313,320 @@ function dictValueParserChangeOwner(): DictionaryValue<ChangeOwner> {
     }
 }
 
+export type CreateDao = {
+    $$type: 'CreateDao';
+    owner: Address;
+    proposalOwner: Address;
+    metadata: Address;
+}
+
+export function storeCreateDao(src: CreateDao) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(446717501, 32);
+        b_0.storeAddress(src.owner);
+        b_0.storeAddress(src.proposalOwner);
+        b_0.storeAddress(src.metadata);
+    };
+}
+
+export function loadCreateDao(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 446717501) { throw Error('Invalid prefix'); }
+    let _owner = sc_0.loadAddress();
+    let _proposalOwner = sc_0.loadAddress();
+    let _metadata = sc_0.loadAddress();
+    return { $$type: 'CreateDao' as const, owner: _owner, proposalOwner: _proposalOwner, metadata: _metadata };
+}
+
+function loadTupleCreateDao(source: TupleReader) {
+    let _owner = source.readAddress();
+    let _proposalOwner = source.readAddress();
+    let _metadata = source.readAddress();
+    return { $$type: 'CreateDao' as const, owner: _owner, proposalOwner: _proposalOwner, metadata: _metadata };
+}
+
+function storeTupleCreateDao(source: CreateDao) {
+    let builder = new TupleBuilder();
+    builder.writeAddress(source.owner);
+    builder.writeAddress(source.proposalOwner);
+    builder.writeAddress(source.metadata);
+    return builder.build();
+}
+
+function dictValueParserCreateDao(): DictionaryValue<CreateDao> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeCreateDao(src)).endCell());
+        },
+        parse: (src) => {
+            return loadCreateDao(src.loadRef().beginParse());
+        }
+    }
+}
+
+export type SetOwner = {
+    $$type: 'SetOwner';
+    newOwner: Address;
+}
+
+export function storeSetOwner(src: SetOwner) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(3266583875, 32);
+        b_0.storeAddress(src.newOwner);
+    };
+}
+
+export function loadSetOwner(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 3266583875) { throw Error('Invalid prefix'); }
+    let _newOwner = sc_0.loadAddress();
+    return { $$type: 'SetOwner' as const, newOwner: _newOwner };
+}
+
+function loadTupleSetOwner(source: TupleReader) {
+    let _newOwner = source.readAddress();
+    return { $$type: 'SetOwner' as const, newOwner: _newOwner };
+}
+
+function storeTupleSetOwner(source: SetOwner) {
+    let builder = new TupleBuilder();
+    builder.writeAddress(source.newOwner);
+    return builder.build();
+}
+
+function dictValueParserSetOwner(): DictionaryValue<SetOwner> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeSetOwner(src)).endCell());
+        },
+        parse: (src) => {
+            return loadSetOwner(src.loadRef().beginParse());
+        }
+    }
+}
+
+export type SetProposalOwner = {
+    $$type: 'SetProposalOwner';
+    newProposalOwner: Address;
+}
+
+export function storeSetProposalOwner(src: SetProposalOwner) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(3504586358, 32);
+        b_0.storeAddress(src.newProposalOwner);
+    };
+}
+
+export function loadSetProposalOwner(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 3504586358) { throw Error('Invalid prefix'); }
+    let _newProposalOwner = sc_0.loadAddress();
+    return { $$type: 'SetProposalOwner' as const, newProposalOwner: _newProposalOwner };
+}
+
+function loadTupleSetProposalOwner(source: TupleReader) {
+    let _newProposalOwner = source.readAddress();
+    return { $$type: 'SetProposalOwner' as const, newProposalOwner: _newProposalOwner };
+}
+
+function storeTupleSetProposalOwner(source: SetProposalOwner) {
+    let builder = new TupleBuilder();
+    builder.writeAddress(source.newProposalOwner);
+    return builder.build();
+}
+
+function dictValueParserSetProposalOwner(): DictionaryValue<SetProposalOwner> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeSetProposalOwner(src)).endCell());
+        },
+        parse: (src) => {
+            return loadSetProposalOwner(src.loadRef().beginParse());
+        }
+    }
+}
+
+export type SetMetadata = {
+    $$type: 'SetMetadata';
+    newMetadata: Address;
+}
+
+export function storeSetMetadata(src: SetMetadata) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(3660550271, 32);
+        b_0.storeAddress(src.newMetadata);
+    };
+}
+
+export function loadSetMetadata(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 3660550271) { throw Error('Invalid prefix'); }
+    let _newMetadata = sc_0.loadAddress();
+    return { $$type: 'SetMetadata' as const, newMetadata: _newMetadata };
+}
+
+function loadTupleSetMetadata(source: TupleReader) {
+    let _newMetadata = source.readAddress();
+    return { $$type: 'SetMetadata' as const, newMetadata: _newMetadata };
+}
+
+function storeTupleSetMetadata(source: SetMetadata) {
+    let builder = new TupleBuilder();
+    builder.writeAddress(source.newMetadata);
+    return builder.build();
+}
+
+function dictValueParserSetMetadata(): DictionaryValue<SetMetadata> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeSetMetadata(src)).endCell());
+        },
+        parse: (src) => {
+            return loadSetMetadata(src.loadRef().beginParse());
+        }
+    }
+}
+
+export type FwdMsg = {
+    $$type: 'FwdMsg';
+    fwdMsg: SendParameters;
+}
+
+export function storeFwdMsg(src: FwdMsg) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(1690551268, 32);
+        b_0.store(storeSendParameters(src.fwdMsg));
+    };
+}
+
+export function loadFwdMsg(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 1690551268) { throw Error('Invalid prefix'); }
+    let _fwdMsg = loadSendParameters(sc_0);
+    return { $$type: 'FwdMsg' as const, fwdMsg: _fwdMsg };
+}
+
+function loadTupleFwdMsg(source: TupleReader) {
+    const _fwdMsg = loadTupleSendParameters(source.readTuple());
+    return { $$type: 'FwdMsg' as const, fwdMsg: _fwdMsg };
+}
+
+function storeTupleFwdMsg(source: FwdMsg) {
+    let builder = new TupleBuilder();
+    builder.writeTuple(storeTupleSendParameters(source.fwdMsg));
+    return builder.build();
+}
+
+function dictValueParserFwdMsg(): DictionaryValue<FwdMsg> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeFwdMsg(src)).endCell());
+        },
+        parse: (src) => {
+            return loadFwdMsg(src.loadRef().beginParse());
+        }
+    }
+}
+
+export type DaoInit = {
+    $$type: 'DaoInit';
+    owner: Address;
+    proposalOwner: Address;
+    metadata: Address;
+}
+
+export function storeDaoInit(src: DaoInit) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(444810285, 32);
+        b_0.storeAddress(src.owner);
+        b_0.storeAddress(src.proposalOwner);
+        b_0.storeAddress(src.metadata);
+    };
+}
+
+export function loadDaoInit(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 444810285) { throw Error('Invalid prefix'); }
+    let _owner = sc_0.loadAddress();
+    let _proposalOwner = sc_0.loadAddress();
+    let _metadata = sc_0.loadAddress();
+    return { $$type: 'DaoInit' as const, owner: _owner, proposalOwner: _proposalOwner, metadata: _metadata };
+}
+
+function loadTupleDaoInit(source: TupleReader) {
+    let _owner = source.readAddress();
+    let _proposalOwner = source.readAddress();
+    let _metadata = source.readAddress();
+    return { $$type: 'DaoInit' as const, owner: _owner, proposalOwner: _proposalOwner, metadata: _metadata };
+}
+
+function storeTupleDaoInit(source: DaoInit) {
+    let builder = new TupleBuilder();
+    builder.writeAddress(source.owner);
+    builder.writeAddress(source.proposalOwner);
+    builder.writeAddress(source.metadata);
+    return builder.build();
+}
+
+function dictValueParserDaoInit(): DictionaryValue<DaoInit> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeDaoInit(src)).endCell());
+        },
+        parse: (src) => {
+            return loadDaoInit(src.loadRef().beginParse());
+        }
+    }
+}
+
+export type CreateProposal = {
+    $$type: 'CreateProposal';
+    body: Params;
+}
+
+export function storeCreateProposal(src: CreateProposal) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(319521755, 32);
+        b_0.store(storeParams(src.body));
+    };
+}
+
+export function loadCreateProposal(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 319521755) { throw Error('Invalid prefix'); }
+    let _body = loadParams(sc_0);
+    return { $$type: 'CreateProposal' as const, body: _body };
+}
+
+function loadTupleCreateProposal(source: TupleReader) {
+    const _body = loadTupleParams(source.readTuple());
+    return { $$type: 'CreateProposal' as const, body: _body };
+}
+
+function storeTupleCreateProposal(source: CreateProposal) {
+    let builder = new TupleBuilder();
+    builder.writeTuple(storeTupleParams(source.body));
+    return builder.build();
+}
+
+function dictValueParserCreateProposal(): DictionaryValue<CreateProposal> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeCreateProposal(src)).endCell());
+        },
+        parse: (src) => {
+            return loadCreateProposal(src.loadRef().beginParse());
+        }
+    }
+}
+
 export type Params = {
     $$type: 'Params';
     proposalStartTime: bigint;
@@ -453,48 +767,6 @@ function dictValueParserComment(): DictionaryValue<Comment> {
         },
         parse: (src) => {
             return loadComment(src.loadRef().beginParse());
-        }
-    }
-}
-
-export type CreateProposal = {
-    $$type: 'CreateProposal';
-    body: Params;
-}
-
-export function storeCreateProposal(src: CreateProposal) {
-    return (builder: Builder) => {
-        let b_0 = builder;
-        b_0.storeUint(319521755, 32);
-        b_0.store(storeParams(src.body));
-    };
-}
-
-export function loadCreateProposal(slice: Slice) {
-    let sc_0 = slice;
-    if (sc_0.loadUint(32) !== 319521755) { throw Error('Invalid prefix'); }
-    let _body = loadParams(sc_0);
-    return { $$type: 'CreateProposal' as const, body: _body };
-}
-
-function loadTupleCreateProposal(source: TupleReader) {
-    const _body = loadTupleParams(source.readTuple());
-    return { $$type: 'CreateProposal' as const, body: _body };
-}
-
-function storeTupleCreateProposal(source: CreateProposal) {
-    let builder = new TupleBuilder();
-    builder.writeTuple(storeTupleParams(source.body));
-    return builder.build();
-}
-
-function dictValueParserCreateProposal(): DictionaryValue<CreateProposal> {
-    return {
-        serialize: (src, buidler) => {
-            buidler.storeRef(beginCell().store(storeCreateProposal(src)).endCell());
-        },
-        parse: (src) => {
-            return loadCreateProposal(src.loadRef().beginParse());
         }
     }
 }

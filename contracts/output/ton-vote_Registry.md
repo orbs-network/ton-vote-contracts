@@ -1,9 +1,9 @@
 # TACT Compilation Report
 Contract: Registry
-BOC Size: 1085 bytes
+BOC Size: 1123 bytes
 
 # Types
-Total Types: 15
+Total Types: 16
 
 ## StateInit
 TLB: `_ code:^cell data:^cell = StateInit`
@@ -29,6 +29,10 @@ Signature: `DeployOk{queryId:uint64}`
 TLB: `change_owner#0f474d03 newOwner:address = ChangeOwner`
 Signature: `ChangeOwner{newOwner:address}`
 
+## CreateDao
+TLB: `create_dao#1aa05e3d owner:address proposalOwner:address metadata:address = CreateDao`
+Signature: `CreateDao{owner:address,proposalOwner:address,metadata:address}`
+
 ## SetOwner
 TLB: `set_owner#c2b41d43 newOwner:address = SetOwner`
 Signature: `SetOwner{newOwner:address}`
@@ -49,6 +53,10 @@ Signature: `FwdMsg{fwdMsg:SendParameters{bounce:bool,to:address,value:int257,mod
 TLB: `dao_init#1a83442d owner:address proposalOwner:address metadata:address = DaoInit`
 Signature: `DaoInit{owner:address,proposalOwner:address,metadata:address}`
 
+## CreateProposal
+TLB: `create_proposal#130b83db body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,proposalType:uint8,votingPowerStrategy:uint8} = CreateProposal`
+Signature: `CreateProposal{body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,proposalType:uint8,votingPowerStrategy:uint8}}`
+
 ## Params
 TLB: `_ proposalStartTime:uint64 proposalEndTime:uint64 proposalSnapshotTime:uint64 proposalType:uint8 votingPowerStrategy:uint8 = Params`
 Signature: `Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,proposalType:uint8,votingPowerStrategy:uint8}`
@@ -60,10 +68,6 @@ Signature: `ProposalInit{body:Params{proposalStartTime:uint64,proposalEndTime:ui
 ## Comment
 TLB: `comment#3480231d body:^string = Comment`
 Signature: `Comment{body:^string}`
-
-## CreateDao
-TLB: `create_dao#1aa05e3d owner:address proposalOwner:address metadata:address = CreateDao`
-Signature: `CreateDao{owner:address,proposalOwner:address,metadata:address}`
 
 # Get Methods
 Total Get Methods: 2
@@ -100,6 +104,7 @@ Argument: daoId
 137: Masterchain support is not enabled for this contract
 2977: Already initialized
 4429: Invalid sender
+8704: already initialized
 25952: ended
 56772: not started
 63162: low message value

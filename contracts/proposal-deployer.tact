@@ -1,10 +1,7 @@
 import "@stdlib/deploy";
 import "@stdlib/ownable";
+import "./messages";
 import "./proposal";
-
-message CreateProposal {
-    body: Params;
-}
 
 
 contract ProposalDeployer with Deployable {

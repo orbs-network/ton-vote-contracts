@@ -82,6 +82,14 @@ cell __gen_writecell_DeployOk((int) v) inline {
     return __gen_write_DeployOk(begin_cell(), v).end_cell();
 }
 
+(slice, ((slice, slice, slice))) __gen_read_CreateDao(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 446717501);
+    var v'owner = sc_0~__tact_load_address();
+    var v'proposalOwner = sc_0~__tact_load_address();
+    var v'metadata = sc_0~__tact_load_address();
+    return (sc_0, (v'owner, v'proposalOwner, v'metadata));
+}
+
 builder __gen_write_DaoInit(builder build_0, (slice, slice, slice) v) inline {
     var (v'owner, v'proposalOwner, v'metadata) = v;
     build_0 = store_uint(build_0, 444810285, 32);
@@ -93,14 +101,6 @@ builder __gen_write_DaoInit(builder build_0, (slice, slice, slice) v) inline {
 
 cell __gen_writecell_DaoInit((slice, slice, slice) v) inline {
     return __gen_write_DaoInit(begin_cell(), v).end_cell();
-}
-
-(slice, ((slice, slice, slice))) __gen_read_CreateDao(slice sc_0) inline {
-    throw_unless(129, sc_0~load_uint(32) == 446717501);
-    var v'owner = sc_0~__tact_load_address();
-    var v'proposalOwner = sc_0~__tact_load_address();
-    var v'metadata = sc_0~__tact_load_address();
-    return (sc_0, (v'owner, v'proposalOwner, v'metadata));
 }
 
 builder __gen_write_Registry(builder build_0, (int) v) inline {
@@ -119,8 +119,9 @@ _ __gen_Context_get_value((int, slice, int, slice) v) inline {
     return v'value;
 }
 
-builder __gen_write_$init$Dao(builder build_0, (int) v) inline {
-    var (v'daoIndex) = v;
+builder __gen_write_$init$Dao(builder build_0, (slice, int) v) inline {
+    var (v'registry, v'daoIndex) = v;
+    build_0 = __tact_store_address(build_0, v'registry);
     build_0 = build_0.store_int(v'daoIndex, 257);
     return build_0;
 }
@@ -208,7 +209,7 @@ slice $contractAddress((cell, cell) $s) impure inline_ref {
     $send(__gen_constructor_SendParameters$bounce_to_value_mode_body(true, __tact_context_get_sender(), 0, (64 + 2), $body));
 }
 
-(cell, cell) $__gen_Dao_init_child(cell sys', int $daoIndex) {
+(cell, cell) $__gen_Dao_init_child(cell sys', slice $registry, int $daoIndex) {
     slice sc' = sys'.begin_parse();
     cell source = sc'~load_dict();
     cell contracts = new_dict();
@@ -221,7 +222,7 @@ slice $contractAddress((cell, cell) $s) impure inline_ref {
     builder b = begin_cell();
     b = b.store_ref(begin_cell().store_dict(contracts).end_cell());
     b = b.store_int(false, 1);
-    b = __gen_write_$init$Dao(b, ($daoIndex));
+    b = __gen_write_$init$Dao(b, ($registry, $daoIndex));
     return (mine, b.end_cell());
 }
 
@@ -231,7 +232,7 @@ slice $contractAddress((cell, cell) $s) impure inline_ref {
 
 ((int), (cell, cell)) $__gen_Registry_getDaoStateInit((int) $self, int $daoIndex) impure inline_ref {
     var (($self'nextDaoId)) = $self;
-    return (($self'nextDaoId), $__gen_Dao_init_child(__tact_context_sys, $daoIndex));
+    return (($self'nextDaoId), $__gen_Dao_init_child(__tact_context_sys, my_address(), $daoIndex));
 }
 
 int $__gen_Registry_nextDaoId((int) $self) impure inline_ref {
@@ -348,7 +349,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() {
-    return "ipfs://QmSGkDiYLt94yKrA4rTfXCLcHZuhNJXTtdUKgBDpjmN9SL";
+    return "ipfs://QmYcRH7G4D5z5UNKTaD6etu2jKyPsNKUxxcztvw5x7FaFS";
 }
 
 _ lazy_deployment_completed() {

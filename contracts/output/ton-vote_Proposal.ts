@@ -313,6 +313,58 @@ function dictValueParserChangeOwner(): DictionaryValue<ChangeOwner> {
     }
 }
 
+export type CreateDao = {
+    $$type: 'CreateDao';
+    owner: Address;
+    proposalOwner: Address;
+    metadata: Address;
+}
+
+export function storeCreateDao(src: CreateDao) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(446717501, 32);
+        b_0.storeAddress(src.owner);
+        b_0.storeAddress(src.proposalOwner);
+        b_0.storeAddress(src.metadata);
+    };
+}
+
+export function loadCreateDao(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 446717501) { throw Error('Invalid prefix'); }
+    let _owner = sc_0.loadAddress();
+    let _proposalOwner = sc_0.loadAddress();
+    let _metadata = sc_0.loadAddress();
+    return { $$type: 'CreateDao' as const, owner: _owner, proposalOwner: _proposalOwner, metadata: _metadata };
+}
+
+function loadTupleCreateDao(source: TupleReader) {
+    let _owner = source.readAddress();
+    let _proposalOwner = source.readAddress();
+    let _metadata = source.readAddress();
+    return { $$type: 'CreateDao' as const, owner: _owner, proposalOwner: _proposalOwner, metadata: _metadata };
+}
+
+function storeTupleCreateDao(source: CreateDao) {
+    let builder = new TupleBuilder();
+    builder.writeAddress(source.owner);
+    builder.writeAddress(source.proposalOwner);
+    builder.writeAddress(source.metadata);
+    return builder.build();
+}
+
+function dictValueParserCreateDao(): DictionaryValue<CreateDao> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeCreateDao(src)).endCell());
+        },
+        parse: (src) => {
+            return loadCreateDao(src.loadRef().beginParse());
+        }
+    }
+}
+
 export type SetOwner = {
     $$type: 'SetOwner';
     newOwner: Address;
@@ -533,6 +585,48 @@ function dictValueParserDaoInit(): DictionaryValue<DaoInit> {
     }
 }
 
+export type CreateProposal = {
+    $$type: 'CreateProposal';
+    body: Params;
+}
+
+export function storeCreateProposal(src: CreateProposal) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(319521755, 32);
+        b_0.store(storeParams(src.body));
+    };
+}
+
+export function loadCreateProposal(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 319521755) { throw Error('Invalid prefix'); }
+    let _body = loadParams(sc_0);
+    return { $$type: 'CreateProposal' as const, body: _body };
+}
+
+function loadTupleCreateProposal(source: TupleReader) {
+    const _body = loadTupleParams(source.readTuple());
+    return { $$type: 'CreateProposal' as const, body: _body };
+}
+
+function storeTupleCreateProposal(source: CreateProposal) {
+    let builder = new TupleBuilder();
+    builder.writeTuple(storeTupleParams(source.body));
+    return builder.build();
+}
+
+function dictValueParserCreateProposal(): DictionaryValue<CreateProposal> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeCreateProposal(src)).endCell());
+        },
+        parse: (src) => {
+            return loadCreateProposal(src.loadRef().beginParse());
+        }
+    }
+}
+
 export type Params = {
     $$type: 'Params';
     proposalStartTime: bigint;
@@ -677,58 +771,6 @@ function dictValueParserComment(): DictionaryValue<Comment> {
     }
 }
 
-export type CreateDao = {
-    $$type: 'CreateDao';
-    owner: Address;
-    proposalOwner: Address;
-    metadata: Address;
-}
-
-export function storeCreateDao(src: CreateDao) {
-    return (builder: Builder) => {
-        let b_0 = builder;
-        b_0.storeUint(446717501, 32);
-        b_0.storeAddress(src.owner);
-        b_0.storeAddress(src.proposalOwner);
-        b_0.storeAddress(src.metadata);
-    };
-}
-
-export function loadCreateDao(slice: Slice) {
-    let sc_0 = slice;
-    if (sc_0.loadUint(32) !== 446717501) { throw Error('Invalid prefix'); }
-    let _owner = sc_0.loadAddress();
-    let _proposalOwner = sc_0.loadAddress();
-    let _metadata = sc_0.loadAddress();
-    return { $$type: 'CreateDao' as const, owner: _owner, proposalOwner: _proposalOwner, metadata: _metadata };
-}
-
-function loadTupleCreateDao(source: TupleReader) {
-    let _owner = source.readAddress();
-    let _proposalOwner = source.readAddress();
-    let _metadata = source.readAddress();
-    return { $$type: 'CreateDao' as const, owner: _owner, proposalOwner: _proposalOwner, metadata: _metadata };
-}
-
-function storeTupleCreateDao(source: CreateDao) {
-    let builder = new TupleBuilder();
-    builder.writeAddress(source.owner);
-    builder.writeAddress(source.proposalOwner);
-    builder.writeAddress(source.metadata);
-    return builder.build();
-}
-
-function dictValueParserCreateDao(): DictionaryValue<CreateDao> {
-    return {
-        serialize: (src, buidler) => {
-            buidler.storeRef(beginCell().store(storeCreateDao(src)).endCell());
-        },
-        parse: (src) => {
-            return loadCreateDao(src.loadRef().beginParse());
-        }
-    }
-}
-
  type Proposal_init_args = {
     $$type: 'Proposal_init_args';
     owner: Address;
@@ -781,6 +823,7 @@ const Proposal_errors: { [key: number]: { message: string } } = {
     137: { message: `Masterchain support is not enabled for this contract` },
     2977: { message: `Already initialized` },
     4429: { message: `Invalid sender` },
+    8704: { message: `already initialized` },
     25952: { message: `ended` },
     56772: { message: `not started` },
     63162: { message: `low message value` },

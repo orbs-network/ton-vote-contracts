@@ -15,9 +15,9 @@ PROGRAM{
   DECLPROC __gen_writecell_DeployOk
   DECLPROC __gen_write_Params
   DECLPROC __gen_read_Params
+  DECLPROC __gen_read_CreateProposal
   DECLPROC __gen_write_ProposalInit
   DECLPROC __gen_writecell_ProposalInit
-  DECLPROC __gen_read_CreateProposal
   DECLPROC __gen_write_ProposalDeployer
   DECLPROC __gen_read_ProposalDeployer
   DECLPROC __gen_write_$init$Proposal
@@ -177,6 +177,14 @@ PROGRAM{
     8 LDU
     5 -ROLL
   }>
+  __gen_read_CreateProposal PROCINLINE:<{
+    32 LDU
+    SWAP
+    319521755 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    __gen_read_Params INLINECALLDICT
+  }>
   __gen_write_ProposalInit PROCINLINE:<{
     2228075895 PUSHINT
     s0 s6 XCHG2
@@ -189,14 +197,6 @@ PROGRAM{
     5 -ROLL
     __gen_write_ProposalInit INLINECALLDICT
     ENDC
-  }>
-  __gen_read_CreateProposal PROCINLINE:<{
-    32 LDU
-    SWAP
-    319521755 PUSHINT
-    EQUAL
-    129 THROWIFNOT
-    __gen_read_Params INLINECALLDICT
   }>
   __gen_write_ProposalDeployer PROCINLINE:<{
     -ROT
@@ -548,7 +548,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d52466f523171646f72794e42795264396f725079395576345a474b4b664572503452795139797058374b5568} PUSHSLICE
+    x{697066733a2f2f516d504a5047466966585250717131396b7248346b764153376e6b316e537a397164483769635a59364772705235} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH

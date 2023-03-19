@@ -313,6 +313,58 @@ function dictValueParserChangeOwner(): DictionaryValue<ChangeOwner> {
     }
 }
 
+export type CreateDao = {
+    $$type: 'CreateDao';
+    owner: Address;
+    proposalOwner: Address;
+    metadata: Address;
+}
+
+export function storeCreateDao(src: CreateDao) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(446717501, 32);
+        b_0.storeAddress(src.owner);
+        b_0.storeAddress(src.proposalOwner);
+        b_0.storeAddress(src.metadata);
+    };
+}
+
+export function loadCreateDao(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 446717501) { throw Error('Invalid prefix'); }
+    let _owner = sc_0.loadAddress();
+    let _proposalOwner = sc_0.loadAddress();
+    let _metadata = sc_0.loadAddress();
+    return { $$type: 'CreateDao' as const, owner: _owner, proposalOwner: _proposalOwner, metadata: _metadata };
+}
+
+function loadTupleCreateDao(source: TupleReader) {
+    let _owner = source.readAddress();
+    let _proposalOwner = source.readAddress();
+    let _metadata = source.readAddress();
+    return { $$type: 'CreateDao' as const, owner: _owner, proposalOwner: _proposalOwner, metadata: _metadata };
+}
+
+function storeTupleCreateDao(source: CreateDao) {
+    let builder = new TupleBuilder();
+    builder.writeAddress(source.owner);
+    builder.writeAddress(source.proposalOwner);
+    builder.writeAddress(source.metadata);
+    return builder.build();
+}
+
+function dictValueParserCreateDao(): DictionaryValue<CreateDao> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeCreateDao(src)).endCell());
+        },
+        parse: (src) => {
+            return loadCreateDao(src.loadRef().beginParse());
+        }
+    }
+}
+
 export type SetOwner = {
     $$type: 'SetOwner';
     newOwner: Address;
@@ -533,6 +585,48 @@ function dictValueParserDaoInit(): DictionaryValue<DaoInit> {
     }
 }
 
+export type CreateProposal = {
+    $$type: 'CreateProposal';
+    body: Params;
+}
+
+export function storeCreateProposal(src: CreateProposal) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(319521755, 32);
+        b_0.store(storeParams(src.body));
+    };
+}
+
+export function loadCreateProposal(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 319521755) { throw Error('Invalid prefix'); }
+    let _body = loadParams(sc_0);
+    return { $$type: 'CreateProposal' as const, body: _body };
+}
+
+function loadTupleCreateProposal(source: TupleReader) {
+    const _body = loadTupleParams(source.readTuple());
+    return { $$type: 'CreateProposal' as const, body: _body };
+}
+
+function storeTupleCreateProposal(source: CreateProposal) {
+    let builder = new TupleBuilder();
+    builder.writeTuple(storeTupleParams(source.body));
+    return builder.build();
+}
+
+function dictValueParserCreateProposal(): DictionaryValue<CreateProposal> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeCreateProposal(src)).endCell());
+        },
+        parse: (src) => {
+            return loadCreateProposal(src.loadRef().beginParse());
+        }
+    }
+}
+
 export type Params = {
     $$type: 'Params';
     proposalStartTime: bigint;
@@ -677,77 +771,27 @@ function dictValueParserComment(): DictionaryValue<Comment> {
     }
 }
 
-export type CreateDao = {
-    $$type: 'CreateDao';
-    owner: Address;
-    proposalOwner: Address;
-    metadata: Address;
-}
-
-export function storeCreateDao(src: CreateDao) {
-    return (builder: Builder) => {
-        let b_0 = builder;
-        b_0.storeUint(446717501, 32);
-        b_0.storeAddress(src.owner);
-        b_0.storeAddress(src.proposalOwner);
-        b_0.storeAddress(src.metadata);
-    };
-}
-
-export function loadCreateDao(slice: Slice) {
-    let sc_0 = slice;
-    if (sc_0.loadUint(32) !== 446717501) { throw Error('Invalid prefix'); }
-    let _owner = sc_0.loadAddress();
-    let _proposalOwner = sc_0.loadAddress();
-    let _metadata = sc_0.loadAddress();
-    return { $$type: 'CreateDao' as const, owner: _owner, proposalOwner: _proposalOwner, metadata: _metadata };
-}
-
-function loadTupleCreateDao(source: TupleReader) {
-    let _owner = source.readAddress();
-    let _proposalOwner = source.readAddress();
-    let _metadata = source.readAddress();
-    return { $$type: 'CreateDao' as const, owner: _owner, proposalOwner: _proposalOwner, metadata: _metadata };
-}
-
-function storeTupleCreateDao(source: CreateDao) {
-    let builder = new TupleBuilder();
-    builder.writeAddress(source.owner);
-    builder.writeAddress(source.proposalOwner);
-    builder.writeAddress(source.metadata);
-    return builder.build();
-}
-
-function dictValueParserCreateDao(): DictionaryValue<CreateDao> {
-    return {
-        serialize: (src, buidler) => {
-            buidler.storeRef(beginCell().store(storeCreateDao(src)).endCell());
-        },
-        parse: (src) => {
-            return loadCreateDao(src.loadRef().beginParse());
-        }
-    }
-}
-
  type Dao_init_args = {
     $$type: 'Dao_init_args';
+    registry: Address;
     daoIndex: bigint;
 }
 
 function initDao_init_args(src: Dao_init_args) {
     return (builder: Builder) => {
         let b_0 = builder;
+        b_0.storeAddress(src.registry);
         b_0.storeInt(src.daoIndex, 257);
     };
 }
 
-async function Dao_init(daoIndex: bigint) {
-    const __code = Cell.fromBase64('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');
-    const __system = Cell.fromBase64('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');
+async function Dao_init(registry: Address, daoIndex: bigint) {
+    const __code = Cell.fromBase64('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');
+    const __system = Cell.fromBase64('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');
     let builder = beginCell();
     builder.storeRef(__system);
     builder.storeUint(0, 1);
-    initDao_init_args({ $$type: 'Dao_init_args', daoIndex })(builder);
+    initDao_init_args({ $$type: 'Dao_init_args', registry, daoIndex })(builder);
     const __data = builder.endCell();
     return { code: __code, data: __data };
 }
@@ -779,6 +823,7 @@ const Dao_errors: { [key: number]: { message: string } } = {
     137: { message: `Masterchain support is not enabled for this contract` },
     2977: { message: `Already initialized` },
     4429: { message: `Invalid sender` },
+    8704: { message: `already initialized` },
     25952: { message: `ended` },
     56772: { message: `not started` },
     63162: { message: `low message value` },
@@ -786,12 +831,12 @@ const Dao_errors: { [key: number]: { message: string } } = {
 
 export class Dao implements Contract {
     
-    static async init(daoIndex: bigint) {
-        return await Dao_init(daoIndex);
+    static async init(registry: Address, daoIndex: bigint) {
+        return await Dao_init(registry, daoIndex);
     }
     
-    static async fromInit(daoIndex: bigint) {
-        const init = await Dao_init(daoIndex);
+    static async fromInit(registry: Address, daoIndex: bigint) {
+        const init = await Dao_init(registry, daoIndex);
         const address = contractAddress(0, init);
         return new Dao(address, init);
     }

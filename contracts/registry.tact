@@ -1,12 +1,8 @@
 import "@stdlib/deploy";
 import "@stdlib/ownable";
+import "./messages";
 import "./dao";
 
-message CreateDao {
-    owner: Address;
-    proposalOwner: Address;
-    metadata: Address;
-}
 
 contract Registry with Deployable {
 

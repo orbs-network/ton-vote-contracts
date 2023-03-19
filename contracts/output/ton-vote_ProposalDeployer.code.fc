@@ -103,6 +103,12 @@ builder __gen_write_Params(builder build_0, (int, int, int, int, int) v) inline 
     return (sc_0, (v'proposalStartTime, v'proposalEndTime, v'proposalSnapshotTime, v'proposalType, v'votingPowerStrategy));
 }
 
+(slice, (((int, int, int, int, int)))) __gen_read_CreateProposal(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 319521755);
+    var v'body = sc_0~__gen_read_Params();
+    return (sc_0, (v'body));
+}
+
 builder __gen_write_ProposalInit(builder build_0, ((int, int, int, int, int)) v) inline {
     var ((v'body'proposalStartTime, v'body'proposalEndTime, v'body'proposalSnapshotTime, v'body'proposalType, v'body'votingPowerStrategy)) = v;
     build_0 = store_uint(build_0, 2228075895, 32);
@@ -112,12 +118,6 @@ builder __gen_write_ProposalInit(builder build_0, ((int, int, int, int, int)) v)
 
 cell __gen_writecell_ProposalInit(((int, int, int, int, int)) v) inline {
     return __gen_write_ProposalInit(begin_cell(), v).end_cell();
-}
-
-(slice, (((int, int, int, int, int)))) __gen_read_CreateProposal(slice sc_0) inline {
-    throw_unless(129, sc_0~load_uint(32) == 319521755);
-    var v'body = sc_0~__gen_read_Params();
-    return (sc_0, (v'body));
 }
 
 builder __gen_write_ProposalDeployer(builder build_0, (slice, int) v) inline {
@@ -382,7 +382,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() {
-    return "ipfs://QmRFoR1qdoryNByRd9orPy9Uv4ZGKKfErP4RyQ9ypX7KUh";
+    return "ipfs://QmPJPGFifXRPqq19krH4kvAS7nk1nSz9qdH7icZY6GrpR5";
 }
 
 _ lazy_deployment_completed() {

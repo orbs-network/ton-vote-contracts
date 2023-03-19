@@ -172,7 +172,8 @@ SETCP0
           s3 s0 XCPU
           <{
             3 GETGLOBVAR
-            s0 s1 XCHG
+            MYADDR
+            ROT
             29 CALLDICT
           }> CALLREF
           2DUP
@@ -645,7 +646,7 @@ SETCP0
     c4 POP
 
   29: 
-    s0 s1 XCHG
+    s0 s2 XCHG
     CTOS
     LDDICT
     s0 POP
@@ -673,8 +674,27 @@ SETCP0
     0 PUSHINT
     s0 s1 XCHG
     1 STI
-    ROT
-    s0 s1 XCHG
+    s0 s0 s3 XCHG3
+    ROTREV
+    s0 PUSH
+    SBITS
+    267 PUSHINT
+    EQUAL
+    136 THROWIFNOT
+    s0 PUSH
+    11 PLDU
+    s0 PUSH
+    10 PUSHPOW2
+    EQUAL
+    s1 PUSH
+    1279 PUSHINT
+    EQUAL
+    OR
+    136 THROWIFNOT
+    10 PUSHPOW2
+    EQUAL
+    137 THROWIFNOT
+    STSLICER
     257 PUSHINT
     STIX
     ENDC
@@ -741,7 +761,8 @@ SETCP0
     <{
       <{
         3 GETGLOBVAR
-        s0 s1 XCHG
+        MYADDR
+        ROT
         29 CALLDICT
       }> CALLREF
       1 2 BLKDROP2

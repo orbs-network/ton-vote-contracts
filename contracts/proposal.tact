@@ -1,20 +1,6 @@
 import "@stdlib/deploy";
+import "./messages";
 
-struct Params {
-    proposalStartTime: Int as uint64;
-    proposalEndTime: Int as uint64;
-    proposalSnapshotTime: Int as uint64;
-    proposalType: Int as uint8;
-    votingPowerStrategy: Int as uint8;
-}
-
-message ProposalInit {
-    body: Params;
-}
-
-message Comment {
-    body: String;
-}
 
 contract Proposal with Deployable {
 

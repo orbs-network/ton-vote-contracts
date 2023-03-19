@@ -128,16 +128,16 @@ builder __gen_write_Dao(builder build_0, (slice, slice, slice, int, slice) v) in
     return (sc_0, (v'owner, v'registry, v'proposalOwner, v'daoIndex, v'metadata));
 }
 
-(slice, ((int))) __gen_read_$init$Dao(slice sc_0) inline {
+(slice, ((slice, int))) __gen_read_$init$Dao(slice sc_0) inline {
+    var v'registry = sc_0~__tact_load_address();
     var v'daoIndex = sc_0~load_int(257);
-    return (sc_0, (v'daoIndex));
+    return (sc_0, (v'registry, v'daoIndex));
 }
 
-(slice, slice, slice, int, slice) $__gen_Dao_init(int $daoIndex) impure inline_ref {
+(slice, slice, slice, int, slice) $__gen_Dao_init(slice $registry, int $daoIndex) impure inline_ref {
     var (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata)) = (null(), null(), null(), null(), null());
-    throw_unless(4429, __tact_address_eq(__tact_context_get_sender(), __tact_create_address(0, 38225594308136215243196408589282700678323373307369832106607232746789012776479)));
+    $self'registry = $registry;
     $self'daoIndex = $daoIndex;
-    $self'registry = __tact_create_address(0, 38225594308136215243196408589282700678323373307369832106607232746789012776479);
     $self'owner = __tact_create_address(0, 0);
     $self'proposalOwner = __tact_create_address(0, 0);
     $self'metadata = __tact_create_address(0, 0);
@@ -153,9 +153,9 @@ builder __gen_write_Dao(builder build_0, (slice, slice, slice, int, slice) v) in
     } else {
         ;; Allow only workchain deployments
         throw_unless(137, my_address().preload_uint(11) == 1024);
-        (int daoIndex) = $sc~__gen_read_$init$Dao();
+        (slice registry, int daoIndex) = $sc~__gen_read_$init$Dao();
         $sc.end_parse();
-        return $__gen_Dao_init(daoIndex);
+        return $__gen_Dao_init(registry, daoIndex);
     }
 }
 
@@ -276,8 +276,8 @@ _ $__gen_get_daoIndex() method_id(73154) {
 (((slice, slice, slice, int, slice)), ()) $__gen_Dao_receive_DaoInit((slice, slice, slice, int, slice) $self, (slice, slice, slice) $init) impure inline {
     var ($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata) = $self;
     var ($init'owner, $init'proposalOwner, $init'metadata) = $init;
-    throw_unless(4429, __tact_address_eq($self'owner, __tact_create_address(0, 0)));
-    throw_unless(4429, __tact_address_eq(__tact_context_get_sender(), __tact_create_address(0, 38225594308136215243196408589282700678323373307369832106607232746789012776479)));
+    throw_unless(8704, __tact_address_eq($self'owner, __tact_create_address(0, 0)));
+    throw_unless(4429, __tact_address_eq(__tact_context_get_sender(), $self'registry));
     $self'owner = $init'owner;
     $self'proposalOwner = $init'proposalOwner;
     $self'metadata = $init'metadata;
@@ -419,7 +419,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() {
-    return "ipfs://QmXZ74iXmTmKKX6V6fJgSwr983mieijNg6k99zeEWygsSt";
+    return "ipfs://QmNzVav8GqiGHSVrYRfaJcFyDHLf5XviW55RDwKHm9Hssu";
 }
 
 _ lazy_deployment_completed() {

@@ -13,9 +13,9 @@ PROGRAM{
   DECLPROC __gen_read_Deploy
   DECLPROC __gen_write_DeployOk
   DECLPROC __gen_writecell_DeployOk
+  DECLPROC __gen_read_CreateDao
   DECLPROC __gen_write_DaoInit
   DECLPROC __gen_writecell_DaoInit
-  DECLPROC __gen_read_CreateDao
   DECLPROC __gen_write_Registry
   DECLPROC __gen_read_Registry
   DECLPROC __gen_Context_get_value
@@ -157,6 +157,19 @@ PROGRAM{
     __gen_write_DeployOk INLINECALLDICT
     ENDC
   }>
+  __gen_read_CreateDao PROCINLINE:<{
+    32 LDU
+    SWAP
+    446717501 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    __tact_load_address INLINECALLDICT
+    SWAP
+    __tact_load_address INLINECALLDICT
+    SWAP
+    __tact_load_address INLINECALLDICT
+    s3 s3 s0 XCHG3
+  }>
   __gen_write_DaoInit PROCINLINE:<{
     444810285 PUSHINT
     s0 s4 XCHG2
@@ -174,19 +187,6 @@ PROGRAM{
     __gen_write_DaoInit INLINECALLDICT
     ENDC
   }>
-  __gen_read_CreateDao PROCINLINE:<{
-    32 LDU
-    SWAP
-    446717501 PUSHINT
-    EQUAL
-    129 THROWIFNOT
-    __tact_load_address INLINECALLDICT
-    SWAP
-    __tact_load_address INLINECALLDICT
-    SWAP
-    __tact_load_address INLINECALLDICT
-    s3 s3 s0 XCHG3
-  }>
   __gen_write_Registry PROCINLINE:<{
     SWAP
     32 STU
@@ -200,7 +200,8 @@ PROGRAM{
     3 BLKDROP
   }>
   __gen_write_$init$Dao PROCINLINE:<{
-    SWAP
+    -ROT
+    __tact_store_address INLINECALLDICT
     257 PUSHINT
     STIX
   }>
@@ -361,7 +362,7 @@ PROGRAM{
     $send INLINECALLDICT
   }>
   $__gen_Dao_init_child PROC:<{
-    SWAP
+    s0 s2 XCHG
     CTOS
     LDDICT
     DROP
@@ -383,7 +384,7 @@ PROGRAM{
     FALSE
     SWAP
     1 STI
-    ROT
+    s0 s0 s3 XCHG3
     __gen_write_$init$Dao INLINECALLDICT
     ENDC
   }>
@@ -391,7 +392,8 @@ PROGRAM{
   }>
   $__gen_Registry_getDaoStateInit PROCREF:<{
     __tact_context_sys GETGLOB
-    SWAP
+    MYADDR
+    ROT
     $__gen_Dao_init_child CALLDICT
   }>
   $__gen_Registry_nextDaoId PROCREF:<{
@@ -522,7 +524,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d53476b4469594c743934794b72413472546658434c63485a75684e4a58547464554b674244706a6d4e39534c} PUSHSLICE
+    x{697066733a2f2f516d5963524837473444357a35554e4b54614436657475326a4b7950734e4b557878637a74767735783746614653} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH
