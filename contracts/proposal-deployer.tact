@@ -6,15 +6,10 @@ message CreateProposal {
     body: Params;
 }
 
-message SetOwner {
-    newOwner: Address;
-}
-
-// TODO: add min value in messages
 
 contract ProposalDeployer with Deployable {
 
-    owner: Address;
+    owner: Address; // owner is Dao contract (cannot be changed)
     nextProposalId: Int as uint32;
 
     init(owner: Address) {
@@ -40,11 +35,6 @@ contract ProposalDeployer with Deployable {
         });
 
         self.nextProposalId = self.nextProposalId + 1;
-    }
-
-    receive(msg: SetOwner) {
-        require(sender() == self.owner, "Invalid sender");
-        self.owner = msg.newOwner;
     }
 
     fun getProposalStateInit(index: Int): StateInit {

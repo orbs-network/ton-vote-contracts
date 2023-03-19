@@ -18,7 +18,6 @@ PROGRAM{
   DECLPROC __gen_write_ProposalInit
   DECLPROC __gen_writecell_ProposalInit
   DECLPROC __gen_read_CreateProposal
-  DECLPROC __gen_read_SetOwner
   DECLPROC __gen_write_ProposalDeployer
   DECLPROC __gen_read_ProposalDeployer
   DECLPROC __gen_write_$init$Proposal
@@ -42,7 +41,6 @@ PROGRAM{
   DECLPROC __gen_constructor_SendParameters$to_value_bounce_mode_body_code_data
   DECLPROC __gen_constructor_ProposalInit$body
   DECLPROC $__gen_ProposalDeployer_receive_CreateProposal
-  DECLPROC $__gen_ProposalDeployer_receive_SetOwner
   DECLPROC $__gen_ProposalDeployer_receive_Deploy
   DECLPROC __gen_router_ProposalDeployer
   DECLPROC recv_internal
@@ -180,7 +178,7 @@ PROGRAM{
     5 -ROLL
   }>
   __gen_write_ProposalInit PROCINLINE:<{
-    4276568927 PUSHINT
+    2228075895 PUSHINT
     s0 s6 XCHG2
     32 STU
     s0 s5 XCHG
@@ -195,18 +193,10 @@ PROGRAM{
   __gen_read_CreateProposal PROCINLINE:<{
     32 LDU
     SWAP
-    124070695 PUSHINT
+    319521755 PUSHINT
     EQUAL
     129 THROWIFNOT
     __gen_read_Params INLINECALLDICT
-  }>
-  __gen_read_SetOwner PROCINLINE:<{
-    32 LDU
-    SWAP
-    3266583875 PUSHINT
-    EQUAL
-    129 THROWIFNOT
-    __tact_load_address INLINECALLDICT
   }>
   __gen_write_ProposalDeployer PROCINLINE:<{
     -ROT
@@ -479,14 +469,6 @@ PROGRAM{
     SWAP
     INC
   }>
-  $__gen_ProposalDeployer_receive_SetOwner PROCINLINE:<{
-    4429 PUSHINT
-    __tact_context_get_sender INLINECALLDICT
-    s0 s4 XCHG2
-    __tact_address_eq INLINECALLDICT
-    s1 s3 XCHG
-    THROWANYIFNOT
-  }>
   $__gen_ProposalDeployer_receive_Deploy PROCINLINE:<{
     __gen_constructor_DeployOk$queryId INLINECALLDICT
     __gen_writecell_DeployOk INLINECALLDICT
@@ -508,23 +490,13 @@ PROGRAM{
       TRUE
     }>
     OVER
-    124070695 PUSHINT
+    319521755 PUSHINT
     EQUAL
     IFJMP:<{
       NIP
       __gen_read_CreateProposal INLINECALLDICT
       1 5 BLKDROP2
       $__gen_ProposalDeployer_receive_CreateProposal INLINECALLDICT
-      TRUE
-    }>
-    OVER
-    3266583875 PUSHINT
-    EQUAL
-    IFJMP:<{
-      NIP
-      __gen_read_SetOwner INLINECALLDICT
-      NIP
-      $__gen_ProposalDeployer_receive_SetOwner INLINECALLDICT
       TRUE
     }>
     SWAP
@@ -576,7 +548,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d586b71367171627a48346f70703476724e4d5044436469717550576757446d3952534a6b695069666764794d} PUSHSLICE
+    x{697066733a2f2f516d52466f523171646f72794e42795264396f725079395576345a474b4b664572503452795139797058374b5568} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH

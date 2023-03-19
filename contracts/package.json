@@ -7,7 +7,7 @@
     "lint": "eslint . --ext .ts,.tsx -f codeframe",
     "clean": "rimraf ./dist/",
     "prebuild": "npm run clean",
-    "build-ts": "tsc --skipLibCheck -p ./tsconfig.json",    
+    "build-ts": "tsc --skipLibCheck -p ./tsconfig.json",
     "build-tact": "tact --config ./tact.config.json",
     "test": "mocha --timeout 120000 --exit test/*-test.ts",
     "e2e": "mocha --timeout 120000 --exit test/e2e.ts",
@@ -23,6 +23,7 @@
     "dotenv": "^16.0.0",
     "express": "4.18.2",
     "lodash": "^4.17.21",
+    "mocha": "^10.2.0",
     "ton": "^13.4.1"
   },
   "devDependencies": {

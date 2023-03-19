@@ -85,28 +85,28 @@ cell __gen_writecell_DeployOk((int) v) inline {
 }
 
 builder __gen_write_Params(builder build_0, (int, int, int, int, int) v) inline {
-    var (v'proposal_start_time, v'proposal_end_time, v'proposal_snapshot_time, v'proposal_type, v'voting_power_strategy) = v;
-    build_0 = build_0.store_uint(v'proposal_start_time, 64);
-    build_0 = build_0.store_uint(v'proposal_end_time, 64);
-    build_0 = build_0.store_uint(v'proposal_snapshot_time, 64);
-    build_0 = build_0.store_uint(v'proposal_type, 8);
-    build_0 = build_0.store_uint(v'voting_power_strategy, 8);
+    var (v'proposalStartTime, v'proposalEndTime, v'proposalSnapshotTime, v'proposalType, v'votingPowerStrategy) = v;
+    build_0 = build_0.store_uint(v'proposalStartTime, 64);
+    build_0 = build_0.store_uint(v'proposalEndTime, 64);
+    build_0 = build_0.store_uint(v'proposalSnapshotTime, 64);
+    build_0 = build_0.store_uint(v'proposalType, 8);
+    build_0 = build_0.store_uint(v'votingPowerStrategy, 8);
     return build_0;
 }
 
 (slice, ((int, int, int, int, int))) __gen_read_Params(slice sc_0) inline {
-    var v'proposal_start_time = sc_0~load_uint(64);
-    var v'proposal_end_time = sc_0~load_uint(64);
-    var v'proposal_snapshot_time = sc_0~load_uint(64);
-    var v'proposal_type = sc_0~load_uint(8);
-    var v'voting_power_strategy = sc_0~load_uint(8);
-    return (sc_0, (v'proposal_start_time, v'proposal_end_time, v'proposal_snapshot_time, v'proposal_type, v'voting_power_strategy));
+    var v'proposalStartTime = sc_0~load_uint(64);
+    var v'proposalEndTime = sc_0~load_uint(64);
+    var v'proposalSnapshotTime = sc_0~load_uint(64);
+    var v'proposalType = sc_0~load_uint(8);
+    var v'votingPowerStrategy = sc_0~load_uint(8);
+    return (sc_0, (v'proposalStartTime, v'proposalEndTime, v'proposalSnapshotTime, v'proposalType, v'votingPowerStrategy));
 }
 
 builder __gen_write_ProposalInit(builder build_0, ((int, int, int, int, int)) v) inline {
-    var ((v'body'proposal_start_time, v'body'proposal_end_time, v'body'proposal_snapshot_time, v'body'proposal_type, v'body'voting_power_strategy)) = v;
-    build_0 = store_uint(build_0, 4276568927, 32);
-    build_0 = __gen_write_Params(build_0, (v'body'proposal_start_time, v'body'proposal_end_time, v'body'proposal_snapshot_time, v'body'proposal_type, v'body'voting_power_strategy));
+    var ((v'body'proposalStartTime, v'body'proposalEndTime, v'body'proposalSnapshotTime, v'body'proposalType, v'body'votingPowerStrategy)) = v;
+    build_0 = store_uint(build_0, 2228075895, 32);
+    build_0 = __gen_write_Params(build_0, (v'body'proposalStartTime, v'body'proposalEndTime, v'body'proposalSnapshotTime, v'body'proposalType, v'body'votingPowerStrategy));
     return build_0;
 }
 
@@ -115,15 +115,9 @@ cell __gen_writecell_ProposalInit(((int, int, int, int, int)) v) inline {
 }
 
 (slice, (((int, int, int, int, int)))) __gen_read_CreateProposal(slice sc_0) inline {
-    throw_unless(129, sc_0~load_uint(32) == 124070695);
+    throw_unless(129, sc_0~load_uint(32) == 319521755);
     var v'body = sc_0~__gen_read_Params();
     return (sc_0, (v'body));
-}
-
-(slice, ((slice))) __gen_read_SetOwner(slice sc_0) inline {
-    throw_unless(129, sc_0~load_uint(32) == 3266583875);
-    var v'newOwner = sc_0~__tact_load_address();
-    return (sc_0, (v'newOwner));
 }
 
 builder __gen_write_ProposalDeployer(builder build_0, (slice, int) v) inline {
@@ -140,9 +134,9 @@ builder __gen_write_ProposalDeployer(builder build_0, (slice, int) v) inline {
 }
 
 builder __gen_write_$init$Proposal(builder build_0, (slice, int) v) inline {
-    var (v'owner, v'index) = v;
+    var (v'owner, v'id) = v;
     build_0 = __tact_store_address(build_0, v'owner);
-    build_0 = build_0.store_int(v'index, 257);
+    build_0 = build_0.store_int(v'id, 257);
     return build_0;
 }
 
@@ -237,7 +231,7 @@ slice $contractAddress((cell, cell) $s) impure inline_ref {
     $send(__gen_constructor_SendParameters$bounce_to_value_mode_body(true, __tact_context_get_sender(), 0, (64 + 2), $body));
 }
 
-(cell, cell) $__gen_Proposal_init_child(cell sys', slice $owner, int $index) {
+(cell, cell) $__gen_Proposal_init_child(cell sys', slice $owner, int $id) {
     slice sc' = sys'.begin_parse();
     cell source = sc'~load_dict();
     cell contracts = new_dict();
@@ -250,7 +244,7 @@ slice $contractAddress((cell, cell) $s) impure inline_ref {
     builder b = begin_cell();
     b = b.store_ref(begin_cell().store_dict(contracts).end_cell());
     b = b.store_int(false, 1);
-    b = __gen_write_$init$Proposal(b, ($owner, $index));
+    b = __gen_write_$init$Proposal(b, ($owner, $id));
     return (mine, b.end_cell());
 }
 
@@ -308,20 +302,12 @@ _ $__gen_get_proposalAddr(int $$index) method_id(94082) {
 
 (((slice, int)), ()) $__gen_ProposalDeployer_receive_CreateProposal((slice, int) $self, ((int, int, int, int, int)) $msg) impure inline {
     var ($self'owner, $self'nextProposalId) = $self;
-    var (($msg'body'proposal_start_time, $msg'body'proposal_end_time, $msg'body'proposal_snapshot_time, $msg'body'proposal_type, $msg'body'voting_power_strategy)) = $msg;
+    var (($msg'body'proposalStartTime, $msg'body'proposalEndTime, $msg'body'proposalSnapshotTime, $msg'body'proposalType, $msg'body'votingPowerStrategy)) = $msg;
     throw_unless(4429, __tact_address_eq(__tact_context_get_sender(), $self'owner));
     var ($init'code, $init'data) = ($self'owner, $self'nextProposalId)~$__gen_ProposalDeployer_getProposalStateInit($self'nextProposalId);
     slice $proposalAddress = $contractAddress(($init'code, $init'data));
-    $send(__gen_constructor_SendParameters$to_value_bounce_mode_body_code_data($proposalAddress, 0, false, 64, __gen_writecell_ProposalInit(__gen_constructor_ProposalInit$body(($msg'body'proposal_start_time, $msg'body'proposal_end_time, $msg'body'proposal_snapshot_time, $msg'body'proposal_type, $msg'body'voting_power_strategy))), $init'code, $init'data));
+    $send(__gen_constructor_SendParameters$to_value_bounce_mode_body_code_data($proposalAddress, 0, false, 64, __gen_writecell_ProposalInit(__gen_constructor_ProposalInit$body(($msg'body'proposalStartTime, $msg'body'proposalEndTime, $msg'body'proposalSnapshotTime, $msg'body'proposalType, $msg'body'votingPowerStrategy))), $init'code, $init'data));
     $self'nextProposalId = ($self'nextProposalId + 1);
-    return (($self'owner, $self'nextProposalId), ());
-}
-
-(((slice, int)), ()) $__gen_ProposalDeployer_receive_SetOwner((slice, int) $self, (slice) $msg) impure inline {
-    var ($self'owner, $self'nextProposalId) = $self;
-    var ($msg'newOwner) = $msg;
-    throw_unless(4429, __tact_address_eq(__tact_context_get_sender(), $self'owner));
-    $self'owner = $msg'newOwner;
     return (($self'owner, $self'nextProposalId), ());
 }
 
@@ -346,16 +332,9 @@ _ $__gen_get_proposalAddr(int $$index) method_id(94082) {
     }
     
     ;; Receive CreateProposal message
-    if (op == 124070695) {
+    if (op == 319521755) {
         var msg = in_msg~__gen_read_CreateProposal();
         self~$__gen_ProposalDeployer_receive_CreateProposal(msg);
-        return (self, true);
-    }
-    
-    ;; Receive SetOwner message
-    if (op == 3266583875) {
-        var msg = in_msg~__gen_read_SetOwner();
-        self~$__gen_ProposalDeployer_receive_SetOwner(msg);
         return (self, true);
     }
     
@@ -403,7 +382,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() {
-    return "ipfs://QmXkq6qqbzH4opp4vrNMPDCdiquPWgWDm9RSJkiPifgdyM";
+    return "ipfs://QmRFoR1qdoryNByRd9orPy9Uv4ZGKKfErP4RyQ9ypX7KUh";
 }
 
 _ lazy_deployment_completed() {

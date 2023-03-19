@@ -6,40 +6,61 @@ message SetOwner {
     newOwner: Address;
 }
 
+message SetProposalOwner {
+    newProposalOwner: Address;
+}
+
 message SetMetadata {
     newMetadata: Address;
 }
 
-message CreateNewProposalDeployer {
-    newProposalDeployer: SendParameters;
+message FwdMsg {
+    fwdMsg: SendParameters;
 }
 
 message DaoInit {
     owner: Address;
+    proposalOwner: Address;
     metadata: Address;
 }
+
 
 contract Dao with Deployable {
 
     owner: Address;
+    registry: Address;
+    proposalOwner: Address;
     daoIndex: Int as uint32;    
     metadata: Address;
 
-    init(daoIndex: Int) {
+    init(registry: Address, daoIndex: Int) {
+        self.registry = registry; 
         self.daoIndex = daoIndex;
-        self.owner =  myAddress(); // TODO: FIXME set to zero address
-        self.metadata =  myAddress(); // TODO: FIXME set to zero address
+
+        self.owner =  newAddress(0, 0x0); // TODO: FIXME set const
+        self.proposalOwner = newAddress(0, 0x0); // TODO: FIXME set const
+        self.metadata =  newAddress(0, 0x0); // TODO: FIXME set const
     }
     
     receive(init: DaoInit) {
-        require(self.owner == myAddress(), "Invalid sender"); // TODO: FIXME set to zero address
+        require(self.owner == newAddress(0, 0x0), "already initialized"); // TODO: FIXME set const
+        require(sender() == self.registry, "Invalid sender");
+
         self.owner = init.owner;
+        self.proposalOwner = init.proposalOwner;
         self.metadata = init.metadata;
     }
 
     receive(msg: SetOwner) {
         require(sender() == self.owner, "Invalid sender");
+
         self.owner = msg.newOwner;
+    }
+
+    receive(msg: SetProposalOwner) {
+        require(sender() == self.owner, "Invalid sender");
+
+        self.proposalOwner = msg.newProposalOwner;
     }
 
     receive(msg: SetMetadata) {
@@ -47,17 +68,29 @@ contract Dao with Deployable {
         self.metadata = msg.newMetadata;
     }
 
-    receive(msg: CreateNewProposalDeployer) {
-        require(sender() == self.owner, "Invalid sender");
-        send(msg.newProposalDeployer);
+    receive(msg: FwdMsg) {
+        require(sender() == self.owner || sender() == self.proposalOwner, "Invalid sender");
+        
+        send(msg.fwdMsg);
+    }
+
+    get fun registry(): Address {
+        return self.registry;
     }
 
     get fun owner(): Address {
         return self.owner;
     }
 
+    get fun proposalOwner(): Address {
+        return self.proposalOwner;
+    }
+
+    get fun metadata(): Address {
+        return self.metadata;
+    }
+
     get fun daoIndex(): Int {
         return self.daoIndex;
     }
-
 }

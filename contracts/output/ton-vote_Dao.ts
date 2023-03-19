@@ -355,6 +355,48 @@ function dictValueParserSetOwner(): DictionaryValue<SetOwner> {
     }
 }
 
+export type SetProposalOwner = {
+    $$type: 'SetProposalOwner';
+    newProposalOwner: Address;
+}
+
+export function storeSetProposalOwner(src: SetProposalOwner) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(3504586358, 32);
+        b_0.storeAddress(src.newProposalOwner);
+    };
+}
+
+export function loadSetProposalOwner(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 3504586358) { throw Error('Invalid prefix'); }
+    let _newProposalOwner = sc_0.loadAddress();
+    return { $$type: 'SetProposalOwner' as const, newProposalOwner: _newProposalOwner };
+}
+
+function loadTupleSetProposalOwner(source: TupleReader) {
+    let _newProposalOwner = source.readAddress();
+    return { $$type: 'SetProposalOwner' as const, newProposalOwner: _newProposalOwner };
+}
+
+function storeTupleSetProposalOwner(source: SetProposalOwner) {
+    let builder = new TupleBuilder();
+    builder.writeAddress(source.newProposalOwner);
+    return builder.build();
+}
+
+function dictValueParserSetProposalOwner(): DictionaryValue<SetProposalOwner> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeSetProposalOwner(src)).endCell());
+        },
+        parse: (src) => {
+            return loadSetProposalOwner(src.loadRef().beginParse());
+        }
+    }
+}
+
 export type SetMetadata = {
     $$type: 'SetMetadata';
     newMetadata: Address;
@@ -397,44 +439,44 @@ function dictValueParserSetMetadata(): DictionaryValue<SetMetadata> {
     }
 }
 
-export type CreateNewProposalDeployer = {
-    $$type: 'CreateNewProposalDeployer';
-    newProposalDeployer: SendParameters;
+export type FwdMsg = {
+    $$type: 'FwdMsg';
+    fwdMsg: SendParameters;
 }
 
-export function storeCreateNewProposalDeployer(src: CreateNewProposalDeployer) {
+export function storeFwdMsg(src: FwdMsg) {
     return (builder: Builder) => {
         let b_0 = builder;
-        b_0.storeUint(463537042, 32);
-        b_0.store(storeSendParameters(src.newProposalDeployer));
+        b_0.storeUint(1690551268, 32);
+        b_0.store(storeSendParameters(src.fwdMsg));
     };
 }
 
-export function loadCreateNewProposalDeployer(slice: Slice) {
+export function loadFwdMsg(slice: Slice) {
     let sc_0 = slice;
-    if (sc_0.loadUint(32) !== 463537042) { throw Error('Invalid prefix'); }
-    let _newProposalDeployer = loadSendParameters(sc_0);
-    return { $$type: 'CreateNewProposalDeployer' as const, newProposalDeployer: _newProposalDeployer };
+    if (sc_0.loadUint(32) !== 1690551268) { throw Error('Invalid prefix'); }
+    let _fwdMsg = loadSendParameters(sc_0);
+    return { $$type: 'FwdMsg' as const, fwdMsg: _fwdMsg };
 }
 
-function loadTupleCreateNewProposalDeployer(source: TupleReader) {
-    const _newProposalDeployer = loadTupleSendParameters(source.readTuple());
-    return { $$type: 'CreateNewProposalDeployer' as const, newProposalDeployer: _newProposalDeployer };
+function loadTupleFwdMsg(source: TupleReader) {
+    const _fwdMsg = loadTupleSendParameters(source.readTuple());
+    return { $$type: 'FwdMsg' as const, fwdMsg: _fwdMsg };
 }
 
-function storeTupleCreateNewProposalDeployer(source: CreateNewProposalDeployer) {
+function storeTupleFwdMsg(source: FwdMsg) {
     let builder = new TupleBuilder();
-    builder.writeTuple(storeTupleSendParameters(source.newProposalDeployer));
+    builder.writeTuple(storeTupleSendParameters(source.fwdMsg));
     return builder.build();
 }
 
-function dictValueParserCreateNewProposalDeployer(): DictionaryValue<CreateNewProposalDeployer> {
+function dictValueParserFwdMsg(): DictionaryValue<FwdMsg> {
     return {
         serialize: (src, buidler) => {
-            buidler.storeRef(beginCell().store(storeCreateNewProposalDeployer(src)).endCell());
+            buidler.storeRef(beginCell().store(storeFwdMsg(src)).endCell());
         },
         parse: (src) => {
-            return loadCreateNewProposalDeployer(src.loadRef().beginParse());
+            return loadFwdMsg(src.loadRef().beginParse());
         }
     }
 }
@@ -442,35 +484,40 @@ function dictValueParserCreateNewProposalDeployer(): DictionaryValue<CreateNewPr
 export type DaoInit = {
     $$type: 'DaoInit';
     owner: Address;
+    proposalOwner: Address;
     metadata: Address;
 }
 
 export function storeDaoInit(src: DaoInit) {
     return (builder: Builder) => {
         let b_0 = builder;
-        b_0.storeUint(1650244310, 32);
+        b_0.storeUint(444810285, 32);
         b_0.storeAddress(src.owner);
+        b_0.storeAddress(src.proposalOwner);
         b_0.storeAddress(src.metadata);
     };
 }
 
 export function loadDaoInit(slice: Slice) {
     let sc_0 = slice;
-    if (sc_0.loadUint(32) !== 1650244310) { throw Error('Invalid prefix'); }
+    if (sc_0.loadUint(32) !== 444810285) { throw Error('Invalid prefix'); }
     let _owner = sc_0.loadAddress();
+    let _proposalOwner = sc_0.loadAddress();
     let _metadata = sc_0.loadAddress();
-    return { $$type: 'DaoInit' as const, owner: _owner, metadata: _metadata };
+    return { $$type: 'DaoInit' as const, owner: _owner, proposalOwner: _proposalOwner, metadata: _metadata };
 }
 
 function loadTupleDaoInit(source: TupleReader) {
     let _owner = source.readAddress();
+    let _proposalOwner = source.readAddress();
     let _metadata = source.readAddress();
-    return { $$type: 'DaoInit' as const, owner: _owner, metadata: _metadata };
+    return { $$type: 'DaoInit' as const, owner: _owner, proposalOwner: _proposalOwner, metadata: _metadata };
 }
 
 function storeTupleDaoInit(source: DaoInit) {
     let builder = new TupleBuilder();
     builder.writeAddress(source.owner);
+    builder.writeAddress(source.proposalOwner);
     builder.writeAddress(source.metadata);
     return builder.build();
 }
@@ -488,50 +535,50 @@ function dictValueParserDaoInit(): DictionaryValue<DaoInit> {
 
 export type Params = {
     $$type: 'Params';
-    proposal_start_time: bigint;
-    proposal_end_time: bigint;
-    proposal_snapshot_time: bigint;
-    proposal_type: bigint;
-    voting_power_strategy: bigint;
+    proposalStartTime: bigint;
+    proposalEndTime: bigint;
+    proposalSnapshotTime: bigint;
+    proposalType: bigint;
+    votingPowerStrategy: bigint;
 }
 
 export function storeParams(src: Params) {
     return (builder: Builder) => {
         let b_0 = builder;
-        b_0.storeUint(src.proposal_start_time, 64);
-        b_0.storeUint(src.proposal_end_time, 64);
-        b_0.storeUint(src.proposal_snapshot_time, 64);
-        b_0.storeUint(src.proposal_type, 8);
-        b_0.storeUint(src.voting_power_strategy, 8);
+        b_0.storeUint(src.proposalStartTime, 64);
+        b_0.storeUint(src.proposalEndTime, 64);
+        b_0.storeUint(src.proposalSnapshotTime, 64);
+        b_0.storeUint(src.proposalType, 8);
+        b_0.storeUint(src.votingPowerStrategy, 8);
     };
 }
 
 export function loadParams(slice: Slice) {
     let sc_0 = slice;
-    let _proposal_start_time = sc_0.loadUintBig(64);
-    let _proposal_end_time = sc_0.loadUintBig(64);
-    let _proposal_snapshot_time = sc_0.loadUintBig(64);
-    let _proposal_type = sc_0.loadUintBig(8);
-    let _voting_power_strategy = sc_0.loadUintBig(8);
-    return { $$type: 'Params' as const, proposal_start_time: _proposal_start_time, proposal_end_time: _proposal_end_time, proposal_snapshot_time: _proposal_snapshot_time, proposal_type: _proposal_type, voting_power_strategy: _voting_power_strategy };
+    let _proposalStartTime = sc_0.loadUintBig(64);
+    let _proposalEndTime = sc_0.loadUintBig(64);
+    let _proposalSnapshotTime = sc_0.loadUintBig(64);
+    let _proposalType = sc_0.loadUintBig(8);
+    let _votingPowerStrategy = sc_0.loadUintBig(8);
+    return { $$type: 'Params' as const, proposalStartTime: _proposalStartTime, proposalEndTime: _proposalEndTime, proposalSnapshotTime: _proposalSnapshotTime, proposalType: _proposalType, votingPowerStrategy: _votingPowerStrategy };
 }
 
 function loadTupleParams(source: TupleReader) {
-    let _proposal_start_time = source.readBigNumber();
-    let _proposal_end_time = source.readBigNumber();
-    let _proposal_snapshot_time = source.readBigNumber();
-    let _proposal_type = source.readBigNumber();
-    let _voting_power_strategy = source.readBigNumber();
-    return { $$type: 'Params' as const, proposal_start_time: _proposal_start_time, proposal_end_time: _proposal_end_time, proposal_snapshot_time: _proposal_snapshot_time, proposal_type: _proposal_type, voting_power_strategy: _voting_power_strategy };
+    let _proposalStartTime = source.readBigNumber();
+    let _proposalEndTime = source.readBigNumber();
+    let _proposalSnapshotTime = source.readBigNumber();
+    let _proposalType = source.readBigNumber();
+    let _votingPowerStrategy = source.readBigNumber();
+    return { $$type: 'Params' as const, proposalStartTime: _proposalStartTime, proposalEndTime: _proposalEndTime, proposalSnapshotTime: _proposalSnapshotTime, proposalType: _proposalType, votingPowerStrategy: _votingPowerStrategy };
 }
 
 function storeTupleParams(source: Params) {
     let builder = new TupleBuilder();
-    builder.writeNumber(source.proposal_start_time);
-    builder.writeNumber(source.proposal_end_time);
-    builder.writeNumber(source.proposal_snapshot_time);
-    builder.writeNumber(source.proposal_type);
-    builder.writeNumber(source.voting_power_strategy);
+    builder.writeNumber(source.proposalStartTime);
+    builder.writeNumber(source.proposalEndTime);
+    builder.writeNumber(source.proposalSnapshotTime);
+    builder.writeNumber(source.proposalType);
+    builder.writeNumber(source.votingPowerStrategy);
     return builder.build();
 }
 
@@ -554,14 +601,14 @@ export type ProposalInit = {
 export function storeProposalInit(src: ProposalInit) {
     return (builder: Builder) => {
         let b_0 = builder;
-        b_0.storeUint(4276568927, 32);
+        b_0.storeUint(2228075895, 32);
         b_0.store(storeParams(src.body));
     };
 }
 
 export function loadProposalInit(slice: Slice) {
     let sc_0 = slice;
-    if (sc_0.loadUint(32) !== 4276568927) { throw Error('Invalid prefix'); }
+    if (sc_0.loadUint(32) !== 2228075895) { throw Error('Invalid prefix'); }
     let _body = loadParams(sc_0);
     return { $$type: 'ProposalInit' as const, body: _body };
 }
@@ -633,35 +680,40 @@ function dictValueParserComment(): DictionaryValue<Comment> {
 export type CreateDao = {
     $$type: 'CreateDao';
     owner: Address;
+    proposalOwner: Address;
     metadata: Address;
 }
 
 export function storeCreateDao(src: CreateDao) {
     return (builder: Builder) => {
         let b_0 = builder;
-        b_0.storeUint(2756304371, 32);
+        b_0.storeUint(446717501, 32);
         b_0.storeAddress(src.owner);
+        b_0.storeAddress(src.proposalOwner);
         b_0.storeAddress(src.metadata);
     };
 }
 
 export function loadCreateDao(slice: Slice) {
     let sc_0 = slice;
-    if (sc_0.loadUint(32) !== 2756304371) { throw Error('Invalid prefix'); }
+    if (sc_0.loadUint(32) !== 446717501) { throw Error('Invalid prefix'); }
     let _owner = sc_0.loadAddress();
+    let _proposalOwner = sc_0.loadAddress();
     let _metadata = sc_0.loadAddress();
-    return { $$type: 'CreateDao' as const, owner: _owner, metadata: _metadata };
+    return { $$type: 'CreateDao' as const, owner: _owner, proposalOwner: _proposalOwner, metadata: _metadata };
 }
 
 function loadTupleCreateDao(source: TupleReader) {
     let _owner = source.readAddress();
+    let _proposalOwner = source.readAddress();
     let _metadata = source.readAddress();
-    return { $$type: 'CreateDao' as const, owner: _owner, metadata: _metadata };
+    return { $$type: 'CreateDao' as const, owner: _owner, proposalOwner: _proposalOwner, metadata: _metadata };
 }
 
 function storeTupleCreateDao(source: CreateDao) {
     let builder = new TupleBuilder();
     builder.writeAddress(source.owner);
+    builder.writeAddress(source.proposalOwner);
     builder.writeAddress(source.metadata);
     return builder.build();
 }
@@ -690,8 +742,8 @@ function initDao_init_args(src: Dao_init_args) {
 }
 
 async function Dao_init(daoIndex: bigint) {
-    const __code = Cell.fromBase64('te6ccgECFgEABTMAART/APSkE/S88sgLAQIBYgIDAX7QAdDTAwFxsMABkX+RcOIB+kABINdJgQELuvLgiCDXCwoggwm6IYEE/7qx8uCIgwm68uCJVFBTA28E+GEC+GIEAgEgDxAD8O1E0NQB+GPSAAGOT/pAASDXSYEBC7ry4Igg1wsKIIMJuiGBBP+6sfLgiIMJuvLgiQHTH/pAASDXSYEBC7ry4Igg1wsKIIMJuiGBBP+6sfLgiIMJuvLgiUMwbBOOlfgo1wsKgwm68uCJgQEB1wABAdHbPOJVEts8MBQFBgT2cCHXScIflTAg1wsf3gKSW3/gIYIQYly61rrjAiGCEMK0HUO6jkAx0x8BghDCtB1DuvLggfpAASDXSYEBC7ry4Igg1wsKIIMJuiGBBP+6sfLgiIMJuvLgiTGBEU34QlAFxwUU8vR/4CGCENovkH+64wIhghAboQOSuuMCBwgJCgCyyPhDAcx/AcoAVSBaINdJgQELuvLgiCDXCwoggwm6IYEE/7qx8uCIgwm68uCJzxYSyx8BINdJgQELuvLgiCDXCwoggwm6IYEE/7qx8uCIgwm68uCJzxbJ7VQAzjHTHwGCEGJcuta68uCB+kABINdJgQELuvLgiCDXCwoggwm6IYEE/7qx8uCIgwm68uCJAfpAASDXSYEBC7ry4Igg1wsKIIMJuiGBBP+6sfLgiIMJuvLgiRJsEjKBEU34KBXHBRTy9H8AfjHTHwGCENovkH+68uCB+kABINdJgQELuvLgiCDXCwoggwm6IYEE/7qx8uCIgwm68uCJMTGBEU34QiTHBfL0fwI+MdMfAYIQG6EDkrry4IHbPGwXgRFN+EIrxwXy9Ns8fwsNAV4BghCUapi2uo6i0x8BghCUapi2uvLggdM/ATHIAYIQr/kPV1jLH8s/yds8f+AwcAwAnNIA+kABINdJgQELuvLgiCDXCwoggwm6IYEE/7qx8uCIgwm68uCJAYEBAdcAgQEB1wDSAAGR1JJtAeLSAAGR1JJtAeLSAAGR1JJtAeJVYAEaf/hCcFgDgEIBbW3bPA0BzshxAcoBUAcBygBwAcoCUAUg10mBAQu68uCIINcLCiCDCbohgQT/urHy4IiDCbry4InPFlAD+gJwAcpoI26zJW6zsZczMwFwAcoA4w0hbrOcfwHKAAEgbvLQgAHMlTFwAcoA4skB+wAOAJh/AcoAyHABygBwAcoAJG6znX8BygAEIG7y0IBQBMyWNANwAcoA4iRus51/AcoABCBu8tCAUATMljQDcAHKAOJwAcoAAn8BygACyVjMAgEgERIAub3ejBOC52Hq6WVz2PQnYc6yVCjbNBOE7rGpaVsj5ZkWnXlv74sRzBOBAq4A3AM7HKZywdVyOS2WHBOA3qTvfKost446np7wKs4ZNBOE7Lpy1Zp2W5nQdLNsozdFJALvudwu1E0NQB+GPSAAGOT/pAASDXSYEBC7ry4Igg1wsKIIMJuiGBBP+6sfLgiIMJuvLgiQHTH/pAASDXSYEBC7ry4Igg1wsKIIMJuiGBBP+6sfLgiIMJuvLgiUMwbBOOlfgo1wsKgwm68uCJgQEB1wABAdHbPOLbPIFBMC77hR3tRNDUAfhj0gABjk/6QAEg10mBAQu68uCIINcLCiCDCbohgQT/urHy4IiDCbry4IkB0x/6QAEg10mBAQu68uCIINcLCiCDCbohgQT/urHy4IiDCbry4IlDMGwTjpX4KNcLCoMJuvLgiYEBAdcAAQHR2zzi2zyBQVAAQwMQAK+Cj4KBIAAls=');
-    const __system = Cell.fromBase64('te6cckECGAEABT0AAQHAAQEFoMh/AgEU/wD0pBP0vPLICwMCAWILBAIBIAYFALm93owTgudh6ullc9j0J2HOslQo2zQThO6xqWlbI+WZFp15b++LEcwTgQKuANwDOxymcsHVcjktlhwTgN6k73yqLLeOOp6e8CrOGTQThOy6ctWadluZ0HSzbKM3RSQCASAJBwLvuFHe1E0NQB+GPSAAGOT/pAASDXSYEBC7ry4Igg1wsKIIMJuiGBBP+6sfLgiIMJuvLgiQHTH/pAASDXSYEBC7ry4Igg1wsKIIMJuiGBBP+6sfLgiIMJuvLgiUMwbBOOlfgo1wsKgwm68uCJgQEB1wABAdHbPOLbPIFwgAAlsC77ncLtRNDUAfhj0gABjk/6QAEg10mBAQu68uCIINcLCiCDCbohgQT/urHy4IiDCbry4IkB0x/6QAEg10mBAQu68uCIINcLCiCDCbohgQT/urHy4IiDCbry4IlDMGwTjpX4KNcLCoMJuvLgiYEBAdcAAQHR2zzi2zyBcKAAQwMQF+0AHQ0wMBcbDAAZF/kXDiAfpAASDXSYEBC7ry4Igg1wsKIIMJuiGBBP+6sfLgiIMJuvLgiVRQUwNvBPhhAvhiDAPw7UTQ1AH4Y9IAAY5P+kABINdJgQELuvLgiCDXCwoggwm6IYEE/7qx8uCIgwm68uCJAdMf+kABINdJgQELuvLgiCDXCwoggwm6IYEE/7qx8uCIgwm68uCJQzBsE46V+CjXCwqDCbry4ImBAQHXAAEB0ds84lUS2zwwFw4NALLI+EMBzH8BygBVIFog10mBAQu68uCIINcLCiCDCbohgQT/urHy4IiDCbry4InPFhLLHwEg10mBAQu68uCIINcLCiCDCbohgQT/urHy4IiDCbry4InPFsntVAT2cCHXScIflTAg1wsf3gKSW3/gIYIQYly61rrjAiGCEMK0HUO6jkAx0x8BghDCtB1DuvLggfpAASDXSYEBC7ry4Igg1wsKIIMJuiGBBP+6sfLgiIMJuvLgiTGBEU34QlAFxwUU8vR/4CGCENovkH+64wIhghAboQOSuuMCFhURDwFeAYIQlGqYtrqOotMfAYIQlGqYtrry4IHTPwExyAGCEK/5D1dYyx/LP8nbPH/gMHAQARp/+EJwWAOAQgFtbds8EgI+MdMfAYIQG6EDkrry4IHbPGwXgRFN+EIrxwXy9Ns8fxQSAc7IcQHKAVAHAcoAcAHKAlAFINdJgQELuvLgiCDXCwoggwm6IYEE/7qx8uCIgwm68uCJzxZQA/oCcAHKaCNusyVus7GXMzMBcAHKAOMNIW6znH8BygABIG7y0IABzJUxcAHKAOLJAfsAEwCYfwHKAMhwAcoAcAHKACRus51/AcoABCBu8tCAUATMljQDcAHKAOIkbrOdfwHKAAQgbvLQgFAEzJY0A3ABygDicAHKAAJ/AcoAAslYzACc0gD6QAEg10mBAQu68uCIINcLCiCDCbohgQT/urHy4IiDCbry4IkBgQEB1wCBAQHXANIAAZHUkm0B4tIAAZHUkm0B4tIAAZHUkm0B4lVgAH4x0x8BghDaL5B/uvLggfpAASDXSYEBC7ry4Igg1wsKIIMJuiGBBP+6sfLgiIMJuvLgiTExgRFN+EIkxwXy9H8AzjHTHwGCEGJcuta68uCB+kABINdJgQELuvLgiCDXCwoggwm6IYEE/7qx8uCIgwm68uCJAfpAASDXSYEBC7ry4Igg1wsKIIMJuiGBBP+6sfLgiIMJuvLgiRJsEjKBEU34KBXHBRTy9H8ACvgo+CgSRPzHIg==');
+    const __code = Cell.fromBase64('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');
+    const __system = Cell.fromBase64('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');
     let builder = beginCell();
     builder.storeRef(__system);
     builder.storeUint(0, 1);
@@ -729,6 +781,7 @@ const Dao_errors: { [key: number]: { message: string } } = {
     4429: { message: `Invalid sender` },
     25952: { message: `ended` },
     56772: { message: `not started` },
+    63162: { message: `low message value` },
 }
 
 export class Dao implements Contract {
@@ -758,7 +811,7 @@ export class Dao implements Contract {
         this.init = init;
     }
     
-    async send(provider: ContractProvider, via: Sender, args: { value: bigint, bounce?: boolean| null | undefined }, message: DaoInit | SetOwner | SetMetadata | CreateNewProposalDeployer | Deploy) {
+    async send(provider: ContractProvider, via: Sender, args: { value: bigint, bounce?: boolean| null | undefined }, message: DaoInit | SetOwner | SetProposalOwner | SetMetadata | FwdMsg | Deploy) {
         
         let body: Cell | null = null;
         if (message && typeof message === 'object' && !(message instanceof Slice) && message.$$type === 'DaoInit') {
@@ -767,11 +820,14 @@ export class Dao implements Contract {
         if (message && typeof message === 'object' && !(message instanceof Slice) && message.$$type === 'SetOwner') {
             body = beginCell().store(storeSetOwner(message)).endCell();
         }
+        if (message && typeof message === 'object' && !(message instanceof Slice) && message.$$type === 'SetProposalOwner') {
+            body = beginCell().store(storeSetProposalOwner(message)).endCell();
+        }
         if (message && typeof message === 'object' && !(message instanceof Slice) && message.$$type === 'SetMetadata') {
             body = beginCell().store(storeSetMetadata(message)).endCell();
         }
-        if (message && typeof message === 'object' && !(message instanceof Slice) && message.$$type === 'CreateNewProposalDeployer') {
-            body = beginCell().store(storeCreateNewProposalDeployer(message)).endCell();
+        if (message && typeof message === 'object' && !(message instanceof Slice) && message.$$type === 'FwdMsg') {
+            body = beginCell().store(storeFwdMsg(message)).endCell();
         }
         if (message && typeof message === 'object' && !(message instanceof Slice) && message.$$type === 'Deploy') {
             body = beginCell().store(storeDeploy(message)).endCell();
@@ -782,9 +838,30 @@ export class Dao implements Contract {
         
     }
     
+    async getRegistry(provider: ContractProvider) {
+        let builder = new TupleBuilder();
+        let source = (await provider.get('registry', builder.build())).stack;
+        let result = source.readAddress();
+        return result;
+    }
+    
     async getOwner(provider: ContractProvider) {
         let builder = new TupleBuilder();
         let source = (await provider.get('owner', builder.build())).stack;
+        let result = source.readAddress();
+        return result;
+    }
+    
+    async getProposalOwner(provider: ContractProvider) {
+        let builder = new TupleBuilder();
+        let source = (await provider.get('proposalOwner', builder.build())).stack;
+        let result = source.readAddress();
+        return result;
+    }
+    
+    async getMetadata(provider: ContractProvider) {
+        let builder = new TupleBuilder();
+        let source = (await provider.get('metadata', builder.build())).stack;
         let result = source.readAddress();
         return result;
     }

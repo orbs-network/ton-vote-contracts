@@ -4,6 +4,7 @@ import "./dao";
 
 message CreateDao {
     owner: Address;
+    proposalOwner: Address;
     metadata: Address;
 }
 
@@ -16,7 +17,8 @@ contract Registry with Deployable {
     }
     
     receive(createDao: CreateDao) {
-        // Create message
+        require(context().value >= ton("1"), "low message value");
+        
         let init: StateInit = self.getDaoStateInit(self.nextDaoId);
         let daoAddress: Address = contractAddress(init);
 
@@ -25,7 +27,7 @@ contract Registry with Deployable {
             value: 0, 
             bounce: false,
             mode: SendRemainingValue,
-            body: DaoInit{owner: createDao.owner, metadata: createDao.metadata}.toCell(),
+            body: DaoInit{owner: createDao.owner, proposalOwner: createDao.proposalOwner, metadata: createDao.metadata}.toCell(),
             code: init.code,
             data: init.data
         });
@@ -34,7 +36,7 @@ contract Registry with Deployable {
     }
 
     fun getDaoStateInit(daoIndex: Int): StateInit {
-        return initOf Dao(daoIndex);
+        return initOf Dao(myAddress(), daoIndex);
     }
 
     get fun nextDaoId(): Int {

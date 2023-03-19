@@ -60,13 +60,13 @@ describe('contract-deployer', () => {
 
         await proposalDeployer.send(treasure, { value: toNano('10') }, 
             { 
-                $$type: 'ProposalInit', body: {
+                $$type: 'CreateProposal', body: {
                     $$type: 'Params',
-                    proposal_start_time: 0n,
-                    proposal_end_time: 2341659973n,
-                    proposal_snapshot_time: 1678885573n,
-                    proposal_type: 0n,
-                    voting_power_strategy: 0n
+                    proposalStartTime: 0n,
+                    proposalEndTime: 2341659973n,
+                    proposalSnapshotTime: 1678885573n,
+                    proposalType: 0n,
+                    votingPowerStrategy: 0n
                 }
             }
         );
@@ -91,13 +91,13 @@ describe('contract-deployer', () => {
 
         await proposalDeployer.send(treasure, { value: toNano('10') }, 
             { 
-                $$type: 'ProposalInit', body: {
+                $$type: 'CreateProposal', body: {
                     $$type: 'Params',
-                    proposal_start_time: 0n,
-                    proposal_end_time: 2341659973n,
-                    proposal_snapshot_time: 1678885573n,
-                    proposal_type: 0n,
-                    voting_power_strategy: 0n
+                    proposalStartTime: 0n,
+                    proposalEndTime: 2341659973n,
+                    proposalSnapshotTime: 1678885573n,
+                    proposalType: 0n,
+                    votingPowerStrategy: 0n
                 }
             }
         );        
@@ -128,13 +128,13 @@ describe('contract-deployer', () => {
 
         await proposalDeployer.send(notOwner, { value: toNano('10') }, 
             { 
-                $$type: 'ProposalInit', body: {
+                $$type: 'CreateProposal', body: {
                     $$type: 'Params',
-                    proposal_start_time: 0n,
-                    proposal_end_time: 2341659973n,
-                    proposal_snapshot_time: 1678885573n,
-                    proposal_type: 0n,
-                    voting_power_strategy: 0n
+                    proposalStartTime: 0n,
+                    proposalEndTime: 2341659973n,
+                    proposalSnapshotTime: 1678885573n,
+                    proposalType: 0n,
+                    votingPowerStrategy: 0n
                 }
             }
         );        
@@ -157,13 +157,13 @@ describe('contract-deployer', () => {
         
         await proposalDeployer.send(treasure, { value: toNano('10') }, 
             { 
-                $$type: 'ProposalInit', body: {
+                $$type: 'CreateProposal', body: {
                     $$type: 'Params',
-                    proposal_start_time: 0n,
-                    proposal_end_time: 2341659973n,
-                    proposal_snapshot_time: 1678885573n,
-                    proposal_type: 0n,
-                    voting_power_strategy: 0n
+                    proposalStartTime: 0n,
+                    proposalEndTime: 2341659973n,
+                    proposalSnapshotTime: 1678885573n,
+                    proposalType: 0n,
+                    votingPowerStrategy: 0n
                 }
             }
         );
@@ -178,7 +178,7 @@ describe('contract-deployer', () => {
         let owner = await proposal.getOwner();        
         expect(owner.toString()).to.eq(proposalDeployer.address.toString());
         
-        let index = await proposal.getIndex();        
+        let index = await proposal.getId();        
         expect(Number(index)).to.eq(0);
         
     });  
@@ -195,13 +195,13 @@ describe('contract-deployer', () => {
         
         await proposalDeployer.send(treasure, { value: toNano('10') }, 
             { 
-                $$type: 'ProposalInit', body: {
+                $$type: 'CreateProposal', body: {
                     $$type: 'Params',
-                    proposal_start_time: 0n,
-                    proposal_end_time: 2341659973n,
-                    proposal_snapshot_time: 1678885573n,
-                    proposal_type: 0n,
-                    voting_power_strategy: 0n
+                    proposalStartTime: 0n,
+                    proposalEndTime: 2341659973n,
+                    proposalSnapshotTime: 1678885573n,
+                    proposalType: 0n,
+                    votingPowerStrategy: 0n
                 }
             }
         );
@@ -232,13 +232,13 @@ describe('contract-deployer', () => {
         
         await proposalDeployer.send(treasure, { value: toNano('10') }, 
             { 
-                $$type: 'ProposalInit', body: {
+                $$type: 'CreateProposal', body: {
                     $$type: 'Params',
-                    proposal_start_time: 0n,
-                    proposal_end_time: 0n,
-                    proposal_snapshot_time: 0n,
-                    proposal_type: 0n,
-                    voting_power_strategy: 0n
+                    proposalStartTime: 0n,
+                    proposalEndTime: 0n,
+                    proposalSnapshotTime: 0n,
+                    proposalType: 0n,
+                    votingPowerStrategy: 0n
                 }
             }
         );

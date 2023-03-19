@@ -32,6 +32,10 @@ builder __tact_store_bool(builder b, int v) inline {
     return b;
 }
 
+int __tact_address_eq(slice a, slice b) inline {
+    return equal_slice_bits(a, b);
+}
+
 (slice, ((int))) __gen_read_Deploy(slice sc_0) inline {
     throw_unless(129, sc_0~load_uint(32) == 2490013878);
     var v'queryId = sc_0~load_uint(64);
@@ -50,16 +54,16 @@ cell __gen_writecell_DeployOk((int) v) inline {
 }
 
 (slice, ((int, int, int, int, int))) __gen_read_Params(slice sc_0) inline {
-    var v'proposal_start_time = sc_0~load_uint(64);
-    var v'proposal_end_time = sc_0~load_uint(64);
-    var v'proposal_snapshot_time = sc_0~load_uint(64);
-    var v'proposal_type = sc_0~load_uint(8);
-    var v'voting_power_strategy = sc_0~load_uint(8);
-    return (sc_0, (v'proposal_start_time, v'proposal_end_time, v'proposal_snapshot_time, v'proposal_type, v'voting_power_strategy));
+    var v'proposalStartTime = sc_0~load_uint(64);
+    var v'proposalEndTime = sc_0~load_uint(64);
+    var v'proposalSnapshotTime = sc_0~load_uint(64);
+    var v'proposalType = sc_0~load_uint(8);
+    var v'votingPowerStrategy = sc_0~load_uint(8);
+    return (sc_0, (v'proposalStartTime, v'proposalEndTime, v'proposalSnapshotTime, v'proposalType, v'votingPowerStrategy));
 }
 
 (slice, (((int, int, int, int, int)))) __gen_read_ProposalInit(slice sc_0) inline {
-    throw_unless(129, sc_0~load_uint(32) == 4276568927);
+    throw_unless(129, sc_0~load_uint(32) == 2228075895);
     var v'body = sc_0~__gen_read_Params();
     return (sc_0, (v'body));
 }
@@ -71,44 +75,44 @@ cell __gen_writecell_DeployOk((int) v) inline {
 }
 
 builder __gen_write_Proposal(builder build_0, (slice, int, int, int, int, int, int) v) inline {
-    var (v'owner, v'index, v'proposal_start_time, v'proposal_end_time, v'proposal_snapshot_time, v'proposal_type, v'voting_power_strategy) = v;
+    var (v'owner, v'id, v'proposalStartTime, v'proposalEndTime, v'proposalSnapshotTime, v'proposalType, v'votingPowerStrategy) = v;
     build_0 = __tact_store_address(build_0, v'owner);
-    build_0 = build_0.store_uint(v'index, 32);
-    build_0 = build_0.store_uint(v'proposal_start_time, 64);
-    build_0 = build_0.store_uint(v'proposal_end_time, 64);
-    build_0 = build_0.store_uint(v'proposal_snapshot_time, 64);
-    build_0 = build_0.store_uint(v'proposal_type, 8);
-    build_0 = build_0.store_uint(v'voting_power_strategy, 8);
+    build_0 = build_0.store_uint(v'id, 32);
+    build_0 = build_0.store_uint(v'proposalStartTime, 64);
+    build_0 = build_0.store_uint(v'proposalEndTime, 64);
+    build_0 = build_0.store_uint(v'proposalSnapshotTime, 64);
+    build_0 = build_0.store_uint(v'proposalType, 8);
+    build_0 = build_0.store_uint(v'votingPowerStrategy, 8);
     return build_0;
 }
 
 (slice, ((slice, int, int, int, int, int, int))) __gen_read_Proposal(slice sc_0) inline {
     var v'owner = sc_0~__tact_load_address();
-    var v'index = sc_0~load_uint(32);
-    var v'proposal_start_time = sc_0~load_uint(64);
-    var v'proposal_end_time = sc_0~load_uint(64);
-    var v'proposal_snapshot_time = sc_0~load_uint(64);
-    var v'proposal_type = sc_0~load_uint(8);
-    var v'voting_power_strategy = sc_0~load_uint(8);
-    return (sc_0, (v'owner, v'index, v'proposal_start_time, v'proposal_end_time, v'proposal_snapshot_time, v'proposal_type, v'voting_power_strategy));
+    var v'id = sc_0~load_uint(32);
+    var v'proposalStartTime = sc_0~load_uint(64);
+    var v'proposalEndTime = sc_0~load_uint(64);
+    var v'proposalSnapshotTime = sc_0~load_uint(64);
+    var v'proposalType = sc_0~load_uint(8);
+    var v'votingPowerStrategy = sc_0~load_uint(8);
+    return (sc_0, (v'owner, v'id, v'proposalStartTime, v'proposalEndTime, v'proposalSnapshotTime, v'proposalType, v'votingPowerStrategy));
 }
 
 (slice, ((slice, int))) __gen_read_$init$Proposal(slice sc_0) inline {
     var v'owner = sc_0~__tact_load_address();
-    var v'index = sc_0~load_int(257);
-    return (sc_0, (v'owner, v'index));
+    var v'id = sc_0~load_int(257);
+    return (sc_0, (v'owner, v'id));
 }
 
-(slice, int, int, int, int, int, int) $__gen_Proposal_init(slice $owner, int $index) impure inline_ref {
-    var (($self'owner, $self'index, $self'proposal_start_time, $self'proposal_end_time, $self'proposal_snapshot_time, $self'proposal_type, $self'voting_power_strategy)) = (null(), null(), null(), null(), null(), null(), null());
+(slice, int, int, int, int, int, int) $__gen_Proposal_init(slice $owner, int $id) impure inline_ref {
+    var (($self'owner, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'proposalType, $self'votingPowerStrategy)) = (null(), null(), null(), null(), null(), null(), null());
     $self'owner = $owner;
-    $self'index = $index;
-    $self'proposal_start_time = 0;
-    $self'proposal_end_time = 0;
-    $self'proposal_snapshot_time = 0;
-    $self'proposal_type = 0;
-    $self'voting_power_strategy = 0;
-    return ($self'owner, $self'index, $self'proposal_start_time, $self'proposal_end_time, $self'proposal_snapshot_time, $self'proposal_type, $self'voting_power_strategy);
+    $self'id = $id;
+    $self'proposalStartTime = 0;
+    $self'proposalEndTime = 0;
+    $self'proposalSnapshotTime = 0;
+    $self'proposalType = 0;
+    $self'votingPowerStrategy = 0;
+    return ($self'owner, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'proposalType, $self'votingPowerStrategy);
 }
 
 (slice, int, int, int, int, int, int) __gen_load_Proposal() impure inline {
@@ -120,9 +124,9 @@ builder __gen_write_Proposal(builder build_0, (slice, int, int, int, int, int, i
     } else {
         ;; Allow only workchain deployments
         throw_unless(137, my_address().preload_uint(11) == 1024);
-        (slice owner, int index) = $sc~__gen_read_$init$Proposal();
+        (slice owner, int id) = $sc~__gen_read_$init$Proposal();
         $sc.end_parse();
-        return $__gen_Proposal_init(owner, index);
+        return $__gen_Proposal_init(owner, id);
     }
 }
 
@@ -190,7 +194,7 @@ builder __gen_write_Proposal(builder build_0, (slice, int, int, int, int, int, i
 }
 
 slice $__gen_Proposal_owner((slice, int, int, int, int, int, int) $self) impure inline_ref {
-    var (($self'owner, $self'index, $self'proposal_start_time, $self'proposal_end_time, $self'proposal_snapshot_time, $self'proposal_type, $self'voting_power_strategy)) = $self;
+    var (($self'owner, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'proposalType, $self'votingPowerStrategy)) = $self;
     return $self'owner;
 }
 
@@ -200,42 +204,98 @@ _ $__gen_get_owner() method_id(83229) {
     return res;
 }
 
-int $__gen_Proposal_index((slice, int, int, int, int, int, int) $self) impure inline_ref {
-    var (($self'owner, $self'index, $self'proposal_start_time, $self'proposal_end_time, $self'proposal_snapshot_time, $self'proposal_type, $self'voting_power_strategy)) = $self;
-    return $self'index;
+int $__gen_Proposal_id((slice, int, int, int, int, int, int) $self) impure inline_ref {
+    var (($self'owner, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'proposalType, $self'votingPowerStrategy)) = $self;
+    return $self'id;
 }
 
-_ $__gen_get_index() method_id(67267) {
+_ $__gen_get_id() method_id(105872) {
     var self = __gen_load_Proposal();
-    var res = $__gen_Proposal_index(self);
+    var res = $__gen_Proposal_id(self);
+    return res;
+}
+
+int $__gen_Proposal_proposalStartTime((slice, int, int, int, int, int, int) $self) impure inline_ref {
+    var (($self'owner, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'proposalType, $self'votingPowerStrategy)) = $self;
+    return $self'proposalStartTime;
+}
+
+_ $__gen_get_proposalStartTime() method_id(127546) {
+    var self = __gen_load_Proposal();
+    var res = $__gen_Proposal_proposalStartTime(self);
+    return res;
+}
+
+int $__gen_Proposal_proposalEndTime((slice, int, int, int, int, int, int) $self) impure inline_ref {
+    var (($self'owner, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'proposalType, $self'votingPowerStrategy)) = $self;
+    return $self'proposalEndTime;
+}
+
+_ $__gen_get_proposalEndTime() method_id(121148) {
+    var self = __gen_load_Proposal();
+    var res = $__gen_Proposal_proposalEndTime(self);
+    return res;
+}
+
+int $__gen_Proposal_proposalSnapshotTime((slice, int, int, int, int, int, int) $self) impure inline_ref {
+    var (($self'owner, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'proposalType, $self'votingPowerStrategy)) = $self;
+    return $self'proposalSnapshotTime;
+}
+
+_ $__gen_get_proposalSnapshotTime() method_id(67040) {
+    var self = __gen_load_Proposal();
+    var res = $__gen_Proposal_proposalSnapshotTime(self);
+    return res;
+}
+
+int $__gen_Proposal_proposalType((slice, int, int, int, int, int, int) $self) impure inline_ref {
+    var (($self'owner, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'proposalType, $self'votingPowerStrategy)) = $self;
+    return $self'proposalType;
+}
+
+_ $__gen_get_proposalType() method_id(91187) {
+    var self = __gen_load_Proposal();
+    var res = $__gen_Proposal_proposalType(self);
+    return res;
+}
+
+int $__gen_Proposal_votingPowerStrategy((slice, int, int, int, int, int, int) $self) impure inline_ref {
+    var (($self'owner, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'proposalType, $self'votingPowerStrategy)) = $self;
+    return $self'votingPowerStrategy;
+}
+
+_ $__gen_get_votingPowerStrategy() method_id(111702) {
+    var self = __gen_load_Proposal();
+    var res = $__gen_Proposal_votingPowerStrategy(self);
     return res;
 }
 
 (((slice, int, int, int, int, int, int)), ()) $__gen_Proposal_receive_ProposalInit((slice, int, int, int, int, int, int) $self, ((int, int, int, int, int)) $msg) impure inline {
-    var ($self'owner, $self'index, $self'proposal_start_time, $self'proposal_end_time, $self'proposal_snapshot_time, $self'proposal_type, $self'voting_power_strategy) = $self;
-    var (($msg'body'proposal_start_time, $msg'body'proposal_end_time, $msg'body'proposal_snapshot_time, $msg'body'proposal_type, $msg'body'voting_power_strategy)) = $msg;
-    throw_unless(2977, ((($self'proposal_start_time == 0) & ($self'proposal_end_time == 0)) & ($self'proposal_snapshot_time == 0)));
-    $self'proposal_start_time = $msg'body'proposal_start_time;
-    $self'proposal_end_time = $msg'body'proposal_end_time;
-    $self'proposal_snapshot_time = $msg'body'proposal_snapshot_time;
-    $self'proposal_type = $msg'body'proposal_type;
-    $self'voting_power_strategy = $msg'body'voting_power_strategy;
-    return (($self'owner, $self'index, $self'proposal_start_time, $self'proposal_end_time, $self'proposal_snapshot_time, $self'proposal_type, $self'voting_power_strategy), ());
+    var ($self'owner, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'proposalType, $self'votingPowerStrategy) = $self;
+    var (($msg'body'proposalStartTime, $msg'body'proposalEndTime, $msg'body'proposalSnapshotTime, $msg'body'proposalType, $msg'body'votingPowerStrategy)) = $msg;
+    throw_unless(2977, ((($self'proposalStartTime == 0) & ($self'proposalEndTime == 0)) & ($self'proposalSnapshotTime == 0)));
+    throw_unless(4429, __tact_address_eq(__tact_context_get_sender(), $self'owner));
+    $self'proposalStartTime = $msg'body'proposalStartTime;
+    $self'proposalEndTime = $msg'body'proposalEndTime;
+    $self'proposalSnapshotTime = $msg'body'proposalSnapshotTime;
+    $self'proposalType = $msg'body'proposalType;
+    $self'votingPowerStrategy = $msg'body'votingPowerStrategy;
+    return (($self'owner, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'proposalType, $self'votingPowerStrategy), ());
 }
 
 (((slice, int, int, int, int, int, int)), ()) $__gen_Proposal_receive_Comment((slice, int, int, int, int, int, int) $self, (slice) $msg) impure inline {
-    var ($self'owner, $self'index, $self'proposal_start_time, $self'proposal_end_time, $self'proposal_snapshot_time, $self'proposal_type, $self'voting_power_strategy) = $self;
+    var ($self'owner, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'proposalType, $self'votingPowerStrategy) = $self;
     var ($msg'body) = $msg;
-    throw_unless(56772, (now() > $self'proposal_start_time));
-    throw_unless(25952, (now() < $self'proposal_end_time));
-    return (($self'owner, $self'index, $self'proposal_start_time, $self'proposal_end_time, $self'proposal_snapshot_time, $self'proposal_type, $self'voting_power_strategy), ());
+    throw_unless(56772, (now() > $self'proposalStartTime));
+    throw_unless(25952, (now() < $self'proposalEndTime));
+    return (($self'owner, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'proposalType, $self'votingPowerStrategy), ());
 }
 
 (((slice, int, int, int, int, int, int)), ()) $__gen_Proposal_receive_Deploy((slice, int, int, int, int, int, int) $self, (int) $deploy) impure inline {
-    var ($self'owner, $self'index, $self'proposal_start_time, $self'proposal_end_time, $self'proposal_snapshot_time, $self'proposal_type, $self'voting_power_strategy) = $self;
+    var ($self'owner, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'proposalType, $self'votingPowerStrategy) = $self;
     var ($deploy'queryId) = $deploy;
     $reply(__gen_writecell_DeployOk(__gen_constructor_DeployOk$queryId($deploy'queryId)));
-    return (($self'owner, $self'index, $self'proposal_start_time, $self'proposal_end_time, $self'proposal_snapshot_time, $self'proposal_type, $self'voting_power_strategy), ());
+    return (($self'owner, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'proposalType, $self'votingPowerStrategy), ());
 }
 
 ((slice, int, int, int, int, int, int), int) __gen_router_Proposal((slice, int, int, int, int, int, int) self, int msg_bounced, slice in_msg) impure inline_ref {
@@ -252,7 +312,7 @@ _ $__gen_get_index() method_id(67267) {
     }
     
     ;; Receive ProposalInit message
-    if (op == 4276568927) {
+    if (op == 2228075895) {
         var msg = in_msg~__gen_read_ProposalInit();
         self~$__gen_Proposal_receive_ProposalInit(msg);
         return (self, true);
@@ -309,7 +369,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() {
-    return "ipfs://QmfVJB1jxSvWxevBEDSsyiUy7FuHGbYPkg7cchKCURyj3z";
+    return "ipfs://QmQee1nmXXAiejPZEU7B3MTH7fTMH5oQiq66XDu8bjujMQ";
 }
 
 _ lazy_deployment_completed() {

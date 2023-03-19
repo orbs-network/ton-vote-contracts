@@ -46,6 +46,8 @@ global (int, slice, int, slice) __tact_context;
 global slice __tact_context_sender;
 global cell __tact_context_sys;
 
+(int, slice, int, slice) __tact_context_get() inline { return __tact_context; }
+
 slice __tact_context_get_sender() inline { return __tact_context_sender; }
 
 builder __tact_store_bool(builder b, int v) inline {
@@ -80,23 +82,25 @@ cell __gen_writecell_DeployOk((int) v) inline {
     return __gen_write_DeployOk(begin_cell(), v).end_cell();
 }
 
-builder __gen_write_DaoInit(builder build_0, (slice, slice) v) inline {
-    var (v'owner, v'metadata) = v;
-    build_0 = store_uint(build_0, 1650244310, 32);
+builder __gen_write_DaoInit(builder build_0, (slice, slice, slice) v) inline {
+    var (v'owner, v'proposalOwner, v'metadata) = v;
+    build_0 = store_uint(build_0, 444810285, 32);
     build_0 = __tact_store_address(build_0, v'owner);
+    build_0 = __tact_store_address(build_0, v'proposalOwner);
     build_0 = __tact_store_address(build_0, v'metadata);
     return build_0;
 }
 
-cell __gen_writecell_DaoInit((slice, slice) v) inline {
+cell __gen_writecell_DaoInit((slice, slice, slice) v) inline {
     return __gen_write_DaoInit(begin_cell(), v).end_cell();
 }
 
-(slice, ((slice, slice))) __gen_read_CreateDao(slice sc_0) inline {
-    throw_unless(129, sc_0~load_uint(32) == 2756304371);
+(slice, ((slice, slice, slice))) __gen_read_CreateDao(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 446717501);
     var v'owner = sc_0~__tact_load_address();
+    var v'proposalOwner = sc_0~__tact_load_address();
     var v'metadata = sc_0~__tact_load_address();
-    return (sc_0, (v'owner, v'metadata));
+    return (sc_0, (v'owner, v'proposalOwner, v'metadata));
 }
 
 builder __gen_write_Registry(builder build_0, (int) v) inline {
@@ -108,6 +112,11 @@ builder __gen_write_Registry(builder build_0, (int) v) inline {
 (slice, ((int))) __gen_read_Registry(slice sc_0) inline {
     var v'nextDaoId = sc_0~load_uint(32);
     return (sc_0, (v'nextDaoId));
+}
+
+_ __gen_Context_get_value((int, slice, int, slice) v) inline {
+    var (v'bounced, v'sender, v'value, v'raw) = v;
+    return v'value;
 }
 
 builder __gen_write_$init$Dao(builder build_0, (int) v) inline {
@@ -253,16 +262,17 @@ _ $__gen_get_daoAddress(int $$daoId) method_id(115144) {
     return (bounce, to, value, mode, body, code, data);
 }
 
-((slice, slice)) __gen_constructor_DaoInit$owner_metadata(slice owner, slice metadata) inline {
-    return (owner, metadata);
+((slice, slice, slice)) __gen_constructor_DaoInit$owner_proposalOwner_metadata(slice owner, slice proposalOwner, slice metadata) inline {
+    return (owner, proposalOwner, metadata);
 }
 
-(((int)), ()) $__gen_Registry_receive_CreateDao((int) $self, (slice, slice) $createDao) impure inline {
+(((int)), ()) $__gen_Registry_receive_CreateDao((int) $self, (slice, slice, slice) $createDao) impure inline {
     var ($self'nextDaoId) = $self;
-    var ($createDao'owner, $createDao'metadata) = $createDao;
+    var ($createDao'owner, $createDao'proposalOwner, $createDao'metadata) = $createDao;
+    throw_unless(63162, (__gen_Context_get_value(__tact_context_get()) >= 1000000000));
     var ($init'code, $init'data) = ($self'nextDaoId)~$__gen_Registry_getDaoStateInit($self'nextDaoId);
     slice $daoAddress = $contractAddress(($init'code, $init'data));
-    $send(__gen_constructor_SendParameters$to_value_bounce_mode_body_code_data($daoAddress, 0, false, 64, __gen_writecell_DaoInit(__gen_constructor_DaoInit$owner_metadata($createDao'owner, $createDao'metadata)), $init'code, $init'data));
+    $send(__gen_constructor_SendParameters$to_value_bounce_mode_body_code_data($daoAddress, 0, false, 64, __gen_writecell_DaoInit(__gen_constructor_DaoInit$owner_proposalOwner_metadata($createDao'owner, $createDao'proposalOwner, $createDao'metadata)), $init'code, $init'data));
     $self'nextDaoId = ($self'nextDaoId + 1);
     return (($self'nextDaoId), ());
 }
@@ -288,7 +298,7 @@ _ $__gen_get_daoAddress(int $$daoId) method_id(115144) {
     }
     
     ;; Receive CreateDao message
-    if (op == 2756304371) {
+    if (op == 446717501) {
         var msg = in_msg~__gen_read_CreateDao();
         self~$__gen_Registry_receive_CreateDao(msg);
         return (self, true);
@@ -338,7 +348,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() {
-    return "ipfs://QmXyh9ZE9XhdwS4VpzYzBg89mra3jat587nwxCnPJEoxo9";
+    return "ipfs://QmSGkDiYLt94yKrA4rTfXCLcHZuhNJXTtdUKgBDpjmN9SL";
 }
 
 _ lazy_deployment_completed() {

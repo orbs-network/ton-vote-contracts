@@ -1,9 +1,9 @@
 # TACT Compilation Report
 Contract: ProposalDeployer
-BOC Size: 1385 bytes
+BOC Size: 1308 bytes
 
 # Types
-Total Types: 11
+Total Types: 10
 
 ## StateInit
 TLB: `_ code:^cell data:^cell = StateInit`
@@ -30,24 +30,20 @@ TLB: `change_owner#0f474d03 newOwner:address = ChangeOwner`
 Signature: `ChangeOwner{newOwner:address}`
 
 ## Params
-TLB: `_ proposal_start_time:uint64 proposal_end_time:uint64 proposal_snapshot_time:uint64 proposal_type:uint8 voting_power_strategy:uint8 = Params`
-Signature: `Params{proposal_start_time:uint64,proposal_end_time:uint64,proposal_snapshot_time:uint64,proposal_type:uint8,voting_power_strategy:uint8}`
+TLB: `_ proposalStartTime:uint64 proposalEndTime:uint64 proposalSnapshotTime:uint64 proposalType:uint8 votingPowerStrategy:uint8 = Params`
+Signature: `Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,proposalType:uint8,votingPowerStrategy:uint8}`
 
 ## ProposalInit
-TLB: `proposal_init#fee7435f body:Params{proposal_start_time:uint64,proposal_end_time:uint64,proposal_snapshot_time:uint64,proposal_type:uint8,voting_power_strategy:uint8} = ProposalInit`
-Signature: `ProposalInit{body:Params{proposal_start_time:uint64,proposal_end_time:uint64,proposal_snapshot_time:uint64,proposal_type:uint8,voting_power_strategy:uint8}}`
+TLB: `proposal_init#84cdbd77 body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,proposalType:uint8,votingPowerStrategy:uint8} = ProposalInit`
+Signature: `ProposalInit{body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,proposalType:uint8,votingPowerStrategy:uint8}}`
 
 ## Comment
 TLB: `comment#3480231d body:^string = Comment`
 Signature: `Comment{body:^string}`
 
 ## CreateProposal
-TLB: `create_proposal#07652b27 body:Params{proposal_start_time:uint64,proposal_end_time:uint64,proposal_snapshot_time:uint64,proposal_type:uint8,voting_power_strategy:uint8} = CreateProposal`
-Signature: `CreateProposal{body:Params{proposal_start_time:uint64,proposal_end_time:uint64,proposal_snapshot_time:uint64,proposal_type:uint8,voting_power_strategy:uint8}}`
-
-## SetOwner
-TLB: `set_owner#c2b41d43 newOwner:address = SetOwner`
-Signature: `SetOwner{newOwner:address}`
+TLB: `create_proposal#130b83db body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,proposalType:uint8,votingPowerStrategy:uint8} = CreateProposal`
+Signature: `CreateProposal{body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,proposalType:uint8,votingPowerStrategy:uint8}}`
 
 # Get Methods
 Total Get Methods: 3
