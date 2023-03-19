@@ -8,6 +8,10 @@
     "prettier": "npx prettier --write '{test,contracts,build}/**/*.{ts,js,json}'",
     "e2e": "mocha --timeout 120000 --exit tests/e2e.ts",
     "deploy": "ts-node deploy/deploy.ts",
+    "clean": "rimraf ./dist/",
+    "prebuild": "npm run clean",
+    "build": "tsc --skipLibCheck -p ./tsconfig.json",    
+    "build-tact": "tact --config ./tact.config.json",
     "init-deploy-wallet": "ts-node deploy/init-deploy-wallet.ts"
   },
   "devDependencies": {
@@ -24,7 +28,7 @@
     "mocha": "^9.1.3",
     "prando": "^6.0.1",
     "prettier": "^2.6.2",
-    "ton": "^11.0.1",
+    "ton": "^13.4.1",
     "ton-contract-executor": "^0.5.2",
     "ton-crypto": "^3.1.0",
     "ts-node": "^10.4.0",
@@ -44,6 +48,7 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
+    "@tact-lang/compiler": "^1.0.0",
     "semver": "^7.3.7"
   }
 }

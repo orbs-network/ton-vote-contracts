@@ -5,7 +5,6 @@ import { Proxy } from "../contracts-ts/proxy";
 import { Address, CellMessage, CommonMessageInfo, InternalMessage, TonClient, TonClient4, WalletContract, 
         toNano, StateInit, beginCell, fromNano, Cell, parseTransaction} from "ton";
 
-import {waitForSeqno, compileFuncToB64} from "./helpers";
 import { expect } from "chai";
 import {Buffer} from "buffer";
 import { getHttpEndpoint } from "@orbs-network/ton-access";
@@ -149,7 +148,6 @@ describe("e2e test suite", () => {
     if (balance < DEPLOYER_MIN_TON) {
       throw `Deploy wallet balance is too small (${balance}), please send at least ${DEPLOYER_MIN_TON} coins to ${deployWallet.address.toFriendly()}`;
     }
-
   });
 
   it("Deploy Registry contract", async () => {

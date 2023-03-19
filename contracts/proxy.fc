@@ -1,17 +1,20 @@
 
 ;; ops
-const OP::NEW_CHILD = 0x1;
-const OP::CHANGE_OWNER = 0x2;
+const OP::INIT = 0x1;
+const OP::NEW_CHILD = 0x2;
+const OP::CHANGE_OWNER = 0x3;
 
 const ERROR::UNAUTHORIZED_SENDER = 0x2000;
+const ERROR::UNINITIALIZED = 0x2000;
 
 ;; modes
 const MODE::SEND_MODE_REMAINING_AMOUNT = 64;
 
 
-(slice, int, int, cell, slice, cell) load_data() inline {
+(int, slice, int, int, cell, slice, cell) load_data() inline {
   var ds = get_data().begin_parse();
   return (
+    ds~load_uint(1),    ;; init
     ds~load_msg_addr(), ;; owner
     ds~load_uint(64),   ;; proxy_id
     ds~load_uint(64),   ;; next_child_id
@@ -21,8 +24,9 @@ const MODE::SEND_MODE_REMAINING_AMOUNT = 64;
   );
 }
 
-() save_data(slice owner, int proxy_id, int next_child_id, cell child_code, slice parent_addr, cell content) impure inline {
+() save_data(int init, slice owner, int proxy_id, int next_child_id, cell child_code, slice parent_addr, cell content) impure inline {
   set_data(begin_cell()
+    .store_uint(init)
     .store_slice(owner)
     .store_uint(proxy_id, 64)
     .store_uint(next_child_id, 64)
@@ -70,12 +74,21 @@ slice calculate_child_address(int wc, cell state_init) {
         return ();
     }
     
-    var (owner, proxy_id, next_child_id, child_code, parent_addr, content) = load_data();
+    var (init, owner, proxy_id, next_child_id, child_code, parent_addr, content) = load_data();
 
     slice sender = cs~load_msg_addr();
     throw_unless(ERROR::UNAUTHORIZED_SENDER, equal_slice_bits(sender, owner));
 
     int op = in_msg_body~load_uint(32);    
+
+    if (~init & (op == OP::INIT)) { ;; 
+      cell child_code = in_msg_body~load_ref();
+      cell content = in_msg_body~load_ref();
+      save_data(-1, owner, proxy_id, next_child_id, child_code, parent_addr, content);
+      return ();
+    }
+
+    throw_unless(ERROR::UNINITIALIZED, init);
 
     if (op == OP::NEW_CHILD) { ;; create new child
       deploy_child(owner, next_child_id, child_code);
@@ -107,7 +120,7 @@ int get_next_child_id() method_id {
   return next_child_id;
 }
 
-cell get_child_code() method_id {
+slice get_child_code() method_id {
   var (_, _, _, child_code, _, _) = load_data();
   return child_code;
 }

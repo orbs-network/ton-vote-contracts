@@ -1,17 +1,19 @@
 import {
   Address,
-  WalletContract,
+  Cell,
+  OpenedContract
 } from "ton";
 import { mnemonicNew, mnemonicToWalletKey } from "ton-crypto";
-import { TonClient, WalletV3R2Source, fromNano } from "ton";
+import { TonClient, WalletContractV3R2, fromNano } from "ton";
 import fs from "fs";
 import {execSync} from "child_process";
+import BN from "bn.js";
 
 
 export async function waitForContractToBeDeployed(client: TonClient, deployedContract: Address) {
   const seqnoStepInterval = 2500;
   let retval = false;
-  console.log(`⏳ waiting for contract to be deployed at [${deployedContract.toFriendly()}]`);
+  console.log(`⏳ waiting for contract to be deployed at [${deployedContract.toString()}]`);
   for (var attempt = 0; attempt < 10; attempt++) {
     await sleep(seqnoStepInterval);
     if (await client.isContractDeployed(deployedContract)) {
@@ -23,16 +25,16 @@ export async function waitForContractToBeDeployed(client: TonClient, deployedCon
   return retval;
 }
 
-export async function waitForSeqno(walletContract: WalletContract, seqno: number) {
-  const seqnoStepInterval = 3000;
-  console.log(`⏳ waiting for seqno to update (${seqno})`);
-  for (var attempt = 0; attempt < 10; attempt++) {
-    await sleep(seqnoStepInterval);
-    const seqnoAfter = await walletContract.getSeqNo();
-    if (seqnoAfter > seqno) break;
-  }
-  console.log(`⌛️ seqno update after ${((attempt + 1) * seqnoStepInterval) / 1000}s`);
-}
+// export async function waitForSeqno(walletContract: OpenedContract, seqno: number) {
+//   const seqnoStepInterval = 3000;
+//   console.log(`⏳ waiting for seqno to update (${seqno})`);
+//   for (var attempt = 0; attempt < 10; attempt++) {
+//     await sleep(seqnoStepInterval);
+//     const seqnoAfter = await walletContract.getSeqno();
+//     if (seqnoAfter > seqno) break;
+//   }
+//   console.log(`⌛️ seqno update after ${((attempt + 1) * seqnoStepInterval) / 1000}s`);
+// }
 
 export function sleep(time: number) {
   return new Promise((resolve) => {
@@ -42,16 +44,21 @@ export function sleep(time: number) {
   });
 }
 
-export async function initWallet(client: TonClient, publicKey: Buffer, workchain = 0) {
-  const wallet = WalletContract.create(client, WalletV3R2Source.create({ publicKey: publicKey, workchain }));
-  
-  const walletBalance = await client.getBalance(wallet.address);
+export async function initWallet(client: TonClient, publicKey: Buffer, workchain = 0): Promise<OpenedContract<WalletContractV3R2>> {
+  const wallet = client.open(WalletContractV3R2.create({ publicKey: publicKey, workchain }));
+
+  if (!await client.isContractDeployed(wallet.address)) {
+    throw ("wallet is not deployed");
+  }
+
+  const walletBalance = await wallet.getBalance();
     
   if (parseFloat(fromNano(walletBalance)) < 0.5) {
-    throw `Insufficient Deployer [${wallet.address.toFriendly()}] funds ${fromNano(walletBalance)}`;
+    throw `Insufficient Deployer [${wallet.address.toString()}] funds ${fromNano(walletBalance)}`;
   }
+
   console.log(
-    `Init wallet ${wallet.address.toFriendly()} | balance: ${fromNano(await client.getBalance(wallet.address))} | seqno: ${await wallet.getSeqNo()}`
+    `Init wallet ${wallet.address.toString()} | balance: ${fromNano(await wallet.getBalance())} | seqno: ${await wallet.getSeqno()}`
   );
 
   return wallet;
@@ -106,38 +113,17 @@ to set custom path to your func compiler please set  the env variable "export FU
     return stdOut.trim();
 }
 
-export async function getTransactions(
-  client,
-  toLt
-) {
-  let maxLt = new BigNumber(toLt ?? -1);
-  let startPage = { fromLt: "0", hash: "" };
-
-  let allTxns = [];
-  let paging = startPage;
-
-  while (true) {
-    console.log("Querying...");
-    const txns = await client.getTransactions(CONTRACT_ADDRESS, {
-      lt: paging.fromLt,
-      to_lt: toLt,
-      hash: paging.hash,
-      limit: 500,
-    });  
-
-    Logger(`Got ${txns.length}, lt ${paging.fromLt}`);
-
-    if (txns.length === 0) break;
-
-    allTxns = [...allTxns, ...txns];
-
-    paging.fromLt = txns[txns.length - 1].id.lt;
-    paging.hash = txns[txns.length - 1].id.hash;
-    txns.forEach((t) => {
-      t.inMessage.source = t.inMessage.source.toFriendly();
-      maxLt = BigNumber.max(new BigNumber(t.id.lt), maxLt);
-    });
-  }
-
-  return { allTxns, maxLt: maxLt.toString() };
+export function prepareParams(params: any[] = []) {
+  return params.map((p) => {
+    if (p instanceof Cell) {
+      return ["tvm.Slice", p.toBoc({ idx: false }).toString("base64")];
+    } else if (p instanceof BN) {
+      return ["num", p.toString(10)];
+    } else if (typeof p === "number") {
+      return ["num", p];
+    }
+    console.log(typeof p);
+    
+    throw new Error("unknown type!");
+  });
 }

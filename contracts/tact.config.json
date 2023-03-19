@@ -1,0 +1,36 @@
+{
+    "projects": [
+        {
+            "name": "ton-vote",
+            "path": "./proposal-deployer.tact",
+            "output": "./output",
+            "options": {
+                "debug": true
+            }
+        },
+        {
+            "name": "ton-vote",
+            "path": "./proposal.tact",
+            "output": "./output",
+            "options": {
+                "debug": true
+            }
+        },
+        {
+            "name": "ton-vote",
+            "path": "./dao.tact",
+            "output": "./output",
+            "options": {
+                "debug": true
+            }
+        },
+        {
+            "name": "ton-vote",
+            "path": "./registry.tact",
+            "output": "./output",
+            "options": {
+                "debug": true
+            }
+        }
+    ]
+}

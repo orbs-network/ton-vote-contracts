@@ -1,0 +1,350 @@
+#pragma version =0.4.2;
+#pragma allow-post-modification;
+#pragma compute-asm-ltr;
+
+slice __tact_verify_address(slice address) inline {
+    throw_unless(136, address.slice_bits() == 267);
+    var h = address.preload_uint(11);
+    throw_unless(136, (h == 1024) | (h == 1279));
+    throw_unless(137, h == 1024);
+    return address;
+}
+
+(slice, slice) __tact_load_address(slice cs) inline {
+    slice raw = cs~load_msg_addr();
+    return (cs, __tact_verify_address(raw));
+}
+
+builder __tact_store_address(builder b, slice address) inline {
+    return b.store_slice(__tact_verify_address(address));
+}
+
+forall X -> X __tact_not_null(X x) inline { throw_if(128, null?(x)); return x; }
+
+global (int, slice, int, slice) __tact_context;
+global slice __tact_context_sender;
+global cell __tact_context_sys;
+
+slice __tact_context_get_sender() inline { return __tact_context_sender; }
+
+builder __tact_store_bool(builder b, int v) inline {
+    b = b.store_int(v, 1);
+    return b;
+}
+
+int __tact_address_eq(slice a, slice b) inline {
+    return equal_slice_bits(a, b);
+}
+
+(slice, ((int, slice, int, int, cell, cell, cell))) __gen_read_SendParameters(slice sc_0) inline_ref {
+    var v'bounce = sc_0~load_int(1);
+    var v'to = sc_0~__tact_load_address();
+    var v'value = sc_0~load_int(257);
+    var v'mode = sc_0~load_int(257);
+    var v'body = sc_0~load_int(1) ? sc_0~load_ref() : null();
+    var v'code = sc_0~load_int(1) ? sc_0~load_ref() : null();
+    var v'data = sc_0~load_int(1) ? sc_0~load_ref() : null();
+    return (sc_0, (v'bounce, v'to, v'value, v'mode, v'body, v'code, v'data));
+}
+
+(slice, ((int))) __gen_read_Deploy(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 2490013878);
+    var v'queryId = sc_0~load_uint(64);
+    return (sc_0, (v'queryId));
+}
+
+builder __gen_write_DeployOk(builder build_0, (int) v) inline {
+    var (v'queryId) = v;
+    build_0 = store_uint(build_0, 2952335191, 32);
+    build_0 = build_0.store_uint(v'queryId, 64);
+    return build_0;
+}
+
+cell __gen_writecell_DeployOk((int) v) inline {
+    return __gen_write_DeployOk(begin_cell(), v).end_cell();
+}
+
+(slice, ((slice))) __gen_read_SetOwner(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 3266583875);
+    var v'newOwner = sc_0~__tact_load_address();
+    return (sc_0, (v'newOwner));
+}
+
+(slice, ((slice))) __gen_read_SetMetadata(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 3660550271);
+    var v'newMetadata = sc_0~__tact_load_address();
+    return (sc_0, (v'newMetadata));
+}
+
+(slice, (((int, slice, int, int, cell, cell, cell)))) __gen_read_CreateNewProposalDeployer(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 463537042);
+    var v'newProposalDeployer = sc_0~__gen_read_SendParameters();
+    return (sc_0, (v'newProposalDeployer));
+}
+
+(slice, ((slice, slice))) __gen_read_DaoInit(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 1650244310);
+    var v'owner = sc_0~__tact_load_address();
+    var v'metadata = sc_0~__tact_load_address();
+    return (sc_0, (v'owner, v'metadata));
+}
+
+builder __gen_write_Dao(builder build_0, (slice, int, slice) v) inline {
+    var (v'owner, v'daoIndex, v'metadata) = v;
+    build_0 = __tact_store_address(build_0, v'owner);
+    build_0 = build_0.store_uint(v'daoIndex, 32);
+    build_0 = __tact_store_address(build_0, v'metadata);
+    return build_0;
+}
+
+(slice, ((slice, int, slice))) __gen_read_Dao(slice sc_0) inline {
+    var v'owner = sc_0~__tact_load_address();
+    var v'daoIndex = sc_0~load_uint(32);
+    var v'metadata = sc_0~__tact_load_address();
+    return (sc_0, (v'owner, v'daoIndex, v'metadata));
+}
+
+(slice, ((int))) __gen_read_$init$Dao(slice sc_0) inline {
+    var v'daoIndex = sc_0~load_int(257);
+    return (sc_0, (v'daoIndex));
+}
+
+(slice, int, slice) $__gen_Dao_init(int $daoIndex) impure inline_ref {
+    var (($self'owner, $self'daoIndex, $self'metadata)) = (null(), null(), null());
+    $self'daoIndex = $daoIndex;
+    $self'owner = my_address();
+    $self'metadata = my_address();
+    return ($self'owner, $self'daoIndex, $self'metadata);
+}
+
+(slice, int, slice) __gen_load_Dao() impure inline {
+    slice $sc = get_data().begin_parse();
+    __tact_context_sys = $sc~load_ref();
+    int $loaded = $sc~load_int(1);
+    if ($loaded) {
+        return $sc~__gen_read_Dao();
+    } else {
+        ;; Allow only workchain deployments
+        throw_unless(137, my_address().preload_uint(11) == 1024);
+        (int daoIndex) = $sc~__gen_read_$init$Dao();
+        $sc.end_parse();
+        return $__gen_Dao_init(daoIndex);
+    }
+}
+
+() __gen_store_Dao((slice, int, slice) v) impure inline {
+    builder b = begin_cell();
+    b = b.store_ref(__tact_context_sys);
+    b = b.store_int(true, 1);
+    b = __gen_write_Dao(b, v);
+    set_data(b.end_cell());
+}
+
+() $send((int, slice, int, int, cell, cell, cell) $params) impure inline_ref {
+    var (($params'bounce, $params'to, $params'value, $params'mode, $params'body, $params'code, $params'data)) = $params;
+    builder $b = begin_cell();
+    $b = store_int($b, 1, 2);
+    $b = __tact_store_bool($b, $params'bounce);
+    $b = store_int($b, 0, 3);
+    $b = __tact_store_address($b, $params'to);
+    $b = store_coins($b, $params'value);
+    $b = store_int($b, 0, ((((1 + 4) + 4) + 64) + 32));
+    if (((~ null?($params'code)) | (~ null?($params'data)))) {
+        $b = __tact_store_bool($b, true);
+        builder $bc = begin_cell();
+        $bc = __tact_store_bool($bc, false);
+        $bc = __tact_store_bool($bc, false);
+        if ((~ null?($params'code))) {
+            $bc = __tact_store_bool($bc, true);
+            $bc = store_ref($bc, __tact_not_null($params'code));
+        } else {
+            $bc = __tact_store_bool($bc, false);
+        }
+        if ((~ null?($params'data))) {
+            $bc = __tact_store_bool($bc, true);
+            $bc = store_ref($bc, __tact_not_null($params'data));
+        } else {
+            $bc = __tact_store_bool($bc, false);
+        }
+        $bc = __tact_store_bool($bc, false);
+        $b = __tact_store_bool($b, true);
+        $b = store_ref($b, end_cell($bc));
+    } else {
+        $b = __tact_store_bool($b, false);
+    }
+    cell $body = $params'body;
+    if ((~ null?($body))) {
+        $b = __tact_store_bool($b, true);
+        $b = store_ref($b, __tact_not_null($body));
+    } else {
+        $b = __tact_store_bool($b, false);
+    }
+    cell $c = end_cell($b);
+    send_raw_message($c, $params'mode);
+}
+
+((int, slice, int, int, cell, cell, cell)) __gen_constructor_SendParameters$bounce_to_value_mode_body(int bounce, slice to, int value, int mode, cell body) inline {
+    return (bounce, to, value, mode, body, null(), null());
+}
+
+() $reply(cell $body) impure inline_ref {
+    $send(__gen_constructor_SendParameters$bounce_to_value_mode_body(true, __tact_context_get_sender(), 0, (64 + 2), $body));
+}
+
+slice $__gen_Dao_owner((slice, int, slice) $self) impure inline_ref {
+    var (($self'owner, $self'daoIndex, $self'metadata)) = $self;
+    return $self'owner;
+}
+
+_ $__gen_get_owner() method_id(83229) {
+    var self = __gen_load_Dao();
+    var res = $__gen_Dao_owner(self);
+    return res;
+}
+
+int $__gen_Dao_daoIndex((slice, int, slice) $self) impure inline_ref {
+    var (($self'owner, $self'daoIndex, $self'metadata)) = $self;
+    return $self'daoIndex;
+}
+
+_ $__gen_get_daoIndex() method_id(73154) {
+    var self = __gen_load_Dao();
+    var res = $__gen_Dao_daoIndex(self);
+    return res;
+}
+
+(((slice, int, slice)), ()) $__gen_Dao_receive_DaoInit((slice, int, slice) $self, (slice, slice) $init) impure inline {
+    var ($self'owner, $self'daoIndex, $self'metadata) = $self;
+    var ($init'owner, $init'metadata) = $init;
+    throw_unless(4429, __tact_address_eq($self'owner, my_address()));
+    $self'owner = $init'owner;
+    $self'metadata = $init'metadata;
+    return (($self'owner, $self'daoIndex, $self'metadata), ());
+}
+
+(((slice, int, slice)), ()) $__gen_Dao_receive_SetOwner((slice, int, slice) $self, (slice) $msg) impure inline {
+    var ($self'owner, $self'daoIndex, $self'metadata) = $self;
+    var ($msg'newOwner) = $msg;
+    throw_unless(4429, __tact_address_eq(__tact_context_get_sender(), $self'owner));
+    $self'owner = $msg'newOwner;
+    return (($self'owner, $self'daoIndex, $self'metadata), ());
+}
+
+(((slice, int, slice)), ()) $__gen_Dao_receive_SetMetadata((slice, int, slice) $self, (slice) $msg) impure inline {
+    var ($self'owner, $self'daoIndex, $self'metadata) = $self;
+    var ($msg'newMetadata) = $msg;
+    throw_unless(4429, __tact_address_eq(__tact_context_get_sender(), $self'owner));
+    $self'metadata = $msg'newMetadata;
+    return (($self'owner, $self'daoIndex, $self'metadata), ());
+}
+
+(((slice, int, slice)), ()) $__gen_Dao_receive_CreateNewProposalDeployer((slice, int, slice) $self, ((int, slice, int, int, cell, cell, cell)) $msg) impure inline {
+    var ($self'owner, $self'daoIndex, $self'metadata) = $self;
+    var (($msg'newProposalDeployer'bounce, $msg'newProposalDeployer'to, $msg'newProposalDeployer'value, $msg'newProposalDeployer'mode, $msg'newProposalDeployer'body, $msg'newProposalDeployer'code, $msg'newProposalDeployer'data)) = $msg;
+    throw_unless(4429, __tact_address_eq(__tact_context_get_sender(), $self'owner));
+    $send(($msg'newProposalDeployer'bounce, $msg'newProposalDeployer'to, $msg'newProposalDeployer'value, $msg'newProposalDeployer'mode, $msg'newProposalDeployer'body, $msg'newProposalDeployer'code, $msg'newProposalDeployer'data));
+    return (($self'owner, $self'daoIndex, $self'metadata), ());
+}
+
+((int)) __gen_constructor_DeployOk$queryId(int queryId) inline {
+    return (queryId);
+}
+
+(((slice, int, slice)), ()) $__gen_Dao_receive_Deploy((slice, int, slice) $self, (int) $deploy) impure inline {
+    var ($self'owner, $self'daoIndex, $self'metadata) = $self;
+    var ($deploy'queryId) = $deploy;
+    $reply(__gen_writecell_DeployOk(__gen_constructor_DeployOk$queryId($deploy'queryId)));
+    return (($self'owner, $self'daoIndex, $self'metadata), ());
+}
+
+((slice, int, slice), int) __gen_router_Dao((slice, int, slice) self, int msg_bounced, slice in_msg) impure inline_ref {
+    
+    ;; Parse incoming message
+    int op = 0;
+    if (slice_bits(in_msg) >= 32) {
+        op = in_msg.preload_uint(32);
+    }
+    
+    ;; Handle bounced messages
+    if (msg_bounced) {
+        return (self, true);
+    }
+    
+    ;; Receive DaoInit message
+    if (op == 1650244310) {
+        var msg = in_msg~__gen_read_DaoInit();
+        self~$__gen_Dao_receive_DaoInit(msg);
+        return (self, true);
+    }
+    
+    ;; Receive SetOwner message
+    if (op == 3266583875) {
+        var msg = in_msg~__gen_read_SetOwner();
+        self~$__gen_Dao_receive_SetOwner(msg);
+        return (self, true);
+    }
+    
+    ;; Receive SetMetadata message
+    if (op == 3660550271) {
+        var msg = in_msg~__gen_read_SetMetadata();
+        self~$__gen_Dao_receive_SetMetadata(msg);
+        return (self, true);
+    }
+    
+    ;; Receive CreateNewProposalDeployer message
+    if (op == 463537042) {
+        var msg = in_msg~__gen_read_CreateNewProposalDeployer();
+        self~$__gen_Dao_receive_CreateNewProposalDeployer(msg);
+        return (self, true);
+    }
+    
+    ;; Receive Deploy message
+    if (op == 2490013878) {
+        var msg = in_msg~__gen_read_Deploy();
+        self~$__gen_Dao_receive_Deploy(msg);
+        return (self, true);
+    }
+    
+    return (self, false);
+}
+
+() recv_internal(int msg_value, cell in_msg_cell, slice in_msg) impure {
+    
+    ;; Context
+    var cs = in_msg_cell.begin_parse();
+    var msg_flags = cs~load_uint(4);
+    var msg_bounced = ((msg_flags & 1) == 1 ? true : false);
+    slice msg_sender_addr = __tact_verify_address(cs~load_msg_addr());
+    __tact_context = (msg_bounced, msg_sender_addr, msg_value, cs);
+    __tact_context_sender = msg_sender_addr;
+    
+    ;; Load contract data
+    var self = __gen_load_Dao();
+    
+    ;; Handle operation
+    int handled = self~__gen_router_Dao(msg_bounced, in_msg);
+    
+    ;; Throw if not handled
+    throw_unless(handled, 130);
+    
+    ;; Persist state
+    __gen_store_Dao(self);
+}
+
+_ supported_interfaces() method_id {
+    return (
+        "org.ton.introspection.v0"H >> 128,
+        "org.ton.abi.ipfs.v0"H >> 128,
+        "org.ton.deploy.lazy.v0"H >> 128,
+        "org.ton.debug.v0"H >> 128,
+        "org.ton.chain.workchain.v0"H >> 128
+    );
+}
+
+_ get_abi_ipfs() {
+    return "ipfs://QmYeGcnvc4XyYUbFVgjnZ49W1DaZFuiyEU9woZ54AttR32";
+}
+
+_ lazy_deployment_completed() {
+    return get_data().begin_parse().load_int(1);
+}

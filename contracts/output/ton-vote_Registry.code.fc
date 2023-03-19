@@ -1,0 +1,346 @@
+#pragma version =0.4.2;
+#pragma allow-post-modification;
+#pragma compute-asm-ltr;
+
+slice __tact_verify_address(slice address) inline {
+    throw_unless(136, address.slice_bits() == 267);
+    var h = address.preload_uint(11);
+    throw_unless(136, (h == 1024) | (h == 1279));
+    throw_unless(137, h == 1024);
+    return address;
+}
+
+(slice, slice) __tact_load_address(slice cs) inline {
+    slice raw = cs~load_msg_addr();
+    return (cs, __tact_verify_address(raw));
+}
+
+builder __tact_store_address(builder b, slice address) inline {
+    return b.store_slice(__tact_verify_address(address));
+}
+
+slice __tact_create_address(int chain, int hash) inline {
+    var b = begin_cell();
+    b = b.store_uint(2, 2);
+    b = b.store_uint(0, 1);
+    b = b.store_int(chain, 8);
+    b = b.store_uint(hash, 256);
+    var addr = b.end_cell().begin_parse();
+    return __tact_verify_address(addr);
+}
+
+slice __tact_compute_contract_address(int chain, cell code, cell data) inline {
+    var b = begin_cell();
+    b = b.store_uint(0, 2);
+    b = b.store_uint(3, 2);
+    b = b.store_uint(0, 1);
+    b = b.store_ref(code);
+    b = b.store_ref(data);
+    var hash = cell_hash(b.end_cell());
+    return __tact_create_address(chain, hash);
+}
+
+forall X -> X __tact_not_null(X x) inline { throw_if(128, null?(x)); return x; }
+
+global (int, slice, int, slice) __tact_context;
+global slice __tact_context_sender;
+global cell __tact_context_sys;
+
+slice __tact_context_get_sender() inline { return __tact_context_sender; }
+
+builder __tact_store_bool(builder b, int v) inline {
+    b = b.store_int(v, 1);
+    return b;
+}
+
+cell __tact_dict_set_code(cell dict, int id, cell code) inline {
+    return udict_set_ref(dict, 16, id, code);
+}
+
+cell __tact_dict_get_code(cell dict, int id) inline {
+    var (data, ok) = udict_get_ref?(dict, 16, id);
+    throw_unless(135, ok);
+    return data;
+}
+
+(slice, ((int))) __gen_read_Deploy(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 2490013878);
+    var v'queryId = sc_0~load_uint(64);
+    return (sc_0, (v'queryId));
+}
+
+builder __gen_write_DeployOk(builder build_0, (int) v) inline {
+    var (v'queryId) = v;
+    build_0 = store_uint(build_0, 2952335191, 32);
+    build_0 = build_0.store_uint(v'queryId, 64);
+    return build_0;
+}
+
+cell __gen_writecell_DeployOk((int) v) inline {
+    return __gen_write_DeployOk(begin_cell(), v).end_cell();
+}
+
+builder __gen_write_DaoInit(builder build_0, (slice, slice) v) inline {
+    var (v'owner, v'metadata) = v;
+    build_0 = store_uint(build_0, 1650244310, 32);
+    build_0 = __tact_store_address(build_0, v'owner);
+    build_0 = __tact_store_address(build_0, v'metadata);
+    return build_0;
+}
+
+cell __gen_writecell_DaoInit((slice, slice) v) inline {
+    return __gen_write_DaoInit(begin_cell(), v).end_cell();
+}
+
+(slice, ((slice, slice))) __gen_read_CreateDao(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 2756304371);
+    var v'owner = sc_0~__tact_load_address();
+    var v'metadata = sc_0~__tact_load_address();
+    return (sc_0, (v'owner, v'metadata));
+}
+
+builder __gen_write_Registry(builder build_0, (int) v) inline {
+    var (v'nextDaoId) = v;
+    build_0 = build_0.store_uint(v'nextDaoId, 32);
+    return build_0;
+}
+
+(slice, ((int))) __gen_read_Registry(slice sc_0) inline {
+    var v'nextDaoId = sc_0~load_uint(32);
+    return (sc_0, (v'nextDaoId));
+}
+
+builder __gen_write_$init$Dao(builder build_0, (int) v) inline {
+    var (v'daoIndex) = v;
+    build_0 = build_0.store_int(v'daoIndex, 257);
+    return build_0;
+}
+
+(int) $__gen_Registry_init() impure inline_ref {
+    var (($self'nextDaoId)) = (null());
+    $self'nextDaoId = 0;
+    return ($self'nextDaoId);
+}
+
+(int) __gen_load_Registry() impure inline {
+    slice $sc = get_data().begin_parse();
+    __tact_context_sys = $sc~load_ref();
+    int $loaded = $sc~load_int(1);
+    if ($loaded) {
+        return $sc~__gen_read_Registry();
+    } else {
+        ;; Allow only workchain deployments
+        throw_unless(137, my_address().preload_uint(11) == 1024);
+        return $__gen_Registry_init();
+    }
+}
+
+() __gen_store_Registry((int) v) impure inline {
+    builder b = begin_cell();
+    b = b.store_ref(__tact_context_sys);
+    b = b.store_int(true, 1);
+    b = __gen_write_Registry(b, v);
+    set_data(b.end_cell());
+}
+
+slice $contractAddress((cell, cell) $s) impure inline_ref {
+    var (($s'code, $s'data)) = $s;
+    return __tact_compute_contract_address(0, $s'code, $s'data);
+}
+
+() $send((int, slice, int, int, cell, cell, cell) $params) impure inline_ref {
+    var (($params'bounce, $params'to, $params'value, $params'mode, $params'body, $params'code, $params'data)) = $params;
+    builder $b = begin_cell();
+    $b = store_int($b, 1, 2);
+    $b = __tact_store_bool($b, $params'bounce);
+    $b = store_int($b, 0, 3);
+    $b = __tact_store_address($b, $params'to);
+    $b = store_coins($b, $params'value);
+    $b = store_int($b, 0, ((((1 + 4) + 4) + 64) + 32));
+    if (((~ null?($params'code)) | (~ null?($params'data)))) {
+        $b = __tact_store_bool($b, true);
+        builder $bc = begin_cell();
+        $bc = __tact_store_bool($bc, false);
+        $bc = __tact_store_bool($bc, false);
+        if ((~ null?($params'code))) {
+            $bc = __tact_store_bool($bc, true);
+            $bc = store_ref($bc, __tact_not_null($params'code));
+        } else {
+            $bc = __tact_store_bool($bc, false);
+        }
+        if ((~ null?($params'data))) {
+            $bc = __tact_store_bool($bc, true);
+            $bc = store_ref($bc, __tact_not_null($params'data));
+        } else {
+            $bc = __tact_store_bool($bc, false);
+        }
+        $bc = __tact_store_bool($bc, false);
+        $b = __tact_store_bool($b, true);
+        $b = store_ref($b, end_cell($bc));
+    } else {
+        $b = __tact_store_bool($b, false);
+    }
+    cell $body = $params'body;
+    if ((~ null?($body))) {
+        $b = __tact_store_bool($b, true);
+        $b = store_ref($b, __tact_not_null($body));
+    } else {
+        $b = __tact_store_bool($b, false);
+    }
+    cell $c = end_cell($b);
+    send_raw_message($c, $params'mode);
+}
+
+((int, slice, int, int, cell, cell, cell)) __gen_constructor_SendParameters$bounce_to_value_mode_body(int bounce, slice to, int value, int mode, cell body) inline {
+    return (bounce, to, value, mode, body, null(), null());
+}
+
+() $reply(cell $body) impure inline_ref {
+    $send(__gen_constructor_SendParameters$bounce_to_value_mode_body(true, __tact_context_get_sender(), 0, (64 + 2), $body));
+}
+
+(cell, cell) $__gen_Dao_init_child(cell sys', int $daoIndex) {
+    slice sc' = sys'.begin_parse();
+    cell source = sc'~load_dict();
+    cell contracts = new_dict();
+    
+    ;; Contract Code: Dao
+    cell mine = __tact_dict_get_code(source, 25663);
+    contracts = __tact_dict_set_code(contracts, 25663, mine);
+    
+    ;; Build cell
+    builder b = begin_cell();
+    b = b.store_ref(begin_cell().store_dict(contracts).end_cell());
+    b = b.store_int(false, 1);
+    b = __gen_write_$init$Dao(b, ($daoIndex));
+    return (mine, b.end_cell());
+}
+
+((int)) __gen_constructor_DeployOk$queryId(int queryId) inline {
+    return (queryId);
+}
+
+((int), (cell, cell)) $__gen_Registry_getDaoStateInit((int) $self, int $daoIndex) impure inline_ref {
+    var (($self'nextDaoId)) = $self;
+    return (($self'nextDaoId), $__gen_Dao_init_child(__tact_context_sys, $daoIndex));
+}
+
+int $__gen_Registry_nextDaoId((int) $self) impure inline_ref {
+    var (($self'nextDaoId)) = $self;
+    return $self'nextDaoId;
+}
+
+_ $__gen_get_nextDaoId() method_id(98689) {
+    var self = __gen_load_Registry();
+    var res = $__gen_Registry_nextDaoId(self);
+    return res;
+}
+
+slice $__gen_Registry_daoAddress((int) $self, int $daoId) impure inline_ref {
+    var (($self'nextDaoId)) = $self;
+    var ($init'code, $init'data) = ($self'nextDaoId)~$__gen_Registry_getDaoStateInit($daoId);
+    return $contractAddress(($init'code, $init'data));
+}
+
+_ $__gen_get_daoAddress(int $$daoId) method_id(115144) {
+    int $daoId = $$daoId;
+    var self = __gen_load_Registry();
+    var res = $__gen_Registry_daoAddress(self, $daoId);
+    return res;
+}
+
+((int, slice, int, int, cell, cell, cell)) __gen_constructor_SendParameters$to_value_bounce_mode_body_code_data(slice to, int value, int bounce, int mode, cell body, cell code, cell data) inline {
+    return (bounce, to, value, mode, body, code, data);
+}
+
+((slice, slice)) __gen_constructor_DaoInit$owner_metadata(slice owner, slice metadata) inline {
+    return (owner, metadata);
+}
+
+(((int)), ()) $__gen_Registry_receive_CreateDao((int) $self, (slice, slice) $createDao) impure inline {
+    var ($self'nextDaoId) = $self;
+    var ($createDao'owner, $createDao'metadata) = $createDao;
+    var ($init'code, $init'data) = ($self'nextDaoId)~$__gen_Registry_getDaoStateInit($self'nextDaoId);
+    slice $daoAddress = $contractAddress(($init'code, $init'data));
+    $send(__gen_constructor_SendParameters$to_value_bounce_mode_body_code_data($daoAddress, 0, false, 64, __gen_writecell_DaoInit(__gen_constructor_DaoInit$owner_metadata($createDao'owner, $createDao'metadata)), $init'code, $init'data));
+    $self'nextDaoId = ($self'nextDaoId + 1);
+    return (($self'nextDaoId), ());
+}
+
+(((int)), ()) $__gen_Registry_receive_Deploy((int) $self, (int) $deploy) impure inline {
+    var ($self'nextDaoId) = $self;
+    var ($deploy'queryId) = $deploy;
+    $reply(__gen_writecell_DeployOk(__gen_constructor_DeployOk$queryId($deploy'queryId)));
+    return (($self'nextDaoId), ());
+}
+
+((int), int) __gen_router_Registry((int) self, int msg_bounced, slice in_msg) impure inline_ref {
+    
+    ;; Parse incoming message
+    int op = 0;
+    if (slice_bits(in_msg) >= 32) {
+        op = in_msg.preload_uint(32);
+    }
+    
+    ;; Handle bounced messages
+    if (msg_bounced) {
+        return (self, true);
+    }
+    
+    ;; Receive CreateDao message
+    if (op == 2756304371) {
+        var msg = in_msg~__gen_read_CreateDao();
+        self~$__gen_Registry_receive_CreateDao(msg);
+        return (self, true);
+    }
+    
+    ;; Receive Deploy message
+    if (op == 2490013878) {
+        var msg = in_msg~__gen_read_Deploy();
+        self~$__gen_Registry_receive_Deploy(msg);
+        return (self, true);
+    }
+    
+    return (self, false);
+}
+
+() recv_internal(int msg_value, cell in_msg_cell, slice in_msg) impure {
+    
+    ;; Context
+    var cs = in_msg_cell.begin_parse();
+    var msg_flags = cs~load_uint(4);
+    var msg_bounced = ((msg_flags & 1) == 1 ? true : false);
+    slice msg_sender_addr = __tact_verify_address(cs~load_msg_addr());
+    __tact_context = (msg_bounced, msg_sender_addr, msg_value, cs);
+    __tact_context_sender = msg_sender_addr;
+    
+    ;; Load contract data
+    var self = __gen_load_Registry();
+    
+    ;; Handle operation
+    int handled = self~__gen_router_Registry(msg_bounced, in_msg);
+    
+    ;; Throw if not handled
+    throw_unless(handled, 130);
+    
+    ;; Persist state
+    __gen_store_Registry(self);
+}
+
+_ supported_interfaces() method_id {
+    return (
+        "org.ton.introspection.v0"H >> 128,
+        "org.ton.abi.ipfs.v0"H >> 128,
+        "org.ton.deploy.lazy.v0"H >> 128,
+        "org.ton.debug.v0"H >> 128,
+        "org.ton.chain.workchain.v0"H >> 128
+    );
+}
+
+_ get_abi_ipfs() {
+    return "ipfs://QmXyh9ZE9XhdwS4VpzYzBg89mra3jat587nwxCnPJEoxo9";
+}
+
+_ lazy_deployment_completed() {
+    return get_data().begin_parse().load_int(1);
+}
