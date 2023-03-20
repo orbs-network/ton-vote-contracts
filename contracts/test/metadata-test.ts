@@ -1,10 +1,7 @@
 import { ContractSystem } from '@tact-lang/emulator';
-import { Registry } from '../output/ton-vote_Registry'; 
-import { Dao } from '../output/ton-vote_Dao'; 
-import { ProposalDeployer, storeCreateProposal, storeProposalInit } from '../output/ton-vote_ProposalDeployer'; 
 import {Metadata} from '../output/ton-vote_Metadata';
 import { expect } from 'chai';
-import { Address, beginCell, toNano, Dictionary, Slice } from 'ton-core';
+import { toNano} from 'ton-core';
 
 
 describe('metadata tests', () => {

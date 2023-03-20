@@ -1,5 +1,6 @@
 import { ContractSystem } from '@tact-lang/emulator';
 import { Registry } from '../output/ton-vote_Registry'; 
+import { Metadata } from '../output/ton-vote_Metadata'; 
 import { Dao } from '../output/ton-vote_Dao'; 
 import { ProposalDeployer, storeCreateProposal, storeProposalInit } from '../output/ton-vote_ProposalDeployer'; 
 import {Proposal} from '../output/ton-vote_Proposal';
@@ -38,9 +39,14 @@ describe('registry tests', () => {
         await registryContract.send(treasure, { value: toNano('10') }, { $$type: 'Deploy' as const, queryId: 0n });
         await system.run();
 
+        let metadataContract = system.open(await Metadata.fromInit("avatar-test", "name-test", "about-test", "website-test", "terms-test", "twitter-test", "github-test", false));
+        
+        await metadataContract.send(treasure, { value: toNano('10') }, { $$type: 'Deploy' as const, queryId: 0n });
+        await system.run();
+        
         await registryContract.send(treasure, { value: toNano('123') }, 
         { 
-            $$type: 'CreateDao', owner: daoOwnerTreasure.address, proposalOwner: treasure.address, metadata: treasure.address
+            $$type: 'CreateDao', owner: daoOwnerTreasure.address, proposalOwner: treasure.address, metadata: metadataContract.address
         });
         await system.run();
 
@@ -111,9 +117,14 @@ describe('registry tests', () => {
         await registryContract.send(treasure, { value: toNano('10') }, { $$type: 'Deploy' as const, queryId: 0n });
         await system.run();
 
+        let metadataContract = system.open(await Metadata.fromInit("avatar-test", "name-test", "about-test", "website-test", "terms-test", "twitter-test", "github-test", false));
+        
+        await metadataContract.send(treasure, { value: toNano('10') }, { $$type: 'Deploy' as const, queryId: 0n });
+        await system.run();
+
         await registryContract.send(treasure, { value: toNano('123') }, 
         { 
-            $$type: 'CreateDao', owner: daoOwnerTreasure.address, proposalOwner: treasure.address, metadata: treasure.address
+            $$type: 'CreateDao', owner: daoOwnerTreasure.address, proposalOwner: treasure.address, metadata: metadataContract.address
         });
         await system.run();
 

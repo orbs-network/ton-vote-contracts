@@ -106,5 +106,5 @@ Argument: index
 137: Masterchain support is not enabled for this contract
 2977: Already initialized
 4429: Invalid sender
-25952: ended
-56772: not started
+13550: Ended
+54220: Not started

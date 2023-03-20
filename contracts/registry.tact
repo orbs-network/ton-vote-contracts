@@ -13,7 +13,7 @@ contract Registry with Deployable {
     }
     
     receive(createDao: CreateDao) {
-        require(context().value >= ton("1"), "low message value");
+        require(context().value >= ton("0.1"), "Low message value"); // TODO: FIXME change to 1 ton
         
         let init: StateInit = self.getDaoStateInit(self.nextDaoId);
         let daoAddress: Address = contractAddress(init);

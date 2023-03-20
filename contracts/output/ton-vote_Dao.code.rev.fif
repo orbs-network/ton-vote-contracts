@@ -376,7 +376,7 @@ SETCP0
         1 3 BLKDROP2
         s3 POP
         s4 POP
-        8704 PUSHINT
+        2977 PUSHINT
         0 PUSHINT
         s0 PUSH
         NEWC

@@ -193,12 +193,12 @@ SETCP0
         CTOS
         s1 POP
         s0 POP
-        56772 PUSHINT
+        54220 PUSHINT
         NOW
         s6 PUSH
         GREATER
         THROWANYIFNOT
-        25952 PUSHINT
+        13550 PUSHINT
         NOW
         s5 PUSH
         LESS

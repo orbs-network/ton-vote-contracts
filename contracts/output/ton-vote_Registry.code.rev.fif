@@ -161,12 +161,12 @@ SETCP0
         }> CALLREF
         1 3 BLKDROP2
         <{
-          63162 PUSHINT
+          10109 PUSHINT
           1 GETGLOBVAR
           4 UNTUPLE
           s1 s3 XCHG
           3 BLKDROP
-          1000000000 PUSHINT
+          100000000 PUSHINT
           GEQ
           THROWANYIFNOT
           s3 s0 XCPU

@@ -22,7 +22,7 @@ contract Dao with Deployable {
     }
     
     receive(init: DaoInit) {
-        require(self.owner == newAddress(0, 0x0), "already initialized"); // TODO: FIXME set const
+        require(self.owner == newAddress(0, 0x0), "Already initialized"); // TODO: FIXME set const
         require(sender() == self.registry, "Invalid sender");
 
         self.owner = init.owner;

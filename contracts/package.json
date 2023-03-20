@@ -11,7 +11,7 @@
     "build-tact": "tact --config ./tact.config.json",
     "test": "mocha --timeout 120000 --exit test/*-test.ts",
     "e2e": "mocha --timeout 120000 --exit test/e2e.ts",
-    "deploy": "npm run build && node ./dist/deploy.js"
+    "deploy": "npm run build-ts && node ./dist/deploy/deploy.js"
   },
   "dependencies": {
     "@orbs-network/ton-access": "^2.2.2",

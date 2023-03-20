@@ -286,8 +286,8 @@ _ $__gen_get_votingPowerStrategy() method_id(111702) {
 (((slice, int, int, int, int, int, int)), ()) $__gen_Proposal_receive_Comment((slice, int, int, int, int, int, int) $self, (slice) $msg) impure inline {
     var ($self'owner, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'proposalType, $self'votingPowerStrategy) = $self;
     var ($msg'body) = $msg;
-    throw_unless(56772, (now() > $self'proposalStartTime));
-    throw_unless(25952, (now() < $self'proposalEndTime));
+    throw_unless(54220, (now() > $self'proposalStartTime));
+    throw_unless(13550, (now() < $self'proposalEndTime));
     return (($self'owner, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'proposalType, $self'votingPowerStrategy), ());
 }
 
@@ -369,7 +369,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() {
-    return "ipfs://QmWHMxx4jfW5ku8RUV6fgW1qWUdLFBg1F4qFuVmUWkzQKH";
+    return "ipfs://QmaPS3ursihnqeNyArE163VYVN3Y8PJP4fYsDDJQkGpFGJ";
 }
 
 _ lazy_deployment_completed() {

@@ -280,7 +280,7 @@ _ $__gen_get_daoIndex() method_id(73154) {
 (((slice, slice, slice, int, slice)), ()) $__gen_Dao_receive_DaoInit((slice, slice, slice, int, slice) $self, (slice, slice, slice) $init) impure inline {
     var ($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata) = $self;
     var ($init'owner, $init'proposalOwner, $init'metadata) = $init;
-    throw_unless(8704, __tact_address_eq($self'owner, __tact_create_address(0, 0)));
+    throw_unless(2977, __tact_address_eq($self'owner, __tact_create_address(0, 0)));
     throw_unless(4429, __tact_address_eq(__tact_context_get_sender(), $self'registry));
     $self'owner = $init'owner;
     $self'proposalOwner = $init'proposalOwner;
@@ -423,7 +423,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() {
-    return "ipfs://QmNzVav8GqiGHSVrYRfaJcFyDHLf5XviW55RDwKHm9Hssu";
+    return "ipfs://QmT6ZqSWZiqwdDf9xjRS851KCTjEBBsYnqM41JQNsq7BPq";
 }
 
 _ lazy_deployment_completed() {

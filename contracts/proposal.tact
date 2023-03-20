@@ -36,8 +36,8 @@ contract Proposal with Deployable {
     }
 
     receive(msg: Comment) {
-        require(now() > self.proposalStartTime, "not started");
-        require(now() < self.proposalEndTime, "ended");
+        require(now() > self.proposalStartTime, "Not started");
+        require(now() < self.proposalEndTime, "Ended");
     }
 
     get fun owner(): Address {

@@ -109,7 +109,6 @@ Total Get Methods: 5
 137: Masterchain support is not enabled for this contract
 2977: Already initialized
 4429: Invalid sender
-8704: already initialized
-25952: ended
-56772: not started
-63162: low message value
+10109: Low message value
+13550: Ended
+54220: Not started

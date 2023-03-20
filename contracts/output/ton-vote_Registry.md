@@ -1,6 +1,6 @@
 # TACT Compilation Report
 Contract: Registry
-BOC Size: 1123 bytes
+BOC Size: 1122 bytes
 
 # Types
 Total Types: 16
@@ -104,7 +104,6 @@ Argument: daoId
 137: Masterchain support is not enabled for this contract
 2977: Already initialized
 4429: Invalid sender
-8704: already initialized
-25952: ended
-56772: not started
-63162: low message value
+10109: Low message value
+13550: Ended
+54220: Not started
