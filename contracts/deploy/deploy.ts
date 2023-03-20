@@ -7,11 +7,13 @@ import { Proposal } from '../output/ton-vote_Proposal';
 import { internal, TonClient, toNano, beginCell} from "ton";
 import {SenderArguments} from "ton-core";
 import { getHttpEndpoint } from "@orbs-network/ton-access";
+import * as fs from 'fs';
 
+const NETWORK = 'testnet';
 
 async function deployAllContracts() {
   
-  const endpoint = await getHttpEndpoint({network: "testnet"});
+  const endpoint = await getHttpEndpoint({network: NETWORK});
   const client = new TonClient({ endpoint });
 
   const deployWalletKey = await initDeployKey("");
@@ -156,6 +158,20 @@ async function deployAllContracts() {
   console.log(`ProposalDeployer contract address: ${proposalDeployer.address.toString()}`);
   console.log(`Proposal contract address: ${proposal.address.toString()}`);
   
+  const allContractsAddresses = {
+
+    NETWORK: NETWORK,
+    Registry: registryContract.address.toString(),
+    Dao: daoContract.address.toString(),
+    Metadata: metadataContract.address.toString(),
+    ProposalDeployer: proposalDeployer.address.toString(),
+    Proposal: proposal.address.toString()
+  }
+
+  const fileName = './deploy/all-contracts.json'
+
+  fs.writeFileSync(fileName, JSON.stringify(allContractsAddresses)); // Write data to file synchronously
+  console.log(`Contracts addresses were written to ${fileName}`);
 }
 
 deployAllContracts()
