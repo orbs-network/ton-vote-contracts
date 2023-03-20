@@ -48,7 +48,16 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "@tact-lang/compiler": "^1.0.0",
-    "semver": "^7.3.7"
+    "semver": "^7.3.7",
+    "@orbs-network/ton-access": "^2.2.2",
+    "bignumber.js": "^9.1.1",
+    "buffer": "^6.0.3",
+    "compression": "1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "4.18.2",
+    "lodash": "^4.17.21",
+    "mocha": "^10.2.0",
+    "ton": "^13.4.1"
   }
 }

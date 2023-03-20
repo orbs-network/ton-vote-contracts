@@ -1,7 +1,7 @@
 import { waitForContractToBeDeployed, sleep, initWallet, initDeployKey } from "./helpers";
-import { Registry } from "../contracts-ts/registry";
-import { Dao } from "../contracts-ts/dao";
-import { Proxy } from "../contracts-ts/proxy";
+import { Registry } from "../src/contracts-api/getters/registry";
+import { Dao } from "../src/contracts-api/dao";
+import { Proxy } from "../src/contracts-api/proxy";
 import { Address, CellMessage, CommonMessageInfo, InternalMessage, TonClient, TonClient4, WalletContract, 
         toNano, StateInit, beginCell, fromNano, Cell, parseTransaction} from "ton";
 

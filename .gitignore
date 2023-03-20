@@ -72,4 +72,4 @@ typings/
 
 deploy.config.json
 output
-all-contracts.json
+*all-contracts.json

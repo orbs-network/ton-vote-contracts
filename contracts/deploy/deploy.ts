@@ -9,7 +9,7 @@ import {SenderArguments} from "ton-core";
 import { getHttpEndpoint } from "@orbs-network/ton-access";
 import * as fs from 'fs';
 
-const NETWORK = 'testnet';
+const NETWORK = 'mainnet';
 
 async function deployAllContracts() {
   
@@ -81,12 +81,12 @@ async function deployAllContracts() {
     console.log("Contract already deployed");
   
   } else {
-    await registryContract.send(sender, { value: toNano('0.5') }, 
+    await registryContract.send(sender, { value: toNano('1') }, 
     { 
         $$type: 'CreateDao', owner: sender.address, proposalOwner: sender.address, metadata: metadataContract.address
     });
 
-    sleep(5000);
+    sleep(10000);
     let newNextDaoId = Number(await registryContract.getNextDaoId());
     if (nextDaoId +1 != newNextDaoId) throw new Error(`wrong nextDaoId (expected=${nextDaoId+1}, value=${newNextDaoId})`);
 
@@ -160,7 +160,6 @@ async function deployAllContracts() {
   
   const allContractsAddresses = {
 
-    NETWORK: NETWORK,
     Registry: registryContract.address.toString(),
     Dao: daoContract.address.toString(),
     Metadata: metadataContract.address.toString(),
@@ -168,7 +167,7 @@ async function deployAllContracts() {
     Proposal: proposal.address.toString()
   }
 
-  const fileName = './deploy/all-contracts.json'
+  const fileName = `./deploy/${NETWORK}-all-contracts.json`
 
   fs.writeFileSync(fileName, JSON.stringify(allContractsAddresses)); // Write data to file synchronously
   console.log(`Contracts addresses were written to ${fileName}`);

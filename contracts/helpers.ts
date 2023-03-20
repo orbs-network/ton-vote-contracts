@@ -127,3 +127,7 @@ export function prepareParams(params: any[] = []) {
     throw new Error("unknown type!");
   });
 }
+
+export function min(num1: bigint, num2: bigint) {
+  return num1 < num2 ? num1 : num2;
+}
