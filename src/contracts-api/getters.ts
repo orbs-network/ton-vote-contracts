@@ -48,6 +48,17 @@ export async function getDaoMetadata(client : TonClient, daoAddr: string) {
     return {about, avatar, github, hide, name, terms, twitter, website};
 }
 
+export async function getDaoRoles(client : TonClient, daoAddr: string) {  
+
+    let daoContract = client.open(Dao.fromAddress(Address.parse(daoAddr)));
+
+    const id = await daoContract.getDaoIndex();
+    const owner = await daoContract.getOwner();
+    const proposalOwner = await daoContract.getProposalOwner();
+
+    return {id, owner, proposalOwner};
+}
+
 export async function getDaoProposals(client : TonClient, daoAddr: string, startId = 0, batchSize=BigInt(10)) {
     let daoContract = client.open(Dao.fromAddress(Address.parse(daoAddr)));
     let proposalDeployer = client.open(await ProposalDeployer.fromInit(daoContract.address));
@@ -89,6 +100,6 @@ async function getBlockFromTime(clientV4: TonClient4, utime: number) {
       if (res[i].workchain == -1) return res[i].seqno;
     }
   
-    throw Error(`could not find materchain seqno at time ${utime}`);
+    return -1;
 }
   
