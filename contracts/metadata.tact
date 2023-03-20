@@ -1,60 +1,58 @@
 import "@stdlib/deploy";
-import "@stdlib/ownable";
-import "./messages";
-import "./proposal";
 
 
 contract Metadata with Deployable {
 
-    owner: Address;
-    metadata: map<String, String>;
-    // avatar: String;
-    // name: String;
-    // about: String;
-    // website: String;
-    // terms: String;
-    // hide: Bool;
-    // twitter: String;
-    // github: String;
+    avatar: String;
+    name: String;
+    about: String;
+    website: String;
+    terms: String;
+    twitter: String;
+    github: String;
+    hide: Bool;
 
-    init(owner: Address) {
-        self.owner = owner;
+    init(avatar: String, name: String, about: String, website: String, terms: String, twitter: String, github: String, hide: Bool) {
+        self.avatar = avatar;
+        self.name = name;
+        self.about = about;
+        self.website = website;
+        self.terms = terms;
+        self.twitter = twitter;
+        self.github = github;
+        self.hide = hide;
     }
 
-    receive(msg: CreateProposal) {
-        require(sender() == self.owner, "Invalid sender");
-
-        // Create message
-        let init: StateInit = self.getProposalStateInit(self.nextProposalId);
-        let proposalAddress: Address = contractAddress(init);
-
-        send(SendParameters{
-            to: proposalAddress, 
-            value: 0, 
-            bounce: false,
-            mode: SendRemainingValue,
-            body: ProposalInit{body: msg.body}.toCell(),
-            code: init.code,
-            data: init.data
-        });
-
-        self.nextProposalId = self.nextProposalId + 1;
+    get fun avatar(): String {
+        return self.avatar;
     }
 
-    fun getProposalStateInit(index: Int): StateInit {
-        return initOf Proposal(myAddress(), index);
+    get fun name(): String {
+        return self.name;
     }
 
-    get fun owner(): Address {
-        return self.owner;
+    get fun about(): String {
+        return self.about;
     }
 
-    get fun nextProposalId(): Int {
-        return self.nextProposalId;
+    get fun website(): String {
+        return self.website;
     }
 
-    get fun proposalAddr(index: Int): Address {
-        let init: StateInit = self.getProposalStateInit(index);
-        return contractAddress(init);
+    get fun terms(): String {
+        return self.terms;
     }
+
+    get fun twitter(): String {
+        return self.twitter;
+    }
+
+    get fun github(): String {
+        return self.github;
+    }
+
+    get fun hide(): Bool {
+        return self.hide;
+    }
+
 }
