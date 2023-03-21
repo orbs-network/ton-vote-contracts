@@ -23,7 +23,7 @@ export async function getDaos(client : TonClient, startId = 0, batchSize=BigInt(
 
   for (let id = BigInt(startId); id <= endDaoId; id++) {
     let daoAddr = await registryContract.getDaoAddress(id);
-    daoAddresses.push(daoAddr.toString());
+    daoAddresses.push(daoAddr);
   }
 
   return {endDaoId, daoAddresses};

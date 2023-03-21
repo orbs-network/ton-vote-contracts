@@ -189,14 +189,3 @@ export function getCurrentResults(transactions, votingPower, proposalInfo) {
   return calcProposalResult(votes, votingPower);
 }
 
-async function getBlockFromTime(clientV4, utime) {
-
-  let res = (await clientV4.getBlockByUtime(utime)).shards;
-
-  for (let i = 0; i < res.length; i++) {
-    if (res[i].workchain == -1) return res[i].seqno;
-  }
-
-  throw Error(`could not find materchain seqno at time ${utime}`);
-}
-

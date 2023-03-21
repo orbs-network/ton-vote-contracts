@@ -18,6 +18,14 @@ interface MetadataArgs {
     hide: boolean;
 }
 
+interface ProposalMetadata {
+    proposalStartTime: bigint;
+    proposalEndTime: bigint;
+    proposalSnapshotTime: bigint;
+    proposalType: bigint;
+    votingPowerStrategy: bigint;
+}
+
 const DAO_DEPLOY_VALUE = 1;
 const PROPOSAL_DEPLOY_VALUE = 0.5;
 const SET_OWNER_DEPLOY_VALUE = 0.1;
@@ -68,7 +76,6 @@ export async function newMetdata(sender: Sender, client : TonClient, metadataArg
         metadataArgs.website, metadataArgs.terms, metadataArgs.twitter, 
         metadataArgs.github, metadataArgs.hide));        
     
-
     if (await client.isContractDeployed(metadataContract.address)) {
         console.log("Contract already deployed");
         return metadataContract.address;
@@ -80,7 +87,7 @@ export async function newMetdata(sender: Sender, client : TonClient, metadataArg
     return await waitForConditionChange(client.isContractDeployed, [metadataContract.address], false) && metadataContract.address;
 }
 
-export async function newProposal(sender: Sender, client : TonClient, daoAddr: Address): Promise<Address | boolean> {  
+export async function newProposal(sender: Sender, client : TonClient, daoAddr: Address, proposalMetadata: ProposalMetadata): Promise<Address | boolean> {  
 
     if (!sender.address) {
         console.log(`sender address is not defined`);        
@@ -127,11 +134,11 @@ export async function newProposal(sender: Sender, client : TonClient, daoAddr: A
                     $$type: 'CreateProposal',
                     body: {
                         $$type: 'Params',
-                        proposalStartTime: 0n,
-                        proposalEndTime: 2341659973n,
-                        proposalSnapshotTime: 1678885573n,
-                        proposalType: 0n,
-                        votingPowerStrategy: 0n
+                        proposalStartTime: proposalMetadata.proposalStartTime,
+                        proposalEndTime: proposalMetadata.proposalEndTime,
+                        proposalSnapshotTime: proposalMetadata.proposalSnapshotTime,
+                        proposalType: proposalMetadata.proposalType,
+                        votingPowerStrategy: proposalMetadata.votingPowerStrategy
                     }
                 })).endCell(),
                 code: code,
