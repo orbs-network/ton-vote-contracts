@@ -2,7 +2,7 @@ import { ContractSystem } from '@tact-lang/emulator';
 import { Registry } from '../output/ton-vote_Registry'; 
 import { Metadata } from '../output/ton-vote_Metadata'; 
 import { Dao } from '../output/ton-vote_Dao'; 
-import { ProposalDeployer, storeCreateProposal, storeProposalInit } from '../output/ton-vote_ProposalDeployer'; 
+import { ProposalDeployer, storeCreateProposal } from '../output/ton-vote_ProposalDeployer'; 
 import {Proposal} from '../output/ton-vote_Proposal';
 import { expect } from 'chai';
 import { Address, beginCell, toNano } from 'ton-core';
@@ -149,7 +149,7 @@ describe('registry tests', () => {
                     $$type: 'SendParameters', 
                     bounce: true,
                     to: proposalDeployer.address,
-                    value: toNano(10),
+                    value: toNano(0),
                     mode: 64n,
                     body: beginCell().store(storeCreateProposal({
                         $$type: 'CreateProposal',

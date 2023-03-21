@@ -131,3 +131,23 @@ export function prepareParams(params: any[] = []) {
 export function min(num1: bigint, num2: bigint) {
   return num1 < num2 ? num1 : num2;
 }
+
+export async function waitForConditionChange<T>(func: (...args: any[]) => Promise<T>, args: any[], startVal: any, sleepIntervalMilli: number = 3000, maxNumIntervals: number = 5): Promise<boolean> {
+
+  let res;
+  let count = 0;
+
+  do {            
+    sleep(sleepIntervalMilli);
+    res = await func(...args);
+    count++;
+
+  } while ((startVal  == res) && count < maxNumIntervals);
+
+  if (startVal  == res) {
+    return false;
+  }
+
+  return true;
+
+}
