@@ -6,25 +6,8 @@ import { ProposalDeployer, storeCreateProposal } from '../../contracts/output/to
 import { Proposal } from '../../contracts/output/ton-vote_Proposal'; 
 import { TonClient, TonClient4 } from "ton";
 import { Address, Sender, toNano, beginCell, Cell } from "ton-core";
+import { MetadataArgs, ProposalMetadata } from "./interfaces";
 
-interface MetadataArgs {
-    avatar: string;
-    name: string;
-    about: string;
-    website: string; 
-    terms: string; 
-    twitter: string; 
-    github: string; 
-    hide: boolean;
-}
-
-interface ProposalMetadata {
-    proposalStartTime: bigint;
-    proposalEndTime: bigint;
-    proposalSnapshotTime: bigint;
-    proposalType: bigint;
-    votingPowerStrategy: bigint;
-}
 
 const DAO_DEPLOY_VALUE = 1;
 const PROPOSAL_DEPLOY_VALUE = 0.5;
