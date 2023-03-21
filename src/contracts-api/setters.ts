@@ -5,7 +5,7 @@ import { Metadata } from '../../contracts/output/ton-vote_Metadata';
 import { ProposalDeployer, storeCreateProposal } from '../../contracts/output/ton-vote_ProposalDeployer'; 
 import { Proposal } from '../../contracts/output/ton-vote_Proposal'; 
 import { TonClient, TonClient4 } from "ton";
-import { Address, Sender, toNano, beginCell, endCell } from "ton-core";
+import { Address, Sender, toNano, beginCell } from "ton-core";
 
 interface MetadataArgs {
     avatar: string;
@@ -36,7 +36,7 @@ export async function newDao(sender: Sender, client : TonClient, metadataAddr: A
     if (await client.isContractDeployed(daoContract.address)) {
         
         console.log("Contract already deployed");
-        return false;
+        return daoContract.address;
     
     } else {
                 
@@ -69,7 +69,7 @@ export async function newMetdata(sender: Sender, client : TonClient, metadataArg
 
     if (await client.isContractDeployed(metadataContract.address)) {
         console.log("Contract already deployed");
-        return false;
+        return metadataContract.address;
 
     } else {
         await metadataContract.send(sender, { value: toNano('0.25') }, { $$type: 'Deploy' as const, queryId: 0n });
