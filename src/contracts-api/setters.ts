@@ -5,7 +5,7 @@ import { Metadata } from '../../contracts/output/ton-vote_Metadata';
 import { ProposalDeployer, storeCreateProposal } from '../../contracts/output/ton-vote_ProposalDeployer'; 
 import { Proposal } from '../../contracts/output/ton-vote_Proposal'; 
 import { TonClient, TonClient4 } from "ton";
-import { Address, Sender, toNano, beginCell } from "ton-core";
+import { Address, Sender, toNano, beginCell, Cell } from "ton-core";
 
 interface MetadataArgs {
     avatar: string;
@@ -92,18 +92,24 @@ export async function newProposal(sender: Sender, client : TonClient, daoAddr: A
         return false;
     }
 
+    if ((await daoContract.getProposalOwner() != sender.address) && (await daoContract.getOwner() != sender.address)) {        
+        console.log("Only proposalOwner or owner are allowed to create proposal");
+        return false;
+    }
+
     let proposalDeployerContract = client.open(await ProposalDeployer.fromInit(daoAddr));
     if (!proposalDeployerContract.init) {
         console.log('proposalDeployer init is undefined');
         return false;
     }
 
-    let code = null, data = null;
+    let code: Cell | null = proposalDeployerContract.init.code;
+    let data: Cell | null = proposalDeployerContract.init.data;
     let nextProposalId = -1n;
 
-    if (await client.isContractDeployed(proposalDeployerContract.address)) {        
-        code = proposalDeployerContract.init.code;
-        data = proposalDeployerContract.init.data;
+    if (await client.isContractDeployed(proposalDeployerContract.address)) {
+        code = null;
+        data = null;
         nextProposalId = await proposalDeployerContract.getNextProposalId();
     }
 
