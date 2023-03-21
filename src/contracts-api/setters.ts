@@ -20,6 +20,8 @@ interface MetadataArgs {
 
 const DAO_DEPLOY_VALUE = 1;
 const PROPOSAL_DEPLOY_VALUE = 0.5;
+const SET_OWNER_DEPLOY_VALUE = 0.1;
+const SET_PROPOSAL_OWNER_DEPLOY_VALUE = 0.1;
 
 export async function newDao(sender: Sender, client : TonClient, metadataAddr: Address, ownerAddr: Address, proposalOwner: Address): Promise<Address | boolean> {  
 
@@ -141,4 +143,63 @@ export async function newProposal(sender: Sender, client : TonClient, daoAddr: A
     let proposalContract = await Proposal.fromInit(proposalDeployerContract.address, nextProposalId+1n);
     
     return await waitForConditionChange(proposalDeployerContract.getNextProposalId, [], nextProposalId) && proposalContract.address;
+}
+
+export async function daoSetOwner(sender: Sender, client : TonClient, daoAddr: Address, newOwner: Address): Promise<Address | boolean> {  
+
+    if (!sender.address) {
+        console.log(`sender address is not defined`);        
+        return false;
+    };
+    
+    let daoContract = client.open(Dao.fromAddress(daoAddr));
+
+    if (!(await client.isContractDeployed(daoContract.address))) {        
+        console.log("Dao contract is not deployed");
+        return false;
+    }
+
+    let owner = await daoContract.getOwner();
+    if (( owner != sender.address)) {        
+        console.log("Only owner is allowed to set new owner");
+        return false;
+    }
+
+    await daoContract.send(sender, { value: toNano(SET_OWNER_DEPLOY_VALUE) }, 
+        { 
+            $$type: 'SetOwner', newOwner: newOwner
+        }
+    );      
+    
+    return await waitForConditionChange(daoContract.getOwner, [], owner) && owner;
+}
+
+export async function daoSetProposalOwner(sender: Sender, client : TonClient, daoAddr: Address, newProposalOwner: Address): Promise<Address | boolean> {  
+
+    if (!sender.address) {
+        console.log(`sender address is not defined`);        
+        return false;
+    };
+    
+    let daoContract = client.open(Dao.fromAddress(daoAddr));
+
+    if (!(await client.isContractDeployed(daoContract.address))) {        
+        console.log("Dao contract is not deployed");
+        return false;
+    }
+
+    let proposalOwner = await daoContract.getProposalOwner();
+    let owner = await daoContract.getOwner();
+    if ((proposalOwner != sender.address) && (owner != sender.address)) {        
+        console.log("Only proposalOwner or owner are allowed to create proposal");
+        return false;
+    }
+
+    await daoContract.send(sender, { value: toNano(SET_PROPOSAL_OWNER_DEPLOY_VALUE) }, 
+        { 
+            $$type: 'SetProposalOwner', newProposalOwner: newProposalOwner
+        }
+    );      
+    
+    return await waitForConditionChange(daoContract.getProposalOwner, [], proposalOwner) && newProposalOwner;
 }
