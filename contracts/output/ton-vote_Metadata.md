@@ -1,6 +1,6 @@
 # TACT Compilation Report
 Contract: Metadata
-BOC Size: 1426 bytes
+BOC Size: 1412 bytes
 
 # Types
 Total Types: 5
@@ -26,7 +26,7 @@ TLB: `deploy_ok#aff90f57 queryId:uint64 = DeployOk`
 Signature: `DeployOk{queryId:uint64}`
 
 # Get Methods
-Total Get Methods: 8
+Total Get Methods: 10
 
 ## avatar
 
@@ -38,9 +38,13 @@ Total Get Methods: 8
 
 ## terms
 
-## twitter
+## telegram
 
 ## github
+
+## jetton
+
+## nft
 
 ## hide
 

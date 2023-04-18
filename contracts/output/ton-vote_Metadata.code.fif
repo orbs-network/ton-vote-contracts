@@ -1,5 +1,6 @@
 PROGRAM{
   DECLPROC __tact_verify_address
+  DECLPROC __tact_load_address
   DECLPROC __tact_store_address
   DECLPROC __tact_not_null
   DECLPROC __tact_context_get_sender
@@ -26,10 +27,14 @@ PROGRAM{
   129198 DECLMETHOD $__gen_get_website
   DECLPROC $__gen_Metadata_terms
   128253 DECLMETHOD $__gen_get_terms
-  DECLPROC $__gen_Metadata_twitter
-  90012 DECLMETHOD $__gen_get_twitter
+  DECLPROC $__gen_Metadata_telegram
+  73771 DECLMETHOD $__gen_get_telegram
   DECLPROC $__gen_Metadata_github
   75775 DECLMETHOD $__gen_get_github
+  DECLPROC $__gen_Metadata_jetton
+  129441 DECLMETHOD $__gen_get_jetton
+  DECLPROC $__gen_Metadata_nft
+  73717 DECLMETHOD $__gen_get_nft
   DECLPROC $__gen_Metadata_hide
   74246 DECLMETHOD $__gen_get_hide
   DECLPROC __gen_constructor_DeployOk$queryId
@@ -61,6 +66,11 @@ PROGRAM{
     10 PUSHPOW2
     EQUAL
     137 THROWIFNOT
+  }>
+  __tact_load_address PROCINLINE:<{
+    LDMSGADDR
+    SWAP
+    __tact_verify_address INLINECALLDICT
   }>
   __tact_store_address PROCINLINE:<{
     __tact_verify_address INLINECALLDICT
@@ -101,18 +111,24 @@ PROGRAM{
   }>
   __gen_write_Metadata PROCINLINE:<{
     NEWC
+    s0 s10 XCHG2
+    STSLICER
+    ENDC
+    s0 s10 XCHG2
+    STREF
+    NEWC
     s0 s8 XCHG2
     STSLICER
     ENDC
-    s0 s8 XCHG2
+    s0 s7 XCHG2
     STREF
     NEWC
+    NEWC
+    s0 s7 XCHG2
+    STSLICER
+    ENDC
     s0 s6 XCHG2
-    STSLICER
-    ENDC
-    s0 s5 XCHG2
     STREF
-    NEWC
     NEWC
     s0 s5 XCHG2
     STSLICER
@@ -126,24 +142,22 @@ PROGRAM{
     ROT
     STREF
     NEWC
-    ROT
-    STSLICER
-    ENDC
-    SWAP
-    STREF
     NEWC
-    NEWC
-    s0 s4 XCHG2
-    STSLICER
-    ENDC
     s0 s3 XCHG2
-    STREF
-    NEWC
-    s0 s5 XCHG2
     STSLICER
     ENDC
-    s0 s4 XCHG2
+    ROT
     STREF
+    NEWC
+    s0 s3 XCHG2
+    STSLICER
+    ENDC
+    ROT
+    STREF
+    s0 s3 XCHG2
+    __tact_store_address INLINECALLDICT
+    s0 s4 XCHG2
+    __tact_store_address INLINECALLDICT
     s1 s2 XCHG
     1 STI
     ENDC
@@ -188,10 +202,14 @@ PROGRAM{
     SWAP
     CTOS
     SWAP
+    __tact_load_address INLINECALLDICT
+    SWAP
+    __tact_load_address INLINECALLDICT
+    SWAP
     1 LDI
     DROP
-    s6 s8 XCHG
-    s6 s7 XCHG
+    s8 s10 XCHG
+    s8 s9 XCHG
   }>
   __gen_read_$init$Metadata PROCREF:<{
     LDREF
@@ -228,10 +246,14 @@ PROGRAM{
     SWAP
     CTOS
     SWAP
+    __tact_load_address INLINECALLDICT
+    SWAP
+    __tact_load_address INLINECALLDICT
+    SWAP
     1 LDI
     DROP
-    s6 s8 XCHG
-    s6 s7 XCHG
+    s8 s10 XCHG
+    s8 s9 XCHG
   }>
   $__gen_Metadata_init PROCREF:<{
   }>
@@ -245,7 +267,7 @@ PROGRAM{
     SWAP
     IF:<{
       __gen_read_Metadata INLINECALLDICT
-      1 8 BLKDROP2
+      1 10 BLKDROP2
     }>ELSE<{
       MYADDR
       11 PLDU
@@ -253,9 +275,9 @@ PROGRAM{
       EQUAL
       137 THROWIFNOT
       __gen_read_$init$Metadata INLINECALLDICT
-      s0 s8 XCHG
+      s0 s10 XCHG
       ENDS
-      7 ROLL
+      9 ROLL
       $__gen_Metadata_init INLINECALLDICT
     }>
   }>
@@ -267,7 +289,7 @@ PROGRAM{
     TRUE
     SWAP
     1 STI
-    8 -ROLL
+    10 -ROLL
     __gen_write_Metadata INLINECALLDICT
     ENDC
     c4 POP
@@ -387,62 +409,78 @@ PROGRAM{
     $send INLINECALLDICT
   }>
   $__gen_Metadata_avatar PROCREF:<{
-    7 BLKDROP
+    9 BLKDROP
   }>
   $__gen_get_avatar PROC:<{
     __gen_load_Metadata INLINECALLDICT
     $__gen_Metadata_avatar INLINECALLDICT
   }>
   $__gen_Metadata_name PROCREF:<{
-    s6 s7 XCHG
-    7 BLKDROP
+    s8 s9 XCHG
+    9 BLKDROP
   }>
   $__gen_get_name PROC:<{
     __gen_load_Metadata INLINECALLDICT
     $__gen_Metadata_name INLINECALLDICT
   }>
   $__gen_Metadata_about PROCREF:<{
-    s5 s7 XCHG
-    7 BLKDROP
+    s7 s9 XCHG
+    9 BLKDROP
   }>
   $__gen_get_about PROC:<{
     __gen_load_Metadata INLINECALLDICT
     $__gen_Metadata_about INLINECALLDICT
   }>
   $__gen_Metadata_website PROCREF:<{
-    s4 s7 XCHG
-    7 BLKDROP
+    s6 s9 XCHG
+    9 BLKDROP
   }>
   $__gen_get_website PROC:<{
     __gen_load_Metadata INLINECALLDICT
     $__gen_Metadata_website INLINECALLDICT
   }>
   $__gen_Metadata_terms PROCREF:<{
-    s3 s7 XCHG
-    7 BLKDROP
+    s5 s9 XCHG
+    9 BLKDROP
   }>
   $__gen_get_terms PROC:<{
     __gen_load_Metadata INLINECALLDICT
     $__gen_Metadata_terms INLINECALLDICT
   }>
-  $__gen_Metadata_twitter PROCREF:<{
-    s2 s7 XCHG
-    7 BLKDROP
+  $__gen_Metadata_telegram PROCREF:<{
+    s4 s9 XCHG
+    9 BLKDROP
   }>
-  $__gen_get_twitter PROC:<{
+  $__gen_get_telegram PROC:<{
     __gen_load_Metadata INLINECALLDICT
-    $__gen_Metadata_twitter INLINECALLDICT
+    $__gen_Metadata_telegram INLINECALLDICT
   }>
   $__gen_Metadata_github PROCREF:<{
-    s1 s7 XCHG
-    7 BLKDROP
+    s3 s9 XCHG
+    9 BLKDROP
   }>
   $__gen_get_github PROC:<{
     __gen_load_Metadata INLINECALLDICT
     $__gen_Metadata_github INLINECALLDICT
   }>
+  $__gen_Metadata_jetton PROCREF:<{
+    s2 s9 XCHG
+    9 BLKDROP
+  }>
+  $__gen_get_jetton PROC:<{
+    __gen_load_Metadata INLINECALLDICT
+    $__gen_Metadata_jetton INLINECALLDICT
+  }>
+  $__gen_Metadata_nft PROCREF:<{
+    s1 s9 XCHG
+    9 BLKDROP
+  }>
+  $__gen_get_nft PROC:<{
+    __gen_load_Metadata INLINECALLDICT
+    $__gen_Metadata_nft INLINECALLDICT
+  }>
   $__gen_Metadata_hide PROCREF:<{
-    7 1 BLKDROP2
+    9 1 BLKDROP2
   }>
   $__gen_get_hide PROC:<{
     __gen_load_Metadata INLINECALLDICT
@@ -506,7 +544,7 @@ PROGRAM{
     s0 s2 XCHG
     __tact_context_sender SETGLOB
     __gen_load_Metadata INLINECALLDICT
-    2 8 BLKSWAP
+    2 10 BLKSWAP
     __gen_router_Metadata INLINECALLDICT
     DROP
     __gen_store_Metadata INLINECALLDICT
@@ -519,7 +557,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d566b523958396b677a7234354b72684671725459765348336b44596a6f32676755717174434b446b45766b72} PUSHSLICE
+    x{697066733a2f2f516d514d61556f6d4174586d3670533377514b7569457173676a3246724654644b7069626167675735374c685047} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH

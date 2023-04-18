@@ -8,18 +8,23 @@ contract Metadata with Deployable {
     about: String;
     website: String;
     terms: String;
-    twitter: String;
+    telegram: String;
     github: String;
+    jetton: Address;
+    nft: Address;
     hide: Bool;
 
-    init(avatar: String, name: String, about: String, website: String, terms: String, twitter: String, github: String, hide: Bool) {
+    init(avatar: String, name: String, about: String, website: String, terms: String, telegram: String, github: String, 
+        jetton: Address, nft: Address, hide: Bool) {
         self.avatar = avatar;
         self.name = name;
         self.about = about;
         self.website = website;
         self.terms = terms;
-        self.twitter = twitter;
+        self.telegram = telegram;
         self.github = github;
+        self.jetton = jetton;
+        self.nft = nft;
         self.hide = hide;
     }
 
@@ -43,12 +48,20 @@ contract Metadata with Deployable {
         return self.terms;
     }
 
-    get fun twitter(): String {
-        return self.twitter;
+    get fun telegram(): String {
+        return self.telegram;
     }
 
     get fun github(): String {
         return self.github;
+    }
+
+    get fun jetton(): Address {
+        return self.jetton;
+    }
+
+    get fun nft(): Address {
+        return self.nft;
     }
 
     get fun hide(): Bool {

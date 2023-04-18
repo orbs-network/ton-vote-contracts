@@ -10,6 +10,11 @@ slice __tact_verify_address(slice address) inline {
     return address;
 }
 
+(slice, slice) __tact_load_address(slice cs) inline {
+    slice raw = cs~load_msg_addr();
+    return (cs, __tact_verify_address(raw));
+}
+
 builder __tact_store_address(builder b, slice address) inline {
     return b.store_slice(__tact_verify_address(address));
 }
@@ -44,8 +49,8 @@ cell __gen_writecell_DeployOk((int) v) inline {
     return __gen_write_DeployOk(begin_cell(), v).end_cell();
 }
 
-builder __gen_write_Metadata(builder build_0, (slice, slice, slice, slice, slice, slice, slice, int) v) inline {
-    var (v'avatar, v'name, v'about, v'website, v'terms, v'twitter, v'github, v'hide) = v;
+builder __gen_write_Metadata(builder build_0, (slice, slice, slice, slice, slice, slice, slice, slice, slice, int) v) inline {
+    var (v'avatar, v'name, v'about, v'website, v'terms, v'telegram, v'github, v'jetton, v'nft, v'hide) = v;
     build_0 = build_0.store_ref(begin_cell().store_slice(v'avatar).end_cell());
     build_0 = build_0.store_ref(begin_cell().store_slice(v'name).end_cell());
     var build_1 = begin_cell();
@@ -53,15 +58,17 @@ builder __gen_write_Metadata(builder build_0, (slice, slice, slice, slice, slice
     build_1 = build_1.store_ref(begin_cell().store_slice(v'website).end_cell());
     build_1 = build_1.store_ref(begin_cell().store_slice(v'terms).end_cell());
     var build_2 = begin_cell();
-    build_2 = build_2.store_ref(begin_cell().store_slice(v'twitter).end_cell());
+    build_2 = build_2.store_ref(begin_cell().store_slice(v'telegram).end_cell());
     build_2 = build_2.store_ref(begin_cell().store_slice(v'github).end_cell());
+    build_2 = __tact_store_address(build_2, v'jetton);
+    build_2 = __tact_store_address(build_2, v'nft);
     build_2 = build_2.store_int(v'hide, 1);
     build_1 = store_ref(build_1, build_2.end_cell());
     build_0 = store_ref(build_0, build_1.end_cell());
     return build_0;
 }
 
-(slice, ((slice, slice, slice, slice, slice, slice, slice, int))) __gen_read_Metadata(slice sc_0) inline {
+(slice, ((slice, slice, slice, slice, slice, slice, slice, slice, slice, int))) __gen_read_Metadata(slice sc_0) inline {
     var v'avatar = sc_0~load_ref().begin_parse();
     var v'name = sc_0~load_ref().begin_parse();
     slice sc_1 = sc_0~load_ref().begin_parse();
@@ -69,13 +76,15 @@ builder __gen_write_Metadata(builder build_0, (slice, slice, slice, slice, slice
     var v'website = sc_1~load_ref().begin_parse();
     var v'terms = sc_1~load_ref().begin_parse();
     slice sc_2 = sc_1~load_ref().begin_parse();
-    var v'twitter = sc_2~load_ref().begin_parse();
+    var v'telegram = sc_2~load_ref().begin_parse();
     var v'github = sc_2~load_ref().begin_parse();
+    var v'jetton = sc_2~__tact_load_address();
+    var v'nft = sc_2~__tact_load_address();
     var v'hide = sc_2~load_int(1);
-    return (sc_0, (v'avatar, v'name, v'about, v'website, v'terms, v'twitter, v'github, v'hide));
+    return (sc_0, (v'avatar, v'name, v'about, v'website, v'terms, v'telegram, v'github, v'jetton, v'nft, v'hide));
 }
 
-(slice, ((slice, slice, slice, slice, slice, slice, slice, int))) __gen_read_$init$Metadata(slice sc_0) inline_ref {
+(slice, ((slice, slice, slice, slice, slice, slice, slice, slice, slice, int))) __gen_read_$init$Metadata(slice sc_0) inline_ref {
     var v'avatar = sc_0~load_ref().begin_parse();
     var v'name = sc_0~load_ref().begin_parse();
     slice sc_1 = sc_0~load_ref().begin_parse();
@@ -83,26 +92,30 @@ builder __gen_write_Metadata(builder build_0, (slice, slice, slice, slice, slice
     var v'website = sc_1~load_ref().begin_parse();
     var v'terms = sc_1~load_ref().begin_parse();
     slice sc_2 = sc_1~load_ref().begin_parse();
-    var v'twitter = sc_2~load_ref().begin_parse();
+    var v'telegram = sc_2~load_ref().begin_parse();
     var v'github = sc_2~load_ref().begin_parse();
+    var v'jetton = sc_2~__tact_load_address();
+    var v'nft = sc_2~__tact_load_address();
     var v'hide = sc_2~load_int(1);
-    return (sc_0, (v'avatar, v'name, v'about, v'website, v'terms, v'twitter, v'github, v'hide));
+    return (sc_0, (v'avatar, v'name, v'about, v'website, v'terms, v'telegram, v'github, v'jetton, v'nft, v'hide));
 }
 
-(slice, slice, slice, slice, slice, slice, slice, int) $__gen_Metadata_init(slice $avatar, slice $name, slice $about, slice $website, slice $terms, slice $twitter, slice $github, int $hide) impure inline_ref {
-    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'twitter, $self'github, $self'hide)) = (null(), null(), null(), null(), null(), null(), null(), null());
+(slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $__gen_Metadata_init(slice $avatar, slice $name, slice $about, slice $website, slice $terms, slice $telegram, slice $github, slice $jetton, slice $nft, int $hide) impure inline_ref {
+    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = (null(), null(), null(), null(), null(), null(), null(), null(), null(), null());
     $self'avatar = $avatar;
     $self'name = $name;
     $self'about = $about;
     $self'website = $website;
     $self'terms = $terms;
-    $self'twitter = $twitter;
+    $self'telegram = $telegram;
     $self'github = $github;
+    $self'jetton = $jetton;
+    $self'nft = $nft;
     $self'hide = $hide;
-    return ($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'twitter, $self'github, $self'hide);
+    return ($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide);
 }
 
-(slice, slice, slice, slice, slice, slice, slice, int) __gen_load_Metadata() impure inline {
+(slice, slice, slice, slice, slice, slice, slice, slice, slice, int) __gen_load_Metadata() impure inline {
     slice $sc = get_data().begin_parse();
     __tact_context_sys = $sc~load_ref();
     int $loaded = $sc~load_int(1);
@@ -111,13 +124,13 @@ builder __gen_write_Metadata(builder build_0, (slice, slice, slice, slice, slice
     } else {
         ;; Allow only workchain deployments
         throw_unless(137, my_address().preload_uint(11) == 1024);
-        (slice avatar, slice name, slice about, slice website, slice terms, slice twitter, slice github, int hide) = $sc~__gen_read_$init$Metadata();
+        (slice avatar, slice name, slice about, slice website, slice terms, slice telegram, slice github, slice jetton, slice nft, int hide) = $sc~__gen_read_$init$Metadata();
         $sc.end_parse();
-        return $__gen_Metadata_init(avatar, name, about, website, terms, twitter, github, hide);
+        return $__gen_Metadata_init(avatar, name, about, website, terms, telegram, github, jetton, nft, hide);
     }
 }
 
-() __gen_store_Metadata((slice, slice, slice, slice, slice, slice, slice, int) v) impure inline {
+() __gen_store_Metadata((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) v) impure inline {
     builder b = begin_cell();
     b = b.store_ref(__tact_context_sys);
     b = b.store_int(true, 1);
@@ -176,8 +189,8 @@ builder __gen_write_Metadata(builder build_0, (slice, slice, slice, slice, slice
     $send(__gen_constructor_SendParameters$bounce_to_value_mode_body(true, __tact_context_get_sender(), 0, (64 + 2), $body));
 }
 
-slice $__gen_Metadata_avatar((slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
-    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'twitter, $self'github, $self'hide)) = $self;
+slice $__gen_Metadata_avatar((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
+    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
     return $self'avatar;
 }
 
@@ -187,8 +200,8 @@ _ $__gen_get_avatar() method_id(100315) {
     return res;
 }
 
-slice $__gen_Metadata_name((slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
-    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'twitter, $self'github, $self'hide)) = $self;
+slice $__gen_Metadata_name((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
+    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
     return $self'name;
 }
 
@@ -198,8 +211,8 @@ _ $__gen_get_name() method_id(71334) {
     return res;
 }
 
-slice $__gen_Metadata_about((slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
-    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'twitter, $self'github, $self'hide)) = $self;
+slice $__gen_Metadata_about((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
+    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
     return $self'about;
 }
 
@@ -209,8 +222,8 @@ _ $__gen_get_about() method_id(96722) {
     return res;
 }
 
-slice $__gen_Metadata_website((slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
-    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'twitter, $self'github, $self'hide)) = $self;
+slice $__gen_Metadata_website((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
+    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
     return $self'website;
 }
 
@@ -220,8 +233,8 @@ _ $__gen_get_website() method_id(129198) {
     return res;
 }
 
-slice $__gen_Metadata_terms((slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
-    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'twitter, $self'github, $self'hide)) = $self;
+slice $__gen_Metadata_terms((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
+    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
     return $self'terms;
 }
 
@@ -231,19 +244,19 @@ _ $__gen_get_terms() method_id(128253) {
     return res;
 }
 
-slice $__gen_Metadata_twitter((slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
-    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'twitter, $self'github, $self'hide)) = $self;
-    return $self'twitter;
+slice $__gen_Metadata_telegram((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
+    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
+    return $self'telegram;
 }
 
-_ $__gen_get_twitter() method_id(90012) {
+_ $__gen_get_telegram() method_id(73771) {
     var self = __gen_load_Metadata();
-    var res = $__gen_Metadata_twitter(self);
+    var res = $__gen_Metadata_telegram(self);
     return res;
 }
 
-slice $__gen_Metadata_github((slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
-    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'twitter, $self'github, $self'hide)) = $self;
+slice $__gen_Metadata_github((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
+    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
     return $self'github;
 }
 
@@ -253,8 +266,30 @@ _ $__gen_get_github() method_id(75775) {
     return res;
 }
 
-int $__gen_Metadata_hide((slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
-    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'twitter, $self'github, $self'hide)) = $self;
+slice $__gen_Metadata_jetton((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
+    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
+    return $self'jetton;
+}
+
+_ $__gen_get_jetton() method_id(129441) {
+    var self = __gen_load_Metadata();
+    var res = $__gen_Metadata_jetton(self);
+    return res;
+}
+
+slice $__gen_Metadata_nft((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
+    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
+    return $self'nft;
+}
+
+_ $__gen_get_nft() method_id(73717) {
+    var self = __gen_load_Metadata();
+    var res = $__gen_Metadata_nft(self);
+    return res;
+}
+
+int $__gen_Metadata_hide((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
+    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
     return $self'hide;
 }
 
@@ -268,14 +303,14 @@ _ $__gen_get_hide() method_id(74246) {
     return (queryId);
 }
 
-(((slice, slice, slice, slice, slice, slice, slice, int)), ()) $__gen_Metadata_receive_Deploy((slice, slice, slice, slice, slice, slice, slice, int) $self, (int) $deploy) impure inline {
-    var ($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'twitter, $self'github, $self'hide) = $self;
+(((slice, slice, slice, slice, slice, slice, slice, slice, slice, int)), ()) $__gen_Metadata_receive_Deploy((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self, (int) $deploy) impure inline {
+    var ($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide) = $self;
     var ($deploy'queryId) = $deploy;
     $reply(__gen_writecell_DeployOk(__gen_constructor_DeployOk$queryId($deploy'queryId)));
-    return (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'twitter, $self'github, $self'hide), ());
+    return (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide), ());
 }
 
-((slice, slice, slice, slice, slice, slice, slice, int), int) __gen_router_Metadata((slice, slice, slice, slice, slice, slice, slice, int) self, int msg_bounced, slice in_msg) impure inline_ref {
+((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), int) __gen_router_Metadata((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) self, int msg_bounced, slice in_msg) impure inline_ref {
     
     ;; Parse incoming message
     int op = 0;
@@ -332,7 +367,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() {
-    return "ipfs://QmVkR9X9kgzr45KrhFqrTYvSH3kDYjo2ggUqqtCKDkEvkr";
+    return "ipfs://QmQMaUomAtXm6pS3wQKuiEqsgj2FrFTdKpibaggW57LhPG";
 }
 
 _ lazy_deployment_completed() {

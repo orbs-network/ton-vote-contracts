@@ -278,8 +278,10 @@ function dictValueParserDeployOk(): DictionaryValue<DeployOk> {
     about: string;
     website: string;
     terms: string;
-    twitter: string;
+    telegram: string;
     github: string;
+    jetton: Address;
+    nft: Address;
     hide: boolean;
 }
 
@@ -293,21 +295,23 @@ function initMetadata_init_args(src: Metadata_init_args) {
         b_1.storeStringRefTail(src.website);
         b_1.storeStringRefTail(src.terms);
         let b_2 = new Builder();
-        b_2.storeStringRefTail(src.twitter);
+        b_2.storeStringRefTail(src.telegram);
         b_2.storeStringRefTail(src.github);
+        b_2.storeAddress(src.jetton);
+        b_2.storeAddress(src.nft);
         b_2.storeBit(src.hide);
         b_1.storeRef(b_2.endCell());
         b_0.storeRef(b_1.endCell());
     };
 }
 
-async function Metadata_init(avatar: string, name: string, about: string, website: string, terms: string, twitter: string, github: string, hide: boolean) {
-    const __code = Cell.fromBase64('te6ccgECIwEABYYAART/APSkE/S88sgLAQIBYgIDAX7QAdDTAwFxsMABkX+RcOIB+kABINdJgQELuvLgiCDXCwoggwm6IYEE/7qx8uCIgwm68uCJVFBTA28E+GEC+GIEAgEgCgsDoO1E0NQB+GPSAAGOK9QB0AHUAdAB1AHQ1AHQAdQB0AHUAdAB1DDQ1AHQAdQB0AHSADAQaBBnbBiOkfgo1wsKgwm68uCJ2zwI0VUG4lUX2zwwIQUGAYJwIddJwh+VMCDXCx/eApJbf+ABghCUapi2uo6i0x8BghCUapi2uvLggdM/ATHIAYIQr/kPV1jLH8s/yds8f+AwcAcAqsj4QwHMfwHKAFVwyFAIzxbJUAjMyFAGzxbJUAXMyMhQBc8WyVAEzMhQA88WyVjMyFjPFskBzMjIUATPFslQA8zIUAXPFslQBMwSygDJAczJAczJ7VQBGn/4QnBYA4BCAW1t2zwIAc7IcQHKAVAHAcoAcAHKAlAFINdJgQELuvLgiCDXCwoggwm6IYEE/7qx8uCIgwm68uCJzxZQA/oCcAHKaCNusyVus7GXMzMBcAHKAOMNIW6znH8BygABIG7y0IABzJUxcAHKAOLJAfsACQCYfwHKAMhwAcoAcAHKACRus51/AcoABCBu8tCAUATMljQDcAHKAOIkbrOdfwHKAAQgbvLQgFAEzJY0A3ABygDicAHKAAJ/AcoAAslYzAIBIAwNAgEgGRoCASAODwIBIBUWAp+21N2omhqAPwx6QAAxxXqAOgA6gDoAOoA6GoA6ADqAOgA6gDoAOoYaGoA6ADqAOgA6QAYCDQIM7YMR0j8FGuFhUGE3XlwRO2eBGiqg3FtnkCEQAgFiERIACBBnXwcCnqoG7UTQ1AH4Y9IAAY4r1AHQAdQB0AHUAdDUAdAB1AHQAdQB0AHUMNDUAdAB1AHQAdIAMBBoEGdsGI6R+CjXCwqDCbry4InbPAjRVQbi2zwhEwKb9dqJoagD8MekAAMcV6gDoAOoA6ADqAOhqAOgA6gDoAOoA6ADqGGhqAOgA6gDoAOkAGAg0CDO2DEdI/BRrhYVBhN15cETtngRoqoNxbZ5IRQABGxxAAYXXwcCn7fznaiaGoA/DHpAADHFeoA6ADqAOgA6gDoagDoAOoA6ADqAOgA6hhoagDoAOoA6ADpABgINAgztgxHSPwUa4WFQYTdeXBE7Z4EaKqDcW2eQIRcCn7c6XaiaGoA/DHpAADHFeoA6ADqAOgA6gDoagDoAOoA6ADqAOgA6hhoagDoAOoA6ADpABgINAgztgxHSPwUa4WFQYTdeXBE7Z4EaKqDcW2eQIRgACBAnXwcACBBXXwcCASAbHAIBbh4fAp+0+32omhqAPwx6QAAxxXqAOgA6gDoAOoA6GoA6ADqAOgA6gDoAOoYaGoA6ADqAOgA6QAYCDQIM7YMR0j8FGuFhUGE3XlwRO2eBGiqg3FtnkCEdALm3ejBOC52Hq6WVz2PQnYc6yVCjbNBOE7rGpaVsj5ZkWnXlv74sRzBOBAq4A3AM7HKZywdVyOS2WHBOA3qTvfKost446np7wKs4ZNBOE7Lpy1Zp2W5nQdLNsozdFJAABF8HAp+ufvaiaGoA/DHpAADHFeoA6ADqAOgA6gDoagDoAOoA6ADqAOgA6hhoagDoAOoA6ADpABgINAgztgxHSPwUa4WFQYTdeXBE7Z4EaKqDcW2eQCEgAp+sV3aiaGoA/DHpAADHFeoA6ADqAOgA6gDoagDoAOoA6ADqAOgA6hhoagDoAOoA6ADpABgINAgztgxHSPwUa4WFQYTdeXBE7Z4EaKqDcW2eQCEiAAgQN18HAFLUAdAB1AHQAdQB0NQB0AHUAdAB1AHQAdQw0NQB0AHUAdAB0gAwEGgQZwAIEEdfBw==');
-    const __system = Cell.fromBase64('te6cckECJQEABZAAAQHAAQEFoDu3AgEU/wD0pBP0vPLICwMCAWIdBAIBIA8FAgEgCwYCAW4JBwKfrFd2omhqAPwx6QAAxxXqAOgA6gDoAOoA6GoA6ADqAOgA6gDoAOoYaGoA6ADqAOgA6QAYCDQIM7YMR0j8FGuFhUGE3XlwRO2eBGiqg3FtnkAkCAAIEEdfBwKfrn72omhqAPwx6QAAxxXqAOgA6gDoAOoA6GoA6ADqAOgA6gDoAOoYaGoA6ADqAOgA6QAYCDQIM7YMR0j8FGuFhUGE3XlwRO2eBGiqg3FtnkAkCgAIEDdfBwIBIA0MALm3ejBOC52Hq6WVz2PQnYc6yVCjbNBOE7rGpaVsj5ZkWnXlv74sRzBOBAq4A3AM7HKZywdVyOS2WHBOA3qTvfKost446np7wKs4ZNBOE7Lpy1Zp2W5nQdLNsozdFJACn7T7faiaGoA/DHpAADHFeoA6ADqAOgA6gDoagDoAOoA6ADqAOgA6hhoagDoAOoA6ADpABgINAgztgxHSPwUa4WFQYTdeXBE7Z4EaKqDcW2eQJA4ABF8HAgEgFRACASATEQKftzpdqJoagD8MekAAMcV6gDoAOoA6ADqAOhqAOgA6gDoAOoA6ADqGGhqAOgA6gDoAOkAGAg0CDO2DEdI/BRrhYVBhN15cETtngRoqoNxbZ5AkEgAIEFdfBwKft/OdqJoagD8MekAAMcV6gDoAOoA6ADqAOhqAOgA6gDoAOoA6ADqGGhqAOgA6gDoAOkAGAg0CDO2DEdI/BRrhYVBhN15cETtngRoqoNxbZ5AkFAAIECdfBwIBIBsWAgFiGRcCm/XaiaGoA/DHpAADHFeoA6ADqAOgA6gDoagDoAOoA6ADqAOgA6hhoagDoAOoA6ADpABgINAgztgxHSPwUa4WFQYTdeXBE7Z4EaKqDcW2eSQYAAYXXwcCnqoG7UTQ1AH4Y9IAAY4r1AHQAdQB0AHUAdDUAdAB1AHQAdQB0AHUMNDUAdAB1AHQAdIAMBBoEGdsGI6R+CjXCwqDCbry4InbPAjRVQbi2zwkGgAEbHECn7bU3aiaGoA/DHpAADHFeoA6ADqAOgA6gDoagDoAOoA6ADqAOgA6hhoagDoAOoA6ADpABgINAgztgxHSPwUa4WFQYTdeXBE7Z4EaKqDcW2eQJBwACBBnXwcBftAB0NMDAXGwwAGRf5Fw4gH6QAEg10mBAQu68uCIINcLCiCDCbohgQT/urHy4IiDCbry4IlUUFMDbwT4YQL4Yh4DoO1E0NQB+GPSAAGOK9QB0AHUAdAB1AHQ1AHQAdQB0AHUAdAB1DDQ1AHQAdQB0AHSADAQaBBnbBiOkfgo1wsKgwm68uCJ2zwI0VUG4lUX2zwwJCAfAKrI+EMBzH8BygBVcMhQCM8WyVAIzMhQBs8WyVAFzMjIUAXPFslQBMzIUAPPFslYzMhYzxbJAczIyFAEzxbJUAPMyFAFzxbJUATMEsoAyQHMyQHMye1UAYJwIddJwh+VMCDXCx/eApJbf+ABghCUapi2uo6i0x8BghCUapi2uvLggdM/ATHIAYIQr/kPV1jLH8s/yds8f+AwcCEBGn/4QnBYA4BCAW1t2zwiAc7IcQHKAVAHAcoAcAHKAlAFINdJgQELuvLgiCDXCwoggwm6IYEE/7qx8uCIgwm68uCJzxZQA/oCcAHKaCNusyVus7GXMzMBcAHKAOMNIW6znH8BygABIG7y0IABzJUxcAHKAOLJAfsAIwCYfwHKAMhwAcoAcAHKACRus51/AcoABCBu8tCAUATMljQDcAHKAOIkbrOdfwHKAAQgbvLQgFAEzJY0A3ABygDicAHKAAJ/AcoAAslYzABS1AHQAdQB0AHUAdDUAdAB1AHQAdQB0AHUMNDUAdAB1AHQAdIAMBBoEGeVlium');
+async function Metadata_init(avatar: string, name: string, about: string, website: string, terms: string, telegram: string, github: string, jetton: Address, nft: Address, hide: boolean) {
+    const __code = Cell.fromBase64('te6ccgECKwEABXgAART/APSkE/S88sgLAQIBYgIDBMbQAdDTAwFxsMABkX+RcOIB+kABINdJgQELuvLgiCDXCwoggwm6IYEE/7qx8uCIgwm68uCJVFBTA28E+GEC+GLtRNDUAfhj0gABjpH4KNcLCoMJuvLgids8CtFVCOMNVRnbPDAoKQQFAgEgCwwBgnAh10nCH5UwINcLH94Cklt/4AGCEJRqmLa6jqLTHwGCEJRqmLa68uCB0z8BMcgBghCv+Q9XWMsfyz/J2zx/4DBwBgEgyPhDAcx/AcoAVZDbPMntVAkBGn/4QnBYA4BCAW1t2zwHAc7IcQHKAVAHAcoAcAHKAlAFINdJgQELuvLgiCDXCwoggwm6IYEE/7qx8uCIgwm68uCJzxZQA/oCcAHKaCNusyVus7GXMzMBcAHKAOMNIW6znH8BygABIG7y0IABzJUxcAHKAOLJAfsACACYfwHKAMhwAcoAcAHKACRus51/AcoABCBu8tCAUATMljQDcAHKAOIkbrOdfwHKAAQgbvLQgFAEzJY0A3ABygDicAHKAAJ/AcoAAslYzAHKyFAKzxbJUArMyFAIzxbJUAfMyMhQB88WyVAGzMhQBc8WyVAEzMhQA88WyVjMyMhQA88WyVjMyFADzxbJWMxQAyDXSYEBC7ry4Igg1wsKIIMJuiGBBP+6sfLgiIMJuvLgic8WUAQKAFgg10mBAQu68uCIINcLCiCDCbohgQT/urHy4IiDCbry4InPFhLKAMkBzMkBzAIBIA0OAgEgHR4CASAPEANHu50u1E0NQB+GPSAAGOkfgo1wsKgwm68uCJ2zwK0VUI4w3bPIKCkcAgFYERICAWIVFgNHr1N2omhqAPwx6QAAx0j8FGuFhUGE3XlwRO2eBWiqhHGG7Z5AKCkTA0ev+vaiaGoA/DHpAADHSPwUa4WFQYTdeXBE7Z4FaKqEcYbtnkAoKRQACBCJXwkABhlfCQIBIBcYA0P12omhqAPwx6QAAx0j8FGuFhUGE3XlwRO2eBWiqhHGG7Z5KCkbA0WkV9qJoagD8MekAAMdI/BRrhYVBhN15cETtngVoqoRxhu2eSgpGQNFpA3aiaGoA/DHpAADHSPwUa4WFQYTdeXBE7Z4FaKqEcYbtnkoKRoACBBJXwkABGyRAAgQOV8JAAgQeV8JAgEgHyACAW4iIwNHtPt9qJoagD8MekAAMdI/BRrhYVBhN15cETtngVoqoRxhu2eQKCkhALm3ejBOC52Hq6WVz2PQnYc6yVCjbNBOE7rGpaVsj5ZkWnXlv74sRzBOBAq4A3AM7HKZywdVyOS2WHBOA3qTvfKost446np7wKs4ZNBOE7Lpy1Zp2W5nQdLNsozdFJAABF8JA0eufvaiaGoA/DHpAADHSPwUa4WFQYTdeXBE7Z4FaKqEcYbtnkAoKSQCAWIlJgAIEFlfCQNForu1E0NQB+GPSAAGOkfgo1wsKgwm68uCJ2zwK0VUI4w3bPIoKScDRaKHtRNDUAfhj0gABjpH4KNcLCoMJuvLgids8CtFVCOMN2zyKCkqAAgQaV8JAObUAdAB1AHQAdQB0NQB0AHUAdAB1AHQAdQw0NQB0AHUAdAB+kABINdJgQELuvLgiCDXCwoggwm6IYEE/7qx8uCIgwm68uCJAfpAASDXSYEBC7ry4Igg1wsKIIMJuiGBBP+6sfLgiIMJuvLgiQHSADAQihCJAOrUAdAB1AHQAdQB0NQB0AHUAdAB1AHQAdQw0NQB0AHUAdAB+kABINdJgQELuvLgiCDXCwoggwm6IYEE/7qx8uCIgwm68uCJAfpAASDXSYEBC7ry4Igg1wsKIIMJuiGBBP+6sfLgiIMJuvLgiQHSADAQihCJbBoACBApXwk=');
+    const __system = Cell.fromBase64('te6cckECLQEABYIAAQHAAQEFoDu3AgEU/wD0pBP0vPLICwMCAWIjBAIBIBIFAgEgDgYCAW4MBwIBYgoIA0Wih7UTQ1AH4Y9IAAY6R+CjXCwqDCbry4InbPArRVQjjDds8iwrCQAIEClfCQNForu1E0NQB+GPSAAGOkfgo1wsKgwm68uCJ2zwK0VUI4w3bPIsKwsACBBpXwkDR65+9qJoagD8MekAAMdI/BRrhYVBhN15cETtngVoqoRxhu2eQCwrDQAIEFlfCQIBIBAPALm3ejBOC52Hq6WVz2PQnYc6yVCjbNBOE7rGpaVsj5ZkWnXlv74sRzBOBAq4A3AM7HKZywdVyOS2WHBOA3qTvfKost446np7wKs4ZNBOE7Lpy1Zp2W5nQdLNsozdFJADR7T7faiaGoA/DHpAADHSPwUa4WFQYTdeXBE7Z4FaKqEcYbtnkCwrEQAEXwkCASAVEwNHu50u1E0NQB+GPSAAGOkfgo1wsKgwm68uCJ2zwK0VUI4w3bPILCsUAAgQeV8JAgEgHhYCAWIZFwND9dqJoagD8MekAAMdI/BRrhYVBhN15cETtngVoqoRxhu2eSwrGAAIEDlfCQIBIBwaA0WkDdqJoagD8MekAAMdI/BRrhYVBhN15cETtngVoqoRxhu2eSwrGwAEbJEDRaRX2omhqAPwx6QAAx0j8FGuFhUGE3XlwRO2eBWiqhHGG7Z5LCsdAAgQSV8JAgFYIR8DR6/69qJoagD8MekAAMdI/BRrhYVBhN15cETtngVoqoRxhu2eQCwrIAAGGV8JA0evU3aiaGoA/DHpAADHSPwUa4WFQYTdeXBE7Z4FaKqEcYbtnkAsKyIACBCJXwkExtAB0NMDAXGwwAGRf5Fw4gH6QAEg10mBAQu68uCIINcLCiCDCbohgQT/urHy4IiDCbry4IlUUFMDbwT4YQL4Yu1E0NQB+GPSAAGOkfgo1wsKgwm68uCJ2zwK0VUI4w1VGds8MCwrJyQBIMj4QwHMfwHKAFWQ2zzJ7VQlAcrIUArPFslQCszIUAjPFslQB8zIyFAHzxbJUAbMyFAFzxbJUATMyFADzxbJWMzIyFADzxbJWMzIUAPPFslYzFADINdJgQELuvLgiCDXCwoggwm6IYEE/7qx8uCIgwm68uCJzxZQBCYAWCDXSYEBC7ry4Igg1wsKIIMJuiGBBP+6sfLgiIMJuvLgic8WEsoAyQHMyQHMAYJwIddJwh+VMCDXCx/eApJbf+ABghCUapi2uo6i0x8BghCUapi2uvLggdM/ATHIAYIQr/kPV1jLH8s/yds8f+AwcCgBGn/4QnBYA4BCAW1t2zwpAc7IcQHKAVAHAcoAcAHKAlAFINdJgQELuvLgiCDXCwoggwm6IYEE/7qx8uCIgwm68uCJzxZQA/oCcAHKaCNusyVus7GXMzMBcAHKAOMNIW6znH8BygABIG7y0IABzJUxcAHKAOLJAfsAKgCYfwHKAMhwAcoAcAHKACRus51/AcoABCBu8tCAUATMljQDcAHKAOIkbrOdfwHKAAQgbvLQgFAEzJY0A3ABygDicAHKAAJ/AcoAAslYzADq1AHQAdQB0AHUAdDUAdAB1AHQAdQB0AHUMNDUAdAB1AHQAfpAASDXSYEBC7ry4Igg1wsKIIMJuiGBBP+6sfLgiIMJuvLgiQH6QAEg10mBAQu68uCIINcLCiCDCbohgQT/urHy4IiDCbry4IkB0gAwEIoQiWwaAObUAdAB1AHQAdQB0NQB0AHUAdAB1AHQAdQw0NQB0AHUAdAB+kABINdJgQELuvLgiCDXCwoggwm6IYEE/7qx8uCIgwm68uCJAfpAASDXSYEBC7ry4Igg1wsKIIMJuiGBBP+6sfLgiIMJuvLgiQHSADAQihCJaGS9/g==');
     let builder = beginCell();
     builder.storeRef(__system);
     builder.storeUint(0, 1);
-    initMetadata_init_args({ $$type: 'Metadata_init_args', avatar, name, about, website, terms, twitter, github, hide })(builder);
+    initMetadata_init_args({ $$type: 'Metadata_init_args', avatar, name, about, website, terms, telegram, github, jetton, nft, hide })(builder);
     const __data = builder.endCell();
     return { code: __code, data: __data };
 }
@@ -341,12 +345,12 @@ const Metadata_errors: { [key: number]: { message: string } } = {
 
 export class Metadata implements Contract {
     
-    static async init(avatar: string, name: string, about: string, website: string, terms: string, twitter: string, github: string, hide: boolean) {
-        return await Metadata_init(avatar, name, about, website, terms, twitter, github, hide);
+    static async init(avatar: string, name: string, about: string, website: string, terms: string, telegram: string, github: string, jetton: Address, nft: Address, hide: boolean) {
+        return await Metadata_init(avatar, name, about, website, terms, telegram, github, jetton, nft, hide);
     }
     
-    static async fromInit(avatar: string, name: string, about: string, website: string, terms: string, twitter: string, github: string, hide: boolean) {
-        const init = await Metadata_init(avatar, name, about, website, terms, twitter, github, hide);
+    static async fromInit(avatar: string, name: string, about: string, website: string, terms: string, telegram: string, github: string, jetton: Address, nft: Address, hide: boolean) {
+        const init = await Metadata_init(avatar, name, about, website, terms, telegram, github, jetton, nft, hide);
         const address = contractAddress(0, init);
         return new Metadata(address, init);
     }
@@ -413,9 +417,9 @@ export class Metadata implements Contract {
         return result;
     }
     
-    async getTwitter(provider: ContractProvider) {
+    async getTelegram(provider: ContractProvider) {
         let builder = new TupleBuilder();
-        let source = (await provider.get('twitter', builder.build())).stack;
+        let source = (await provider.get('telegram', builder.build())).stack;
         let result = source.readString();
         return result;
     }
@@ -424,6 +428,20 @@ export class Metadata implements Contract {
         let builder = new TupleBuilder();
         let source = (await provider.get('github', builder.build())).stack;
         let result = source.readString();
+        return result;
+    }
+    
+    async getJetton(provider: ContractProvider) {
+        let builder = new TupleBuilder();
+        let source = (await provider.get('jetton', builder.build())).stack;
+        let result = source.readAddress();
+        return result;
+    }
+    
+    async getNft(provider: ContractProvider) {
+        let builder = new TupleBuilder();
+        let source = (await provider.get('nft', builder.build())).stack;
+        let result = source.readAddress();
         return result;
     }
     
