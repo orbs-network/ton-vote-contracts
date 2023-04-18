@@ -6,12 +6,13 @@ contract Proposal with Deployable {
 
     owner: Address;
     id: Int as uint32;
-
     proposalStartTime: Int as uint64;
     proposalEndTime: Int as uint64;
     proposalSnapshotTime: Int as uint64;
     proposalType: Int as uint8;
     votingPowerStrategy: Int as uint8;
+    title: String;
+    description: String;
 
     init(owner: Address, id: Int) {
         self.owner = owner;
@@ -22,6 +23,8 @@ contract Proposal with Deployable {
         self.proposalSnapshotTime = 0;
         self.proposalType = 0;
         self.votingPowerStrategy = 0;
+        self.title = "";
+        self.description = "";
     }
 
     receive(msg: ProposalInit) {
@@ -33,6 +36,8 @@ contract Proposal with Deployable {
         self.proposalSnapshotTime = msg.body.proposalSnapshotTime;
         self.proposalType = msg.body.proposalType;
         self.votingPowerStrategy = msg.body.votingPowerStrategy;
+        self.title = msg.body.title;
+        self.description = msg.body.description;
     }
 
     receive(msg: Comment) {
@@ -68,4 +73,11 @@ contract Proposal with Deployable {
         return self.votingPowerStrategy;
     }
 
+    get fun title(): String {
+        return self.title;
+    }
+
+    get fun description(): String {
+        return self.description;
+    }
 }

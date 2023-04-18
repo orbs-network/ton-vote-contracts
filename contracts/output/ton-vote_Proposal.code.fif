@@ -36,6 +36,10 @@ PROGRAM{
   91187 DECLMETHOD $__gen_get_proposalType
   DECLPROC $__gen_Proposal_votingPowerStrategy
   111702 DECLMETHOD $__gen_get_votingPowerStrategy
+  DECLPROC $__gen_Proposal_title
+  84137 DECLMETHOD $__gen_get_title
+  DECLPROC $__gen_Proposal_description
+  65569 DECLMETHOD $__gen_get_description
   DECLPROC $__gen_Proposal_receive_ProposalInit
   DECLPROC $__gen_Proposal_receive_Comment
   DECLPROC $__gen_Proposal_receive_Deploy
@@ -112,18 +116,29 @@ PROGRAM{
     __gen_write_DeployOk INLINECALLDICT
     ENDC
   }>
-  __gen_read_Params PROCINLINE:<{
+  __gen_read_Params PROCREF:<{
     64 LDU
     64 LDU
     64 LDU
     8 LDU
     8 LDU
-    5 -ROLL
+    LDREF
+    SWAP
+    CTOS
+    SWAP
+    LDREF
+    SWAP
+    CTOS
+    s1 s7 XCHG
+    s1 s6 XCHG
+    s1 s5 XCHG
+    s1 s4 XCHG
+    s3 s3 s0 XCHG3
   }>
   __gen_read_ProposalInit PROCINLINE:<{
     32 LDU
     SWAP
-    2228075895 PUSHINT
+    2832290932 PUSHINT
     EQUAL
     129 THROWIFNOT
     __gen_read_Params INLINECALLDICT
@@ -139,17 +154,29 @@ PROGRAM{
     CTOS
   }>
   __gen_write_Proposal PROCINLINE:<{
-    s7 s6 XCHG2
+    s9 s8 XCHG2
     __tact_store_address INLINECALLDICT
-    s1 s4 XCHG
+    s1 s6 XCHG
     32 STU
-    s1 s2 XCHG
-    64 STU
-    64 STU
+    s1 s4 XCHG
     64 STU
     s1 s2 XCHG
+    64 STU
+    64 STU
     8 STU
     8 STU
+    NEWC
+    s0 s3 XCHG2
+    STSLICER
+    ENDC
+    ROT
+    STREF
+    NEWC
+    ROT
+    STSLICER
+    ENDC
+    SWAP
+    STREF
   }>
   __gen_read_Proposal PROCINLINE:<{
     __tact_load_address INLINECALLDICT
@@ -160,7 +187,20 @@ PROGRAM{
     64 LDU
     8 LDU
     8 LDU
-    7 -ROLL
+    LDREF
+    SWAP
+    CTOS
+    SWAP
+    LDREF
+    SWAP
+    CTOS
+    s1 s9 XCHG
+    s1 s8 XCHG
+    s1 s7 XCHG
+    s1 s6 XCHG
+    s1 s5 XCHG
+    s1 s4 XCHG
+    s3 s3 s0 XCHG3
   }>
   __gen_read_$init$Proposal PROCINLINE:<{
     __tact_load_address INLINECALLDICT
@@ -173,6 +213,8 @@ PROGRAM{
     0 PUSHINT
     s0 s0 s0 PUSH3
     DUP
+    B{b5ee9c724101010100020000004cacb9cd} B>boc <s PUSHSLICE
+    B{b5ee9c724101010100020000004cacb9cd} B>boc <s PUSHSLICE
   }>
   __gen_load_Proposal PROCINLINE:<{
     c4 PUSH
@@ -184,7 +226,7 @@ PROGRAM{
     SWAP
     IF:<{
       __gen_read_Proposal INLINECALLDICT
-      1 7 BLKDROP2
+      1 9 BLKDROP2
     }>ELSE<{
       MYADDR
       11 PLDU
@@ -206,7 +248,7 @@ PROGRAM{
     TRUE
     SWAP
     1 STI
-    7 -ROLL
+    9 -ROLL
     __gen_write_Proposal INLINECALLDICT
     ENDC
     c4 POP
@@ -328,92 +370,110 @@ PROGRAM{
   __gen_constructor_DeployOk$queryId PROCINLINE:<{
   }>
   $__gen_Proposal_owner PROCREF:<{
-    6 BLKDROP
+    8 BLKDROP
   }>
   $__gen_get_owner PROC:<{
     __gen_load_Proposal INLINECALLDICT
     $__gen_Proposal_owner INLINECALLDICT
   }>
   $__gen_Proposal_id PROCREF:<{
-    s5 s6 XCHG
-    6 BLKDROP
+    s7 s8 XCHG
+    8 BLKDROP
   }>
   $__gen_get_id PROC:<{
     __gen_load_Proposal INLINECALLDICT
     $__gen_Proposal_id INLINECALLDICT
   }>
   $__gen_Proposal_proposalStartTime PROCREF:<{
-    s4 s6 XCHG
-    6 BLKDROP
+    s6 s8 XCHG
+    8 BLKDROP
   }>
   $__gen_get_proposalStartTime PROC:<{
     __gen_load_Proposal INLINECALLDICT
     $__gen_Proposal_proposalStartTime INLINECALLDICT
   }>
   $__gen_Proposal_proposalEndTime PROCREF:<{
-    s3 s6 XCHG
-    6 BLKDROP
+    s5 s8 XCHG
+    8 BLKDROP
   }>
   $__gen_get_proposalEndTime PROC:<{
     __gen_load_Proposal INLINECALLDICT
     $__gen_Proposal_proposalEndTime INLINECALLDICT
   }>
   $__gen_Proposal_proposalSnapshotTime PROCREF:<{
-    s2 s6 XCHG
-    6 BLKDROP
+    s4 s8 XCHG
+    8 BLKDROP
   }>
   $__gen_get_proposalSnapshotTime PROC:<{
     __gen_load_Proposal INLINECALLDICT
     $__gen_Proposal_proposalSnapshotTime INLINECALLDICT
   }>
   $__gen_Proposal_proposalType PROCREF:<{
-    s1 s6 XCHG
-    6 BLKDROP
+    s3 s8 XCHG
+    8 BLKDROP
   }>
   $__gen_get_proposalType PROC:<{
     __gen_load_Proposal INLINECALLDICT
     $__gen_Proposal_proposalType INLINECALLDICT
   }>
   $__gen_Proposal_votingPowerStrategy PROCREF:<{
-    6 1 BLKDROP2
+    s2 s8 XCHG
+    8 BLKDROP
   }>
   $__gen_get_votingPowerStrategy PROC:<{
     __gen_load_Proposal INLINECALLDICT
     $__gen_Proposal_votingPowerStrategy INLINECALLDICT
   }>
+  $__gen_Proposal_title PROCREF:<{
+    s1 s8 XCHG
+    8 BLKDROP
+  }>
+  $__gen_get_title PROC:<{
+    __gen_load_Proposal INLINECALLDICT
+    $__gen_Proposal_title INLINECALLDICT
+  }>
+  $__gen_Proposal_description PROCREF:<{
+    8 1 BLKDROP2
+  }>
+  $__gen_get_description PROC:<{
+    __gen_load_Proposal INLINECALLDICT
+    $__gen_Proposal_description INLINECALLDICT
+  }>
   $__gen_Proposal_receive_ProposalInit PROCINLINE:<{
-    s5 POP
-    s5 POP
+    s7 POP
+    s7 POP
+    s7 POP
+    s7 POP
     2977 PUSHINT
-    s0 s8 XCHG
+    s0 s10 XCHG
     0 EQINT
+    s0 s9 XCHG
+    0 EQINT
+    s1 s9 XCHG
+    AND
     s0 s7 XCHG
     0 EQINT
     s1 s7 XCHG
     AND
-    s0 s5 XCHG
-    0 EQINT
-    s1 s5 XCHG
-    AND
-    s1 s6 XCHG
+    s1 s8 XCHG
     THROWANYIFNOT
     4429 PUSHINT
     __tact_context_get_sender INLINECALLDICT
-    s8 PUSH
+    s10 PUSH
     __tact_address_eq INLINECALLDICT
     THROWANYIFNOT
-    s2 s3 XCHG
+    s4 s5 XCHG
   }>
   $__gen_Proposal_receive_Comment PROCINLINE:<{
     DROP
     54220 PUSHINT
     NOW
-    s6 PUSH
+    s8 PUSH
     GREATER
     THROWANYIFNOT
     13550 PUSHINT
     NOW
-    s5 PUSH
+    s7 PUSH
     LESS
     THROWANYIFNOT
   }>
@@ -438,12 +498,12 @@ PROGRAM{
       TRUE
     }>
     OVER
-    2228075895 PUSHINT
+    2832290932 PUSHINT
     EQUAL
     IFJMP:<{
       NIP
       __gen_read_ProposalInit INLINECALLDICT
-      1 5 BLKDROP2
+      1 7 BLKDROP2
       $__gen_Proposal_receive_ProposalInit INLINECALLDICT
       TRUE
     }>
@@ -493,7 +553,7 @@ PROGRAM{
     s0 s2 XCHG
     __tact_context_sender SETGLOB
     __gen_load_Proposal INLINECALLDICT
-    2 7 BLKSWAP
+    2 9 BLKSWAP
     __gen_router_Proposal INLINECALLDICT
     DROP
     __gen_store_Proposal INLINECALLDICT
@@ -506,7 +566,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d6150533375727369686e71654e794172453136335659564e335938504a503466597344444a516b477046474a} PUSHSLICE
+    x{697066733a2f2f516d613666414d7a5a477947564b377133677179417148596648617a537452503965754c72636739744679487432} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH

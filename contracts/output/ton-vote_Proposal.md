@@ -1,6 +1,6 @@
 # TACT Compilation Report
 Contract: Proposal
-BOC Size: 1453 bytes
+BOC Size: 1689 bytes
 
 # Types
 Total Types: 16
@@ -54,23 +54,23 @@ TLB: `dao_init#1a83442d owner:address proposalOwner:address metadata:address = D
 Signature: `DaoInit{owner:address,proposalOwner:address,metadata:address}`
 
 ## CreateProposal
-TLB: `create_proposal#130b83db body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,proposalType:uint8,votingPowerStrategy:uint8} = CreateProposal`
-Signature: `CreateProposal{body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,proposalType:uint8,votingPowerStrategy:uint8}}`
+TLB: `create_proposal#e60ac5c0 body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,proposalType:uint8,votingPowerStrategy:uint8,title:^string,description:^string} = CreateProposal`
+Signature: `CreateProposal{body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,proposalType:uint8,votingPowerStrategy:uint8,title:^string,description:^string}}`
 
 ## Params
-TLB: `_ proposalStartTime:uint64 proposalEndTime:uint64 proposalSnapshotTime:uint64 proposalType:uint8 votingPowerStrategy:uint8 = Params`
-Signature: `Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,proposalType:uint8,votingPowerStrategy:uint8}`
+TLB: `_ proposalStartTime:uint64 proposalEndTime:uint64 proposalSnapshotTime:uint64 proposalType:uint8 votingPowerStrategy:uint8 title:^string description:^string = Params`
+Signature: `Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,proposalType:uint8,votingPowerStrategy:uint8,title:^string,description:^string}`
 
 ## ProposalInit
-TLB: `proposal_init#84cdbd77 body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,proposalType:uint8,votingPowerStrategy:uint8} = ProposalInit`
-Signature: `ProposalInit{body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,proposalType:uint8,votingPowerStrategy:uint8}}`
+TLB: `proposal_init#a8d15474 body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,proposalType:uint8,votingPowerStrategy:uint8,title:^string,description:^string} = ProposalInit`
+Signature: `ProposalInit{body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,proposalType:uint8,votingPowerStrategy:uint8,title:^string,description:^string}}`
 
 ## Comment
 TLB: `comment#3480231d body:^string = Comment`
 Signature: `Comment{body:^string}`
 
 # Get Methods
-Total Get Methods: 7
+Total Get Methods: 9
 
 ## owner
 
@@ -85,6 +85,10 @@ Total Get Methods: 7
 ## proposalType
 
 ## votingPowerStrategy
+
+## title
+
+## description
 
 # Error Codes
 2: Stack undeflow

@@ -49,6 +49,8 @@ struct Params {
     proposalSnapshotTime: Int as uint64;
     proposalType: Int as uint8;
     votingPowerStrategy: Int as uint8;
+    title: String;
+    description: String;
 }
 
 message ProposalInit {
