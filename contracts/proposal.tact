@@ -13,6 +13,8 @@ contract Proposal with Deployable {
     votingPowerStrategy: Int as uint8;
     title: String;
     description: String;
+    jetton: Address;
+    nft: Address;
 
     init(owner: Address, id: Int) {
         self.owner = owner;
@@ -25,6 +27,8 @@ contract Proposal with Deployable {
         self.votingPowerStrategy = 0;
         self.title = "";
         self.description = "";
+        self.jetton =  newAddress(0, 0x0);
+        self.nft =  newAddress(0, 0x0);
     }
 
     receive(msg: ProposalInit) {
@@ -38,6 +42,8 @@ contract Proposal with Deployable {
         self.votingPowerStrategy = msg.body.votingPowerStrategy;
         self.title = msg.body.title;
         self.description = msg.body.description;
+        self.jetton = msg.body.jetton;
+        self.nft = msg.body.nft;
     }
 
     receive(msg: Comment) {
@@ -80,4 +86,13 @@ contract Proposal with Deployable {
     get fun description(): String {
         return self.description;
     }
+
+    get fun jetton(): Address {
+        return self.jetton;
+    }
+
+    get fun nft(): Address {
+        return self.nft;
+    }
+
 }

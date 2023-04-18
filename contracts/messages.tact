@@ -51,6 +51,8 @@ struct Params {
     votingPowerStrategy: Int as uint8;
     title: String;
     description: String;
+    jetton: Address;
+    nft: Address;
 }
 
 message ProposalInit {

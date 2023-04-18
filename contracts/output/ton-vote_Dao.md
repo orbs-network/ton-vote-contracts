@@ -54,16 +54,16 @@ TLB: `dao_init#1a83442d owner:address proposalOwner:address metadata:address = D
 Signature: `DaoInit{owner:address,proposalOwner:address,metadata:address}`
 
 ## CreateProposal
-TLB: `create_proposal#e60ac5c0 body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,proposalType:uint8,votingPowerStrategy:uint8,title:^string,description:^string} = CreateProposal`
-Signature: `CreateProposal{body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,proposalType:uint8,votingPowerStrategy:uint8,title:^string,description:^string}}`
+TLB: `create_proposal#4a6c5818 body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,proposalType:uint8,votingPowerStrategy:uint8,title:^string,description:^string,jetton:address,nft:address} = CreateProposal`
+Signature: `CreateProposal{body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,proposalType:uint8,votingPowerStrategy:uint8,title:^string,description:^string,jetton:address,nft:address}}`
 
 ## Params
-TLB: `_ proposalStartTime:uint64 proposalEndTime:uint64 proposalSnapshotTime:uint64 proposalType:uint8 votingPowerStrategy:uint8 title:^string description:^string = Params`
-Signature: `Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,proposalType:uint8,votingPowerStrategy:uint8,title:^string,description:^string}`
+TLB: `_ proposalStartTime:uint64 proposalEndTime:uint64 proposalSnapshotTime:uint64 proposalType:uint8 votingPowerStrategy:uint8 title:^string description:^string jetton:address nft:address = Params`
+Signature: `Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,proposalType:uint8,votingPowerStrategy:uint8,title:^string,description:^string,jetton:address,nft:address}`
 
 ## ProposalInit
-TLB: `proposal_init#a8d15474 body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,proposalType:uint8,votingPowerStrategy:uint8,title:^string,description:^string} = ProposalInit`
-Signature: `ProposalInit{body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,proposalType:uint8,votingPowerStrategy:uint8,title:^string,description:^string}}`
+TLB: `proposal_init#c06a2125 body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,proposalType:uint8,votingPowerStrategy:uint8,title:^string,description:^string,jetton:address,nft:address} = ProposalInit`
+Signature: `ProposalInit{body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,proposalType:uint8,votingPowerStrategy:uint8,title:^string,description:^string,jetton:address,nft:address}}`
 
 ## Comment
 TLB: `comment#3480231d body:^string = Comment`
