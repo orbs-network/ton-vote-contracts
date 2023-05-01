@@ -9,21 +9,22 @@ contract Proposal with Deployable {
     proposalStartTime: Int as uint64;
     proposalEndTime: Int as uint64;
     proposalSnapshotTime: Int as uint64;
-    proposalType: Int as uint8;
+    votingSystem: String;
     votingPowerStrategy: Int as uint8;
     title: String;
     description: String;
     jetton: Address;
     nft: Address;
-
+    
     init(owner: Address, id: Int) {
+        // require(context().value >= ton("0.1"), "Low message value"); // TODO: FIXME change to 1 ton
         self.owner = owner;
         self.id = id;
 
         self.proposalStartTime = 0;
         self.proposalEndTime = 0;
         self.proposalSnapshotTime = 0;
-        self.proposalType = 0;
+        self.votingSystem = "";
         self.votingPowerStrategy = 0;
         self.title = "";
         self.description = "";
@@ -38,7 +39,7 @@ contract Proposal with Deployable {
         self.proposalStartTime = msg.body.proposalStartTime;
         self.proposalEndTime = msg.body.proposalEndTime;
         self.proposalSnapshotTime = msg.body.proposalSnapshotTime;
-        self.proposalType = msg.body.proposalType;
+        self.votingSystem = msg.body.votingSystem;
         self.votingPowerStrategy = msg.body.votingPowerStrategy;
         self.title = msg.body.title;
         self.description = msg.body.description;
@@ -71,8 +72,8 @@ contract Proposal with Deployable {
         return self.proposalSnapshotTime;
     }
 
-    get fun proposalType(): Int {
-        return self.proposalType;
+    get fun votingSystem(): String {
+        return self.votingSystem;
     }
 
     get fun votingPowerStrategy(): Int {

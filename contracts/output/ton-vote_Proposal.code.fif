@@ -33,8 +33,8 @@ PROGRAM{
   121148 DECLMETHOD $__gen_get_proposalEndTime
   DECLPROC $__gen_Proposal_proposalSnapshotTime
   67040 DECLMETHOD $__gen_get_proposalSnapshotTime
-  DECLPROC $__gen_Proposal_proposalType
-  91187 DECLMETHOD $__gen_get_proposalType
+  DECLPROC $__gen_Proposal_votingSystem
+  99475 DECLMETHOD $__gen_get_votingSystem
   DECLPROC $__gen_Proposal_votingPowerStrategy
   111702 DECLMETHOD $__gen_get_votingPowerStrategy
   DECLPROC $__gen_Proposal_title
@@ -140,7 +140,10 @@ PROGRAM{
     64 LDU
     64 LDU
     64 LDU
-    8 LDU
+    LDREF
+    SWAP
+    CTOS
+    SWAP
     8 LDU
     LDREF
     SWAP
@@ -164,7 +167,7 @@ PROGRAM{
   __gen_read_ProposalInit PROCINLINE:<{
     32 LDU
     SWAP
-    3228180773 PUSHINT
+    2328863560 PUSHINT
     EQUAL
     129 THROWIFNOT
     __gen_read_Params INLINECALLDICT
@@ -190,7 +193,12 @@ PROGRAM{
     64 STU
     s1 s2 XCHG
     64 STU
-    8 STU
+    NEWC
+    ROT
+    STSLICER
+    ENDC
+    SWAP
+    STREF
     8 STU
     NEWC
     ROT
@@ -199,15 +207,15 @@ PROGRAM{
     SWAP
     STREF
     NEWC
-    ROT
+    NEWC
+    s0 s3 XCHG2
     STSLICER
     ENDC
-    SWAP
-    STREF
     ROT
+    STREF
+    s0 s3 XCHG2
     __tact_store_address INLINECALLDICT
-    NEWC
-    ROT
+    SWAP
     __tact_store_address INLINECALLDICT
     ENDC
     SWAP
@@ -220,32 +228,34 @@ PROGRAM{
     64 LDU
     64 LDU
     64 LDU
-    8 LDU
+    LDREF
+    SWAP
+    CTOS
+    SWAP
     8 LDU
     LDREF
     SWAP
     CTOS
     SWAP
+    LDREF
+    SWAP
+    CTOS
     LDREF
     SWAP
     CTOS
     SWAP
     __tact_load_address INLINECALLDICT
     SWAP
-    LDREF
-    SWAP
-    CTOS
     __tact_load_address INLINECALLDICT
     NIP
-    s1 s11 XCHG
-    s1 s10 XCHG
-    s1 s9 XCHG
-    s1 s8 XCHG
-    s1 s7 XCHG
-    s1 s6 XCHG
-    s1 s5 XCHG
-    s1 s4 XCHG
-    s3 s3 s0 XCHG3
+    s3 s11 XCHG
+    s3 s10 XCHG
+    s3 s9 XCHG
+    s3 s8 XCHG
+    s3 s7 XCHG
+    s3 s6 XCHG
+    s3 s5 XCHG
+    s3 s4 XCHG
   }>
   __gen_read_$init$Proposal PROCINLINE:<{
     __tact_load_address INLINECALLDICT
@@ -256,8 +266,9 @@ PROGRAM{
   }>
   $__gen_Proposal_init PROCREF:<{
     0 PUSHINT
-    s0 s0 s0 PUSH3
-    DUP
+    s0 s0 PUSH2
+    B{b5ee9c724101010100020000004cacb9cd} B>boc <s PUSHSLICE
+    OVER
     B{b5ee9c724101010100020000004cacb9cd} B>boc <s PUSHSLICE
     B{b5ee9c724101010100020000004cacb9cd} B>boc <s PUSHSLICE
     s2 s2 PUSH2
@@ -457,13 +468,13 @@ PROGRAM{
     __gen_load_Proposal INLINECALLDICT
     $__gen_Proposal_proposalSnapshotTime INLINECALLDICT
   }>
-  $__gen_Proposal_proposalType PROCREF:<{
+  $__gen_Proposal_votingSystem PROCREF:<{
     s5 s10 XCHG
     10 BLKDROP
   }>
-  $__gen_get_proposalType PROC:<{
+  $__gen_get_votingSystem PROC:<{
     __gen_load_Proposal INLINECALLDICT
-    $__gen_Proposal_proposalType INLINECALLDICT
+    $__gen_Proposal_votingSystem INLINECALLDICT
   }>
   $__gen_Proposal_votingPowerStrategy PROCREF:<{
     s4 s10 XCHG
@@ -565,7 +576,7 @@ PROGRAM{
       TRUE
     }>
     OVER
-    3228180773 PUSHINT
+    2328863560 PUSHINT
     EQUAL
     IFJMP:<{
       NIP
@@ -633,7 +644,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d647462634a6e685033594765544e353156525a57714469426277684a763832344b6562396f54334b7065445a} PUSHSLICE
+    x{697066733a2f2f516d5a7277626734794164323679367a5a4d785277684847746e433239716d556248455654733346547665796972} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH

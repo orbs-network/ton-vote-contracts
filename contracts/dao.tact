@@ -13,6 +13,7 @@ contract Dao with Deployable {
     metadata: Address;
 
     init(registry: Address, daoIndex: Int) {
+        // require(context().value >= ton("0.1"), "Low message value"); // TODO: FIXME change to 1 ton
         self.registry = registry; 
         self.daoIndex = daoIndex;
 
@@ -32,13 +33,11 @@ contract Dao with Deployable {
 
     receive(msg: SetOwner) {
         require(sender() == self.owner, "Invalid sender");
-
         self.owner = msg.newOwner;
     }
 
     receive(msg: SetProposalOwner) {
         require(sender() == self.owner, "Invalid sender");
-
         self.proposalOwner = msg.newProposalOwner;
     }
 
@@ -48,8 +47,8 @@ contract Dao with Deployable {
     }
 
     receive(msg: FwdMsg) {
+        // require(sender() == self.owner || sender() == self.proposalOwner, "Invalid sender");        
         require(sender() == self.owner || ((sender() == self.proposalOwner) && msg.fwdMsg.to != self.metadata), "Invalid sender");
-        
         send(msg.fwdMsg);
     }
 

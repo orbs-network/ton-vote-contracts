@@ -127,20 +127,23 @@ SETCP0
       }> PUSHCONT
       IFJMP
       s1 PUSH
-      1248614424 PUSHINT
+      4083282652 PUSHINT
       EQUAL
       <{
         s1 POP
         32 LDU
         s0 s1 XCHG
-        1248614424 PUSHINT
+        4083282652 PUSHINT
         EQUAL
         129 THROWIFNOT
         <{
           64 LDU
           64 LDU
           64 LDU
-          8 LDU
+          LDREF
+          s0 s1 XCHG
+          CTOS
+          s0 s1 XCHG
           8 LDU
           LDREF
           s0 s1 XCHG
@@ -271,7 +274,7 @@ SETCP0
           s0 s15 XCHG
           NEWC
           9 1 BLKSWAP
-          3228180773 PUSHINT
+          2328863560 PUSHINT
           s0 s10 XCHG2
           32 STU
           s0 s9 XCHG
@@ -282,8 +285,12 @@ SETCP0
             64 STU
             s1 s4 XCHG
             64 STU
-            s1 s2 XCHG
-            8 STU
+            NEWC
+            s0 s3 XCHG2
+            STSLICER
+            ENDC
+            ROT
+            STREF
             8 STU
             NEWC
             ROT

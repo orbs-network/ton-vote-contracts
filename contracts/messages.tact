@@ -47,7 +47,7 @@ struct Params {
     proposalStartTime: Int as uint64;
     proposalEndTime: Int as uint64;
     proposalSnapshotTime: Int as uint64;
-    proposalType: Int as uint8;
+    votingSystem: String;
     votingPowerStrategy: Int as uint8;
     title: String;
     description: String;

@@ -593,14 +593,14 @@ export type CreateProposal = {
 export function storeCreateProposal(src: CreateProposal) {
     return (builder: Builder) => {
         let b_0 = builder;
-        b_0.storeUint(1248614424, 32);
+        b_0.storeUint(4083282652, 32);
         b_0.store(storeParams(src.body));
     };
 }
 
 export function loadCreateProposal(slice: Slice) {
     let sc_0 = slice;
-    if (sc_0.loadUint(32) !== 1248614424) { throw Error('Invalid prefix'); }
+    if (sc_0.loadUint(32) !== 4083282652) { throw Error('Invalid prefix'); }
     let _body = loadParams(sc_0);
     return { $$type: 'CreateProposal' as const, body: _body };
 }
@@ -632,7 +632,7 @@ export type Params = {
     proposalStartTime: bigint;
     proposalEndTime: bigint;
     proposalSnapshotTime: bigint;
-    proposalType: bigint;
+    votingSystem: string;
     votingPowerStrategy: bigint;
     title: string;
     description: string;
@@ -646,7 +646,7 @@ export function storeParams(src: Params) {
         b_0.storeUint(src.proposalStartTime, 64);
         b_0.storeUint(src.proposalEndTime, 64);
         b_0.storeUint(src.proposalSnapshotTime, 64);
-        b_0.storeUint(src.proposalType, 8);
+        b_0.storeStringRefTail(src.votingSystem);
         b_0.storeUint(src.votingPowerStrategy, 8);
         b_0.storeStringRefTail(src.title);
         b_0.storeStringRefTail(src.description);
@@ -660,26 +660,26 @@ export function loadParams(slice: Slice) {
     let _proposalStartTime = sc_0.loadUintBig(64);
     let _proposalEndTime = sc_0.loadUintBig(64);
     let _proposalSnapshotTime = sc_0.loadUintBig(64);
-    let _proposalType = sc_0.loadUintBig(8);
+    let _votingSystem = sc_0.loadStringRefTail();
     let _votingPowerStrategy = sc_0.loadUintBig(8);
     let _title = sc_0.loadStringRefTail();
     let _description = sc_0.loadStringRefTail();
     let _jetton = sc_0.loadAddress();
     let _nft = sc_0.loadAddress();
-    return { $$type: 'Params' as const, proposalStartTime: _proposalStartTime, proposalEndTime: _proposalEndTime, proposalSnapshotTime: _proposalSnapshotTime, proposalType: _proposalType, votingPowerStrategy: _votingPowerStrategy, title: _title, description: _description, jetton: _jetton, nft: _nft };
+    return { $$type: 'Params' as const, proposalStartTime: _proposalStartTime, proposalEndTime: _proposalEndTime, proposalSnapshotTime: _proposalSnapshotTime, votingSystem: _votingSystem, votingPowerStrategy: _votingPowerStrategy, title: _title, description: _description, jetton: _jetton, nft: _nft };
 }
 
 function loadTupleParams(source: TupleReader) {
     let _proposalStartTime = source.readBigNumber();
     let _proposalEndTime = source.readBigNumber();
     let _proposalSnapshotTime = source.readBigNumber();
-    let _proposalType = source.readBigNumber();
+    let _votingSystem = source.readString();
     let _votingPowerStrategy = source.readBigNumber();
     let _title = source.readString();
     let _description = source.readString();
     let _jetton = source.readAddress();
     let _nft = source.readAddress();
-    return { $$type: 'Params' as const, proposalStartTime: _proposalStartTime, proposalEndTime: _proposalEndTime, proposalSnapshotTime: _proposalSnapshotTime, proposalType: _proposalType, votingPowerStrategy: _votingPowerStrategy, title: _title, description: _description, jetton: _jetton, nft: _nft };
+    return { $$type: 'Params' as const, proposalStartTime: _proposalStartTime, proposalEndTime: _proposalEndTime, proposalSnapshotTime: _proposalSnapshotTime, votingSystem: _votingSystem, votingPowerStrategy: _votingPowerStrategy, title: _title, description: _description, jetton: _jetton, nft: _nft };
 }
 
 function storeTupleParams(source: Params) {
@@ -687,7 +687,7 @@ function storeTupleParams(source: Params) {
     builder.writeNumber(source.proposalStartTime);
     builder.writeNumber(source.proposalEndTime);
     builder.writeNumber(source.proposalSnapshotTime);
-    builder.writeNumber(source.proposalType);
+    builder.writeString(source.votingSystem);
     builder.writeNumber(source.votingPowerStrategy);
     builder.writeString(source.title);
     builder.writeString(source.description);
@@ -715,14 +715,14 @@ export type ProposalInit = {
 export function storeProposalInit(src: ProposalInit) {
     return (builder: Builder) => {
         let b_0 = builder;
-        b_0.storeUint(3228180773, 32);
+        b_0.storeUint(2328863560, 32);
         b_0.store(storeParams(src.body));
     };
 }
 
 export function loadProposalInit(slice: Slice) {
     let sc_0 = slice;
-    if (sc_0.loadUint(32) !== 3228180773) { throw Error('Invalid prefix'); }
+    if (sc_0.loadUint(32) !== 2328863560) { throw Error('Invalid prefix'); }
     let _body = loadParams(sc_0);
     return { $$type: 'ProposalInit' as const, body: _body };
 }

@@ -10,6 +10,7 @@ contract ProposalDeployer with Deployable {
     nextProposalId: Int as uint32;
 
     init(owner: Address) {
+        // require(context().value >= ton("0.1"), "Low message value"); // TODO: FIXME change to 1 ton
         self.owner = owner;
         self.nextProposalId = 0;
     }
