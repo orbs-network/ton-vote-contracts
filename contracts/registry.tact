@@ -6,15 +6,20 @@ import "./dao";
 
 contract Registry with Deployable {
 
-    nextDaoId: Int as uint32;    
+    registryId: Int as uint16;
+    nextDaoId: Int as uint32;
+    admin: Address;
+    deployCost: Int as uint64;
 
-    init() {
+    init(registryId: Int, admin: Address) {
+        self.registryId = registryId;
+        self.admin = admin;
         self.nextDaoId = 0;
+        self.deployCost = ton("1");
     }
     
     receive(createDao: CreateDao) {
-        require(context().value >= ton("0.1"), "Low message value"); // TODO: FIXME change to 1 ton
-        // TODO: context().value -= ton("1") --> decrease message value
+        require(context().value >= self.deployCost, "Low message value");
         
         let init: StateInit = self.getDaoStateInit(self.nextDaoId);
         let daoAddress: Address = contractAddress(init);
@@ -32,6 +37,16 @@ contract Registry with Deployable {
         self.nextDaoId = self.nextDaoId + 1;
     }
 
+    receive(msg: SetDeployCost) {
+        require(sender() == self.admin, "Only admin can change deploy cost");
+        self.deployCost = msg.newDeployCost;
+    }
+
+    receive(msg: SetRegistryAdmin) {
+        require(sender() == self.admin, "Only admin can set new registry admin");
+        self.admin = msg.newAdmin;
+    }
+
     fun getDaoStateInit(daoIndex: Int): StateInit {
         return initOf Dao(myAddress(), daoIndex);
     }
@@ -44,4 +59,17 @@ contract Registry with Deployable {
         let init: StateInit = self.getDaoStateInit(daoId);
         return contractAddress(init);
     }
+
+    get fun registryId(): Int {
+        return self.registryId;
+    }
+
+    get fun admin(): Address {
+        return self.admin;
+    }
+
+    get fun deployCost(): Int {
+        return self.deployCost;
+    }
+
 }

@@ -1,9 +1,9 @@
 # TACT Compilation Report
 Contract: ProposalDeployer
-BOC Size: 1504 bytes
+BOC Size: 1393 bytes
 
 # Types
-Total Types: 16
+Total Types: 18
 
 ## StateInit
 TLB: `_ code:^cell data:^cell = StateInit`
@@ -37,6 +37,14 @@ Signature: `CreateDao{owner:address,proposalOwner:address,metadata:address}`
 TLB: `set_owner#c2b41d43 newOwner:address = SetOwner`
 Signature: `SetOwner{newOwner:address}`
 
+## SetDeployCost
+TLB: `set_deploy_cost#82e41841 newDeployCost:uint64 = SetDeployCost`
+Signature: `SetDeployCost{newDeployCost:uint64}`
+
+## SetRegistryAdmin
+TLB: `set_registry_admin#c6d673ca newAdmin:address = SetRegistryAdmin`
+Signature: `SetRegistryAdmin{newAdmin:address}`
+
 ## SetProposalOwner
 TLB: `set_proposal_owner#d0e3be76 newProposalOwner:address = SetProposalOwner`
 Signature: `SetProposalOwner{newProposalOwner:address}`
@@ -54,16 +62,16 @@ TLB: `dao_init#1a83442d owner:address proposalOwner:address metadata:address = D
 Signature: `DaoInit{owner:address,proposalOwner:address,metadata:address}`
 
 ## CreateProposal
-TLB: `create_proposal#f361f2dc body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategy:uint8,title:^string,description:^string,jetton:address,nft:address} = CreateProposal`
-Signature: `CreateProposal{body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategy:uint8,title:^string,description:^string,jetton:address,nft:address}}`
+TLB: `create_proposal#2ab84bd1 body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string} = CreateProposal`
+Signature: `CreateProposal{body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string}}`
 
 ## Params
-TLB: `_ proposalStartTime:uint64 proposalEndTime:uint64 proposalSnapshotTime:uint64 votingSystem:^string votingPowerStrategy:uint8 title:^string description:^string jetton:address nft:address = Params`
-Signature: `Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategy:uint8,title:^string,description:^string,jetton:address,nft:address}`
+TLB: `_ proposalStartTime:uint64 proposalEndTime:uint64 proposalSnapshotTime:uint64 votingSystem:^string votingPowerStrategies:^string title:^string description:^string = Params`
+Signature: `Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string}`
 
 ## ProposalInit
-TLB: `proposal_init#8acfa348 body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategy:uint8,title:^string,description:^string,jetton:address,nft:address} = ProposalInit`
-Signature: `ProposalInit{body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategy:uint8,title:^string,description:^string,jetton:address,nft:address}}`
+TLB: `proposal_init#f39e3d52 body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string} = ProposalInit`
+Signature: `ProposalInit{body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string}}`
 
 ## Comment
 TLB: `comment#3480231d body:^string = Comment`
@@ -72,7 +80,7 @@ Signature: `Comment{body:^string}`
 # Get Methods
 Total Get Methods: 3
 
-## owner
+## parent
 
 ## nextProposalId
 
@@ -106,5 +114,4 @@ Argument: index
 137: Masterchain support is not enabled for this contract
 2977: Already initialized
 4429: Invalid sender
-13550: Ended
-54220: Not started
+10109: Low message value

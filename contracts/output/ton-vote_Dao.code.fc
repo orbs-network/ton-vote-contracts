@@ -46,10 +46,6 @@ int __tact_address_eq(slice a, slice b) inline {
     return equal_slice_bits(a, b);
 }
 
-int __tact_address_neq(slice a, slice b) inline {
-    return ~ equal_slice_bits(a, b);
-}
-
 (slice, ((int, slice, int, int, cell, cell, cell))) __gen_read_SendParameters(slice sc_0) inline_ref {
     var v'bounce = sc_0~load_int(1);
     var v'to = sc_0~__tact_load_address();
@@ -315,7 +311,7 @@ _ $__gen_get_daoIndex() method_id(73154) {
 (((slice, slice, slice, int, slice)), ()) $__gen_Dao_receive_FwdMsg((slice, slice, slice, int, slice) $self, ((int, slice, int, int, cell, cell, cell)) $msg) impure inline {
     var ($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata) = $self;
     var (($msg'fwdMsg'bounce, $msg'fwdMsg'to, $msg'fwdMsg'value, $msg'fwdMsg'mode, $msg'fwdMsg'body, $msg'fwdMsg'code, $msg'fwdMsg'data)) = $msg;
-    throw_unless(4429, (__tact_address_eq(__tact_context_get_sender(), $self'owner) | (__tact_address_eq(__tact_context_get_sender(), $self'proposalOwner) & __tact_address_neq($msg'fwdMsg'to, $self'metadata))));
+    throw_unless(4429, (__tact_address_eq(__tact_context_get_sender(), $self'owner) | __tact_address_eq(__tact_context_get_sender(), $self'proposalOwner)));
     $send(($msg'fwdMsg'bounce, $msg'fwdMsg'to, $msg'fwdMsg'value, $msg'fwdMsg'mode, $msg'fwdMsg'body, $msg'fwdMsg'code, $msg'fwdMsg'data));
     return (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata), ());
 }
@@ -423,7 +419,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() {
-    return "ipfs://QmZvY1qWsT2NWjYTKNijTsFKfgD8AevHT9KsRyAoAXT6xu";
+    return "ipfs://QmZXn8d248skGcpg4tWdYfUAHDQmWLJbp5ujta3GGPzkrP";
 }
 
 _ lazy_deployment_completed() {

@@ -159,7 +159,7 @@ describe('registry tests', () => {
                             proposalEndTime: 2341659973n,
                             proposalSnapshotTime: 1678885573n,
                             proposalType: 0n,
-                            votingPowerStrategy: 0n
+                            votingPowerStrategies: 0n
                         }
                     })).endCell(),
                     code: proposalDeployer.init?.code,
@@ -233,7 +233,7 @@ describe('registry tests', () => {
                             proposalEndTime: 2341659973n,
                             proposalSnapshotTime: 1678885573n,
                             proposalType: 0n,
-                            votingPowerStrategy: 0n
+                            votingPowerStrategies: 0n
                         }
                     })).endCell(),
                     code: proposalDeployer.init?.code,

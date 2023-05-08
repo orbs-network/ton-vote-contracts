@@ -131,7 +131,7 @@ async function deployAllContracts() {
                         proposalEndTime: 2341659973n,
                         proposalSnapshotTime: 1679312645n,
                         proposalType: 0n,
-                        votingPowerStrategy: 0n
+                        votingPowerStrategies: 0n
                     }
                 })).endCell(),
                 code: proposalDeployer.init?.code,

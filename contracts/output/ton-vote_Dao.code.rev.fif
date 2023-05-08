@@ -616,10 +616,6 @@ SETCP0
         2 GETGLOBVAR
         s12 PUSH
         SDEQ
-        s8 s10 PUSH2
-        SDEQ
-        NOT
-        AND
         OR
         THROWANYIFNOT
         <{

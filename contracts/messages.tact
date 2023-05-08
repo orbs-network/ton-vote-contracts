@@ -15,6 +15,14 @@ message SetOwner {
     newOwner: Address;
 }
 
+message SetDeployCost {
+    newDeployCost: Int as uint64;
+}
+
+message SetRegistryAdmin {
+    newAdmin: Address;
+}
+
 message SetProposalOwner {
     newProposalOwner: Address;
 }
@@ -48,11 +56,9 @@ struct Params {
     proposalEndTime: Int as uint64;
     proposalSnapshotTime: Int as uint64;
     votingSystem: String;
-    votingPowerStrategy: Int as uint8;
+    votingPowerStrategies: String;
     title: String;
     description: String;
-    jetton: Address;
-    nft: Address;
 }
 
 message ProposalInit {

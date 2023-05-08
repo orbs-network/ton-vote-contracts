@@ -6,17 +6,17 @@ import "./proposal";
 
 contract ProposalDeployer with Deployable {
 
-    owner: Address; // owner is Dao contract (cannot be changed)
+    parent: Address; // parent is Dao contract (cannot be changed)
     nextProposalId: Int as uint32;
 
-    init(owner: Address) {
-        // require(context().value >= ton("0.1"), "Low message value"); // TODO: FIXME change to 1 ton
-        self.owner = owner;
+    init(parent: Address) {
+        self.parent = parent;
         self.nextProposalId = 0;
     }
 
     receive(msg: CreateProposal) {
-        require(sender() == self.owner, "Invalid sender");
+        require(sender() == self.parent, "Invalid sender");
+        require(context().value >= ton("1"), "Low message value"); 
 
         // Create message
         let init: StateInit = self.getProposalStateInit(self.nextProposalId);
@@ -39,8 +39,8 @@ contract ProposalDeployer with Deployable {
         return initOf Proposal(myAddress(), index);
     }
 
-    get fun owner(): Address {
-        return self.owner;
+    get fun parent(): Address {
+        return self.parent;
     }
 
     get fun nextProposalId(): Int {
