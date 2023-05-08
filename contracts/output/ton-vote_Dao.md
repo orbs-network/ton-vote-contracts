@@ -1,9 +1,9 @@
 # TACT Compilation Report
 Contract: Dao
-BOC Size: 2121 bytes
+BOC Size: 2291 bytes
 
 # Types
-Total Types: 18
+Total Types: 20
 
 ## StateInit
 TLB: `_ code:^cell data:^cell = StateInit`
@@ -37,9 +37,17 @@ Signature: `CreateDao{owner:address,proposalOwner:address,metadata:address}`
 TLB: `set_owner#c2b41d43 newOwner:address = SetOwner`
 Signature: `SetOwner{newOwner:address}`
 
-## SetDeployCost
-TLB: `set_deploy_cost#82e41841 newDeployCost:uint64 = SetDeployCost`
-Signature: `SetDeployCost{newDeployCost:uint64}`
+## SetDeployDaoCost
+TLB: `set_deploy_dao_cost#084fd338 newdeployDaoCost:uint64 = SetDeployDaoCost`
+Signature: `SetDeployDaoCost{newdeployDaoCost:uint64}`
+
+## SendSetDeployDaoCostToDao
+TLB: `send_set_deploy_dao_cost_to_dao#6fc338fa daoId:uint32 newdeployDaoCost:uint64 = SendSetDeployDaoCostToDao`
+Signature: `SendSetDeployDaoCostToDao{daoId:uint32,newdeployDaoCost:uint64}`
+
+## SetDeployRegistryCost
+TLB: `set_deploy_registry_cost#05050931 newDeployRegistryCost:uint64 = SetDeployRegistryCost`
+Signature: `SetDeployRegistryCost{newDeployRegistryCost:uint64}`
 
 ## SetRegistryAdmin
 TLB: `set_registry_admin#c6d673ca newAdmin:address = SetRegistryAdmin`
@@ -78,7 +86,7 @@ TLB: `comment#3480231d body:^string = Comment`
 Signature: `Comment{body:^string}`
 
 # Get Methods
-Total Get Methods: 5
+Total Get Methods: 6
 
 ## registry
 
@@ -89,6 +97,8 @@ Total Get Methods: 5
 ## metadata
 
 ## daoIndex
+
+## deployDaoCost
 
 # Error Codes
 2: Stack undeflow
@@ -118,5 +128,7 @@ Total Get Methods: 5
 2977: Already initialized
 4429: Invalid sender
 10109: Low message value
-23452: Only admin can set new registry admin
-37661: Only admin can change deploy cost
+11226: Only admin can set new registry admin or on before creating daos
+42508: Only admin can change deploy registry cost
+48136: Only registry can change deploy cost
+61210: Only admin can change deploy dao cost

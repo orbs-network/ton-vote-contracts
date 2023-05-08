@@ -9,17 +9,17 @@ contract Registry with Deployable {
     registryId: Int as uint16;
     nextDaoId: Int as uint32;
     admin: Address;
-    deployCost: Int as uint64;
+    deployRegistryCost: Int as uint64;
 
-    init(registryId: Int, admin: Address) {
+    init(registryId: Int) {
         self.registryId = registryId;
-        self.admin = admin;
         self.nextDaoId = 0;
-        self.deployCost = ton("1");
+        self.admin = newAddress(0, 0x0);
+        self.deployRegistryCost = ton("1");
     }
     
     receive(createDao: CreateDao) {
-        require(context().value >= self.deployCost, "Low message value");
+        require(context().value >= self.deployRegistryCost, "Low message value");
         
         let init: StateInit = self.getDaoStateInit(self.nextDaoId);
         let daoAddress: Address = contractAddress(init);
@@ -37,13 +37,31 @@ contract Registry with Deployable {
         self.nextDaoId = self.nextDaoId + 1;
     }
 
-    receive(msg: SetDeployCost) {
-        require(sender() == self.admin, "Only admin can change deploy cost");
-        self.deployCost = msg.newDeployCost;
+    receive(msg: SetDeployRegistryCost) {
+        require(sender() == self.admin, "Only admin can change deploy registry cost");
+        self.deployRegistryCost = msg.newDeployRegistryCost;
+    }
+
+    receive(msg: SendSetDeployDaoCostToDao) {
+        require(sender() == self.admin, "Only admin can change deploy dao cost");
+
+        let init: StateInit = self.getDaoStateInit(msg.daoId);
+        let daoAddress: Address = contractAddress(init);
+
+        send(SendParameters{
+            to: daoAddress, 
+            value: 0, 
+            bounce: false,
+            mode: SendRemainingValue,
+            body: SetDeployDaoCost{newdeployDaoCost: msg.newdeployDaoCost}.toCell()
+        });
+
     }
 
     receive(msg: SetRegistryAdmin) {
-        require(sender() == self.admin, "Only admin can set new registry admin");
+        // only admin can set new admin. admin is also able to burn the address by setting it to 0x0. 
+        // since the contract is initialied with admin = 0x0 we permit updating the admin address when nextDaoId is 0.  
+        require(sender() == self.admin || self.nextDaoId == 0, "Only admin can set new registry admin or on before creating daos");
         self.admin = msg.newAdmin;
     }
 
@@ -68,8 +86,8 @@ contract Registry with Deployable {
         return self.admin;
     }
 
-    get fun deployCost(): Int {
-        return self.deployCost;
+    get fun deployRegistryCost(): Int {
+        return self.deployRegistryCost;
     }
 
 }

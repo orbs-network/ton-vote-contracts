@@ -1,9 +1,9 @@
 # TACT Compilation Report
 Contract: ProposalDeployer
-BOC Size: 1393 bytes
+BOC Size: 1373 bytes
 
 # Types
-Total Types: 18
+Total Types: 20
 
 ## StateInit
 TLB: `_ code:^cell data:^cell = StateInit`
@@ -37,9 +37,17 @@ Signature: `CreateDao{owner:address,proposalOwner:address,metadata:address}`
 TLB: `set_owner#c2b41d43 newOwner:address = SetOwner`
 Signature: `SetOwner{newOwner:address}`
 
-## SetDeployCost
-TLB: `set_deploy_cost#82e41841 newDeployCost:uint64 = SetDeployCost`
-Signature: `SetDeployCost{newDeployCost:uint64}`
+## SetDeployDaoCost
+TLB: `set_deploy_dao_cost#084fd338 newdeployDaoCost:uint64 = SetDeployDaoCost`
+Signature: `SetDeployDaoCost{newdeployDaoCost:uint64}`
+
+## SendSetDeployDaoCostToDao
+TLB: `send_set_deploy_dao_cost_to_dao#6fc338fa daoId:uint32 newdeployDaoCost:uint64 = SendSetDeployDaoCostToDao`
+Signature: `SendSetDeployDaoCostToDao{daoId:uint32,newdeployDaoCost:uint64}`
+
+## SetDeployRegistryCost
+TLB: `set_deploy_registry_cost#05050931 newDeployRegistryCost:uint64 = SetDeployRegistryCost`
+Signature: `SetDeployRegistryCost{newDeployRegistryCost:uint64}`
 
 ## SetRegistryAdmin
 TLB: `set_registry_admin#c6d673ca newAdmin:address = SetRegistryAdmin`
@@ -114,4 +122,3 @@ Argument: index
 137: Masterchain support is not enabled for this contract
 2977: Already initialized
 4429: Invalid sender
-10109: Low message value

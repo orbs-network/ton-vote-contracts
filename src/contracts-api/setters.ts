@@ -121,7 +121,7 @@ export async function newProposal(sender: Sender, client : TonClient, daoAddr: A
                         proposalEndTime: proposalMetadata.proposalEndTime,
                         proposalSnapshotTime: proposalMetadata.proposalSnapshotTime,
                         proposalType: proposalMetadata.proposalType,
-                        votingPowerStrategy: proposalMetadata.votingPowerStrategy,
+                        votingPowerStrategies: proposalMetadata.votingPowerStrategies,
                         title: proposalMetadata.title,
                         description: proposalMetadata.description
                     }

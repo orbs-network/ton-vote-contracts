@@ -4,6 +4,7 @@ PROGRAM{
   DECLPROC __tact_store_address
   DECLPROC __tact_create_address
   DECLPROC __tact_not_null
+  DECLPROC __tact_context_get
   DECLPROC __tact_context_get_sender
   DECLPROC __tact_store_bool
   DECLPROC __tact_address_eq
@@ -12,12 +13,14 @@ PROGRAM{
   DECLPROC __gen_write_DeployOk
   DECLPROC __gen_writecell_DeployOk
   DECLPROC __gen_read_SetOwner
+  DECLPROC __gen_read_SetDeployDaoCost
   DECLPROC __gen_read_SetProposalOwner
   DECLPROC __gen_read_SetMetadata
   DECLPROC __gen_read_FwdMsg
   DECLPROC __gen_read_DaoInit
   DECLPROC __gen_write_Dao
   DECLPROC __gen_read_Dao
+  DECLPROC __gen_Context_get_value
   DECLPROC __gen_read_$init$Dao
   DECLPROC $__gen_Dao_init
   DECLPROC __gen_load_Dao
@@ -35,10 +38,13 @@ PROGRAM{
   91827 DECLMETHOD $__gen_get_metadata
   DECLPROC $__gen_Dao_daoIndex
   73154 DECLMETHOD $__gen_get_daoIndex
+  DECLPROC $__gen_Dao_deployDaoCost
+  68207 DECLMETHOD $__gen_get_deployDaoCost
   DECLPROC $__gen_Dao_receive_DaoInit
   DECLPROC $__gen_Dao_receive_SetOwner
   DECLPROC $__gen_Dao_receive_SetProposalOwner
   DECLPROC $__gen_Dao_receive_SetMetadata
+  DECLPROC $__gen_Dao_receive_SetDeployDaoCost
   DECLPROC $__gen_Dao_receive_FwdMsg
   DECLPROC __gen_constructor_DeployOk$queryId
   DECLPROC $__gen_Dao_receive_Deploy
@@ -98,6 +104,10 @@ PROGRAM{
     DUP
     ISNULL
     128 THROWIF
+  }>
+  __tact_context_get PROCINLINE:<{
+    __tact_context GETGLOB
+    4 UNTUPLE
   }>
   __tact_context_get_sender PROCINLINE:<{
     __tact_context_sender GETGLOB
@@ -172,6 +182,15 @@ PROGRAM{
     129 THROWIFNOT
     __tact_load_address INLINECALLDICT
   }>
+  __gen_read_SetDeployDaoCost PROCINLINE:<{
+    32 LDU
+    SWAP
+    139449144 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    64 LDU
+    SWAP
+  }>
   __gen_read_SetProposalOwner PROCINLINE:<{
     32 LDU
     SWAP
@@ -210,17 +229,17 @@ PROGRAM{
     s3 s3 s0 XCHG3
   }>
   __gen_write_Dao PROCINLINE:<{
-    s5 s4 XCHG2
+    s6 s5 XCHG2
     __tact_store_address INLINECALLDICT
-    ROT
+    s0 s3 XCHG2
     __tact_store_address INLINECALLDICT
     SWAP
     __tact_store_address INLINECALLDICT
-    s1 s2 XCHG
     32 STU
     NEWC
-    ROT
+    s0 s3 XCHG2
     __tact_store_address INLINECALLDICT
+    64 STU
     ENDC
     SWAP
     STREF
@@ -237,10 +256,17 @@ PROGRAM{
     SWAP
     CTOS
     __tact_load_address INLINECALLDICT
-    NIP
-    s1 s5 XCHG
-    s1 s4 XCHG
-    s3 s3 s0 XCHG3
+    SWAP
+    64 LDU
+    DROP
+    s2 s6 XCHG
+    s2 s5 XCHG
+    s2 s4 XCHG
+    s2 s3 XCHG
+  }>
+  __gen_Context_get_value PROCINLINE:<{
+    s1 s3 XCHG
+    3 BLKDROP
   }>
   __gen_read_$init$Dao PROCINLINE:<{
     __tact_load_address INLINECALLDICT
@@ -261,6 +287,7 @@ PROGRAM{
     __tact_create_address INLINECALLDICT
     s1 s4 s0 XCHG3
     s1 s3 XCHG
+    1000000000 PUSHINT
   }>
   __gen_load_Dao PROCINLINE:<{
     c4 PUSH
@@ -272,7 +299,7 @@ PROGRAM{
     SWAP
     IF:<{
       __gen_read_Dao INLINECALLDICT
-      1 5 BLKDROP2
+      1 6 BLKDROP2
     }>ELSE<{
       MYADDR
       11 PLDU
@@ -294,7 +321,7 @@ PROGRAM{
     TRUE
     SWAP
     1 STI
-    5 -ROLL
+    6 -ROLL
     __gen_write_Dao INLINECALLDICT
     ENDC
     c4 POP
@@ -414,79 +441,95 @@ PROGRAM{
     $send INLINECALLDICT
   }>
   $__gen_Dao_registry PROCREF:<{
-    s3 s4 XCHG
-    4 BLKDROP
+    s4 s5 XCHG
+    5 BLKDROP
   }>
   $__gen_get_registry PROC:<{
     __gen_load_Dao INLINECALLDICT
     $__gen_Dao_registry INLINECALLDICT
   }>
   $__gen_Dao_owner PROCREF:<{
-    4 BLKDROP
+    5 BLKDROP
   }>
   $__gen_get_owner PROC:<{
     __gen_load_Dao INLINECALLDICT
     $__gen_Dao_owner INLINECALLDICT
   }>
   $__gen_Dao_proposalOwner PROCREF:<{
-    s2 s4 XCHG
-    4 BLKDROP
+    s3 s5 XCHG
+    5 BLKDROP
   }>
   $__gen_get_proposalOwner PROC:<{
     __gen_load_Dao INLINECALLDICT
     $__gen_Dao_proposalOwner INLINECALLDICT
   }>
   $__gen_Dao_metadata PROCREF:<{
-    4 1 BLKDROP2
+    s1 s5 XCHG
+    5 BLKDROP
   }>
   $__gen_get_metadata PROC:<{
     __gen_load_Dao INLINECALLDICT
     $__gen_Dao_metadata INLINECALLDICT
   }>
   $__gen_Dao_daoIndex PROCREF:<{
-    s1 s4 XCHG
-    4 BLKDROP
+    s2 s5 XCHG
+    5 BLKDROP
   }>
   $__gen_get_daoIndex PROC:<{
     __gen_load_Dao INLINECALLDICT
     $__gen_Dao_daoIndex INLINECALLDICT
   }>
+  $__gen_Dao_deployDaoCost PROCREF:<{
+    5 1 BLKDROP2
+  }>
+  $__gen_get_deployDaoCost PROC:<{
+    __gen_load_Dao INLINECALLDICT
+    $__gen_Dao_deployDaoCost INLINECALLDICT
+  }>
   $__gen_Dao_receive_DaoInit PROCINLINE:<{
-    s3 POP
     s4 POP
+    s5 POP
     2977 PUSHINT
     0 PUSHINT
     DUP
     __tact_create_address INLINECALLDICT
+    s1 s8 XCHG
+    __tact_address_eq INLINECALLDICT
     s1 s7 XCHG
-    __tact_address_eq INLINECALLDICT
-    s1 s6 XCHG
     THROWANYIFNOT
-    4429 PUSHINT
-    __tact_context_get_sender INLINECALLDICT
-    s5 PUSH
-    __tact_address_eq INLINECALLDICT
-    THROWANYIFNOT
-  }>
-  $__gen_Dao_receive_SetOwner PROCINLINE:<{
-    4429 PUSHINT
-    __tact_context_get_sender INLINECALLDICT
-    s0 s7 XCHG2
-    __tact_address_eq INLINECALLDICT
-    s1 s6 XCHG
-    THROWANYIFNOT
-  }>
-  $__gen_Dao_receive_SetProposalOwner PROCINLINE:<{
-    s3 POP
     4429 PUSHINT
     __tact_context_get_sender INLINECALLDICT
     s6 PUSH
     __tact_address_eq INLINECALLDICT
     THROWANYIFNOT
   }>
-  $__gen_Dao_receive_SetMetadata PROCINLINE:<{
-    NIP
+  $__gen_Dao_receive_SetOwner PROCINLINE:<{
     4429 PUSHINT
+    __tact_context_get_sender INLINECALLDICT
+    s0 s8 XCHG2
+    __tact_address_eq INLINECALLDICT
+    s1 s7 XCHG
+    THROWANYIFNOT
+  }>
+  $__gen_Dao_receive_SetProposalOwner PROCINLINE:<{
+    s4 POP
+    4429 PUSHINT
+    __tact_context_get_sender INLINECALLDICT
+    s7 PUSH
+    __tact_address_eq INLINECALLDICT
+    THROWANYIFNOT
+  }>
+  $__gen_Dao_receive_SetMetadata PROCINLINE:<{
+    s2 POP
+    4429 PUSHINT
+    __tact_context_get_sender INLINECALLDICT
+    s7 PUSH
+    __tact_address_eq INLINECALLDICT
+    THROWANYIFNOT
+  }>
+  $__gen_Dao_receive_SetDeployDaoCost PROCINLINE:<{
+    NIP
+    48136 PUSHINT
     __tact_context_get_sender INLINECALLDICT
     s6 PUSH
     __tact_address_eq INLINECALLDICT
@@ -495,12 +538,18 @@ PROGRAM{
   $__gen_Dao_receive_FwdMsg PROCINLINE:<{
     4429 PUSHINT
     __tact_context_get_sender INLINECALLDICT
-    s13 PUSH
+    s14 PUSH
     __tact_address_eq INLINECALLDICT
     __tact_context_get_sender INLINECALLDICT
-    s12 PUSH
+    s13 PUSH
     __tact_address_eq INLINECALLDICT
     OR
+    THROWANYIFNOT
+    10109 PUSHINT
+    __tact_context_get INLINECALLDICT
+    __gen_Context_get_value INLINECALLDICT
+    s9 PUSH
+    GEQ
     THROWANYIFNOT
     $send INLINECALLDICT
   }>
@@ -567,6 +616,16 @@ PROGRAM{
       TRUE
     }>
     OVER
+    139449144 PUSHINT
+    EQUAL
+    IFJMP:<{
+      NIP
+      __gen_read_SetDeployDaoCost INLINECALLDICT
+      NIP
+      $__gen_Dao_receive_SetDeployDaoCost INLINECALLDICT
+      TRUE
+    }>
+    OVER
     1690551268 PUSHINT
     EQUAL
     IFJMP:<{
@@ -612,7 +671,7 @@ PROGRAM{
     s0 s2 XCHG
     __tact_context_sender SETGLOB
     __gen_load_Dao INLINECALLDICT
-    2 5 BLKSWAP
+    2 6 BLKSWAP
     __gen_router_Dao INLINECALLDICT
     DROP
     __gen_store_Dao INLINECALLDICT
@@ -625,7 +684,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d5a586e3864323438736b4763706734745764596655414844516d574c4a627035756a7461334747507a6b7250} PUSHSLICE
+    x{697066733a2f2f516d506759574667346335447975526153564d315162736a41487863635a4538753250566a7a72634e597a476b6b} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH

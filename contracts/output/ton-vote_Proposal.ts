@@ -407,44 +407,133 @@ function dictValueParserSetOwner(): DictionaryValue<SetOwner> {
     }
 }
 
-export type SetDeployCost = {
-    $$type: 'SetDeployCost';
-    newDeployCost: bigint;
+export type SetDeployDaoCost = {
+    $$type: 'SetDeployDaoCost';
+    newdeployDaoCost: bigint;
 }
 
-export function storeSetDeployCost(src: SetDeployCost) {
+export function storeSetDeployDaoCost(src: SetDeployDaoCost) {
     return (builder: Builder) => {
         let b_0 = builder;
-        b_0.storeUint(2195986497, 32);
-        b_0.storeUint(src.newDeployCost, 64);
+        b_0.storeUint(139449144, 32);
+        b_0.storeUint(src.newdeployDaoCost, 64);
     };
 }
 
-export function loadSetDeployCost(slice: Slice) {
+export function loadSetDeployDaoCost(slice: Slice) {
     let sc_0 = slice;
-    if (sc_0.loadUint(32) !== 2195986497) { throw Error('Invalid prefix'); }
-    let _newDeployCost = sc_0.loadUintBig(64);
-    return { $$type: 'SetDeployCost' as const, newDeployCost: _newDeployCost };
+    if (sc_0.loadUint(32) !== 139449144) { throw Error('Invalid prefix'); }
+    let _newdeployDaoCost = sc_0.loadUintBig(64);
+    return { $$type: 'SetDeployDaoCost' as const, newdeployDaoCost: _newdeployDaoCost };
 }
 
-function loadTupleSetDeployCost(source: TupleReader) {
-    let _newDeployCost = source.readBigNumber();
-    return { $$type: 'SetDeployCost' as const, newDeployCost: _newDeployCost };
+function loadTupleSetDeployDaoCost(source: TupleReader) {
+    let _newdeployDaoCost = source.readBigNumber();
+    return { $$type: 'SetDeployDaoCost' as const, newdeployDaoCost: _newdeployDaoCost };
 }
 
-function storeTupleSetDeployCost(source: SetDeployCost) {
+function storeTupleSetDeployDaoCost(source: SetDeployDaoCost) {
     let builder = new TupleBuilder();
-    builder.writeNumber(source.newDeployCost);
+    builder.writeNumber(source.newdeployDaoCost);
     return builder.build();
 }
 
-function dictValueParserSetDeployCost(): DictionaryValue<SetDeployCost> {
+function dictValueParserSetDeployDaoCost(): DictionaryValue<SetDeployDaoCost> {
     return {
         serialize: (src, buidler) => {
-            buidler.storeRef(beginCell().store(storeSetDeployCost(src)).endCell());
+            buidler.storeRef(beginCell().store(storeSetDeployDaoCost(src)).endCell());
         },
         parse: (src) => {
-            return loadSetDeployCost(src.loadRef().beginParse());
+            return loadSetDeployDaoCost(src.loadRef().beginParse());
+        }
+    }
+}
+
+export type SendSetDeployDaoCostToDao = {
+    $$type: 'SendSetDeployDaoCostToDao';
+    daoId: bigint;
+    newdeployDaoCost: bigint;
+}
+
+export function storeSendSetDeployDaoCostToDao(src: SendSetDeployDaoCostToDao) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(1875065082, 32);
+        b_0.storeUint(src.daoId, 32);
+        b_0.storeUint(src.newdeployDaoCost, 64);
+    };
+}
+
+export function loadSendSetDeployDaoCostToDao(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 1875065082) { throw Error('Invalid prefix'); }
+    let _daoId = sc_0.loadUintBig(32);
+    let _newdeployDaoCost = sc_0.loadUintBig(64);
+    return { $$type: 'SendSetDeployDaoCostToDao' as const, daoId: _daoId, newdeployDaoCost: _newdeployDaoCost };
+}
+
+function loadTupleSendSetDeployDaoCostToDao(source: TupleReader) {
+    let _daoId = source.readBigNumber();
+    let _newdeployDaoCost = source.readBigNumber();
+    return { $$type: 'SendSetDeployDaoCostToDao' as const, daoId: _daoId, newdeployDaoCost: _newdeployDaoCost };
+}
+
+function storeTupleSendSetDeployDaoCostToDao(source: SendSetDeployDaoCostToDao) {
+    let builder = new TupleBuilder();
+    builder.writeNumber(source.daoId);
+    builder.writeNumber(source.newdeployDaoCost);
+    return builder.build();
+}
+
+function dictValueParserSendSetDeployDaoCostToDao(): DictionaryValue<SendSetDeployDaoCostToDao> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeSendSetDeployDaoCostToDao(src)).endCell());
+        },
+        parse: (src) => {
+            return loadSendSetDeployDaoCostToDao(src.loadRef().beginParse());
+        }
+    }
+}
+
+export type SetDeployRegistryCost = {
+    $$type: 'SetDeployRegistryCost';
+    newDeployRegistryCost: bigint;
+}
+
+export function storeSetDeployRegistryCost(src: SetDeployRegistryCost) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(84216113, 32);
+        b_0.storeUint(src.newDeployRegistryCost, 64);
+    };
+}
+
+export function loadSetDeployRegistryCost(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 84216113) { throw Error('Invalid prefix'); }
+    let _newDeployRegistryCost = sc_0.loadUintBig(64);
+    return { $$type: 'SetDeployRegistryCost' as const, newDeployRegistryCost: _newDeployRegistryCost };
+}
+
+function loadTupleSetDeployRegistryCost(source: TupleReader) {
+    let _newDeployRegistryCost = source.readBigNumber();
+    return { $$type: 'SetDeployRegistryCost' as const, newDeployRegistryCost: _newDeployRegistryCost };
+}
+
+function storeTupleSetDeployRegistryCost(source: SetDeployRegistryCost) {
+    let builder = new TupleBuilder();
+    builder.writeNumber(source.newDeployRegistryCost);
+    return builder.build();
+}
+
+function dictValueParserSetDeployRegistryCost(): DictionaryValue<SetDeployRegistryCost> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeSetDeployRegistryCost(src)).endCell());
+        },
+        parse: (src) => {
+            return loadSetDeployRegistryCost(src.loadRef().beginParse());
         }
     }
 }
@@ -921,8 +1010,10 @@ const Proposal_errors: { [key: number]: { message: string } } = {
     2977: { message: `Already initialized` },
     4429: { message: `Invalid sender` },
     10109: { message: `Low message value` },
-    23452: { message: `Only admin can set new registry admin` },
-    37661: { message: `Only admin can change deploy cost` },
+    11226: { message: `Only admin can set new registry admin or on before creating daos` },
+    42508: { message: `Only admin can change deploy registry cost` },
+    48136: { message: `Only registry can change deploy cost` },
+    61210: { message: `Only admin can change deploy dao cost` },
 }
 
 export class Proposal implements Contract {

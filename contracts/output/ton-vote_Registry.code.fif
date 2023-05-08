@@ -15,7 +15,10 @@ PROGRAM{
   DECLPROC __gen_write_DeployOk
   DECLPROC __gen_writecell_DeployOk
   DECLPROC __gen_read_CreateDao
-  DECLPROC __gen_read_SetDeployCost
+  DECLPROC __gen_write_SetDeployDaoCost
+  DECLPROC __gen_writecell_SetDeployDaoCost
+  DECLPROC __gen_read_SendSetDeployDaoCostToDao
+  DECLPROC __gen_read_SetDeployRegistryCost
   DECLPROC __gen_read_SetRegistryAdmin
   DECLPROC __gen_write_DaoInit
   DECLPROC __gen_writecell_DaoInit
@@ -42,12 +45,15 @@ PROGRAM{
   78234 DECLMETHOD $__gen_get_registryId
   DECLPROC $__gen_Registry_admin
   116046 DECLMETHOD $__gen_get_admin
-  DECLPROC $__gen_Registry_deployCost
-  79444 DECLMETHOD $__gen_get_deployCost
+  DECLPROC $__gen_Registry_deployRegistryCost
+  100555 DECLMETHOD $__gen_get_deployRegistryCost
   DECLPROC __gen_constructor_SendParameters$to_value_bounce_mode_body_code_data
   DECLPROC __gen_constructor_DaoInit$owner_proposalOwner_metadata
   DECLPROC $__gen_Registry_receive_CreateDao
-  DECLPROC $__gen_Registry_receive_SetDeployCost
+  DECLPROC $__gen_Registry_receive_SetDeployRegistryCost
+  DECLPROC __gen_constructor_SendParameters$to_value_bounce_mode_body
+  DECLPROC __gen_constructor_SetDeployDaoCost$newdeployDaoCost
+  DECLPROC $__gen_Registry_receive_SendSetDeployDaoCostToDao
   DECLPROC $__gen_Registry_receive_SetRegistryAdmin
   DECLPROC $__gen_Registry_receive_Deploy
   DECLPROC __gen_router_Registry
@@ -185,10 +191,32 @@ PROGRAM{
     __tact_load_address INLINECALLDICT
     s3 s3 s0 XCHG3
   }>
-  __gen_read_SetDeployCost PROCINLINE:<{
+  __gen_write_SetDeployDaoCost PROCINLINE:<{
+    139449144 PUSHINT
+    ROT
+    32 STU
+    64 STU
+  }>
+  __gen_writecell_SetDeployDaoCost PROCINLINE:<{
+    NEWC
+    SWAP
+    __gen_write_SetDeployDaoCost INLINECALLDICT
+    ENDC
+  }>
+  __gen_read_SendSetDeployDaoCostToDao PROCINLINE:<{
     32 LDU
     SWAP
-    2195986497 PUSHINT
+    1875065082 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    32 LDU
+    64 LDU
+    -ROT
+  }>
+  __gen_read_SetDeployRegistryCost PROCINLINE:<{
+    32 LDU
+    SWAP
+    84216113 PUSHINT
     EQUAL
     129 THROWIFNOT
     64 LDU
@@ -248,12 +276,12 @@ PROGRAM{
   __gen_read_$init$Registry PROCINLINE:<{
     257 PUSHINT
     LDIX
-    __tact_load_address INLINECALLDICT
-    s1 s2 XCHG
+    SWAP
   }>
   $__gen_Registry_init PROCREF:<{
     0 PUSHINT
-    SWAP
+    s0 s0 PUSH2
+    __tact_create_address INLINECALLDICT
     1000000000 PUSHINT
   }>
   __gen_load_Registry PROCINLINE:<{
@@ -274,9 +302,8 @@ PROGRAM{
       EQUAL
       137 THROWIFNOT
       __gen_read_$init$Registry INLINECALLDICT
-      s0 s2 XCHG
-      ENDS
       SWAP
+      ENDS
       $__gen_Registry_init INLINECALLDICT
     }>
   }>
@@ -480,12 +507,12 @@ PROGRAM{
     __gen_load_Registry INLINECALLDICT
     $__gen_Registry_admin INLINECALLDICT
   }>
-  $__gen_Registry_deployCost PROCREF:<{
+  $__gen_Registry_deployRegistryCost PROCREF:<{
     3 1 BLKDROP2
   }>
-  $__gen_get_deployCost PROC:<{
+  $__gen_get_deployRegistryCost PROC:<{
     __gen_load_Registry INLINECALLDICT
-    $__gen_Registry_deployCost INLINECALLDICT
+    $__gen_Registry_deployRegistryCost INLINECALLDICT
   }>
   __gen_constructor_SendParameters$to_value_bounce_mode_body_code_data PROCINLINE:<{
     s4 s6 XCHG
@@ -525,19 +552,52 @@ PROGRAM{
     INC
     -ROT
   }>
-  $__gen_Registry_receive_SetDeployCost PROCINLINE:<{
+  $__gen_Registry_receive_SetDeployRegistryCost PROCINLINE:<{
     NIP
-    37661 PUSHINT
+    42508 PUSHINT
     __tact_context_get_sender INLINECALLDICT
     s3 PUSH
     __tact_address_eq INLINECALLDICT
     THROWANYIFNOT
   }>
+  __gen_constructor_SendParameters$to_value_bounce_mode_body PROCINLINE:<{
+    s2 s4 XCHG
+    s2 s3 XCHG
+    PUSHNULL
+    PUSHNULL
+  }>
+  __gen_constructor_SetDeployDaoCost$newdeployDaoCost PROCINLINE:<{
+  }>
+  $__gen_Registry_receive_SendSetDeployDaoCostToDao PROCINLINE:<{
+    61210 PUSHINT
+    __tact_context_get_sender INLINECALLDICT
+    s5 PUSH
+    __tact_address_eq INLINECALLDICT
+    THROWANYIFNOT
+    5 -ROLL
+    $__gen_Registry_getDaoStateInit INLINECALLDICT
+    $contractAddress INLINECALLDICT
+    0 PUSHINT
+    FALSE
+    64 PUSHINT
+    s0 s8 XCHG
+    __gen_constructor_SetDeployDaoCost$newdeployDaoCost INLINECALLDICT
+    __gen_writecell_SetDeployDaoCost INLINECALLDICT
+    s3 s4 XCHG
+    s1 s3 s0 XCHG3
+    s1 s8 XCHG
+    __gen_constructor_SendParameters$to_value_bounce_mode_body INLINECALLDICT
+    $send INLINECALLDICT
+    3 ROLL
+  }>
   $__gen_Registry_receive_SetRegistryAdmin PROCINLINE:<{
-    23452 PUSHINT
+    11226 PUSHINT
     __tact_context_get_sender INLINECALLDICT
     s0 s4 XCHG2
     __tact_address_eq INLINECALLDICT
+    s4 PUSH
+    0 EQINT
+    OR
     s1 s3 XCHG
     THROWANYIFNOT
   }>
@@ -572,13 +632,23 @@ PROGRAM{
       TRUE
     }>
     OVER
-    2195986497 PUSHINT
+    84216113 PUSHINT
     EQUAL
     IFJMP:<{
       NIP
-      __gen_read_SetDeployCost INLINECALLDICT
+      __gen_read_SetDeployRegistryCost INLINECALLDICT
       NIP
-      $__gen_Registry_receive_SetDeployCost INLINECALLDICT
+      $__gen_Registry_receive_SetDeployRegistryCost INLINECALLDICT
+      TRUE
+    }>
+    OVER
+    1875065082 PUSHINT
+    EQUAL
+    IFJMP:<{
+      NIP
+      __gen_read_SendSetDeployDaoCostToDao INLINECALLDICT
+      1 2 BLKDROP2
+      $__gen_Registry_receive_SendSetDeployDaoCostToDao INLINECALLDICT
       TRUE
     }>
     OVER
@@ -640,7 +710,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d564b42774e667066424e66704657485147366265795473685a556b6e536f394a70386437666d5a6678793373} PUSHSLICE
+    x{697066733a2f2f516d4e576a7166714a62567a5664656b4566544e734c5857637765616f586a6d335547456856623131765579574c} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH

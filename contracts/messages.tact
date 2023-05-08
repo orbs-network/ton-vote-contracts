@@ -15,8 +15,17 @@ message SetOwner {
     newOwner: Address;
 }
 
-message SetDeployCost {
-    newDeployCost: Int as uint64;
+message SetDeployDaoCost {
+    newdeployDaoCost: Int as uint64;
+}
+
+message SendSetDeployDaoCostToDao {
+    daoId: Int as uint32;
+    newdeployDaoCost: Int as uint64;    
+}
+
+message SetDeployRegistryCost {
+    newDeployRegistryCost: Int as uint64;
 }
 
 message SetRegistryAdmin {

@@ -171,20 +171,12 @@ SETCP0
           s10 PUSH
           SDEQ
           THROWANYIFNOT
-          10109 PUSHINT
-          1 GETGLOBVAR
-          4 UNTUPLE
-          s1 s3 XCHG
-          3 BLKDROP
-          1000000000 PUSHINT
-          GEQ
-          THROWANYIFNOT
           8 7 0 XC2PU
           <{
             3 GETGLOBVAR
             MYADDR
             ROT
-            33 CALLDICT
+            31 CALLDICT
           }> CALLREF
           2DUP
           <{
@@ -653,7 +645,7 @@ SETCP0
     ENDC
     c4 POP
 
-  33: 
+  31: 
     s0 s2 XCHG
     CTOS
     LDDICT
@@ -851,7 +843,7 @@ SETCP0
         3 GETGLOBVAR
         MYADDR
         ROT
-        33 CALLDICT
+        31 CALLDICT
       }> CALLREF
       2 2 BLKDROP2
       <{

@@ -16,7 +16,6 @@ contract ProposalDeployer with Deployable {
 
     receive(msg: CreateProposal) {
         require(sender() == self.parent, "Invalid sender");
-        require(context().value >= ton("1"), "Low message value"); 
 
         // Create message
         let init: StateInit = self.getProposalStateInit(self.nextProposalId);
