@@ -13,8 +13,8 @@ PROGRAM{
   DECLPROC __gen_write_DeployOk
   DECLPROC __gen_writecell_DeployOk
   DECLPROC __gen_read_SetOwner
-  DECLPROC __gen_read_SetFwdMsgFee
   DECLPROC __gen_read_SetProposalOwner
+  DECLPROC __gen_read_SetFwdMsgFee
   DECLPROC __gen_read_SetMetadata
   DECLPROC __gen_read_FwdMsg
   DECLPROC __gen_read_DaoInit
@@ -182,6 +182,14 @@ PROGRAM{
     129 THROWIFNOT
     __tact_load_address INLINECALLDICT
   }>
+  __gen_read_SetProposalOwner PROCINLINE:<{
+    32 LDU
+    SWAP
+    3504586358 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    __tact_load_address INLINECALLDICT
+  }>
   __gen_read_SetFwdMsgFee PROCINLINE:<{
     32 LDU
     SWAP
@@ -190,14 +198,6 @@ PROGRAM{
     129 THROWIFNOT
     64 LDU
     SWAP
-  }>
-  __gen_read_SetProposalOwner PROCINLINE:<{
-    32 LDU
-    SWAP
-    3504586358 PUSHINT
-    EQUAL
-    129 THROWIFNOT
-    __tact_load_address INLINECALLDICT
   }>
   __gen_read_SetMetadata PROCINLINE:<{
     32 LDU
@@ -684,7 +684,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d663356724847625745685035637668414450705548514a6539344d354b694a314a71774a466e715550687541} PUSHSLICE
+    x{697066733a2f2f516d59796b724e66746d476551484c5a476f394d486d5375614661446e6a6657635668505864734e50396a754c6f} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH

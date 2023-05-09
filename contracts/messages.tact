@@ -28,12 +28,12 @@ message SetOwner {
     newOwner: Address;
 }
 
-message SetFwdMsgFee {
-    newFwdMsgFee: Int as uint64;
-}
-
 message SetProposalOwner {
     newProposalOwner: Address;
+}
+
+message SetFwdMsgFee {
+    newFwdMsgFee: Int as uint64;
 }
 
 message SetMetadata {
@@ -72,8 +72,4 @@ struct Params {
 
 message ProposalInit {
     body: Params;
-}
-
-message Comment {
-    body: String;
 }

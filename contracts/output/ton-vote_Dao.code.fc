@@ -82,16 +82,16 @@ cell __gen_writecell_DeployOk((int) v) inline {
     return (sc_0, (v'newOwner));
 }
 
-(slice, ((int))) __gen_read_SetFwdMsgFee(slice sc_0) inline {
-    throw_unless(129, sc_0~load_uint(32) == 4109608450);
-    var v'newFwdMsgFee = sc_0~load_uint(64);
-    return (sc_0, (v'newFwdMsgFee));
-}
-
 (slice, ((slice))) __gen_read_SetProposalOwner(slice sc_0) inline {
     throw_unless(129, sc_0~load_uint(32) == 3504586358);
     var v'newProposalOwner = sc_0~__tact_load_address();
     return (sc_0, (v'newProposalOwner));
+}
+
+(slice, ((int))) __gen_read_SetFwdMsgFee(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 4109608450);
+    var v'newFwdMsgFee = sc_0~load_uint(64);
+    return (sc_0, (v'newFwdMsgFee));
 }
 
 (slice, ((slice))) __gen_read_SetMetadata(slice sc_0) inline {
@@ -462,7 +462,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() {
-    return "ipfs://Qmf3VrHGbWEhP5cvhADPpUHQJe94M5KiJ1JqwJFnqUPhuA";
+    return "ipfs://QmYykrNftmGeQHLZGo9MHmSuaFaDnjfWcVhPXdsNP9juLo";
 }
 
 _ lazy_deployment_completed() {

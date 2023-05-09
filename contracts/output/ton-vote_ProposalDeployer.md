@@ -3,7 +3,7 @@ Contract: ProposalDeployer
 BOC Size: 1373 bytes
 
 # Types
-Total Types: 20
+Total Types: 19
 
 ## StateInit
 TLB: `_ code:^cell data:^cell = StateInit`
@@ -49,13 +49,13 @@ Signature: `SetRegistryAdmin{newAdmin:address}`
 TLB: `set_owner#c2b41d43 newOwner:address = SetOwner`
 Signature: `SetOwner{newOwner:address}`
 
-## SetFwdMsgFee
-TLB: `set_fwd_msg_fee#f4f3a602 newFwdMsgFee:uint64 = SetFwdMsgFee`
-Signature: `SetFwdMsgFee{newFwdMsgFee:uint64}`
-
 ## SetProposalOwner
 TLB: `set_proposal_owner#d0e3be76 newProposalOwner:address = SetProposalOwner`
 Signature: `SetProposalOwner{newProposalOwner:address}`
+
+## SetFwdMsgFee
+TLB: `set_fwd_msg_fee#f4f3a602 newFwdMsgFee:uint64 = SetFwdMsgFee`
+Signature: `SetFwdMsgFee{newFwdMsgFee:uint64}`
 
 ## SetMetadata
 TLB: `set_metadata#da2f907f newMetadata:address = SetMetadata`
@@ -80,10 +80,6 @@ Signature: `Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnaps
 ## ProposalInit
 TLB: `proposal_init#f39e3d52 body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string} = ProposalInit`
 Signature: `ProposalInit{body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string}}`
-
-## Comment
-TLB: `comment#3480231d body:^string = Comment`
-Signature: `Comment{body:^string}`
 
 # Get Methods
 Total Get Methods: 3

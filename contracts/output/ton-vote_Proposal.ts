@@ -538,48 +538,6 @@ function dictValueParserSetOwner(): DictionaryValue<SetOwner> {
     }
 }
 
-export type SetFwdMsgFee = {
-    $$type: 'SetFwdMsgFee';
-    newFwdMsgFee: bigint;
-}
-
-export function storeSetFwdMsgFee(src: SetFwdMsgFee) {
-    return (builder: Builder) => {
-        let b_0 = builder;
-        b_0.storeUint(4109608450, 32);
-        b_0.storeUint(src.newFwdMsgFee, 64);
-    };
-}
-
-export function loadSetFwdMsgFee(slice: Slice) {
-    let sc_0 = slice;
-    if (sc_0.loadUint(32) !== 4109608450) { throw Error('Invalid prefix'); }
-    let _newFwdMsgFee = sc_0.loadUintBig(64);
-    return { $$type: 'SetFwdMsgFee' as const, newFwdMsgFee: _newFwdMsgFee };
-}
-
-function loadTupleSetFwdMsgFee(source: TupleReader) {
-    let _newFwdMsgFee = source.readBigNumber();
-    return { $$type: 'SetFwdMsgFee' as const, newFwdMsgFee: _newFwdMsgFee };
-}
-
-function storeTupleSetFwdMsgFee(source: SetFwdMsgFee) {
-    let builder = new TupleBuilder();
-    builder.writeNumber(source.newFwdMsgFee);
-    return builder.build();
-}
-
-function dictValueParserSetFwdMsgFee(): DictionaryValue<SetFwdMsgFee> {
-    return {
-        serialize: (src, buidler) => {
-            buidler.storeRef(beginCell().store(storeSetFwdMsgFee(src)).endCell());
-        },
-        parse: (src) => {
-            return loadSetFwdMsgFee(src.loadRef().beginParse());
-        }
-    }
-}
-
 export type SetProposalOwner = {
     $$type: 'SetProposalOwner';
     newProposalOwner: Address;
@@ -618,6 +576,48 @@ function dictValueParserSetProposalOwner(): DictionaryValue<SetProposalOwner> {
         },
         parse: (src) => {
             return loadSetProposalOwner(src.loadRef().beginParse());
+        }
+    }
+}
+
+export type SetFwdMsgFee = {
+    $$type: 'SetFwdMsgFee';
+    newFwdMsgFee: bigint;
+}
+
+export function storeSetFwdMsgFee(src: SetFwdMsgFee) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(4109608450, 32);
+        b_0.storeUint(src.newFwdMsgFee, 64);
+    };
+}
+
+export function loadSetFwdMsgFee(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 4109608450) { throw Error('Invalid prefix'); }
+    let _newFwdMsgFee = sc_0.loadUintBig(64);
+    return { $$type: 'SetFwdMsgFee' as const, newFwdMsgFee: _newFwdMsgFee };
+}
+
+function loadTupleSetFwdMsgFee(source: TupleReader) {
+    let _newFwdMsgFee = source.readBigNumber();
+    return { $$type: 'SetFwdMsgFee' as const, newFwdMsgFee: _newFwdMsgFee };
+}
+
+function storeTupleSetFwdMsgFee(source: SetFwdMsgFee) {
+    let builder = new TupleBuilder();
+    builder.writeNumber(source.newFwdMsgFee);
+    return builder.build();
+}
+
+function dictValueParserSetFwdMsgFee(): DictionaryValue<SetFwdMsgFee> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeSetFwdMsgFee(src)).endCell());
+        },
+        parse: (src) => {
+            return loadSetFwdMsgFee(src.loadRef().beginParse());
         }
     }
 }
@@ -911,48 +911,6 @@ function dictValueParserProposalInit(): DictionaryValue<ProposalInit> {
         },
         parse: (src) => {
             return loadProposalInit(src.loadRef().beginParse());
-        }
-    }
-}
-
-export type Comment = {
-    $$type: 'Comment';
-    body: string;
-}
-
-export function storeComment(src: Comment) {
-    return (builder: Builder) => {
-        let b_0 = builder;
-        b_0.storeUint(880812829, 32);
-        b_0.storeStringRefTail(src.body);
-    };
-}
-
-export function loadComment(slice: Slice) {
-    let sc_0 = slice;
-    if (sc_0.loadUint(32) !== 880812829) { throw Error('Invalid prefix'); }
-    let _body = sc_0.loadStringRefTail();
-    return { $$type: 'Comment' as const, body: _body };
-}
-
-function loadTupleComment(source: TupleReader) {
-    let _body = source.readString();
-    return { $$type: 'Comment' as const, body: _body };
-}
-
-function storeTupleComment(source: Comment) {
-    let builder = new TupleBuilder();
-    builder.writeString(source.body);
-    return builder.build();
-}
-
-function dictValueParserComment(): DictionaryValue<Comment> {
-    return {
-        serialize: (src, buidler) => {
-            buidler.storeRef(beginCell().store(storeComment(src)).endCell());
-        },
-        parse: (src) => {
-            return loadComment(src.loadRef().beginParse());
         }
     }
 }
