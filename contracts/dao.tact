@@ -11,7 +11,7 @@ contract Dao with Deployable {
     proposalOwner: Address;
     daoIndex: Int as uint32;    
     metadata: Address;
-    deployDaoCost: Int as uint64;
+    fwdMsgFee: Int as uint64;
 
     init(registry: Address, daoIndex: Int) {
         self.registry = registry; 
@@ -20,7 +20,7 @@ contract Dao with Deployable {
         self.owner =  newAddress(0, 0x0);
         self.proposalOwner = newAddress(0, 0x0);
         self.metadata =  newAddress(0, 0x0);
-        self.deployDaoCost = ton("1");
+        self.fwdMsgFee = ton("1");
     }
     
     receive(init: DaoInit) {
@@ -47,14 +47,14 @@ contract Dao with Deployable {
         self.metadata = msg.newMetadata;
     }
 
-    receive(msg: SetDeployDaoCost) {
-        require(sender() == self.registry, "Only registry can change deploy cost");
-        self.deployDaoCost = msg.newdeployDaoCost;
+    receive(msg: SetFwdMsgFee) {
+        require(sender() == self.registry, "Only registry can change fwd msg fee");
+        self.fwdMsgFee = msg.newFwdMsgFee;
     }
 
     receive(msg: FwdMsg) {
         require(sender() == self.owner || sender() == self.proposalOwner, "Invalid sender");        
-        require(context().value >= self.deployDaoCost, "Low message value");
+        require(context().value >= self.fwdMsgFee, "Low message value");
         send(msg.fwdMsg);
     }
 
@@ -78,8 +78,8 @@ contract Dao with Deployable {
         return self.daoIndex;
     }
 
-    get fun deployDaoCost(): Int {
-        return self.deployDaoCost;
+    get fun fwdMsgFee(): Int {
+        return self.fwdMsgFee;
     }
 
 }

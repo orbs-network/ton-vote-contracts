@@ -32,8 +32,8 @@ PROGRAM{
   DECLPROC $__gen_Proposal_init_child
   DECLPROC __gen_constructor_DeployOk$queryId
   DECLPROC $__gen_ProposalDeployer_getProposalStateInit
-  DECLPROC $__gen_ProposalDeployer_parent
-  81825 DECLMETHOD $__gen_get_parent
+  DECLPROC $__gen_ProposalDeployer_dao
+  123641 DECLMETHOD $__gen_get_dao
   DECLPROC $__gen_ProposalDeployer_nextProposalId
   97465 DECLMETHOD $__gen_get_nextProposalId
   DECLPROC $__gen_ProposalDeployer_proposalAddr
@@ -458,12 +458,12 @@ PROGRAM{
     ROT
     $__gen_Proposal_init_child CALLDICT
   }>
-  $__gen_ProposalDeployer_parent PROCREF:<{
+  $__gen_ProposalDeployer_dao PROCREF:<{
     DROP
   }>
-  $__gen_get_parent PROC:<{
+  $__gen_get_dao PROC:<{
     __gen_load_ProposalDeployer INLINECALLDICT
-    $__gen_ProposalDeployer_parent INLINECALLDICT
+    $__gen_ProposalDeployer_dao INLINECALLDICT
   }>
   $__gen_ProposalDeployer_nextProposalId PROCREF:<{
     NIP
@@ -489,7 +489,7 @@ PROGRAM{
   __gen_constructor_ProposalInit$body PROCINLINE:<{
   }>
   $__gen_ProposalDeployer_receive_CreateProposal PROCINLINE:<{
-    4429 PUSHINT
+    32592 PUSHINT
     __tact_context_get_sender INLINECALLDICT
     s10 PUSH
     __tact_address_eq INLINECALLDICT
@@ -595,7 +595,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d62396e326a634a766536525370726e687a4c766e5a3438794d614878755568417753505958436d4b6e754238} PUSHSLICE
+    x{697066733a2f2f516d63737872373279526a31636e6361546361646659374c6a5a3277347a414370545334684659574b4e44453248} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH

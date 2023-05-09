@@ -6,16 +6,16 @@ import "./proposal";
 
 contract ProposalDeployer with Deployable {
 
-    parent: Address; // parent is Dao contract (cannot be changed)
+    dao: Address; // dao is parent contract (cannot be changed)
     nextProposalId: Int as uint32;
 
-    init(parent: Address) {
-        self.parent = parent;
+    init(dao: Address) {
+        self.dao = dao;
         self.nextProposalId = 0;
     }
 
     receive(msg: CreateProposal) {
-        require(sender() == self.parent, "Invalid sender");
+        require(sender() == self.dao, "only dao can send create proposals message");
 
         // Create message
         let init: StateInit = self.getProposalStateInit(self.nextProposalId);
@@ -38,8 +38,8 @@ contract ProposalDeployer with Deployable {
         return initOf Proposal(myAddress(), index);
     }
 
-    get fun parent(): Address {
-        return self.parent;
+    get fun dao(): Address {
+        return self.dao;
     }
 
     get fun nextProposalId(): Int {

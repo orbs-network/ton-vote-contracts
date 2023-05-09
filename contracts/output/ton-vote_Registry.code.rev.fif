@@ -517,20 +517,20 @@ SETCP0
       }> PUSHCONT
       IFJMP
       s1 PUSH
-      84216113 PUSHINT
+      3466008403 PUSHINT
       EQUAL
       <{
         s1 POP
         32 LDU
         s0 s1 XCHG
-        84216113 PUSHINT
+        3466008403 PUSHINT
         EQUAL
         129 THROWIFNOT
         64 LDU
         s0 s1 XCHG
         s1 POP
         s1 POP
-        42508 PUSHINT
+        62925 PUSHINT
         2 GETGLOBVAR
         s3 PUSH
         SDEQ
@@ -539,20 +539,20 @@ SETCP0
       }> PUSHCONT
       IFJMP
       s1 PUSH
-      1875065082 PUSHINT
+      1477819782 PUSHINT
       EQUAL
       <{
         s1 POP
         32 LDU
         s0 s1 XCHG
-        1875065082 PUSHINT
+        1477819782 PUSHINT
         EQUAL
         129 THROWIFNOT
         32 LDU
         64 LDU
         ROTREV
         1 2 BLKDROP2
-        61210 PUSHINT
+        52512 PUSHINT
         2 GETGLOBVAR
         s5 PUSH
         SDEQ
@@ -619,7 +619,7 @@ SETCP0
         s0 s8 XCHG
         NEWC
         s0 s1 XCHG
-        139449144 PUSHINT
+        4109608450 PUSHINT
         ROT
         32 STU
         64 STU
@@ -1177,6 +1177,94 @@ SETCP0
       3 BLKDROP
     }> CALLREF
 
+  96050: 
+    c4 PUSH
+    CTOS
+    LDREF
+    s0 s1 XCHG
+    3 SETGLOBVAR
+    1 LDI
+    s0 s1 XCHG
+    <{
+      16 LDU
+      32 LDU
+      LDMSGADDR
+      s0 s1 XCHG
+      s0 PUSH
+      SBITS
+      267 PUSHINT
+      EQUAL
+      136 THROWIFNOT
+      s0 PUSH
+      11 PLDU
+      s0 PUSH
+      10 PUSHPOW2
+      EQUAL
+      s1 PUSH
+      1279 PUSHINT
+      EQUAL
+      OR
+      136 THROWIFNOT
+      10 PUSHPOW2
+      EQUAL
+      137 THROWIFNOT
+      s0 s1 XCHG
+      64 LDU
+      4 1 BLKSWAP
+      1 4 BLKDROP2
+    }> PUSHCONT
+    <{
+      MYADDR
+      11 PLDU
+      10 PUSHPOW2
+      EQUAL
+      137 THROWIFNOT
+      257 PUSHINT
+      LDI
+      s0 s1 XCHG
+      s0 s1 XCHG
+      ENDS
+      <{
+        0 PUSHINT
+        s0 s0 PUSH2
+        NEWC
+        2 PUSHINT
+        s0 s1 XCHG
+        2 STU
+        0 PUSHINT
+        s0 s1 XCHG
+        1 STU
+        s1 s2 XCHG
+        8 STI
+        256 STU
+        ENDC
+        CTOS
+        s0 PUSH
+        SBITS
+        267 PUSHINT
+        EQUAL
+        136 THROWIFNOT
+        s0 PUSH
+        11 PLDU
+        s0 PUSH
+        10 PUSHPOW2
+        EQUAL
+        s1 PUSH
+        1279 PUSHINT
+        EQUAL
+        OR
+        136 THROWIFNOT
+        10 PUSHPOW2
+        EQUAL
+        137 THROWIFNOT
+        1000000000 PUSHINT
+      }> CALLREF
+    }> PUSHCONT
+    IFELSE
+    <{
+      3 1 BLKDROP2
+    }> CALLREF
+
   98689: 
     c4 PUSH
     CTOS
@@ -1264,94 +1352,6 @@ SETCP0
     <{
       s2 s3 XCHG
       3 BLKDROP
-    }> CALLREF
-
-  100555: 
-    c4 PUSH
-    CTOS
-    LDREF
-    s0 s1 XCHG
-    3 SETGLOBVAR
-    1 LDI
-    s0 s1 XCHG
-    <{
-      16 LDU
-      32 LDU
-      LDMSGADDR
-      s0 s1 XCHG
-      s0 PUSH
-      SBITS
-      267 PUSHINT
-      EQUAL
-      136 THROWIFNOT
-      s0 PUSH
-      11 PLDU
-      s0 PUSH
-      10 PUSHPOW2
-      EQUAL
-      s1 PUSH
-      1279 PUSHINT
-      EQUAL
-      OR
-      136 THROWIFNOT
-      10 PUSHPOW2
-      EQUAL
-      137 THROWIFNOT
-      s0 s1 XCHG
-      64 LDU
-      4 1 BLKSWAP
-      1 4 BLKDROP2
-    }> PUSHCONT
-    <{
-      MYADDR
-      11 PLDU
-      10 PUSHPOW2
-      EQUAL
-      137 THROWIFNOT
-      257 PUSHINT
-      LDI
-      s0 s1 XCHG
-      s0 s1 XCHG
-      ENDS
-      <{
-        0 PUSHINT
-        s0 s0 PUSH2
-        NEWC
-        2 PUSHINT
-        s0 s1 XCHG
-        2 STU
-        0 PUSHINT
-        s0 s1 XCHG
-        1 STU
-        s1 s2 XCHG
-        8 STI
-        256 STU
-        ENDC
-        CTOS
-        s0 PUSH
-        SBITS
-        267 PUSHINT
-        EQUAL
-        136 THROWIFNOT
-        s0 PUSH
-        11 PLDU
-        s0 PUSH
-        10 PUSHPOW2
-        EQUAL
-        s1 PUSH
-        1279 PUSHINT
-        EQUAL
-        OR
-        136 THROWIFNOT
-        10 PUSHPOW2
-        EQUAL
-        137 THROWIFNOT
-        1000000000 PUSHINT
-      }> CALLREF
-    }> PUSHCONT
-    IFELSE
-    <{
-      3 1 BLKDROP2
     }> CALLREF
 
   113617: 

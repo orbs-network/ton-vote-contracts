@@ -4,7 +4,7 @@ import "./messages";
 
 contract Proposal with Deployable {
 
-    parent: Address;
+    proposalDeployer: Address;
     id: Int as uint32;
     proposalStartTime: Int as uint64;
     proposalEndTime: Int as uint64;
@@ -14,8 +14,8 @@ contract Proposal with Deployable {
     title: String;
     description: String;
     
-    init(parent: Address, id: Int) {
-        self.parent = parent;
+    init(proposalDeployer: Address, id: Int) {
+        self.proposalDeployer = proposalDeployer;
         self.id = id;
 
         self.proposalStartTime = 0;
@@ -29,7 +29,7 @@ contract Proposal with Deployable {
 
     receive(msg: ProposalInit) {
         require(self.proposalStartTime == 0 && self.proposalEndTime == 0 && self.proposalSnapshotTime == 0, "Already initialized");
-        require(sender() == self.parent, "Invalid sender");
+        require(sender() == self.proposalDeployer, "Invalid sender");
 
         self.proposalStartTime = msg.body.proposalStartTime;
         self.proposalEndTime = msg.body.proposalEndTime;
@@ -40,8 +40,8 @@ contract Proposal with Deployable {
         self.description = msg.body.description;
     }
 
-    get fun parent(): Address {
-        return self.parent;
+    get fun proposalDeployer(): Address {
+        return self.proposalDeployer;
     }
 
     get fun id(): Int {

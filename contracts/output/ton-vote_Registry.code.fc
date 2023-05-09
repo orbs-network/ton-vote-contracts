@@ -94,34 +94,34 @@ cell __gen_writecell_DeployOk((int) v) inline {
     return (sc_0, (v'owner, v'proposalOwner, v'metadata));
 }
 
-builder __gen_write_SetDeployDaoCost(builder build_0, (int) v) inline {
-    var (v'newdeployDaoCost) = v;
-    build_0 = store_uint(build_0, 139449144, 32);
-    build_0 = build_0.store_uint(v'newdeployDaoCost, 64);
-    return build_0;
+(slice, ((int))) __gen_read_SetCreateDaoFee(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 3466008403);
+    var v'newCreateDaoFee = sc_0~load_uint(64);
+    return (sc_0, (v'newCreateDaoFee));
 }
 
-cell __gen_writecell_SetDeployDaoCost((int) v) inline {
-    return __gen_write_SetDeployDaoCost(begin_cell(), v).end_cell();
-}
-
-(slice, ((int, int))) __gen_read_SendSetDeployDaoCostToDao(slice sc_0) inline {
-    throw_unless(129, sc_0~load_uint(32) == 1875065082);
+(slice, ((int, int))) __gen_read_SendToDaoSetFwdMsgFee(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 1477819782);
     var v'daoId = sc_0~load_uint(32);
-    var v'newdeployDaoCost = sc_0~load_uint(64);
-    return (sc_0, (v'daoId, v'newdeployDaoCost));
-}
-
-(slice, ((int))) __gen_read_SetDeployRegistryCost(slice sc_0) inline {
-    throw_unless(129, sc_0~load_uint(32) == 84216113);
-    var v'newDeployRegistryCost = sc_0~load_uint(64);
-    return (sc_0, (v'newDeployRegistryCost));
+    var v'newFwdMsgFee = sc_0~load_uint(64);
+    return (sc_0, (v'daoId, v'newFwdMsgFee));
 }
 
 (slice, ((slice))) __gen_read_SetRegistryAdmin(slice sc_0) inline {
     throw_unless(129, sc_0~load_uint(32) == 3335943114);
     var v'newAdmin = sc_0~__tact_load_address();
     return (sc_0, (v'newAdmin));
+}
+
+builder __gen_write_SetFwdMsgFee(builder build_0, (int) v) inline {
+    var (v'newFwdMsgFee) = v;
+    build_0 = store_uint(build_0, 4109608450, 32);
+    build_0 = build_0.store_uint(v'newFwdMsgFee, 64);
+    return build_0;
+}
+
+cell __gen_writecell_SetFwdMsgFee((int) v) inline {
+    return __gen_write_SetFwdMsgFee(begin_cell(), v).end_cell();
 }
 
 builder __gen_write_DaoInit(builder build_0, (slice, slice, slice) v) inline {
@@ -138,11 +138,11 @@ cell __gen_writecell_DaoInit((slice, slice, slice) v) inline {
 }
 
 builder __gen_write_Registry(builder build_0, (int, int, slice, int) v) inline {
-    var (v'registryId, v'nextDaoId, v'admin, v'deployRegistryCost) = v;
+    var (v'registryId, v'nextDaoId, v'admin, v'createDaoFee) = v;
     build_0 = build_0.store_uint(v'registryId, 16);
     build_0 = build_0.store_uint(v'nextDaoId, 32);
     build_0 = __tact_store_address(build_0, v'admin);
-    build_0 = build_0.store_uint(v'deployRegistryCost, 64);
+    build_0 = build_0.store_uint(v'createDaoFee, 64);
     return build_0;
 }
 
@@ -150,8 +150,8 @@ builder __gen_write_Registry(builder build_0, (int, int, slice, int) v) inline {
     var v'registryId = sc_0~load_uint(16);
     var v'nextDaoId = sc_0~load_uint(32);
     var v'admin = sc_0~__tact_load_address();
-    var v'deployRegistryCost = sc_0~load_uint(64);
-    return (sc_0, (v'registryId, v'nextDaoId, v'admin, v'deployRegistryCost));
+    var v'createDaoFee = sc_0~load_uint(64);
+    return (sc_0, (v'registryId, v'nextDaoId, v'admin, v'createDaoFee));
 }
 
 _ __gen_Context_get_value((int, slice, int, slice) v) inline {
@@ -172,12 +172,12 @@ builder __gen_write_$init$Dao(builder build_0, (slice, int) v) inline {
 }
 
 (int, int, slice, int) $__gen_Registry_init(int $registryId) impure inline_ref {
-    var (($self'registryId, $self'nextDaoId, $self'admin, $self'deployRegistryCost)) = (null(), null(), null(), null());
+    var (($self'registryId, $self'nextDaoId, $self'admin, $self'createDaoFee)) = (null(), null(), null(), null());
     $self'registryId = $registryId;
     $self'nextDaoId = 0;
     $self'admin = __tact_create_address(0, 0);
-    $self'deployRegistryCost = 1000000000;
-    return ($self'registryId, $self'nextDaoId, $self'admin, $self'deployRegistryCost);
+    $self'createDaoFee = 1000000000;
+    return ($self'registryId, $self'nextDaoId, $self'admin, $self'createDaoFee);
 }
 
 (int, int, slice, int) __gen_load_Registry() impure inline {
@@ -281,12 +281,12 @@ slice $contractAddress((cell, cell) $s) impure inline_ref {
 }
 
 ((int, int, slice, int), (cell, cell)) $__gen_Registry_getDaoStateInit((int, int, slice, int) $self, int $daoIndex) impure inline_ref {
-    var (($self'registryId, $self'nextDaoId, $self'admin, $self'deployRegistryCost)) = $self;
-    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployRegistryCost), $__gen_Dao_init_child(__tact_context_sys, my_address(), $daoIndex));
+    var (($self'registryId, $self'nextDaoId, $self'admin, $self'createDaoFee)) = $self;
+    return (($self'registryId, $self'nextDaoId, $self'admin, $self'createDaoFee), $__gen_Dao_init_child(__tact_context_sys, my_address(), $daoIndex));
 }
 
 int $__gen_Registry_nextDaoId((int, int, slice, int) $self) impure inline_ref {
-    var (($self'registryId, $self'nextDaoId, $self'admin, $self'deployRegistryCost)) = $self;
+    var (($self'registryId, $self'nextDaoId, $self'admin, $self'createDaoFee)) = $self;
     return $self'nextDaoId;
 }
 
@@ -297,8 +297,8 @@ _ $__gen_get_nextDaoId() method_id(98689) {
 }
 
 slice $__gen_Registry_daoAddress((int, int, slice, int) $self, int $daoId) impure inline_ref {
-    var (($self'registryId, $self'nextDaoId, $self'admin, $self'deployRegistryCost)) = $self;
-    var ($init'code, $init'data) = ($self'registryId, $self'nextDaoId, $self'admin, $self'deployRegistryCost)~$__gen_Registry_getDaoStateInit($daoId);
+    var (($self'registryId, $self'nextDaoId, $self'admin, $self'createDaoFee)) = $self;
+    var ($init'code, $init'data) = ($self'registryId, $self'nextDaoId, $self'admin, $self'createDaoFee)~$__gen_Registry_getDaoStateInit($daoId);
     return $contractAddress(($init'code, $init'data));
 }
 
@@ -310,7 +310,7 @@ _ $__gen_get_daoAddress(int $$daoId) method_id(115144) {
 }
 
 int $__gen_Registry_registryId((int, int, slice, int) $self) impure inline_ref {
-    var (($self'registryId, $self'nextDaoId, $self'admin, $self'deployRegistryCost)) = $self;
+    var (($self'registryId, $self'nextDaoId, $self'admin, $self'createDaoFee)) = $self;
     return $self'registryId;
 }
 
@@ -321,7 +321,7 @@ _ $__gen_get_registryId() method_id(78234) {
 }
 
 slice $__gen_Registry_admin((int, int, slice, int) $self) impure inline_ref {
-    var (($self'registryId, $self'nextDaoId, $self'admin, $self'deployRegistryCost)) = $self;
+    var (($self'registryId, $self'nextDaoId, $self'admin, $self'createDaoFee)) = $self;
     return $self'admin;
 }
 
@@ -331,14 +331,14 @@ _ $__gen_get_admin() method_id(116046) {
     return res;
 }
 
-int $__gen_Registry_deployRegistryCost((int, int, slice, int) $self) impure inline_ref {
-    var (($self'registryId, $self'nextDaoId, $self'admin, $self'deployRegistryCost)) = $self;
-    return $self'deployRegistryCost;
+int $__gen_Registry_createDaoFee((int, int, slice, int) $self) impure inline_ref {
+    var (($self'registryId, $self'nextDaoId, $self'admin, $self'createDaoFee)) = $self;
+    return $self'createDaoFee;
 }
 
-_ $__gen_get_deployRegistryCost() method_id(100555) {
+_ $__gen_get_createDaoFee() method_id(96050) {
     var self = __gen_load_Registry();
-    var res = $__gen_Registry_deployRegistryCost(self);
+    var res = $__gen_Registry_createDaoFee(self);
     return res;
 }
 
@@ -351,55 +351,55 @@ _ $__gen_get_deployRegistryCost() method_id(100555) {
 }
 
 (((int, int, slice, int)), ()) $__gen_Registry_receive_CreateDao((int, int, slice, int) $self, (slice, slice, slice) $createDao) impure inline {
-    var ($self'registryId, $self'nextDaoId, $self'admin, $self'deployRegistryCost) = $self;
+    var ($self'registryId, $self'nextDaoId, $self'admin, $self'createDaoFee) = $self;
     var ($createDao'owner, $createDao'proposalOwner, $createDao'metadata) = $createDao;
-    throw_unless(10109, (__gen_Context_get_value(__tact_context_get()) >= $self'deployRegistryCost));
-    var ($init'code, $init'data) = ($self'registryId, $self'nextDaoId, $self'admin, $self'deployRegistryCost)~$__gen_Registry_getDaoStateInit($self'nextDaoId);
+    throw_unless(10109, (__gen_Context_get_value(__tact_context_get()) >= $self'createDaoFee));
+    var ($init'code, $init'data) = ($self'registryId, $self'nextDaoId, $self'admin, $self'createDaoFee)~$__gen_Registry_getDaoStateInit($self'nextDaoId);
     slice $daoAddress = $contractAddress(($init'code, $init'data));
     $send(__gen_constructor_SendParameters$to_value_bounce_mode_body_code_data($daoAddress, 0, false, 64, __gen_writecell_DaoInit(__gen_constructor_DaoInit$owner_proposalOwner_metadata($createDao'owner, $createDao'proposalOwner, $createDao'metadata)), $init'code, $init'data));
     $self'nextDaoId = ($self'nextDaoId + 1);
-    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployRegistryCost), ());
+    return (($self'registryId, $self'nextDaoId, $self'admin, $self'createDaoFee), ());
 }
 
-(((int, int, slice, int)), ()) $__gen_Registry_receive_SetDeployRegistryCost((int, int, slice, int) $self, (int) $msg) impure inline {
-    var ($self'registryId, $self'nextDaoId, $self'admin, $self'deployRegistryCost) = $self;
-    var ($msg'newDeployRegistryCost) = $msg;
-    throw_unless(42508, __tact_address_eq(__tact_context_get_sender(), $self'admin));
-    $self'deployRegistryCost = $msg'newDeployRegistryCost;
-    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployRegistryCost), ());
+(((int, int, slice, int)), ()) $__gen_Registry_receive_SetCreateDaoFee((int, int, slice, int) $self, (int) $msg) impure inline {
+    var ($self'registryId, $self'nextDaoId, $self'admin, $self'createDaoFee) = $self;
+    var ($msg'newCreateDaoFee) = $msg;
+    throw_unless(62925, __tact_address_eq(__tact_context_get_sender(), $self'admin));
+    $self'createDaoFee = $msg'newCreateDaoFee;
+    return (($self'registryId, $self'nextDaoId, $self'admin, $self'createDaoFee), ());
 }
 
 ((int, slice, int, int, cell, cell, cell)) __gen_constructor_SendParameters$to_value_bounce_mode_body(slice to, int value, int bounce, int mode, cell body) inline {
     return (bounce, to, value, mode, body, null(), null());
 }
 
-((int)) __gen_constructor_SetDeployDaoCost$newdeployDaoCost(int newdeployDaoCost) inline {
-    return (newdeployDaoCost);
+((int)) __gen_constructor_SetFwdMsgFee$newFwdMsgFee(int newFwdMsgFee) inline {
+    return (newFwdMsgFee);
 }
 
-(((int, int, slice, int)), ()) $__gen_Registry_receive_SendSetDeployDaoCostToDao((int, int, slice, int) $self, (int, int) $msg) impure inline {
-    var ($self'registryId, $self'nextDaoId, $self'admin, $self'deployRegistryCost) = $self;
-    var ($msg'daoId, $msg'newdeployDaoCost) = $msg;
-    throw_unless(61210, __tact_address_eq(__tact_context_get_sender(), $self'admin));
-    var ($init'code, $init'data) = ($self'registryId, $self'nextDaoId, $self'admin, $self'deployRegistryCost)~$__gen_Registry_getDaoStateInit($msg'daoId);
+(((int, int, slice, int)), ()) $__gen_Registry_receive_SendToDaoSetFwdMsgFee((int, int, slice, int) $self, (int, int) $msg) impure inline {
+    var ($self'registryId, $self'nextDaoId, $self'admin, $self'createDaoFee) = $self;
+    var ($msg'daoId, $msg'newFwdMsgFee) = $msg;
+    throw_unless(52512, __tact_address_eq(__tact_context_get_sender(), $self'admin));
+    var ($init'code, $init'data) = ($self'registryId, $self'nextDaoId, $self'admin, $self'createDaoFee)~$__gen_Registry_getDaoStateInit($msg'daoId);
     slice $daoAddress = $contractAddress(($init'code, $init'data));
-    $send(__gen_constructor_SendParameters$to_value_bounce_mode_body($daoAddress, 0, false, 64, __gen_writecell_SetDeployDaoCost(__gen_constructor_SetDeployDaoCost$newdeployDaoCost($msg'newdeployDaoCost))));
-    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployRegistryCost), ());
+    $send(__gen_constructor_SendParameters$to_value_bounce_mode_body($daoAddress, 0, false, 64, __gen_writecell_SetFwdMsgFee(__gen_constructor_SetFwdMsgFee$newFwdMsgFee($msg'newFwdMsgFee))));
+    return (($self'registryId, $self'nextDaoId, $self'admin, $self'createDaoFee), ());
 }
 
 (((int, int, slice, int)), ()) $__gen_Registry_receive_SetRegistryAdmin((int, int, slice, int) $self, (slice) $msg) impure inline {
-    var ($self'registryId, $self'nextDaoId, $self'admin, $self'deployRegistryCost) = $self;
+    var ($self'registryId, $self'nextDaoId, $self'admin, $self'createDaoFee) = $self;
     var ($msg'newAdmin) = $msg;
     throw_unless(11226, (__tact_address_eq(__tact_context_get_sender(), $self'admin) | ($self'nextDaoId == 0)));
     $self'admin = $msg'newAdmin;
-    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployRegistryCost), ());
+    return (($self'registryId, $self'nextDaoId, $self'admin, $self'createDaoFee), ());
 }
 
 (((int, int, slice, int)), ()) $__gen_Registry_receive_Deploy((int, int, slice, int) $self, (int) $deploy) impure inline {
-    var ($self'registryId, $self'nextDaoId, $self'admin, $self'deployRegistryCost) = $self;
+    var ($self'registryId, $self'nextDaoId, $self'admin, $self'createDaoFee) = $self;
     var ($deploy'queryId) = $deploy;
     $reply(__gen_writecell_DeployOk(__gen_constructor_DeployOk$queryId($deploy'queryId)));
-    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployRegistryCost), ());
+    return (($self'registryId, $self'nextDaoId, $self'admin, $self'createDaoFee), ());
 }
 
 ((int, int, slice, int), int) __gen_router_Registry((int, int, slice, int) self, int msg_bounced, slice in_msg) impure inline_ref {
@@ -422,17 +422,17 @@ _ $__gen_get_deployRegistryCost() method_id(100555) {
         return (self, true);
     }
     
-    ;; Receive SetDeployRegistryCost message
-    if (op == 84216113) {
-        var msg = in_msg~__gen_read_SetDeployRegistryCost();
-        self~$__gen_Registry_receive_SetDeployRegistryCost(msg);
+    ;; Receive SetCreateDaoFee message
+    if (op == 3466008403) {
+        var msg = in_msg~__gen_read_SetCreateDaoFee();
+        self~$__gen_Registry_receive_SetCreateDaoFee(msg);
         return (self, true);
     }
     
-    ;; Receive SendSetDeployDaoCostToDao message
-    if (op == 1875065082) {
-        var msg = in_msg~__gen_read_SendSetDeployDaoCostToDao();
-        self~$__gen_Registry_receive_SendSetDeployDaoCostToDao(msg);
+    ;; Receive SendToDaoSetFwdMsgFee message
+    if (op == 1477819782) {
+        var msg = in_msg~__gen_read_SendToDaoSetFwdMsgFee();
+        self~$__gen_Registry_receive_SendToDaoSetFwdMsgFee(msg);
         return (self, true);
     }
     
@@ -487,7 +487,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() {
-    return "ipfs://QmNWjqfqJbVzVdekEfTNsLXWcweaoXjm3UGEhVb11vUyWL";
+    return "ipfs://QmfBfbcCPnJ4eLKwvkwZBbDDzRSo8XT5fsncw97m5AoYUF";
 }
 
 _ lazy_deployment_completed() {

@@ -128,35 +128,35 @@ cell __gen_writecell_ProposalInit(((int, int, int, slice, slice, slice, slice)) 
 }
 
 builder __gen_write_ProposalDeployer(builder build_0, (slice, int) v) inline {
-    var (v'parent, v'nextProposalId) = v;
-    build_0 = __tact_store_address(build_0, v'parent);
+    var (v'dao, v'nextProposalId) = v;
+    build_0 = __tact_store_address(build_0, v'dao);
     build_0 = build_0.store_uint(v'nextProposalId, 32);
     return build_0;
 }
 
 (slice, ((slice, int))) __gen_read_ProposalDeployer(slice sc_0) inline {
-    var v'parent = sc_0~__tact_load_address();
+    var v'dao = sc_0~__tact_load_address();
     var v'nextProposalId = sc_0~load_uint(32);
-    return (sc_0, (v'parent, v'nextProposalId));
+    return (sc_0, (v'dao, v'nextProposalId));
 }
 
 builder __gen_write_$init$Proposal(builder build_0, (slice, int) v) inline {
-    var (v'parent, v'id) = v;
-    build_0 = __tact_store_address(build_0, v'parent);
+    var (v'proposalDeployer, v'id) = v;
+    build_0 = __tact_store_address(build_0, v'proposalDeployer);
     build_0 = build_0.store_int(v'id, 257);
     return build_0;
 }
 
 (slice, ((slice))) __gen_read_$init$ProposalDeployer(slice sc_0) inline {
-    var v'parent = sc_0~__tact_load_address();
-    return (sc_0, (v'parent));
+    var v'dao = sc_0~__tact_load_address();
+    return (sc_0, (v'dao));
 }
 
-(slice, int) $__gen_ProposalDeployer_init(slice $parent) impure inline_ref {
-    var (($self'parent, $self'nextProposalId)) = (null(), null());
-    $self'parent = $parent;
+(slice, int) $__gen_ProposalDeployer_init(slice $dao) impure inline_ref {
+    var (($self'dao, $self'nextProposalId)) = (null(), null());
+    $self'dao = $dao;
     $self'nextProposalId = 0;
-    return ($self'parent, $self'nextProposalId);
+    return ($self'dao, $self'nextProposalId);
 }
 
 (slice, int) __gen_load_ProposalDeployer() impure inline {
@@ -168,9 +168,9 @@ builder __gen_write_$init$Proposal(builder build_0, (slice, int) v) inline {
     } else {
         ;; Allow only workchain deployments
         throw_unless(137, my_address().preload_uint(11) == 1024);
-        (slice parent) = $sc~__gen_read_$init$ProposalDeployer();
+        (slice dao) = $sc~__gen_read_$init$ProposalDeployer();
         $sc.end_parse();
-        return $__gen_ProposalDeployer_init(parent);
+        return $__gen_ProposalDeployer_init(dao);
     }
 }
 
@@ -238,7 +238,7 @@ slice $contractAddress((cell, cell) $s) impure inline_ref {
     $send(__gen_constructor_SendParameters$bounce_to_value_mode_body(true, __tact_context_get_sender(), 0, (64 + 2), $body));
 }
 
-(cell, cell) $__gen_Proposal_init_child(cell sys', slice $parent, int $id) {
+(cell, cell) $__gen_Proposal_init_child(cell sys', slice $proposalDeployer, int $id) {
     slice sc' = sys'.begin_parse();
     cell source = sc'~load_dict();
     cell contracts = new_dict();
@@ -251,7 +251,7 @@ slice $contractAddress((cell, cell) $s) impure inline_ref {
     builder b = begin_cell();
     b = b.store_ref(begin_cell().store_dict(contracts).end_cell());
     b = b.store_int(false, 1);
-    b = __gen_write_$init$Proposal(b, ($parent, $id));
+    b = __gen_write_$init$Proposal(b, ($proposalDeployer, $id));
     return (mine, b.end_cell());
 }
 
@@ -260,23 +260,23 @@ slice $contractAddress((cell, cell) $s) impure inline_ref {
 }
 
 ((slice, int), (cell, cell)) $__gen_ProposalDeployer_getProposalStateInit((slice, int) $self, int $index) impure inline_ref {
-    var (($self'parent, $self'nextProposalId)) = $self;
-    return (($self'parent, $self'nextProposalId), $__gen_Proposal_init_child(__tact_context_sys, my_address(), $index));
+    var (($self'dao, $self'nextProposalId)) = $self;
+    return (($self'dao, $self'nextProposalId), $__gen_Proposal_init_child(__tact_context_sys, my_address(), $index));
 }
 
-slice $__gen_ProposalDeployer_parent((slice, int) $self) impure inline_ref {
-    var (($self'parent, $self'nextProposalId)) = $self;
-    return $self'parent;
+slice $__gen_ProposalDeployer_dao((slice, int) $self) impure inline_ref {
+    var (($self'dao, $self'nextProposalId)) = $self;
+    return $self'dao;
 }
 
-_ $__gen_get_parent() method_id(81825) {
+_ $__gen_get_dao() method_id(123641) {
     var self = __gen_load_ProposalDeployer();
-    var res = $__gen_ProposalDeployer_parent(self);
+    var res = $__gen_ProposalDeployer_dao(self);
     return res;
 }
 
 int $__gen_ProposalDeployer_nextProposalId((slice, int) $self) impure inline_ref {
-    var (($self'parent, $self'nextProposalId)) = $self;
+    var (($self'dao, $self'nextProposalId)) = $self;
     return $self'nextProposalId;
 }
 
@@ -287,8 +287,8 @@ _ $__gen_get_nextProposalId() method_id(97465) {
 }
 
 slice $__gen_ProposalDeployer_proposalAddr((slice, int) $self, int $index) impure inline_ref {
-    var (($self'parent, $self'nextProposalId)) = $self;
-    var ($init'code, $init'data) = ($self'parent, $self'nextProposalId)~$__gen_ProposalDeployer_getProposalStateInit($index);
+    var (($self'dao, $self'nextProposalId)) = $self;
+    var ($init'code, $init'data) = ($self'dao, $self'nextProposalId)~$__gen_ProposalDeployer_getProposalStateInit($index);
     return $contractAddress(($init'code, $init'data));
 }
 
@@ -308,21 +308,21 @@ _ $__gen_get_proposalAddr(int $$index) method_id(94082) {
 }
 
 (((slice, int)), ()) $__gen_ProposalDeployer_receive_CreateProposal((slice, int) $self, ((int, int, int, slice, slice, slice, slice)) $msg) impure inline {
-    var ($self'parent, $self'nextProposalId) = $self;
+    var ($self'dao, $self'nextProposalId) = $self;
     var (($msg'body'proposalStartTime, $msg'body'proposalEndTime, $msg'body'proposalSnapshotTime, $msg'body'votingSystem, $msg'body'votingPowerStrategies, $msg'body'title, $msg'body'description)) = $msg;
-    throw_unless(4429, __tact_address_eq(__tact_context_get_sender(), $self'parent));
-    var ($init'code, $init'data) = ($self'parent, $self'nextProposalId)~$__gen_ProposalDeployer_getProposalStateInit($self'nextProposalId);
+    throw_unless(32592, __tact_address_eq(__tact_context_get_sender(), $self'dao));
+    var ($init'code, $init'data) = ($self'dao, $self'nextProposalId)~$__gen_ProposalDeployer_getProposalStateInit($self'nextProposalId);
     slice $proposalAddress = $contractAddress(($init'code, $init'data));
     $send(__gen_constructor_SendParameters$to_value_bounce_mode_body_code_data($proposalAddress, 0, false, 64, __gen_writecell_ProposalInit(__gen_constructor_ProposalInit$body(($msg'body'proposalStartTime, $msg'body'proposalEndTime, $msg'body'proposalSnapshotTime, $msg'body'votingSystem, $msg'body'votingPowerStrategies, $msg'body'title, $msg'body'description))), $init'code, $init'data));
     $self'nextProposalId = ($self'nextProposalId + 1);
-    return (($self'parent, $self'nextProposalId), ());
+    return (($self'dao, $self'nextProposalId), ());
 }
 
 (((slice, int)), ()) $__gen_ProposalDeployer_receive_Deploy((slice, int) $self, (int) $deploy) impure inline {
-    var ($self'parent, $self'nextProposalId) = $self;
+    var ($self'dao, $self'nextProposalId) = $self;
     var ($deploy'queryId) = $deploy;
     $reply(__gen_writecell_DeployOk(__gen_constructor_DeployOk$queryId($deploy'queryId)));
-    return (($self'parent, $self'nextProposalId), ());
+    return (($self'dao, $self'nextProposalId), ());
 }
 
 ((slice, int), int) __gen_router_ProposalDeployer((slice, int) self, int msg_bounced, slice in_msg) impure inline_ref {
@@ -389,7 +389,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() {
-    return "ipfs://Qmb9n2jcJve6RSprnhzLvnZ48yMaHxuUhAwSPYXCmKnuB8";
+    return "ipfs://Qmcsxr72yRj1cncaTcadfY7LjZ2w4zACpTS4hFYWKNDE2H";
 }
 
 _ lazy_deployment_completed() {

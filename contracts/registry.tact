@@ -9,17 +9,17 @@ contract Registry with Deployable {
     registryId: Int as uint16;
     nextDaoId: Int as uint32;
     admin: Address;
-    deployRegistryCost: Int as uint64;
+    createDaoFee: Int as uint64;
 
     init(registryId: Int) {
         self.registryId = registryId;
         self.nextDaoId = 0;
         self.admin = newAddress(0, 0x0);
-        self.deployRegistryCost = ton("1");
+        self.createDaoFee = ton("1");
     }
     
     receive(createDao: CreateDao) {
-        require(context().value >= self.deployRegistryCost, "Low message value");
+        require(context().value >= self.createDaoFee, "Low message value");
         
         let init: StateInit = self.getDaoStateInit(self.nextDaoId);
         let daoAddress: Address = contractAddress(init);
@@ -37,13 +37,13 @@ contract Registry with Deployable {
         self.nextDaoId = self.nextDaoId + 1;
     }
 
-    receive(msg: SetDeployRegistryCost) {
-        require(sender() == self.admin, "Only admin can change deploy registry cost");
-        self.deployRegistryCost = msg.newDeployRegistryCost;
+    receive(msg: SetCreateDaoFee) {
+        require(sender() == self.admin, "Only admin can set create dao fee");
+        self.createDaoFee = msg.newCreateDaoFee;
     }
 
-    receive(msg: SendSetDeployDaoCostToDao) {
-        require(sender() == self.admin, "Only admin can change deploy dao cost");
+    receive(msg: SendToDaoSetFwdMsgFee) {
+        require(sender() == self.admin, "Only admin can set dao fwd msg fee");
 
         let init: StateInit = self.getDaoStateInit(msg.daoId);
         let daoAddress: Address = contractAddress(init);
@@ -53,7 +53,7 @@ contract Registry with Deployable {
             value: 0, 
             bounce: false,
             mode: SendRemainingValue,
-            body: SetDeployDaoCost{newdeployDaoCost: msg.newdeployDaoCost}.toCell()
+            body: SetFwdMsgFee{newFwdMsgFee: msg.newFwdMsgFee}.toCell()
         });
 
     }
@@ -86,8 +86,8 @@ contract Registry with Deployable {
         return self.admin;
     }
 
-    get fun deployRegistryCost(): Int {
-        return self.deployRegistryCost;
+    get fun createDaoFee(): Int {
+        return self.createDaoFee;
     }
 
 }

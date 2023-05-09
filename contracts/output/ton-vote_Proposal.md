@@ -1,6 +1,6 @@
 # TACT Compilation Report
 Contract: Proposal
-BOC Size: 1674 bytes
+BOC Size: 1672 bytes
 
 # Types
 Total Types: 20
@@ -33,25 +33,25 @@ Signature: `ChangeOwner{newOwner:address}`
 TLB: `create_dao#1aa05e3d owner:address proposalOwner:address metadata:address = CreateDao`
 Signature: `CreateDao{owner:address,proposalOwner:address,metadata:address}`
 
-## SetOwner
-TLB: `set_owner#c2b41d43 newOwner:address = SetOwner`
-Signature: `SetOwner{newOwner:address}`
+## SetCreateDaoFee
+TLB: `set_create_dao_fee#ce971753 newCreateDaoFee:uint64 = SetCreateDaoFee`
+Signature: `SetCreateDaoFee{newCreateDaoFee:uint64}`
 
-## SetDeployDaoCost
-TLB: `set_deploy_dao_cost#084fd338 newdeployDaoCost:uint64 = SetDeployDaoCost`
-Signature: `SetDeployDaoCost{newdeployDaoCost:uint64}`
-
-## SendSetDeployDaoCostToDao
-TLB: `send_set_deploy_dao_cost_to_dao#6fc338fa daoId:uint32 newdeployDaoCost:uint64 = SendSetDeployDaoCostToDao`
-Signature: `SendSetDeployDaoCostToDao{daoId:uint32,newdeployDaoCost:uint64}`
-
-## SetDeployRegistryCost
-TLB: `set_deploy_registry_cost#05050931 newDeployRegistryCost:uint64 = SetDeployRegistryCost`
-Signature: `SetDeployRegistryCost{newDeployRegistryCost:uint64}`
+## SendToDaoSetFwdMsgFee
+TLB: `send_to_dao_set_fwd_msg_fee#5815bd86 daoId:uint32 newFwdMsgFee:uint64 = SendToDaoSetFwdMsgFee`
+Signature: `SendToDaoSetFwdMsgFee{daoId:uint32,newFwdMsgFee:uint64}`
 
 ## SetRegistryAdmin
 TLB: `set_registry_admin#c6d673ca newAdmin:address = SetRegistryAdmin`
 Signature: `SetRegistryAdmin{newAdmin:address}`
+
+## SetOwner
+TLB: `set_owner#c2b41d43 newOwner:address = SetOwner`
+Signature: `SetOwner{newOwner:address}`
+
+## SetFwdMsgFee
+TLB: `set_fwd_msg_fee#f4f3a602 newFwdMsgFee:uint64 = SetFwdMsgFee`
+Signature: `SetFwdMsgFee{newFwdMsgFee:uint64}`
 
 ## SetProposalOwner
 TLB: `set_proposal_owner#d0e3be76 newProposalOwner:address = SetProposalOwner`
@@ -88,7 +88,7 @@ Signature: `Comment{body:^string}`
 # Get Methods
 Total Get Methods: 9
 
-## parent
+## proposalDeployer
 
 ## id
 
@@ -135,6 +135,6 @@ Total Get Methods: 9
 4429: Invalid sender
 10109: Low message value
 11226: Only admin can set new registry admin or on before creating daos
-42508: Only admin can change deploy registry cost
-48136: Only registry can change deploy cost
-61210: Only admin can change deploy dao cost
+51893: Only registry can change fwd msg fee
+52512: Only admin can set dao fwd msg fee
+62925: Only admin can set create dao fee

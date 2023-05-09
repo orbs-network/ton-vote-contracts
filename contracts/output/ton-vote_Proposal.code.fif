@@ -21,8 +21,8 @@ PROGRAM{
   DECLPROC __gen_constructor_SendParameters$bounce_to_value_mode_body
   DECLPROC $reply
   DECLPROC __gen_constructor_DeployOk$queryId
-  DECLPROC $__gen_Proposal_parent
-  81825 DECLMETHOD $__gen_get_parent
+  DECLPROC $__gen_Proposal_proposalDeployer
+  106145 DECLMETHOD $__gen_get_proposalDeployer
   DECLPROC $__gen_Proposal_id
   105872 DECLMETHOD $__gen_get_id
   DECLPROC $__gen_Proposal_proposalStartTime
@@ -390,12 +390,12 @@ PROGRAM{
   }>
   __gen_constructor_DeployOk$queryId PROCINLINE:<{
   }>
-  $__gen_Proposal_parent PROCREF:<{
+  $__gen_Proposal_proposalDeployer PROCREF:<{
     8 BLKDROP
   }>
-  $__gen_get_parent PROC:<{
+  $__gen_get_proposalDeployer PROC:<{
     __gen_load_Proposal INLINECALLDICT
-    $__gen_Proposal_parent INLINECALLDICT
+    $__gen_Proposal_proposalDeployer INLINECALLDICT
   }>
   $__gen_Proposal_id PROCREF:<{
     s7 s8 XCHG
@@ -564,7 +564,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d643951755438656a65417a45704137654c37366e3151665a474e3762374352476a6344445174624c78616b52} PUSHSLICE
+    x{697066733a2f2f516d5342734d737073705269715173654a51537656464a7537545a3946555568454d61717861345a636e64674264} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH

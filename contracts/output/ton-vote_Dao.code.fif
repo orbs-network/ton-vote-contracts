@@ -13,7 +13,7 @@ PROGRAM{
   DECLPROC __gen_write_DeployOk
   DECLPROC __gen_writecell_DeployOk
   DECLPROC __gen_read_SetOwner
-  DECLPROC __gen_read_SetDeployDaoCost
+  DECLPROC __gen_read_SetFwdMsgFee
   DECLPROC __gen_read_SetProposalOwner
   DECLPROC __gen_read_SetMetadata
   DECLPROC __gen_read_FwdMsg
@@ -38,13 +38,13 @@ PROGRAM{
   91827 DECLMETHOD $__gen_get_metadata
   DECLPROC $__gen_Dao_daoIndex
   73154 DECLMETHOD $__gen_get_daoIndex
-  DECLPROC $__gen_Dao_deployDaoCost
-  68207 DECLMETHOD $__gen_get_deployDaoCost
+  DECLPROC $__gen_Dao_fwdMsgFee
+  73548 DECLMETHOD $__gen_get_fwdMsgFee
   DECLPROC $__gen_Dao_receive_DaoInit
   DECLPROC $__gen_Dao_receive_SetOwner
   DECLPROC $__gen_Dao_receive_SetProposalOwner
   DECLPROC $__gen_Dao_receive_SetMetadata
-  DECLPROC $__gen_Dao_receive_SetDeployDaoCost
+  DECLPROC $__gen_Dao_receive_SetFwdMsgFee
   DECLPROC $__gen_Dao_receive_FwdMsg
   DECLPROC __gen_constructor_DeployOk$queryId
   DECLPROC $__gen_Dao_receive_Deploy
@@ -182,10 +182,10 @@ PROGRAM{
     129 THROWIFNOT
     __tact_load_address INLINECALLDICT
   }>
-  __gen_read_SetDeployDaoCost PROCINLINE:<{
+  __gen_read_SetFwdMsgFee PROCINLINE:<{
     32 LDU
     SWAP
-    139449144 PUSHINT
+    4109608450 PUSHINT
     EQUAL
     129 THROWIFNOT
     64 LDU
@@ -479,12 +479,12 @@ PROGRAM{
     __gen_load_Dao INLINECALLDICT
     $__gen_Dao_daoIndex INLINECALLDICT
   }>
-  $__gen_Dao_deployDaoCost PROCREF:<{
+  $__gen_Dao_fwdMsgFee PROCREF:<{
     5 1 BLKDROP2
   }>
-  $__gen_get_deployDaoCost PROC:<{
+  $__gen_get_fwdMsgFee PROC:<{
     __gen_load_Dao INLINECALLDICT
-    $__gen_Dao_deployDaoCost INLINECALLDICT
+    $__gen_Dao_fwdMsgFee INLINECALLDICT
   }>
   $__gen_Dao_receive_DaoInit PROCINLINE:<{
     s4 POP
@@ -527,9 +527,9 @@ PROGRAM{
     __tact_address_eq INLINECALLDICT
     THROWANYIFNOT
   }>
-  $__gen_Dao_receive_SetDeployDaoCost PROCINLINE:<{
+  $__gen_Dao_receive_SetFwdMsgFee PROCINLINE:<{
     NIP
-    48136 PUSHINT
+    51893 PUSHINT
     __tact_context_get_sender INLINECALLDICT
     s6 PUSH
     __tact_address_eq INLINECALLDICT
@@ -616,13 +616,13 @@ PROGRAM{
       TRUE
     }>
     OVER
-    139449144 PUSHINT
+    4109608450 PUSHINT
     EQUAL
     IFJMP:<{
       NIP
-      __gen_read_SetDeployDaoCost INLINECALLDICT
+      __gen_read_SetFwdMsgFee INLINECALLDICT
       NIP
-      $__gen_Dao_receive_SetDeployDaoCost INLINECALLDICT
+      $__gen_Dao_receive_SetFwdMsgFee INLINECALLDICT
       TRUE
     }>
     OVER
@@ -684,7 +684,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d506759574667346335447975526153564d315162736a41487863635a4538753250566a7a72634e597a476b6b} PUSHSLICE
+    x{697066733a2f2f516d663356724847625745685035637668414450705548514a6539344d354b694a314a71774a466e715550687541} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH

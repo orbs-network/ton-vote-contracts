@@ -82,10 +82,10 @@ cell __gen_writecell_DeployOk((int) v) inline {
     return (sc_0, (v'newOwner));
 }
 
-(slice, ((int))) __gen_read_SetDeployDaoCost(slice sc_0) inline {
-    throw_unless(129, sc_0~load_uint(32) == 139449144);
-    var v'newdeployDaoCost = sc_0~load_uint(64);
-    return (sc_0, (v'newdeployDaoCost));
+(slice, ((int))) __gen_read_SetFwdMsgFee(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 4109608450);
+    var v'newFwdMsgFee = sc_0~load_uint(64);
+    return (sc_0, (v'newFwdMsgFee));
 }
 
 (slice, ((slice))) __gen_read_SetProposalOwner(slice sc_0) inline {
@@ -115,14 +115,14 @@ cell __gen_writecell_DeployOk((int) v) inline {
 }
 
 builder __gen_write_Dao(builder build_0, (slice, slice, slice, int, slice, int) v) inline {
-    var (v'owner, v'registry, v'proposalOwner, v'daoIndex, v'metadata, v'deployDaoCost) = v;
+    var (v'owner, v'registry, v'proposalOwner, v'daoIndex, v'metadata, v'fwdMsgFee) = v;
     build_0 = __tact_store_address(build_0, v'owner);
     build_0 = __tact_store_address(build_0, v'registry);
     build_0 = __tact_store_address(build_0, v'proposalOwner);
     build_0 = build_0.store_uint(v'daoIndex, 32);
     var build_1 = begin_cell();
     build_1 = __tact_store_address(build_1, v'metadata);
-    build_1 = build_1.store_uint(v'deployDaoCost, 64);
+    build_1 = build_1.store_uint(v'fwdMsgFee, 64);
     build_0 = store_ref(build_0, build_1.end_cell());
     return build_0;
 }
@@ -134,8 +134,8 @@ builder __gen_write_Dao(builder build_0, (slice, slice, slice, int, slice, int) 
     var v'daoIndex = sc_0~load_uint(32);
     slice sc_1 = sc_0~load_ref().begin_parse();
     var v'metadata = sc_1~__tact_load_address();
-    var v'deployDaoCost = sc_1~load_uint(64);
-    return (sc_0, (v'owner, v'registry, v'proposalOwner, v'daoIndex, v'metadata, v'deployDaoCost));
+    var v'fwdMsgFee = sc_1~load_uint(64);
+    return (sc_0, (v'owner, v'registry, v'proposalOwner, v'daoIndex, v'metadata, v'fwdMsgFee));
 }
 
 _ __gen_Context_get_value((int, slice, int, slice) v) inline {
@@ -150,14 +150,14 @@ _ __gen_Context_get_value((int, slice, int, slice) v) inline {
 }
 
 (slice, slice, slice, int, slice, int) $__gen_Dao_init(slice $registry, int $daoIndex) impure inline_ref {
-    var (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'deployDaoCost)) = (null(), null(), null(), null(), null(), null());
+    var (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee)) = (null(), null(), null(), null(), null(), null());
     $self'registry = $registry;
     $self'daoIndex = $daoIndex;
     $self'owner = __tact_create_address(0, 0);
     $self'proposalOwner = __tact_create_address(0, 0);
     $self'metadata = __tact_create_address(0, 0);
-    $self'deployDaoCost = 1000000000;
-    return ($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'deployDaoCost);
+    $self'fwdMsgFee = 1000000000;
+    return ($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee);
 }
 
 (slice, slice, slice, int, slice, int) __gen_load_Dao() impure inline {
@@ -235,7 +235,7 @@ _ __gen_Context_get_value((int, slice, int, slice) v) inline {
 }
 
 slice $__gen_Dao_registry((slice, slice, slice, int, slice, int) $self) impure inline_ref {
-    var (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'deployDaoCost)) = $self;
+    var (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee)) = $self;
     return $self'registry;
 }
 
@@ -246,7 +246,7 @@ _ $__gen_get_registry() method_id(102154) {
 }
 
 slice $__gen_Dao_owner((slice, slice, slice, int, slice, int) $self) impure inline_ref {
-    var (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'deployDaoCost)) = $self;
+    var (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee)) = $self;
     return $self'owner;
 }
 
@@ -257,7 +257,7 @@ _ $__gen_get_owner() method_id(83229) {
 }
 
 slice $__gen_Dao_proposalOwner((slice, slice, slice, int, slice, int) $self) impure inline_ref {
-    var (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'deployDaoCost)) = $self;
+    var (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee)) = $self;
     return $self'proposalOwner;
 }
 
@@ -268,7 +268,7 @@ _ $__gen_get_proposalOwner() method_id(86890) {
 }
 
 slice $__gen_Dao_metadata((slice, slice, slice, int, slice, int) $self) impure inline_ref {
-    var (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'deployDaoCost)) = $self;
+    var (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee)) = $self;
     return $self'metadata;
 }
 
@@ -279,7 +279,7 @@ _ $__gen_get_metadata() method_id(91827) {
 }
 
 int $__gen_Dao_daoIndex((slice, slice, slice, int, slice, int) $self) impure inline_ref {
-    var (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'deployDaoCost)) = $self;
+    var (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee)) = $self;
     return $self'daoIndex;
 }
 
@@ -289,67 +289,67 @@ _ $__gen_get_daoIndex() method_id(73154) {
     return res;
 }
 
-int $__gen_Dao_deployDaoCost((slice, slice, slice, int, slice, int) $self) impure inline_ref {
-    var (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'deployDaoCost)) = $self;
-    return $self'deployDaoCost;
+int $__gen_Dao_fwdMsgFee((slice, slice, slice, int, slice, int) $self) impure inline_ref {
+    var (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee)) = $self;
+    return $self'fwdMsgFee;
 }
 
-_ $__gen_get_deployDaoCost() method_id(68207) {
+_ $__gen_get_fwdMsgFee() method_id(73548) {
     var self = __gen_load_Dao();
-    var res = $__gen_Dao_deployDaoCost(self);
+    var res = $__gen_Dao_fwdMsgFee(self);
     return res;
 }
 
 (((slice, slice, slice, int, slice, int)), ()) $__gen_Dao_receive_DaoInit((slice, slice, slice, int, slice, int) $self, (slice, slice, slice) $init) impure inline {
-    var ($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'deployDaoCost) = $self;
+    var ($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee) = $self;
     var ($init'owner, $init'proposalOwner, $init'metadata) = $init;
     throw_unless(2977, __tact_address_eq($self'owner, __tact_create_address(0, 0)));
     throw_unless(4429, __tact_address_eq(__tact_context_get_sender(), $self'registry));
     $self'owner = $init'owner;
     $self'proposalOwner = $init'proposalOwner;
     $self'metadata = $init'metadata;
-    return (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'deployDaoCost), ());
+    return (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee), ());
 }
 
 (((slice, slice, slice, int, slice, int)), ()) $__gen_Dao_receive_SetOwner((slice, slice, slice, int, slice, int) $self, (slice) $msg) impure inline {
-    var ($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'deployDaoCost) = $self;
+    var ($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee) = $self;
     var ($msg'newOwner) = $msg;
     throw_unless(4429, __tact_address_eq(__tact_context_get_sender(), $self'owner));
     $self'owner = $msg'newOwner;
-    return (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'deployDaoCost), ());
+    return (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee), ());
 }
 
 (((slice, slice, slice, int, slice, int)), ()) $__gen_Dao_receive_SetProposalOwner((slice, slice, slice, int, slice, int) $self, (slice) $msg) impure inline {
-    var ($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'deployDaoCost) = $self;
+    var ($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee) = $self;
     var ($msg'newProposalOwner) = $msg;
     throw_unless(4429, __tact_address_eq(__tact_context_get_sender(), $self'owner));
     $self'proposalOwner = $msg'newProposalOwner;
-    return (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'deployDaoCost), ());
+    return (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee), ());
 }
 
 (((slice, slice, slice, int, slice, int)), ()) $__gen_Dao_receive_SetMetadata((slice, slice, slice, int, slice, int) $self, (slice) $msg) impure inline {
-    var ($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'deployDaoCost) = $self;
+    var ($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee) = $self;
     var ($msg'newMetadata) = $msg;
     throw_unless(4429, __tact_address_eq(__tact_context_get_sender(), $self'owner));
     $self'metadata = $msg'newMetadata;
-    return (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'deployDaoCost), ());
+    return (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee), ());
 }
 
-(((slice, slice, slice, int, slice, int)), ()) $__gen_Dao_receive_SetDeployDaoCost((slice, slice, slice, int, slice, int) $self, (int) $msg) impure inline {
-    var ($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'deployDaoCost) = $self;
-    var ($msg'newdeployDaoCost) = $msg;
-    throw_unless(48136, __tact_address_eq(__tact_context_get_sender(), $self'registry));
-    $self'deployDaoCost = $msg'newdeployDaoCost;
-    return (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'deployDaoCost), ());
+(((slice, slice, slice, int, slice, int)), ()) $__gen_Dao_receive_SetFwdMsgFee((slice, slice, slice, int, slice, int) $self, (int) $msg) impure inline {
+    var ($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee) = $self;
+    var ($msg'newFwdMsgFee) = $msg;
+    throw_unless(51893, __tact_address_eq(__tact_context_get_sender(), $self'registry));
+    $self'fwdMsgFee = $msg'newFwdMsgFee;
+    return (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee), ());
 }
 
 (((slice, slice, slice, int, slice, int)), ()) $__gen_Dao_receive_FwdMsg((slice, slice, slice, int, slice, int) $self, ((int, slice, int, int, cell, cell, cell)) $msg) impure inline {
-    var ($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'deployDaoCost) = $self;
+    var ($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee) = $self;
     var (($msg'fwdMsg'bounce, $msg'fwdMsg'to, $msg'fwdMsg'value, $msg'fwdMsg'mode, $msg'fwdMsg'body, $msg'fwdMsg'code, $msg'fwdMsg'data)) = $msg;
     throw_unless(4429, (__tact_address_eq(__tact_context_get_sender(), $self'owner) | __tact_address_eq(__tact_context_get_sender(), $self'proposalOwner)));
-    throw_unless(10109, (__gen_Context_get_value(__tact_context_get()) >= $self'deployDaoCost));
+    throw_unless(10109, (__gen_Context_get_value(__tact_context_get()) >= $self'fwdMsgFee));
     $send(($msg'fwdMsg'bounce, $msg'fwdMsg'to, $msg'fwdMsg'value, $msg'fwdMsg'mode, $msg'fwdMsg'body, $msg'fwdMsg'code, $msg'fwdMsg'data));
-    return (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'deployDaoCost), ());
+    return (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee), ());
 }
 
 ((int)) __gen_constructor_DeployOk$queryId(int queryId) inline {
@@ -357,10 +357,10 @@ _ $__gen_get_deployDaoCost() method_id(68207) {
 }
 
 (((slice, slice, slice, int, slice, int)), ()) $__gen_Dao_receive_Deploy((slice, slice, slice, int, slice, int) $self, (int) $deploy) impure inline {
-    var ($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'deployDaoCost) = $self;
+    var ($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee) = $self;
     var ($deploy'queryId) = $deploy;
     $reply(__gen_writecell_DeployOk(__gen_constructor_DeployOk$queryId($deploy'queryId)));
-    return (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'deployDaoCost), ());
+    return (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee), ());
 }
 
 ((slice, slice, slice, int, slice, int), int) __gen_router_Dao((slice, slice, slice, int, slice, int) self, int msg_bounced, slice in_msg) impure inline_ref {
@@ -404,10 +404,10 @@ _ $__gen_get_deployDaoCost() method_id(68207) {
         return (self, true);
     }
     
-    ;; Receive SetDeployDaoCost message
-    if (op == 139449144) {
-        var msg = in_msg~__gen_read_SetDeployDaoCost();
-        self~$__gen_Dao_receive_SetDeployDaoCost(msg);
+    ;; Receive SetFwdMsgFee message
+    if (op == 4109608450) {
+        var msg = in_msg~__gen_read_SetFwdMsgFee();
+        self~$__gen_Dao_receive_SetFwdMsgFee(msg);
         return (self, true);
     }
     
@@ -462,7 +462,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() {
-    return "ipfs://QmPgYWFg4c5DyuRaSVM1QbsjAHxccZE8u2PVjzrcNYzGkk";
+    return "ipfs://Qmf3VrHGbWEhP5cvhADPpUHQJe94M5KiJ1JqwJFnqUPhuA";
 }
 
 _ lazy_deployment_completed() {

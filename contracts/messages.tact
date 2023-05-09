@@ -8,6 +8,19 @@ message CreateDao {
     metadata: Address;
 }
 
+message SetCreateDaoFee {
+    newCreateDaoFee: Int as uint64;
+}
+
+message SendToDaoSetFwdMsgFee {
+    daoId: Int as uint32;
+    newFwdMsgFee: Int as uint64;    
+}
+
+message SetRegistryAdmin {
+    newAdmin: Address;
+}
+
 // ---------------------------------------
 // Dao
 // ---------------------------------------
@@ -15,21 +28,8 @@ message SetOwner {
     newOwner: Address;
 }
 
-message SetDeployDaoCost {
-    newdeployDaoCost: Int as uint64;
-}
-
-message SendSetDeployDaoCostToDao {
-    daoId: Int as uint32;
-    newdeployDaoCost: Int as uint64;    
-}
-
-message SetDeployRegistryCost {
-    newDeployRegistryCost: Int as uint64;
-}
-
-message SetRegistryAdmin {
-    newAdmin: Address;
+message SetFwdMsgFee {
+    newFwdMsgFee: Int as uint64;
 }
 
 message SetProposalOwner {
