@@ -233,7 +233,7 @@ SETCP0
           0 PUSHINT
           0 PUSHINT
           s7 s13 XCHG2
-          64 PUSHINT
+          66 PUSHINT
           s0 s13 XCHG
           NEWC
           7 1 BLKSWAP

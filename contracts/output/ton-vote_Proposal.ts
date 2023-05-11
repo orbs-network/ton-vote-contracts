@@ -968,7 +968,7 @@ const Proposal_errors: { [key: number]: { message: string } } = {
     2977: { message: `Already initialized` },
     4429: { message: `Invalid sender` },
     10109: { message: `Low message value` },
-    11226: { message: `Only admin can set new registry admin or on before creating daos` },
+    23452: { message: `Only admin can set new registry admin` },
     51893: { message: `Only registry can change fwd msg fee` },
     52512: { message: `Only admin can set dao fwd msg fee` },
     62925: { message: `Only admin can set create dao fee` },

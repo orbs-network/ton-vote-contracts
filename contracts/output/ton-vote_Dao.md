@@ -124,7 +124,7 @@ Total Get Methods: 6
 2977: Already initialized
 4429: Invalid sender
 10109: Low message value
-11226: Only admin can set new registry admin or on before creating daos
+23452: Only admin can set new registry admin
 51893: Only registry can change fwd msg fee
 52512: Only admin can set dao fwd msg fee
 62925: Only admin can set create dao fee

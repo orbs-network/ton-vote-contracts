@@ -249,14 +249,14 @@ PROGRAM{
   }>
   __gen_write_Registry PROCINLINE:<{
     s3 s4 XCHG2
-    16 STU
+    32 STU
     32 STU
     SWAP
     __tact_store_address INLINECALLDICT
     64 STU
   }>
   __gen_read_Registry PROCINLINE:<{
-    16 LDU
+    32 LDU
     32 LDU
     __tact_load_address INLINECALLDICT
     SWAP
@@ -537,7 +537,7 @@ PROGRAM{
     0 PUSHINT
     FALSE
     s10 s9 XCHG2
-    64 PUSHINT
+    66 PUSHINT
     s0 s12 XCHG
     __gen_constructor_DaoInit$owner_proposalOwner_metadata INLINECALLDICT
     __gen_writecell_DaoInit INLINECALLDICT
@@ -591,12 +591,16 @@ PROGRAM{
     3 ROLL
   }>
   $__gen_Registry_receive_SetRegistryAdmin PROCINLINE:<{
-    11226 PUSHINT
+    23452 PUSHINT
     __tact_context_get_sender INLINECALLDICT
-    s0 s4 XCHG2
-    __tact_address_eq INLINECALLDICT
     s4 PUSH
-    0 EQINT
+    __tact_address_eq INLINECALLDICT
+    0 PUSHINT
+    DUP
+    __tact_create_address INLINECALLDICT
+    s1 s5 XCHG
+    __tact_address_eq INLINECALLDICT
+    s1 s4 XCHG
     OR
     s1 s3 XCHG
     THROWANYIFNOT
@@ -710,7 +714,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d55647669776b52573248345a344d67533668694379674143334e4a73713379706841697a536264794b7a6138} PUSHSLICE
+    x{697066733a2f2f516d5a56634251757076596a484a64627545526345657639424b337644746274666a73794c6d796b6e4b45625652} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH

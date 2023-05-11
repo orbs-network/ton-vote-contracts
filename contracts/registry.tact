@@ -6,7 +6,7 @@ import "./dao";
 
 contract Registry with Deployable {
 
-    registryId: Int as uint16;
+    registryId: Int as uint32;
     nextDaoId: Int as uint32;
     admin: Address;
     createDaoFee: Int as uint64;
@@ -28,7 +28,7 @@ contract Registry with Deployable {
             to: daoAddress, 
             value: 0, 
             bounce: false,
-            mode: SendRemainingValue,
+            mode: SendRemainingValue + SendIgnoreErrors,
             body: DaoInit{owner: createDao.owner, proposalOwner: createDao.proposalOwner, metadata: createDao.metadata}.toCell(),
             code: init.code,
             data: init.data
@@ -59,9 +59,8 @@ contract Registry with Deployable {
     }
 
     receive(msg: SetRegistryAdmin) {
-        // only admin can set new admin. admin is also able to burn the address by setting it to 0x0. 
-        // since the contract is initialied with admin = 0x0 we permit updating the admin address when nextDaoId is 0.  
-        require(sender() == self.admin || self.nextDaoId == 0, "Only admin can set new registry admin or on before creating daos");
+        // to burn the admin set it to newAddress(-1, 0x0)
+        require(sender() == self.admin || self.admin == newAddress(0, 0x0), "Only admin can set new registry admin");
         self.admin = msg.newAdmin;
     }
 

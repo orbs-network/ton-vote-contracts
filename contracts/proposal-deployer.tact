@@ -25,7 +25,7 @@ contract ProposalDeployer with Deployable {
             to: proposalAddress, 
             value: 0, 
             bounce: false,
-            mode: SendRemainingValue,
+            mode: SendRemainingValue + SendIgnoreErrors,
             body: ProposalInit{body: msg.body}.toCell(),
             code: init.code,
             data: init.data

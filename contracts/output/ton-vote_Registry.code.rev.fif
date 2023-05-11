@@ -50,7 +50,7 @@ SETCP0
     1 LDI
     s0 s1 XCHG
     <{
-      16 LDU
+      32 LDU
       32 LDU
       LDMSGADDR
       s0 s1 XCHG
@@ -291,7 +291,7 @@ SETCP0
           0 PUSHINT
           0 PUSHINT
           s10 s9 XCHG2
-          64 PUSHINT
+          66 PUSHINT
           s0 s12 XCHG
           NEWC
           3 1 BLKSWAP
@@ -808,12 +808,45 @@ SETCP0
         EQUAL
         137 THROWIFNOT
         s1 POP
-        11226 PUSHINT
+        23452 PUSHINT
         2 GETGLOBVAR
-        s0 s4 XCHG2
-        SDEQ
         s4 PUSH
-        0 EQINT
+        SDEQ
+        0 PUSHINT
+        s0 PUSH
+        NEWC
+        2 PUSHINT
+        s0 s1 XCHG
+        2 STU
+        0 PUSHINT
+        s0 s1 XCHG
+        1 STU
+        s1 s2 XCHG
+        8 STI
+        256 STU
+        ENDC
+        CTOS
+        s0 PUSH
+        SBITS
+        267 PUSHINT
+        EQUAL
+        136 THROWIFNOT
+        s0 PUSH
+        11 PLDU
+        s0 PUSH
+        10 PUSHPOW2
+        EQUAL
+        s1 PUSH
+        1279 PUSHINT
+        EQUAL
+        OR
+        136 THROWIFNOT
+        10 PUSHPOW2
+        EQUAL
+        137 THROWIFNOT
+        s1 s5 XCHG
+        SDEQ
+        s1 s4 XCHG
         OR
         s1 s3 XCHG
         THROWANYIFNOT
@@ -1009,7 +1042,7 @@ SETCP0
     1 STI
     4 1 BLKSWAP
     s3 s4 XCHG2
-    16 STU
+    32 STU
     32 STU
     s0 s1 XCHG
     s0 PUSH
@@ -1098,7 +1131,7 @@ SETCP0
     1 LDI
     s0 s1 XCHG
     <{
-      16 LDU
+      32 LDU
       32 LDU
       LDMSGADDR
       s0 s1 XCHG
@@ -1186,7 +1219,7 @@ SETCP0
     1 LDI
     s0 s1 XCHG
     <{
-      16 LDU
+      32 LDU
       32 LDU
       LDMSGADDR
       s0 s1 XCHG
@@ -1274,7 +1307,7 @@ SETCP0
     1 LDI
     s0 s1 XCHG
     <{
-      16 LDU
+      32 LDU
       32 LDU
       LDMSGADDR
       s0 s1 XCHG
@@ -1370,7 +1403,7 @@ SETCP0
     1 LDI
     s0 s1 XCHG
     <{
-      16 LDU
+      32 LDU
       32 LDU
       LDMSGADDR
       s0 s1 XCHG
@@ -1514,7 +1547,7 @@ SETCP0
     1 LDI
     s0 s1 XCHG
     <{
-      16 LDU
+      32 LDU
       32 LDU
       LDMSGADDR
       s0 s1 XCHG
