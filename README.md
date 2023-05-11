@@ -15,7 +15,7 @@ Within this repository, you will find comprehensive documentation and resources 
 
 # Architecture
 The contracts in the Ton.vote project follow the general architecture depicted below:
-<img src="" width=900 />
+<img src="https://github.com/orbs-network/ton-vote-contracts/blob/f77261d1580b299e3e55da97d02ee7776b2d3a72/assets/contracts-architecture.png" width=900 />
 
 The architecture consists of four types of contracts:
 
