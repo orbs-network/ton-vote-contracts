@@ -54,7 +54,7 @@ contract Dao with Deployable {
 
     receive(msg: FwdMsg) {
         require(sender() == self.owner || sender() == self.proposalOwner, "Invalid sender");        
-        require(context().value >= self.fwdMsgFee, "Low message value");
+        require(context().value >= self.fwdMsgFee, "Below min fee for dao forward message");
         send(msg.fwdMsg);
     }
 

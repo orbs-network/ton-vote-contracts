@@ -1,9 +1,9 @@
 # TACT Compilation Report
 Contract: ProposalDeployer
-BOC Size: 1373 bytes
+BOC Size: 1478 bytes
 
 # Types
-Total Types: 19
+Total Types: 21
 
 ## StateInit
 TLB: `_ code:^cell data:^cell = StateInit`
@@ -32,6 +32,10 @@ Signature: `ChangeOwner{newOwner:address}`
 ## CreateDao
 TLB: `create_dao#1aa05e3d owner:address proposalOwner:address metadata:address = CreateDao`
 Signature: `CreateDao{owner:address,proposalOwner:address,metadata:address}`
+
+## SendDaoInit
+TLB: `send_dao_init#c8b94bbb owner:address proposalOwner:address metadata:address = SendDaoInit`
+Signature: `SendDaoInit{owner:address,proposalOwner:address,metadata:address}`
 
 ## SetCreateDaoFee
 TLB: `set_create_dao_fee#ce971753 newCreateDaoFee:uint64 = SetCreateDaoFee`
@@ -72,6 +76,10 @@ Signature: `DaoInit{owner:address,proposalOwner:address,metadata:address}`
 ## CreateProposal
 TLB: `create_proposal#2ab84bd1 body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string} = CreateProposal`
 Signature: `CreateProposal{body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string}}`
+
+## SendProposalInit
+TLB: `send_proposal_init#d67a8c1a body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string} = SendProposalInit`
+Signature: `SendProposalInit{body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string}}`
 
 ## Params
 TLB: `_ proposalStartTime:uint64 proposalEndTime:uint64 proposalSnapshotTime:uint64 votingSystem:^string votingPowerStrategies:^string title:^string description:^string = Params`
@@ -118,4 +126,5 @@ Argument: index
 137: Masterchain support is not enabled for this contract
 2977: Already initialized
 4429: Invalid sender
-32592: only dao can send create proposals message
+13403: only dao can send create proposal message
+32376: only dao can send init proposal message

@@ -94,6 +94,14 @@ cell __gen_writecell_DeployOk((int) v) inline {
     return (sc_0, (v'owner, v'proposalOwner, v'metadata));
 }
 
+(slice, ((slice, slice, slice))) __gen_read_SendDaoInit(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 3367586747);
+    var v'owner = sc_0~__tact_load_address();
+    var v'proposalOwner = sc_0~__tact_load_address();
+    var v'metadata = sc_0~__tact_load_address();
+    return (sc_0, (v'owner, v'proposalOwner, v'metadata));
+}
+
 (slice, ((int))) __gen_read_SetCreateDaoFee(slice sc_0) inline {
     throw_unless(129, sc_0~load_uint(32) == 3466008403);
     var v'newCreateDaoFee = sc_0~load_uint(64);
@@ -353,10 +361,25 @@ _ $__gen_get_createDaoFee() method_id(96050) {
 (((int, int, slice, int)), ()) $__gen_Registry_receive_CreateDao((int, int, slice, int) $self, (slice, slice, slice) $createDao) impure inline {
     var ($self'registryId, $self'nextDaoId, $self'admin, $self'createDaoFee) = $self;
     var ($createDao'owner, $createDao'proposalOwner, $createDao'metadata) = $createDao;
-    throw_unless(10109, (__gen_Context_get_value(__tact_context_get()) >= $self'createDaoFee));
+    throw_unless(46336, (__gen_Context_get_value(__tact_context_get()) >= $self'createDaoFee));
     var ($init'code, $init'data) = ($self'registryId, $self'nextDaoId, $self'admin, $self'createDaoFee)~$__gen_Registry_getDaoStateInit($self'nextDaoId);
     slice $daoAddress = $contractAddress(($init'code, $init'data));
-    $send(__gen_constructor_SendParameters$to_value_bounce_mode_body_code_data($daoAddress, 0, false, (64 + 2), __gen_writecell_DaoInit(__gen_constructor_DaoInit$owner_proposalOwner_metadata($createDao'owner, $createDao'proposalOwner, $createDao'metadata)), $init'code, $init'data));
+    $send(__gen_constructor_SendParameters$to_value_bounce_mode_body_code_data($daoAddress, 0, false, 64, __gen_writecell_DaoInit(__gen_constructor_DaoInit$owner_proposalOwner_metadata($createDao'owner, $createDao'proposalOwner, $createDao'metadata)), $init'code, $init'data));
+    $self'nextDaoId = ($self'nextDaoId + 1);
+    return (($self'registryId, $self'nextDaoId, $self'admin, $self'createDaoFee), ());
+}
+
+((int, slice, int, int, cell, cell, cell)) __gen_constructor_SendParameters$to_value_bounce_mode_body(slice to, int value, int bounce, int mode, cell body) inline {
+    return (bounce, to, value, mode, body, null(), null());
+}
+
+(((int, int, slice, int)), ()) $__gen_Registry_receive_SendDaoInit((int, int, slice, int) $self, (slice, slice, slice) $sendDaoInit) impure inline {
+    var ($self'registryId, $self'nextDaoId, $self'admin, $self'createDaoFee) = $self;
+    var ($sendDaoInit'owner, $sendDaoInit'proposalOwner, $sendDaoInit'metadata) = $sendDaoInit;
+    throw_unless(55923, (__gen_Context_get_value(__tact_context_get()) >= $self'createDaoFee));
+    var ($init'code, $init'data) = ($self'registryId, $self'nextDaoId, $self'admin, $self'createDaoFee)~$__gen_Registry_getDaoStateInit($self'nextDaoId);
+    slice $daoAddress = $contractAddress(($init'code, $init'data));
+    $send(__gen_constructor_SendParameters$to_value_bounce_mode_body($daoAddress, 0, false, 64, __gen_writecell_DaoInit(__gen_constructor_DaoInit$owner_proposalOwner_metadata($sendDaoInit'owner, $sendDaoInit'proposalOwner, $sendDaoInit'metadata))));
     $self'nextDaoId = ($self'nextDaoId + 1);
     return (($self'registryId, $self'nextDaoId, $self'admin, $self'createDaoFee), ());
 }
@@ -367,10 +390,6 @@ _ $__gen_get_createDaoFee() method_id(96050) {
     throw_unless(62925, __tact_address_eq(__tact_context_get_sender(), $self'admin));
     $self'createDaoFee = $msg'newCreateDaoFee;
     return (($self'registryId, $self'nextDaoId, $self'admin, $self'createDaoFee), ());
-}
-
-((int, slice, int, int, cell, cell, cell)) __gen_constructor_SendParameters$to_value_bounce_mode_body(slice to, int value, int bounce, int mode, cell body) inline {
-    return (bounce, to, value, mode, body, null(), null());
 }
 
 ((int)) __gen_constructor_SetFwdMsgFee$newFwdMsgFee(int newFwdMsgFee) inline {
@@ -419,6 +438,13 @@ _ $__gen_get_createDaoFee() method_id(96050) {
     if (op == 446717501) {
         var msg = in_msg~__gen_read_CreateDao();
         self~$__gen_Registry_receive_CreateDao(msg);
+        return (self, true);
+    }
+    
+    ;; Receive SendDaoInit message
+    if (op == 3367586747) {
+        var msg = in_msg~__gen_read_SendDaoInit();
+        self~$__gen_Registry_receive_SendDaoInit(msg);
         return (self, true);
     }
     
@@ -487,7 +513,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() {
-    return "ipfs://QmZVcBQupvYjHJdbuERcEev9BK3vDtbtfjsyLmyknKEbVR";
+    return "ipfs://QmdUnqRC86PehoLQ18BSuv4Fz1SpcbLfAcKdFGaQiaDCGC";
 }
 
 _ lazy_deployment_completed() {

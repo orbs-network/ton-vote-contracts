@@ -15,6 +15,7 @@ PROGRAM{
   DECLPROC __gen_write_DeployOk
   DECLPROC __gen_writecell_DeployOk
   DECLPROC __gen_read_CreateDao
+  DECLPROC __gen_read_SendDaoInit
   DECLPROC __gen_read_SetCreateDaoFee
   DECLPROC __gen_read_SendToDaoSetFwdMsgFee
   DECLPROC __gen_read_SetRegistryAdmin
@@ -50,8 +51,9 @@ PROGRAM{
   DECLPROC __gen_constructor_SendParameters$to_value_bounce_mode_body_code_data
   DECLPROC __gen_constructor_DaoInit$owner_proposalOwner_metadata
   DECLPROC $__gen_Registry_receive_CreateDao
-  DECLPROC $__gen_Registry_receive_SetCreateDaoFee
   DECLPROC __gen_constructor_SendParameters$to_value_bounce_mode_body
+  DECLPROC $__gen_Registry_receive_SendDaoInit
+  DECLPROC $__gen_Registry_receive_SetCreateDaoFee
   DECLPROC __gen_constructor_SetFwdMsgFee$newFwdMsgFee
   DECLPROC $__gen_Registry_receive_SendToDaoSetFwdMsgFee
   DECLPROC $__gen_Registry_receive_SetRegistryAdmin
@@ -182,6 +184,19 @@ PROGRAM{
     32 LDU
     SWAP
     446717501 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    __tact_load_address INLINECALLDICT
+    SWAP
+    __tact_load_address INLINECALLDICT
+    SWAP
+    __tact_load_address INLINECALLDICT
+    s3 s3 s0 XCHG3
+  }>
+  __gen_read_SendDaoInit PROCINLINE:<{
+    32 LDU
+    SWAP
+    3367586747 PUSHINT
     EQUAL
     129 THROWIFNOT
     __tact_load_address INLINECALLDICT
@@ -521,7 +536,7 @@ PROGRAM{
   __gen_constructor_DaoInit$owner_proposalOwner_metadata PROCINLINE:<{
   }>
   $__gen_Registry_receive_CreateDao PROCINLINE:<{
-    10109 PUSHINT
+    46336 PUSHINT
     __tact_context_get INLINECALLDICT
     __gen_Context_get_value INLINECALLDICT
     s5 PUSH
@@ -537,7 +552,7 @@ PROGRAM{
     0 PUSHINT
     FALSE
     s10 s9 XCHG2
-    66 PUSHINT
+    64 PUSHINT
     s0 s12 XCHG
     __gen_constructor_DaoInit$owner_proposalOwner_metadata INLINECALLDICT
     __gen_writecell_DaoInit INLINECALLDICT
@@ -552,6 +567,41 @@ PROGRAM{
     INC
     -ROT
   }>
+  __gen_constructor_SendParameters$to_value_bounce_mode_body PROCINLINE:<{
+    s2 s4 XCHG
+    s2 s3 XCHG
+    PUSHNULL
+    PUSHNULL
+  }>
+  $__gen_Registry_receive_SendDaoInit PROCINLINE:<{
+    55923 PUSHINT
+    __tact_context_get INLINECALLDICT
+    __gen_Context_get_value INLINECALLDICT
+    s5 PUSH
+    GEQ
+    THROWANYIFNOT
+    s5 PUSH
+    s4 s7 XCHG
+    s5 s1 s3 XCHG3
+    s7 s6 XCHG2
+    $__gen_Registry_getDaoStateInit INLINECALLDICT
+    $contractAddress INLINECALLDICT
+    0 PUSHINT
+    FALSE
+    s8 s7 XCHG2
+    64 PUSHINT
+    s0 s10 XCHG
+    __gen_constructor_DaoInit$owner_proposalOwner_metadata INLINECALLDICT
+    __gen_writecell_DaoInit INLINECALLDICT
+    s1 s4 XCHG
+    s3 s7 XCHG
+    s6 s8 s0 XCHG3
+    __gen_constructor_SendParameters$to_value_bounce_mode_body INLINECALLDICT
+    $send INLINECALLDICT
+    s0 s3 XCHG
+    INC
+    -ROT
+  }>
   $__gen_Registry_receive_SetCreateDaoFee PROCINLINE:<{
     NIP
     62925 PUSHINT
@@ -559,12 +609,6 @@ PROGRAM{
     s3 PUSH
     __tact_address_eq INLINECALLDICT
     THROWANYIFNOT
-  }>
-  __gen_constructor_SendParameters$to_value_bounce_mode_body PROCINLINE:<{
-    s2 s4 XCHG
-    s2 s3 XCHG
-    PUSHNULL
-    PUSHNULL
   }>
   __gen_constructor_SetFwdMsgFee$newFwdMsgFee PROCINLINE:<{
   }>
@@ -633,6 +677,16 @@ PROGRAM{
       __gen_read_CreateDao INLINECALLDICT
       1 3 BLKDROP2
       $__gen_Registry_receive_CreateDao INLINECALLDICT
+      TRUE
+    }>
+    OVER
+    3367586747 PUSHINT
+    EQUAL
+    IFJMP:<{
+      NIP
+      __gen_read_SendDaoInit INLINECALLDICT
+      1 3 BLKDROP2
+      $__gen_Registry_receive_SendDaoInit INLINECALLDICT
       TRUE
     }>
     OVER
@@ -714,7 +768,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d5a56634251757076596a484a64627545526345657639424b337644746274666a73794c6d796b6e4b45625652} PUSHSLICE
+    x{697066733a2f2f516d64556e71524338365065686f4c5131384253757634467a31537063624c6641634b6446476151696144434743} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH

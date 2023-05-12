@@ -365,6 +365,58 @@ function dictValueParserCreateDao(): DictionaryValue<CreateDao> {
     }
 }
 
+export type SendDaoInit = {
+    $$type: 'SendDaoInit';
+    owner: Address;
+    proposalOwner: Address;
+    metadata: Address;
+}
+
+export function storeSendDaoInit(src: SendDaoInit) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(3367586747, 32);
+        b_0.storeAddress(src.owner);
+        b_0.storeAddress(src.proposalOwner);
+        b_0.storeAddress(src.metadata);
+    };
+}
+
+export function loadSendDaoInit(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 3367586747) { throw Error('Invalid prefix'); }
+    let _owner = sc_0.loadAddress();
+    let _proposalOwner = sc_0.loadAddress();
+    let _metadata = sc_0.loadAddress();
+    return { $$type: 'SendDaoInit' as const, owner: _owner, proposalOwner: _proposalOwner, metadata: _metadata };
+}
+
+function loadTupleSendDaoInit(source: TupleReader) {
+    let _owner = source.readAddress();
+    let _proposalOwner = source.readAddress();
+    let _metadata = source.readAddress();
+    return { $$type: 'SendDaoInit' as const, owner: _owner, proposalOwner: _proposalOwner, metadata: _metadata };
+}
+
+function storeTupleSendDaoInit(source: SendDaoInit) {
+    let builder = new TupleBuilder();
+    builder.writeAddress(source.owner);
+    builder.writeAddress(source.proposalOwner);
+    builder.writeAddress(source.metadata);
+    return builder.build();
+}
+
+function dictValueParserSendDaoInit(): DictionaryValue<SendDaoInit> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeSendDaoInit(src)).endCell());
+        },
+        parse: (src) => {
+            return loadSendDaoInit(src.loadRef().beginParse());
+        }
+    }
+}
+
 export type SetCreateDaoFee = {
     $$type: 'SetCreateDaoFee';
     newCreateDaoFee: bigint;
@@ -800,6 +852,48 @@ function dictValueParserCreateProposal(): DictionaryValue<CreateProposal> {
     }
 }
 
+export type SendProposalInit = {
+    $$type: 'SendProposalInit';
+    body: Params;
+}
+
+export function storeSendProposalInit(src: SendProposalInit) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(3598355482, 32);
+        b_0.store(storeParams(src.body));
+    };
+}
+
+export function loadSendProposalInit(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 3598355482) { throw Error('Invalid prefix'); }
+    let _body = loadParams(sc_0);
+    return { $$type: 'SendProposalInit' as const, body: _body };
+}
+
+function loadTupleSendProposalInit(source: TupleReader) {
+    const _body = loadTupleParams(source.readTuple());
+    return { $$type: 'SendProposalInit' as const, body: _body };
+}
+
+function storeTupleSendProposalInit(source: SendProposalInit) {
+    let builder = new TupleBuilder();
+    builder.writeTuple(storeTupleParams(source.body));
+    return builder.build();
+}
+
+function dictValueParserSendProposalInit(): DictionaryValue<SendProposalInit> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeSendProposalInit(src)).endCell());
+        },
+        parse: (src) => {
+            return loadSendProposalInit(src.loadRef().beginParse());
+        }
+    }
+}
+
 export type Params = {
     $$type: 'Params';
     proposalStartTime: bigint;
@@ -967,10 +1061,12 @@ const Proposal_errors: { [key: number]: { message: string } } = {
     137: { message: `Masterchain support is not enabled for this contract` },
     2977: { message: `Already initialized` },
     4429: { message: `Invalid sender` },
-    10109: { message: `Low message value` },
     23452: { message: `Only admin can set new registry admin` },
+    46336: { message: `Below min fee for create dao` },
     51893: { message: `Only registry can change fwd msg fee` },
     52512: { message: `Only admin can set dao fwd msg fee` },
+    55923: { message: `Below min fee for dao init` },
+    60173: { message: `Below min fee for dao forward message` },
     62925: { message: `Only admin can set create dao fee` },
 }
 

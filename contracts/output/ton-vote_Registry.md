@@ -1,9 +1,9 @@
 # TACT Compilation Report
 Contract: Registry
-BOC Size: 1964 bytes
+BOC Size: 2297 bytes
 
 # Types
-Total Types: 19
+Total Types: 21
 
 ## StateInit
 TLB: `_ code:^cell data:^cell = StateInit`
@@ -32,6 +32,10 @@ Signature: `ChangeOwner{newOwner:address}`
 ## CreateDao
 TLB: `create_dao#1aa05e3d owner:address proposalOwner:address metadata:address = CreateDao`
 Signature: `CreateDao{owner:address,proposalOwner:address,metadata:address}`
+
+## SendDaoInit
+TLB: `send_dao_init#c8b94bbb owner:address proposalOwner:address metadata:address = SendDaoInit`
+Signature: `SendDaoInit{owner:address,proposalOwner:address,metadata:address}`
 
 ## SetCreateDaoFee
 TLB: `set_create_dao_fee#ce971753 newCreateDaoFee:uint64 = SetCreateDaoFee`
@@ -72,6 +76,10 @@ Signature: `DaoInit{owner:address,proposalOwner:address,metadata:address}`
 ## CreateProposal
 TLB: `create_proposal#2ab84bd1 body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string} = CreateProposal`
 Signature: `CreateProposal{body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string}}`
+
+## SendProposalInit
+TLB: `send_proposal_init#d67a8c1a body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string} = SendProposalInit`
+Signature: `SendProposalInit{body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string}}`
 
 ## Params
 TLB: `_ proposalStartTime:uint64 proposalEndTime:uint64 proposalSnapshotTime:uint64 votingSystem:^string votingPowerStrategies:^string title:^string description:^string = Params`
@@ -122,8 +130,10 @@ Argument: daoId
 137: Masterchain support is not enabled for this contract
 2977: Already initialized
 4429: Invalid sender
-10109: Low message value
 23452: Only admin can set new registry admin
+46336: Below min fee for create dao
 51893: Only registry can change fwd msg fee
 52512: Only admin can set dao fwd msg fee
+55923: Below min fee for dao init
+60173: Below min fee for dao forward message
 62925: Only admin can set create dao fee

@@ -15,7 +15,7 @@ contract ProposalDeployer with Deployable {
     }
 
     receive(msg: CreateProposal) {
-        require(sender() == self.dao, "only dao can send create proposals message");
+        require(sender() == self.dao, "only dao can send create proposal message");
 
         // Create message
         let init: StateInit = self.getProposalStateInit(self.nextProposalId);
@@ -25,10 +25,28 @@ contract ProposalDeployer with Deployable {
             to: proposalAddress, 
             value: 0, 
             bounce: false,
-            mode: SendRemainingValue + SendIgnoreErrors,
+            mode: SendRemainingValue,
             body: ProposalInit{body: msg.body}.toCell(),
             code: init.code,
             data: init.data
+        });
+
+        self.nextProposalId = self.nextProposalId + 1;
+    }
+
+    receive(msg: SendProposalInit) {
+        require(sender() == self.dao, "only dao can send init proposal message");
+
+        // Create message
+        let init: StateInit = self.getProposalStateInit(self.nextProposalId);
+        let proposalAddress: Address = contractAddress(init);
+
+        send(SendParameters{
+            to: proposalAddress, 
+            value: 0, 
+            bounce: false,
+            mode: SendRemainingValue,
+            body: ProposalInit{body: msg.body}.toCell()
         });
 
         self.nextProposalId = self.nextProposalId + 1;

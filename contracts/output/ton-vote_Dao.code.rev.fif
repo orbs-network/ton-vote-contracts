@@ -644,7 +644,7 @@ SETCP0
         SDEQ
         OR
         THROWANYIFNOT
-        10109 PUSHINT
+        60173 PUSHINT
         1 GETGLOBVAR
         4 UNTUPLE
         s1 s3 XCHG

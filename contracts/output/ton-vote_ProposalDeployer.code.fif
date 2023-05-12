@@ -16,6 +16,7 @@ PROGRAM{
   DECLPROC __gen_write_Params
   DECLPROC __gen_read_Params
   DECLPROC __gen_read_CreateProposal
+  DECLPROC __gen_read_SendProposalInit
   DECLPROC __gen_write_ProposalInit
   DECLPROC __gen_writecell_ProposalInit
   DECLPROC __gen_write_ProposalDeployer
@@ -41,6 +42,8 @@ PROGRAM{
   DECLPROC __gen_constructor_SendParameters$to_value_bounce_mode_body_code_data
   DECLPROC __gen_constructor_ProposalInit$body
   DECLPROC $__gen_ProposalDeployer_receive_CreateProposal
+  DECLPROC __gen_constructor_SendParameters$to_value_bounce_mode_body
+  DECLPROC $__gen_ProposalDeployer_receive_SendProposalInit
   DECLPROC $__gen_ProposalDeployer_receive_Deploy
   DECLPROC __gen_router_ProposalDeployer
   DECLPROC recv_internal
@@ -228,6 +231,14 @@ PROGRAM{
     32 LDU
     SWAP
     716721105 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    __gen_read_Params INLINECALLDICT
+  }>
+  __gen_read_SendProposalInit PROCINLINE:<{
+    32 LDU
+    SWAP
+    3598355482 PUSHINT
     EQUAL
     129 THROWIFNOT
     __gen_read_Params INLINECALLDICT
@@ -489,7 +500,7 @@ PROGRAM{
   __gen_constructor_ProposalInit$body PROCINLINE:<{
   }>
   $__gen_ProposalDeployer_receive_CreateProposal PROCINLINE:<{
-    32592 PUSHINT
+    13403 PUSHINT
     __tact_context_get_sender INLINECALLDICT
     s10 PUSH
     __tact_address_eq INLINECALLDICT
@@ -503,7 +514,7 @@ PROGRAM{
     0 PUSHINT
     FALSE
     s7 s13 XCHG2
-    66 PUSHINT
+    64 PUSHINT
     s0 s13 XCHG
     __gen_constructor_ProposalInit$body INLINECALLDICT
     __gen_writecell_ProposalInit INLINECALLDICT
@@ -514,6 +525,37 @@ PROGRAM{
     s0 s0 s8 XCHG3
     __gen_constructor_SendParameters$to_value_bounce_mode_body_code_data INLINECALLDICT
     $send INLINECALLDICT
+    INC
+  }>
+  __gen_constructor_SendParameters$to_value_bounce_mode_body PROCINLINE:<{
+    s2 s4 XCHG
+    s2 s3 XCHG
+    PUSHNULL
+    PUSHNULL
+  }>
+  $__gen_ProposalDeployer_receive_SendProposalInit PROCINLINE:<{
+    32376 PUSHINT
+    __tact_context_get_sender INLINECALLDICT
+    s10 PUSH
+    __tact_address_eq INLINECALLDICT
+    THROWANYIFNOT
+    s8 s7 s0 XC2PU
+    $__gen_ProposalDeployer_getProposalStateInit INLINECALLDICT
+    $contractAddress INLINECALLDICT
+    4 4 BLKSWAP
+    0 PUSHINT
+    FALSE
+    s9 s11 XCHG2
+    64 PUSHINT
+    s0 s11 XCHG
+    __gen_constructor_ProposalInit$body INLINECALLDICT
+    __gen_writecell_ProposalInit INLINECALLDICT
+    s1 s4 XCHG
+    s6 s3 s0 XCHG3
+    s1 s5 XCHG
+    __gen_constructor_SendParameters$to_value_bounce_mode_body INLINECALLDICT
+    $send INLINECALLDICT
+    SWAP
     INC
   }>
   $__gen_ProposalDeployer_receive_Deploy PROCINLINE:<{
@@ -544,6 +586,16 @@ PROGRAM{
       __gen_read_CreateProposal INLINECALLDICT
       1 7 BLKDROP2
       $__gen_ProposalDeployer_receive_CreateProposal INLINECALLDICT
+      TRUE
+    }>
+    OVER
+    3598355482 PUSHINT
+    EQUAL
+    IFJMP:<{
+      NIP
+      __gen_read_SendProposalInit INLINECALLDICT
+      1 7 BLKDROP2
+      $__gen_ProposalDeployer_receive_SendProposalInit INLINECALLDICT
       TRUE
     }>
     SWAP
@@ -595,7 +647,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d5045393543316b5063326935644732383670646259424c4c4875314444585a506459434e6b526568697a5658} PUSHSLICE
+    x{697066733a2f2f516d656652676d57686842666a7769715962667563534a41555545754c61336273454d505348436a545279797436} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH

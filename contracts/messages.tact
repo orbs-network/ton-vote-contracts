@@ -8,6 +8,12 @@ message CreateDao {
     metadata: Address;
 }
 
+message SendDaoInit {
+    owner: Address;
+    proposalOwner: Address;
+    metadata: Address;
+}
+
 message SetCreateDaoFee {
     newCreateDaoFee: Int as uint64;
 }
@@ -54,6 +60,10 @@ message DaoInit {
 // ProposalDeployer
 // ---------------------------------------
 message CreateProposal {
+    body: Params;
+}
+
+message SendProposalInit {
     body: Params;
 }
 

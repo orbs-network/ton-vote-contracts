@@ -347,7 +347,7 @@ _ $__gen_get_fwdMsgFee() method_id(73548) {
     var ($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee) = $self;
     var (($msg'fwdMsg'bounce, $msg'fwdMsg'to, $msg'fwdMsg'value, $msg'fwdMsg'mode, $msg'fwdMsg'body, $msg'fwdMsg'code, $msg'fwdMsg'data)) = $msg;
     throw_unless(4429, (__tact_address_eq(__tact_context_get_sender(), $self'owner) | __tact_address_eq(__tact_context_get_sender(), $self'proposalOwner)));
-    throw_unless(10109, (__gen_Context_get_value(__tact_context_get()) >= $self'fwdMsgFee));
+    throw_unless(60173, (__gen_Context_get_value(__tact_context_get()) >= $self'fwdMsgFee));
     $send(($msg'fwdMsg'bounce, $msg'fwdMsg'to, $msg'fwdMsg'value, $msg'fwdMsg'mode, $msg'fwdMsg'body, $msg'fwdMsg'code, $msg'fwdMsg'data));
     return (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee), ());
 }
@@ -462,7 +462,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() {
-    return "ipfs://QmXbojPKHLTyUJDH88bQ3UXUZHnWeaeMTYhXsufnBqnGf7";
+    return "ipfs://QmNYtxc33fHhVVSTJDMyhSEve4rR6uyp5HLdr6HzxkqcCe";
 }
 
 _ lazy_deployment_completed() {

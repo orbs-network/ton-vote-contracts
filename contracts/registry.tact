@@ -19,7 +19,7 @@ contract Registry with Deployable {
     }
     
     receive(createDao: CreateDao) {
-        require(context().value >= self.createDaoFee, "Low message value");
+        require(context().value >= self.createDaoFee, "Below min fee for create dao");
         
         let init: StateInit = self.getDaoStateInit(self.nextDaoId);
         let daoAddress: Address = contractAddress(init);
@@ -28,10 +28,27 @@ contract Registry with Deployable {
             to: daoAddress, 
             value: 0, 
             bounce: false,
-            mode: SendRemainingValue + SendIgnoreErrors,
+            mode: SendRemainingValue,
             body: DaoInit{owner: createDao.owner, proposalOwner: createDao.proposalOwner, metadata: createDao.metadata}.toCell(),
             code: init.code,
             data: init.data
+        });
+
+        self.nextDaoId = self.nextDaoId + 1;
+    }
+
+    receive(sendDaoInit: SendDaoInit) {
+        require(context().value >= self.createDaoFee, "Below min fee for dao init");
+        
+        let init: StateInit = self.getDaoStateInit(self.nextDaoId);
+        let daoAddress: Address = contractAddress(init);
+
+        send(SendParameters{
+            to: daoAddress, 
+            value: 0, 
+            bounce: false,
+            mode: SendRemainingValue,
+            body: DaoInit{owner: sendDaoInit.owner, proposalOwner: sendDaoInit.proposalOwner, metadata: sendDaoInit.metadata}.toCell()
         });
 
         self.nextDaoId = self.nextDaoId + 1;
