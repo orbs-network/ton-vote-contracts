@@ -29,7 +29,7 @@ The architecture consists of five types of contracts:
 
 5. Proposal: The proposal contract holds the code and information related to a specific proposal. It includes details such as the proposal title, description, start and end times, snapshot time, voting system, and voting power strategies. Voting results are calculated off-chain, and for more information, you can refer to the [Ton.vote Contracts SDK repository](https://github.com/orbs-network/ton-vote-contracts-sdk).
 
-For more details about the eacxh contract see the contracts section below.
+For more details about the each contract see the contracts section below.
 
 ## Mitigate vector attacks
 
@@ -61,7 +61,7 @@ A malicious actor may attempt to deploy a proposal-deployer contract for undeplo
 A malicious actor may try to deploy a proposal contract without the necessary authorization. However, only the proposal-deployer contract holds the capability to send ProposalInit messages. The authority over ProposalInit messages is controlled by the DAO owner and the proposal owner. Therefore, in this scenario, the attacker would only have paid for the deployment gas and would not be able to initiate proposals without the proper authorization.
 
 
-## Registry contract 
+## Registry  
 
 ### Admin role
 In order to handle DDoS attacks, it is a common practice in on-chain platforms to require a minimum fee when sending transactions to the platform's contracts. In the Ton.vote project, there is a minimum fee requirement of 1 TON for creating a DAO and creating a proposal. These fees are covered by the space owner, and they do not impact the voters participating in the platform.
@@ -78,7 +78,7 @@ When invoking the init message, a new DAO is created with a default admin addres
 5. `SetRegistryAdmin` - Sets the registry `admin` and acts as a transfer ownership to another admin. It should be called after init to set the initial admin. To burn the admin key, you can set it to the zero address of the masterchain. This action effectively renders the admin key unusable and removes any associated administrative privileges.
 
 
-## Dao contract
+## Dao
 
 ### fwdMsgFee
 The DAO acts as a mediator for forwarding messages to the proposal-deployer responsible for deploying proposals. The fwdMsgFee serves as a mechanism to address potential DDOS attacks, as discussed in the [DDOS Attack ](https://github.com/orbs-network/ton-vote-contracts#ddos-attack) section. The registry admin retains the authority to set this fee for each DAO, providing control over the associated costs and helping safeguard against malicious activities.
@@ -93,7 +93,7 @@ The DAO acts as a mediator for forwarding messages to the proposal-deployer resp
 7. `FwdMsg` - Enables either the owner or the proposal owner to forward messages. This functionality is utilized to create the proposal deployer if it hasn't been deployed yet and to generate new proposals as needed. By utilizing FwdMsg, the owner or proposal owner can manage the deployment and creation of proposals within the system.
 
 
-## Proposal Deployer
+## Proposal Deployer 
 The Proposal Deployer maintains the version of the proposal. It receives messages from the DAO and generates new proposals in response to the 'CreateProposal' message. This contract also keeps track of the total number of proposals deployed under its specific version. Each version of the contract includes all the proposals associated with it.
 
 ### Supported messages
