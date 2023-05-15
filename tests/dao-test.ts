@@ -92,8 +92,10 @@ describe('dao tests', () => {
                             proposalStartTime: 0n,
                             proposalEndTime: 2341659973n,
                             proposalSnapshotTime: 1678885573n,
-                            proposalType: 0n,
-                            votingPowerStrategies: 0n
+                            votingSystem: "",
+                            votingPowerStrategies: "",
+                            title: "",
+                            description: ""
                         }
                     })).endCell(),
                     code: null,

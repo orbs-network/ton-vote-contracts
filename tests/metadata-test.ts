@@ -2,6 +2,8 @@ import { ContractSystem } from '@tact-lang/emulator';
 import {Metadata} from '../contracts/output/ton-vote_Metadata';
 import { expect } from 'chai';
 import { toNano} from 'ton-core';
+import { ZERO_ADDR } from '@orbs-network/orbs-ethereum-contracts-v2/release/test/driver';
+import { Address } from 'ton';
 
 
 describe('metadata tests', () => {
@@ -11,8 +13,8 @@ describe('metadata tests', () => {
         let system = await ContractSystem.create();
         let treasure = system.treasure('treasure');
         let res;
-
-        let metadataContract = system.open(await Metadata.fromInit("avatar-test", "dao-test", "about-test", "website-test", "terms-test", "twitter-test", "github-test", false));
+    
+        let metadataContract = system.open(await Metadata.fromInit("avatar-test", "dao-test", "about-test", "website-test", "terms-test", "telegram-test", "github-test", Address.parse(ZERO_ADDR), Address.parse(ZERO_ADDR), false));
         let tracker = system.track(metadataContract);
         
         await metadataContract.send(treasure, { value: toNano('10') }, { $$type: 'Deploy' as const, queryId: 0n });
@@ -32,7 +34,7 @@ describe('metadata tests', () => {
         let treasure = system.treasure('treasure');
         let res;
 
-        let metadataContract = system.open(await Metadata.fromInit("avatar-test", "name-test", "about-test", "website-test", "terms-test", "twitter-test", "github-test", false));
+        let metadataContract = system.open(await Metadata.fromInit("avatar-test", "dao-test", "about-test", "website-test", "terms-test", "telegram-test", "github-test", Address.parse(ZERO_ADDR), Address.parse(ZERO_ADDR), false));
         
         await metadataContract.send(treasure, { value: toNano('10') }, { $$type: 'Deploy' as const, queryId: 0n });
         await system.run();
@@ -52,7 +54,7 @@ describe('metadata tests', () => {
         res = await metadataContract.getTerms();        
         expect(res).to.eq('terms-test');
 
-        res = await metadataContract.getTwitter();        
+        res = await metadataContract.getTelegram();        
         expect(res).to.eq('twitter-test');
 
         res = await metadataContract.getGithub();        
