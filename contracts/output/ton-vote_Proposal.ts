@@ -1065,7 +1065,6 @@ const Proposal_errors: { [key: number]: { message: string } } = {
     46336: { message: `Below min fee for create dao` },
     51893: { message: `Only registry can change fwd msg fee` },
     52512: { message: `Only admin can set dao fwd msg fee` },
-    55923: { message: `Below min fee for dao init` },
     60173: { message: `Below min fee for dao forward message` },
     62925: { message: `Only admin can set create dao fee` },
 }

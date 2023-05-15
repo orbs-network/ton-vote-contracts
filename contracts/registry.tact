@@ -37,23 +37,6 @@ contract Registry with Deployable {
         self.nextDaoId = self.nextDaoId + 1;
     }
 
-    receive(sendDaoInit: SendDaoInit) {
-        require(context().value >= self.createDaoFee, "Below min fee for dao init");
-        
-        let init: StateInit = self.getDaoStateInit(self.nextDaoId);
-        let daoAddress: Address = contractAddress(init);
-
-        send(SendParameters{
-            to: daoAddress, 
-            value: 0, 
-            bounce: false,
-            mode: SendRemainingValue,
-            body: DaoInit{owner: sendDaoInit.owner, proposalOwner: sendDaoInit.proposalOwner, metadata: sendDaoInit.metadata}.toCell()
-        });
-
-        self.nextDaoId = self.nextDaoId + 1;
-    }
-
     receive(msg: SetCreateDaoFee) {
         require(sender() == self.admin, "Only admin can set create dao fee");
         self.createDaoFee = msg.newCreateDaoFee;

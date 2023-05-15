@@ -34,24 +34,6 @@ contract ProposalDeployer with Deployable {
         self.nextProposalId = self.nextProposalId + 1;
     }
 
-    receive(msg: SendProposalInit) {
-        require(sender() == self.dao, "only dao can send init proposal message");
-
-        // Create message
-        let init: StateInit = self.getProposalStateInit(self.nextProposalId);
-        let proposalAddress: Address = contractAddress(init);
-
-        send(SendParameters{
-            to: proposalAddress, 
-            value: 0, 
-            bounce: false,
-            mode: SendRemainingValue,
-            body: ProposalInit{body: msg.body}.toCell()
-        });
-
-        self.nextProposalId = self.nextProposalId + 1;
-    }
-
     fun getProposalStateInit(index: Int): StateInit {
         return initOf Proposal(myAddress(), index);
     }

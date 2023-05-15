@@ -1,6 +1,6 @@
 # TACT Compilation Report
 Contract: ProposalDeployer
-BOC Size: 1478 bytes
+BOC Size: 1373 bytes
 
 # Types
 Total Types: 21
@@ -127,4 +127,3 @@ Argument: index
 2977: Already initialized
 4429: Invalid sender
 13403: only dao can send create proposal message
-32376: only dao can send init proposal message

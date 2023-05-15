@@ -116,12 +116,6 @@ builder __gen_write_Params(builder build_0, (int, int, int, slice, slice, slice,
     return (sc_0, (v'body));
 }
 
-(slice, (((int, int, int, slice, slice, slice, slice)))) __gen_read_SendProposalInit(slice sc_0) inline {
-    throw_unless(129, sc_0~load_uint(32) == 3598355482);
-    var v'body = sc_0~__gen_read_Params();
-    return (sc_0, (v'body));
-}
-
 builder __gen_write_ProposalInit(builder build_0, ((int, int, int, slice, slice, slice, slice)) v) inline {
     var ((v'body'proposalStartTime, v'body'proposalEndTime, v'body'proposalSnapshotTime, v'body'votingSystem, v'body'votingPowerStrategies, v'body'title, v'body'description)) = v;
     build_0 = store_uint(build_0, 4087233874, 32);
@@ -324,21 +318,6 @@ _ $__gen_get_proposalAddr(int $$index) method_id(94082) {
     return (($self'dao, $self'nextProposalId), ());
 }
 
-((int, slice, int, int, cell, cell, cell)) __gen_constructor_SendParameters$to_value_bounce_mode_body(slice to, int value, int bounce, int mode, cell body) inline {
-    return (bounce, to, value, mode, body, null(), null());
-}
-
-(((slice, int)), ()) $__gen_ProposalDeployer_receive_SendProposalInit((slice, int) $self, ((int, int, int, slice, slice, slice, slice)) $msg) impure inline {
-    var ($self'dao, $self'nextProposalId) = $self;
-    var (($msg'body'proposalStartTime, $msg'body'proposalEndTime, $msg'body'proposalSnapshotTime, $msg'body'votingSystem, $msg'body'votingPowerStrategies, $msg'body'title, $msg'body'description)) = $msg;
-    throw_unless(32376, __tact_address_eq(__tact_context_get_sender(), $self'dao));
-    var ($init'code, $init'data) = ($self'dao, $self'nextProposalId)~$__gen_ProposalDeployer_getProposalStateInit($self'nextProposalId);
-    slice $proposalAddress = $contractAddress(($init'code, $init'data));
-    $send(__gen_constructor_SendParameters$to_value_bounce_mode_body($proposalAddress, 0, false, 64, __gen_writecell_ProposalInit(__gen_constructor_ProposalInit$body(($msg'body'proposalStartTime, $msg'body'proposalEndTime, $msg'body'proposalSnapshotTime, $msg'body'votingSystem, $msg'body'votingPowerStrategies, $msg'body'title, $msg'body'description)))));
-    $self'nextProposalId = ($self'nextProposalId + 1);
-    return (($self'dao, $self'nextProposalId), ());
-}
-
 (((slice, int)), ()) $__gen_ProposalDeployer_receive_Deploy((slice, int) $self, (int) $deploy) impure inline {
     var ($self'dao, $self'nextProposalId) = $self;
     var ($deploy'queryId) = $deploy;
@@ -363,13 +342,6 @@ _ $__gen_get_proposalAddr(int $$index) method_id(94082) {
     if (op == 716721105) {
         var msg = in_msg~__gen_read_CreateProposal();
         self~$__gen_ProposalDeployer_receive_CreateProposal(msg);
-        return (self, true);
-    }
-    
-    ;; Receive SendProposalInit message
-    if (op == 3598355482) {
-        var msg = in_msg~__gen_read_SendProposalInit();
-        self~$__gen_ProposalDeployer_receive_SendProposalInit(msg);
         return (self, true);
     }
     
@@ -417,7 +389,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() {
-    return "ipfs://QmefRgmWhhBfjwiqYbfucSJAUUEuLa3bsEMPSHCjTRyyt6";
+    return "ipfs://QmcdrPgSoK4Uc2KgfLQ8QruAevXVyR2PJwFTVtBFK1ZQQQ";
 }
 
 _ lazy_deployment_completed() {

@@ -141,6 +141,5 @@ Total Get Methods: 9
 46336: Below min fee for create dao
 51893: Only registry can change fwd msg fee
 52512: Only admin can set dao fwd msg fee
-55923: Below min fee for dao init
 60173: Below min fee for dao forward message
 62925: Only admin can set create dao fee
