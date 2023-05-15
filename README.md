@@ -14,7 +14,6 @@ Currently, the voting mechanism requires on-chain transactions with minimal gas 
 Within this repository, you will find comprehensive documentation and resources related to the contracts. Feel free to explore, contribute, and dive into the technical aspects of the Ton.vote Contracts as we continue to advance decentralized decision-making.
 
 # Architecture
-The contracts in the Ton.vote project follow the general architecture depicted below:
 <img src="https://github.com/orbs-network/ton-vote-contracts/blob/main/assets/contracts-architecture.png" width=900 />
 
 The architecture consists of five types of contracts:
