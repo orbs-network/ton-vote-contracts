@@ -1,6 +1,6 @@
 import { ContractSystem } from '@tact-lang/emulator';
-import { ProposalDeployer } from '../output/ton-vote_ProposalDeployer'; 
-import { Proposal } from '../output/ton-vote_Proposal'; 
+import { ProposalDeployer } from '../contracts/output/ton-vote_ProposalDeployer'; 
+import { Proposal } from '../contracts/output/ton-vote_Proposal'; 
 import { toNano } from "ton-core";
 import { expect } from "chai";
 

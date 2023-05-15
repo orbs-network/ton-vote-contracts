@@ -1,5 +1,5 @@
 import { ContractSystem } from '@tact-lang/emulator';
-import {Metadata} from '../output/ton-vote_Metadata';
+import {Metadata} from '../contracts/output/ton-vote_Metadata';
 import { expect } from 'chai';
 import { toNano} from 'ton-core';
 

@@ -1,18 +1,14 @@
 {
-  "name": "single-nominator",
+  "name": "ton-vote-contracts",
   "description": "",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
-  "author": "",
+  "author": "Ami Hazbany",
   "scripts": {
-    "prettier": "npx prettier --write '{test,contracts,build}/**/*.{ts,js,json}'",
-    "e2e": "mocha --timeout 120000 --exit tests/e2e.ts",
     "deploy": "ts-node deploy/deploy.ts",
     "clean": "rimraf ./dist/",
     "prebuild": "npm run clean",
-    "build": "tsc --skipLibCheck -p ./tsconfig.json",    
-    "build-tact": "tact --config ./tact.config.json",
-    "init-deploy-wallet": "ts-node deploy/init-deploy-wallet.ts"
+    "build-tact": "tact --config ./tact.config.json"
   },
   "devDependencies": {
     "@swc/core": "^1.2.177",
