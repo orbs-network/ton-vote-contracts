@@ -2,12 +2,9 @@
 
 [TON.Vote](https://github.com/orbs-network/ton-vote) is a completely decentralized, on-chain DAO governance platform designed exclusively for the TON ecosystem.
 
-To create a new space or a new proposal for existing projects, developers can utilize our user interface (UI) available at ton.vote. It is completely free to use, and you only need to cover the transaction costs when sending data to the blockchain.
+To create a new space or a new proposal for existing projects, developers can utilize our user interface available at [ton.vote](https://ton.vote/). It is completely free to use, and you only need to cover the transaction costs when sending data to the blockchain.
 
-
-To create a new space or a new proposal for exisiting projects anyone can utilize our UI available at [ton.vote](https://ton.vote/).It is completely free to use, and you only need to cover the transaction costs when sending data to the blockchain.
-
-This repository is dedicated to the [Ton.vote Contracts](https://github.com/orbs-network/ton-vote-contracts/tree/45d0524067ef8d1b475cf1d3bb1aa3f495156e4e/contracts), providing in-depth information about their design considerations and implementation details. The contracts serve as a crucial component of the Ton.vote project, storing essential data about spaces and proposals.
+This repository is dedicated to the [Ton.vote Contracts](https://github.com/orbs-network/ton-vote-contracts/tree/main/contracts), providing in-depth information about their design considerations and implementation details. The contracts serve as a crucial component of the Ton.vote project, storing essential data about spaces and proposals.
 
 Currently, the voting mechanism requires on-chain transactions with minimal gas fees. Our future roadmap includes the integration of off-chain signatures, eliminating the need for gas fees during the voting process.
 

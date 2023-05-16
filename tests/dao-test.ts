@@ -1,10 +1,11 @@
 import { ContractSystem } from '@tact-lang/emulator';
-import { ProposalDeployer, storeProposalInit} from '../contracts/output/ton-vote_ProposalDeployer'; 
-import { Proposal, storeParams } from '../contracts/output/ton-vote_Proposal'; 
-import { Dao, SendParameters } from '../contracts/output/ton-vote_Dao'; 
+import { ProposalDeployer, storeProposalInit} from '../output/ton-vote_ProposalDeployer'; 
+import { Proposal, storeParams } from '../output/ton-vote_Proposal'; 
+import { Dao, SendParameters } from '../output/ton-vote_Dao'; 
 import { Address, beginCell, toNano } from "ton-core";
 import { expect } from "chai";
 import {Cell} from "ton-core"
+import { Registry } from '../output/ton-vote_Registry';
 
 
 describe('dao tests', () => {
@@ -13,7 +14,12 @@ describe('dao tests', () => {
 
         let system = await ContractSystem.create();
         let treasure = system.treasure('treasure');
-        let daoContract = system.open(await Dao.fromInit(treasure.address, 0n));
+
+        let registryContract = system.open(await Registry.fromInit(0n));
+        await registryContract.send(treasure, { value: toNano('10') }, { $$type: 'Deploy' as const, queryId: 0n });
+        await system.run();
+
+        let daoContract = system.open(await Dao.fromInit(registryContract.address, 0n));
         let tracker = system.track(daoContract.address);
         await daoContract.send(treasure, { value: toNano('10') }, { $$type: 'Deploy' as const, queryId: 0n });
         await system.run();

@@ -1,5 +1,5 @@
 import { ContractSystem } from '@tact-lang/emulator';
-import {Metadata} from '../contracts/output/ton-vote_Metadata';
+import {Metadata} from '../output/ton-vote_Metadata';
 import { expect } from 'chai';
 import { toNano} from 'ton-core';
 import { ZERO_ADDR } from '@orbs-network/orbs-ethereum-contracts-v2/release/test/driver';

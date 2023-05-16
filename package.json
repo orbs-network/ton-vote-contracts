@@ -8,6 +8,7 @@
     "tests": "mocha --timeout 120000 --exit tests/*-test.ts",
     "clean": "rimraf ./contracts/output",
     "prebuild": "npm run clean",
+    "copy-to-sdk": "cp -r output ../ton-vote-contracts-sdk/contracts/ && echo 'all done'",
     "build-contracts": "tact --config ./tact.config.json"
   },
   "devDependencies": {

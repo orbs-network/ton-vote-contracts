@@ -1,9 +1,9 @@
 import { ContractSystem } from '@tact-lang/emulator';
-import { Registry } from '../contracts/output/ton-vote_Registry'; 
-import { Metadata } from '../contracts/output/ton-vote_Metadata'; 
-import { Dao } from '../contracts/output/ton-vote_Dao'; 
-import { ProposalDeployer, storeCreateProposal } from '../contracts/output/ton-vote_ProposalDeployer'; 
-import {Proposal} from '../contracts/output/ton-vote_Proposal';
+import { Registry } from '../output/ton-vote_Registry'; 
+import { Metadata } from '../output/ton-vote_Metadata'; 
+import { Dao } from '../output/ton-vote_Dao'; 
+import { ProposalDeployer, storeCreateProposal } from '../output/ton-vote_ProposalDeployer'; 
+import {Proposal} from '../output/ton-vote_Proposal';
 import { expect } from 'chai';
 import { Address, beginCell, toNano } from 'ton-core';
 
