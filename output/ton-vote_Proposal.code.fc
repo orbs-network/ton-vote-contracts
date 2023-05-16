@@ -1,0 +1,230 @@
+#pragma version =0.4.3;
+#pragma allow-post-modification;
+#pragma compute-asm-ltr;
+
+#include "ton-vote_Proposal.headers.fc";
+#include "ton-vote_Proposal.stdlib.fc";
+#include "ton-vote_Proposal.constants.fc";
+#include "ton-vote_Proposal.storage.fc";
+
+;;
+;; Contract Proposal functions
+;;
+
+(slice, int, int, int, int, slice, slice, slice, slice) $Proposal$_contract_init(slice $proposalDeployer, int $id) impure inline_ref {
+    var (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description)) = (null(), null(), null(), null(), null(), null(), null(), null(), null());
+    $self'proposalDeployer = $proposalDeployer;
+    $self'id = $id;
+    $self'proposalStartTime = 0;
+    $self'proposalEndTime = 0;
+    $self'proposalSnapshotTime = 0;
+    $self'votingSystem = __gen_slice_string_96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7();
+    $self'votingPowerStrategies = __gen_slice_string_96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7();
+    $self'title = __gen_slice_string_96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7();
+    $self'description = __gen_slice_string_96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7();
+    return ($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description);
+}
+
+((slice, int, int, int, int, slice, slice, slice, slice), slice) $Proposal$_fun_proposalDeployer((slice, int, int, int, int, slice, slice, slice, slice) $self) impure inline_ref {
+    var (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description)) = $self;
+    return (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description), $self'proposalDeployer);
+}
+
+((slice, int, int, int, int, slice, slice, slice, slice), int) $Proposal$_fun_id((slice, int, int, int, int, slice, slice, slice, slice) $self) impure inline_ref {
+    var (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description)) = $self;
+    return (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description), $self'id);
+}
+
+((slice, int, int, int, int, slice, slice, slice, slice), int) $Proposal$_fun_proposalStartTime((slice, int, int, int, int, slice, slice, slice, slice) $self) impure inline_ref {
+    var (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description)) = $self;
+    return (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description), $self'proposalStartTime);
+}
+
+((slice, int, int, int, int, slice, slice, slice, slice), int) $Proposal$_fun_proposalEndTime((slice, int, int, int, int, slice, slice, slice, slice) $self) impure inline_ref {
+    var (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description)) = $self;
+    return (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description), $self'proposalEndTime);
+}
+
+((slice, int, int, int, int, slice, slice, slice, slice), int) $Proposal$_fun_proposalSnapshotTime((slice, int, int, int, int, slice, slice, slice, slice) $self) impure inline_ref {
+    var (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description)) = $self;
+    return (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description), $self'proposalSnapshotTime);
+}
+
+((slice, int, int, int, int, slice, slice, slice, slice), slice) $Proposal$_fun_votingSystem((slice, int, int, int, int, slice, slice, slice, slice) $self) impure inline_ref {
+    var (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description)) = $self;
+    return (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description), $self'votingSystem);
+}
+
+((slice, int, int, int, int, slice, slice, slice, slice), slice) $Proposal$_fun_votingPowerStrategies((slice, int, int, int, int, slice, slice, slice, slice) $self) impure inline_ref {
+    var (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description)) = $self;
+    return (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description), $self'votingPowerStrategies);
+}
+
+((slice, int, int, int, int, slice, slice, slice, slice), slice) $Proposal$_fun_title((slice, int, int, int, int, slice, slice, slice, slice) $self) impure inline_ref {
+    var (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description)) = $self;
+    return (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description), $self'title);
+}
+
+((slice, int, int, int, int, slice, slice, slice, slice), slice) $Proposal$_fun_description((slice, int, int, int, int, slice, slice, slice, slice) $self) impure inline_ref {
+    var (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description)) = $self;
+    return (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description), $self'description);
+}
+
+;;
+;; Receivers of a Contract Proposal
+;;
+
+(((slice, int, int, int, int, slice, slice, slice, slice)), ()) $Proposal$_internal_binary_ProposalInit((slice, int, int, int, int, slice, slice, slice, slice) $self, ((int, int, int, slice, slice, slice, slice)) $msg) impure inline {
+    var ($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description) = $self;
+    var (($msg'body'proposalStartTime, $msg'body'proposalEndTime, $msg'body'proposalSnapshotTime, $msg'body'votingSystem, $msg'body'votingPowerStrategies, $msg'body'title, $msg'body'description)) = $msg;
+    throw_unless(2977, ( (( (($self'proposalStartTime == 0)) ? (($self'proposalEndTime == 0)) : (false) )) ? (($self'proposalSnapshotTime == 0)) : (false) ));
+    throw_unless(4429, ( __tact_slice_eq_bits($self'proposalDeployer, __tact_context_get_sender()) ));
+    $self'proposalStartTime = $msg'body'proposalStartTime;
+    $self'proposalEndTime = $msg'body'proposalEndTime;
+    $self'proposalSnapshotTime = $msg'body'proposalSnapshotTime;
+    $self'votingSystem = $msg'body'votingSystem;
+    $self'votingPowerStrategies = $msg'body'votingPowerStrategies;
+    $self'title = $msg'body'title;
+    $self'description = $msg'body'description;
+    return (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description), ());
+}
+
+(((slice, int, int, int, int, slice, slice, slice, slice)), ()) $Proposal$_internal_binary_Deploy((slice, int, int, int, int, slice, slice, slice, slice) $self, (int) $deploy) impure inline {
+    var ($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description) = $self;
+    var ($deploy'queryId) = $deploy;
+    ($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description)~$Proposal$_fun_notify($DeployOk$_store_cell($DeployOk$_constructor_queryId($deploy'queryId)));
+    return (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description), ());
+}
+
+;;
+;; Get methods of a Contract Proposal
+;;
+
+_ %proposalDeployer() method_id(106145) {
+    var self = $Proposal$_contract_load();
+    var res = self~$Proposal$_fun_proposalDeployer();
+    return res;
+}
+
+_ %id() method_id(105872) {
+    var self = $Proposal$_contract_load();
+    var res = self~$Proposal$_fun_id();
+    return res;
+}
+
+_ %proposalStartTime() method_id(127546) {
+    var self = $Proposal$_contract_load();
+    var res = self~$Proposal$_fun_proposalStartTime();
+    return res;
+}
+
+_ %proposalEndTime() method_id(121148) {
+    var self = $Proposal$_contract_load();
+    var res = self~$Proposal$_fun_proposalEndTime();
+    return res;
+}
+
+_ %proposalSnapshotTime() method_id(67040) {
+    var self = $Proposal$_contract_load();
+    var res = self~$Proposal$_fun_proposalSnapshotTime();
+    return res;
+}
+
+_ %votingSystem() method_id(99475) {
+    var self = $Proposal$_contract_load();
+    var res = self~$Proposal$_fun_votingSystem();
+    return res;
+}
+
+_ %votingPowerStrategies() method_id(70066) {
+    var self = $Proposal$_contract_load();
+    var res = self~$Proposal$_fun_votingPowerStrategies();
+    return res;
+}
+
+_ %title() method_id(84137) {
+    var self = $Proposal$_contract_load();
+    var res = self~$Proposal$_fun_title();
+    return res;
+}
+
+_ %description() method_id(65569) {
+    var self = $Proposal$_contract_load();
+    var res = self~$Proposal$_fun_description();
+    return res;
+}
+
+_ supported_interfaces() method_id {
+    return (
+        "org.ton.introspection.v0"H >> 128,
+        "org.ton.abi.ipfs.v0"H >> 128,
+        "org.ton.deploy.lazy.v0"H >> 128,
+        "org.ton.debug.v0"H >> 128,
+        "org.ton.chain.workchain.v0"H >> 128
+    );
+}
+
+_ get_abi_ipfs() method_id {
+    return "ipfs://QmZiktYEzcQtUwQkzBGGR32PoqZZi6wdEbdmsWMccyPpaa";
+}
+
+_ lazy_deployment_completed() method_id {
+    return get_data().begin_parse().load_int(1);
+}
+
+;;
+;; Routing of a Contract Proposal
+;;
+
+((slice, int, int, int, int, slice, slice, slice, slice), int) $Proposal$_contract_router_internal((slice, int, int, int, int, slice, slice, slice, slice) self, int msg_bounced, slice in_msg) impure inline_ref {
+    ;; Handle bounced messages
+    if (msg_bounced) {
+        return (self, true);
+    }
+    
+    ;; Parse incoming message
+    int op = 0;
+    if (slice_bits(in_msg) >= 32) {
+        op = in_msg.preload_uint(32);
+    }
+    
+    
+    ;; Receive ProposalInit message
+    if (op == 4087233874) {
+        var msg = in_msg~$ProposalInit$_load();
+        self~$Proposal$_internal_binary_ProposalInit(msg);
+        return (self, true);
+    }
+    
+    ;; Receive Deploy message
+    if (op == 2490013878) {
+        var msg = in_msg~$Deploy$_load();
+        self~$Proposal$_internal_binary_Deploy(msg);
+        return (self, true);
+    }
+    
+    return (self, false);
+}
+
+() recv_internal(int msg_value, cell in_msg_cell, slice in_msg) impure {
+    
+    ;; Context
+    var cs = in_msg_cell.begin_parse();
+    var msg_flags = cs~load_uint(4);
+    var msg_bounced = -(msg_flags & 1);
+    slice msg_sender_addr = __tact_verify_address(cs~load_msg_addr());
+    __tact_context = (msg_bounced, msg_sender_addr, msg_value, cs);
+    __tact_context_sender = msg_sender_addr;
+    
+    ;; Load contract data
+    var self = $Proposal$_contract_load();
+    
+    ;; Handle operation
+    int handled = self~$Proposal$_contract_router_internal(msg_bounced, in_msg);
+    
+    ;; Throw if not handled
+    throw_unless(130, handled);
+    
+    ;; Persist state
+    $Proposal$_contract_store(self);
+}

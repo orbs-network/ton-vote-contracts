@@ -1,0 +1,44 @@
+{
+    "projects": [
+        {
+            "name": "ton-vote",
+            "path": "./contracts/metadata.tact",
+            "output": "./output",
+            "options": {
+                "debug": true
+            }
+        },
+        {
+            "name": "ton-vote",
+            "path": "./contracts/proposal-deployer.tact",
+            "output": "./output",
+            "options": {
+                "debug": true
+            }
+        },
+        {
+            "name": "ton-vote",
+            "path": "./contracts/proposal.tact",
+            "output": "./output",
+            "options": {
+                "debug": true
+            }
+        },
+        {
+            "name": "ton-vote",
+            "path": "./contracts/dao.tact",
+            "output": "./output",
+            "options": {
+                "debug": true
+            }
+        },
+        {
+            "name": "ton-vote",
+            "path": "./contracts/registry.tact",
+            "output": "./output",
+            "options": {
+                "debug": true
+            }
+        }
+    ]
+}

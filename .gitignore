@@ -71,5 +71,3 @@ typings/
 .version
 
 deploy.config.json
-output
-*all-contracts.json

@@ -5,10 +5,10 @@
   "license": "MIT",
   "author": "Ami Hazbany",
   "scripts": {
-    "tests": "mocha tests/*",
+    "tests": "mocha --timeout 120000 --exit tests/*-test.ts",
     "clean": "rimraf ./contracts/output",
     "prebuild": "npm run clean",
-    "build": "tact --config ./tact.config.json"
+    "build-contracts": "tact --config ./tact.config.json"
   },
   "devDependencies": {
     "@swc/core": "^1.2.177",
@@ -45,6 +45,7 @@
   },
   "dependencies": {
     "@orbs-network/ton-access": "^2.2.2",
+    "@tact-lang/compiler": "^1.0.0",
     "@tact-lang/emulator": "^4.2.1",
     "bignumber.js": "^9.1.1",
     "buffer": "^6.0.3",

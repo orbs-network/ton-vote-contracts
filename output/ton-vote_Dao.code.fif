@@ -1,0 +1,722 @@
+PROGRAM{
+  DECLPROC __tact_verify_address
+  DECLPROC __tact_load_address
+  DECLPROC __tact_store_address
+  DECLPROC __tact_create_address
+  DECLPROC __tact_my_balance
+  DECLPROC __tact_not_null
+  DECLPROC __tact_context_get
+  DECLPROC __tact_context_get_sender
+  DECLPROC __tact_store_bool
+  DECLPROC __tact_slice_eq_bits
+  DECLPROC $SendParameters$_load
+  DECLPROC $Deploy$_load
+  DECLPROC $DeployOk$_store
+  DECLPROC $DeployOk$_store_cell
+  DECLPROC $SetOwner$_load
+  DECLPROC $SetProposalOwner$_load
+  DECLPROC $SetFwdMsgFee$_load
+  DECLPROC $SetMetadata$_load
+  DECLPROC $FwdMsg$_load
+  DECLPROC $DaoInit$_load
+  DECLPROC $Dao$_store
+  DECLPROC $Dao$_load
+  DECLPROC $StateInit$_not_null
+  DECLPROC $Context$_get_value
+  DECLPROC $Dao$init$_load
+  DECLPROC $Dao$_contract_init
+  DECLPROC $Dao$_contract_load
+  DECLPROC $Dao$_contract_store
+  DECLPROC $global_send
+  DECLPROC $Dao$_fun_registry
+  DECLPROC $Dao$_fun_owner
+  DECLPROC $Dao$_fun_proposalOwner
+  DECLPROC $Dao$_fun_metadata
+  DECLPROC $Dao$_fun_daoIndex
+  DECLPROC $Dao$_fun_fwdMsgFee
+  DECLPROC $SendParameters$_constructor_bounce_to_value_mode_body_code_data
+  DECLPROC $Dao$_fun_forward
+  DECLPROC $Dao$_fun_notify
+  DECLPROC $DeployOk$_constructor_queryId
+  DECLPROC $Dao$_internal_binary_DaoInit
+  DECLPROC $Dao$_internal_binary_SetOwner
+  DECLPROC $Dao$_internal_binary_SetProposalOwner
+  DECLPROC $Dao$_internal_binary_SetMetadata
+  DECLPROC $Dao$_internal_binary_SetFwdMsgFee
+  DECLPROC $Dao$_internal_binary_FwdMsg
+  DECLPROC $Dao$_internal_binary_Deploy
+  102154 DECLMETHOD %registry
+  83229 DECLMETHOD %owner
+  86890 DECLMETHOD %proposalOwner
+  91827 DECLMETHOD %metadata
+  73154 DECLMETHOD %daoIndex
+  73548 DECLMETHOD %fwdMsgFee
+  113617 DECLMETHOD supported_interfaces
+  121275 DECLMETHOD get_abi_ipfs
+  115390 DECLMETHOD lazy_deployment_completed
+  DECLPROC $Dao$_contract_router_internal
+  DECLPROC recv_internal
+  DECLGLOBVAR __tact_context
+  DECLGLOBVAR __tact_context_sender
+  DECLGLOBVAR __tact_context_sys
+  DECLGLOBVAR __tact_randomized
+  __tact_verify_address PROCINLINE:<{
+    DUP
+    SBITS
+    267 PUSHINT
+    EQUAL
+    136 THROWIFNOT
+    DUP
+    11 PLDU
+    DUP
+    1279 PUSHINT
+    EQUAL
+    137 THROWIF
+    10 PUSHPOW2
+    EQUAL
+    136 THROWIFNOT
+  }>
+  __tact_load_address PROCINLINE:<{
+    LDMSGADDR
+    SWAP
+    __tact_verify_address INLINECALLDICT
+  }>
+  __tact_store_address PROCINLINE:<{
+    __tact_verify_address INLINECALLDICT
+    STSLICER
+  }>
+  __tact_create_address PROCINLINE:<{
+    NEWC
+    2 PUSHINT
+    SWAP
+    2 STU
+    0 PUSHINT
+    SWAP
+    1 STU
+    s1 s2 XCHG
+    8 STI
+    256 STU
+    ENDC
+    CTOS
+    __tact_verify_address INLINECALLDICT
+  }>
+  __tact_my_balance PROCINLINE:<{
+    BALANCE
+    FIRST
+  }>
+  __tact_not_null PROCINLINE:<{
+    DUP
+    ISNULL
+    128 THROWIF
+  }>
+  __tact_context_get PROCINLINE:<{
+    __tact_context GETGLOB
+    4 UNTUPLE
+  }>
+  __tact_context_get_sender PROCINLINE:<{
+    __tact_context_sender GETGLOB
+  }>
+  __tact_store_bool PROCINLINE:<{
+    SWAP
+    1 STI
+  }>
+  __tact_slice_eq_bits PROCINLINE:<{
+    SDEQ
+  }>
+  $SendParameters$_load PROCREF:<{
+    1 LDI
+    __tact_load_address INLINECALLDICT
+    SWAP
+    257 PUSHINT
+    LDIX
+    257 PUSHINT
+    LDIX
+    1 LDI
+    SWAP
+    IF:<{
+      LDREF
+    }>ELSE<{
+      PUSHNULL
+      SWAP
+    }>
+    1 LDI
+    SWAP
+    IF:<{
+      LDREF
+    }>ELSE<{
+      PUSHNULL
+      SWAP
+    }>
+    1 LDI
+    SWAP
+    IF:<{
+      LDREF
+    }>ELSE<{
+      PUSHNULL
+      SWAP
+    }>
+    7 -ROLL
+  }>
+  $Deploy$_load PROCINLINE:<{
+    32 LDU
+    SWAP
+    2490013878 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    64 LDU
+    SWAP
+  }>
+  $DeployOk$_store PROCINLINE:<{
+    2952335191 PUSHINT
+    ROT
+    32 STU
+    64 STU
+  }>
+  $DeployOk$_store_cell PROCINLINE:<{
+    NEWC
+    SWAP
+    $DeployOk$_store INLINECALLDICT
+    ENDC
+  }>
+  $SetOwner$_load PROCINLINE:<{
+    32 LDU
+    SWAP
+    3266583875 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    __tact_load_address INLINECALLDICT
+  }>
+  $SetProposalOwner$_load PROCINLINE:<{
+    32 LDU
+    SWAP
+    3504586358 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    __tact_load_address INLINECALLDICT
+  }>
+  $SetFwdMsgFee$_load PROCINLINE:<{
+    32 LDU
+    SWAP
+    4109608450 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    64 LDU
+    SWAP
+  }>
+  $SetMetadata$_load PROCINLINE:<{
+    32 LDU
+    SWAP
+    3660550271 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    __tact_load_address INLINECALLDICT
+  }>
+  $FwdMsg$_load PROCINLINE:<{
+    32 LDU
+    SWAP
+    1690551268 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    $SendParameters$_load INLINECALLDICT
+  }>
+  $DaoInit$_load PROCINLINE:<{
+    32 LDU
+    SWAP
+    444810285 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    __tact_load_address INLINECALLDICT
+    SWAP
+    __tact_load_address INLINECALLDICT
+    SWAP
+    __tact_load_address INLINECALLDICT
+    s3 s3 s0 XCHG3
+  }>
+  $Dao$_store PROCINLINE:<{
+    s6 s5 XCHG2
+    __tact_store_address INLINECALLDICT
+    s0 s3 XCHG2
+    __tact_store_address INLINECALLDICT
+    SWAP
+    __tact_store_address INLINECALLDICT
+    32 STU
+    NEWC
+    s0 s3 XCHG2
+    __tact_store_address INLINECALLDICT
+    64 STU
+    ENDC
+    SWAP
+    STREF
+  }>
+  $Dao$_load PROCINLINE:<{
+    __tact_load_address INLINECALLDICT
+    SWAP
+    __tact_load_address INLINECALLDICT
+    SWAP
+    __tact_load_address INLINECALLDICT
+    SWAP
+    32 LDU
+    LDREF
+    SWAP
+    CTOS
+    __tact_load_address INLINECALLDICT
+    SWAP
+    64 LDU
+    DROP
+    s2 s6 XCHG
+    s2 s5 XCHG
+    s2 s4 XCHG
+    s2 s3 XCHG
+  }>
+  $StateInit$_not_null PROCINLINE:<{
+    DUP
+    ISNULL
+    128 THROWIF
+    2 UNTUPLE
+  }>
+  $Context$_get_value PROCINLINE:<{
+    s1 s3 XCHG
+    3 BLKDROP
+  }>
+  $Dao$init$_load PROCINLINE:<{
+    __tact_load_address INLINECALLDICT
+    SWAP
+    257 PUSHINT
+    LDIX
+    -ROT
+  }>
+  $Dao$_contract_init PROCREF:<{
+    0 PUSHINT
+    DUP
+    __tact_create_address INLINECALLDICT
+    0 PUSHINT
+    DUP
+    __tact_create_address INLINECALLDICT
+    0 PUSHINT
+    DUP
+    __tact_create_address INLINECALLDICT
+    s1 s4 s0 XCHG3
+    s1 s3 XCHG
+    1000000000 PUSHINT
+  }>
+  $Dao$_contract_load PROCREF:<{
+    c4 PUSH
+    CTOS
+    LDREF
+    SWAP
+    __tact_context_sys SETGLOB
+    1 LDI
+    SWAP
+    IFJMP:<{
+      $Dao$_load INLINECALLDICT
+      1 6 BLKDROP2
+    }>
+    MYADDR
+    11 PLDU
+    10 PUSHPOW2
+    EQUAL
+    137 THROWIFNOT
+    $Dao$init$_load INLINECALLDICT
+    s0 s2 XCHG
+    ENDS
+    SWAP
+    $Dao$_contract_init INLINECALLDICT
+  }>
+  $Dao$_contract_store PROCINLINE:<{
+    NEWC
+    __tact_context_sys GETGLOB
+    SWAP
+    STREF
+    TRUE
+    SWAP
+    1 STI
+    6 -ROLL
+    $Dao$_store INLINECALLDICT
+    ENDC
+    c4 POP
+  }>
+  $global_send PROCREF:<{
+    NEWC
+    1 PUSHINT
+    SWAP
+    2 STI
+    s0 s7 XCHG2
+    __tact_store_bool INLINECALLDICT
+    0 PUSHINT
+    SWAP
+    3 STI
+    s0 s5 XCHG2
+    __tact_store_address INLINECALLDICT
+    s0 s3 XCHG2
+    STGRAMS
+    0 PUSHINT
+    SWAP
+    105 STI
+    s3 PUSH
+    ISNULL
+    NOT
+    IF:<{
+      TRUE
+    }>ELSE<{
+      s4 PUSH
+      ISNULL
+      NOT
+    }>
+    IF:<{
+      TRUE
+      __tact_store_bool INLINECALLDICT
+      NEWC
+      FALSE
+      __tact_store_bool INLINECALLDICT
+      FALSE
+      __tact_store_bool INLINECALLDICT
+      s4 PUSH
+      ISNULL
+      NOT
+      IF:<{
+        TRUE
+        __tact_store_bool INLINECALLDICT
+        s0 s4 XCHG
+        __tact_not_null INLINECALLDICT
+        s0 s4 XCHG2
+        STREF
+      }>ELSE<{
+        s4 POP
+        s0 s3 XCHG
+        FALSE
+        __tact_store_bool INLINECALLDICT
+      }>
+      s4 PUSH
+      ISNULL
+      NOT
+      IF:<{
+        TRUE
+        __tact_store_bool INLINECALLDICT
+        s0 s4 XCHG
+        __tact_not_null INLINECALLDICT
+        s0 s4 XCHG2
+        STREF
+      }>ELSE<{
+        s4 POP
+        s0 s3 XCHG
+        FALSE
+        __tact_store_bool INLINECALLDICT
+      }>
+      FALSE
+      __tact_store_bool INLINECALLDICT
+      s0 s2 XCHG
+      TRUE
+      __tact_store_bool INLINECALLDICT
+      s0 s2 XCHG
+      ENDC
+      ROT
+      STREF
+    }>ELSE<{
+      s3 POP
+      s3 POP
+      SWAP
+      FALSE
+      __tact_store_bool INLINECALLDICT
+    }>
+    OVER
+    ISNULL
+    NOT
+    IF:<{
+      TRUE
+      __tact_store_bool INLINECALLDICT
+      SWAP
+      __tact_not_null INLINECALLDICT
+      SWAP
+      STREF
+    }>ELSE<{
+      NIP
+      FALSE
+      __tact_store_bool INLINECALLDICT
+    }>
+    ENDC
+    SWAP
+    SENDRAWMSG
+  }>
+  $Dao$_fun_registry PROCREF:<{
+    s4 PUSH
+  }>
+  $Dao$_fun_owner PROCREF:<{
+    s5 PUSH
+  }>
+  $Dao$_fun_proposalOwner PROCREF:<{
+    s3 PUSH
+  }>
+  $Dao$_fun_metadata PROCREF:<{
+    OVER
+  }>
+  $Dao$_fun_daoIndex PROCREF:<{
+    s2 PUSH
+  }>
+  $Dao$_fun_fwdMsgFee PROCREF:<{
+    DUP
+  }>
+  $SendParameters$_constructor_bounce_to_value_mode_body_code_data PROCINLINE:<{
+  }>
+  $Dao$_fun_forward PROCREF:<{
+    PUSHNULL
+    PUSHNULL
+    s2 PUSH
+    ISNULL
+    NOT
+    IF:<{
+      2DROP
+      $StateInit$_not_null INLINECALLDICT
+      SWAP
+    }>ELSE<{
+      s2 POP
+    }>
+    s2 s4 XCHG
+    0 PUSHINT
+    s0 s3 XCHG
+    s0 s4 XCHG
+    66 PUSHINT
+    s2 s3 XCHG2
+    $SendParameters$_constructor_bounce_to_value_mode_body_code_data INLINECALLDICT
+    $global_send INLINECALLDICT
+  }>
+  $Dao$_fun_notify PROCINLINE:<{
+    __tact_context_get_sender INLINECALLDICT
+    SWAP
+    FALSE
+    PUSHNULL
+    $Dao$_fun_forward INLINECALLDICT
+  }>
+  $DeployOk$_constructor_queryId PROCINLINE:<{
+  }>
+  $Dao$_internal_binary_DaoInit PROCINLINE:<{
+    s4 POP
+    s5 POP
+    2977 PUSHINT
+    0 PUSHINT
+    DUP
+    __tact_create_address INLINECALLDICT
+    s0 s8 XCHG2
+    __tact_slice_eq_bits INLINECALLDICT
+    s1 s7 XCHG
+    THROWANYIFNOT
+    4429 PUSHINT
+    __tact_context_get_sender INLINECALLDICT
+    s6 s(-1) PUXC
+    __tact_slice_eq_bits INLINECALLDICT
+    THROWANYIFNOT
+  }>
+  $Dao$_internal_binary_SetOwner PROCINLINE:<{
+    4429 PUSHINT
+    __tact_context_get_sender INLINECALLDICT
+    s1 s8 XCHG
+    __tact_slice_eq_bits INLINECALLDICT
+    s1 s7 XCHG
+    THROWANYIFNOT
+  }>
+  $Dao$_internal_binary_SetProposalOwner PROCINLINE:<{
+    s4 POP
+    4429 PUSHINT
+    __tact_context_get_sender INLINECALLDICT
+    s7 s(-1) PUXC
+    __tact_slice_eq_bits INLINECALLDICT
+    THROWANYIFNOT
+  }>
+  $Dao$_internal_binary_SetMetadata PROCINLINE:<{
+    s2 POP
+    4429 PUSHINT
+    __tact_context_get_sender INLINECALLDICT
+    s7 s(-1) PUXC
+    __tact_slice_eq_bits INLINECALLDICT
+    THROWANYIFNOT
+  }>
+  $Dao$_internal_binary_SetFwdMsgFee PROCINLINE:<{
+    NIP
+    51893 PUSHINT
+    __tact_context_get_sender INLINECALLDICT
+    s6 s(-1) PUXC
+    __tact_slice_eq_bits INLINECALLDICT
+    THROWANYIFNOT
+  }>
+  $Dao$_internal_binary_FwdMsg PROCINLINE:<{
+    4429 PUSHINT
+    __tact_context_get_sender INLINECALLDICT
+    s14 s(-1) PUXC
+    __tact_slice_eq_bits INLINECALLDICT
+    IF:<{
+      TRUE
+    }>ELSE<{
+      __tact_context_get_sender INLINECALLDICT
+      s12 s(-1) PUXC
+      __tact_slice_eq_bits INLINECALLDICT
+    }>
+    THROWANYIFNOT
+    60173 PUSHINT
+    __tact_context_get INLINECALLDICT
+    $Context$_get_value INLINECALLDICT
+    s9 PUSH
+    GEQ
+    THROWANYIFNOT
+    $global_send INLINECALLDICT
+  }>
+  $Dao$_internal_binary_Deploy PROCINLINE:<{
+    $DeployOk$_constructor_queryId INLINECALLDICT
+    $DeployOk$_store_cell INLINECALLDICT
+    $Dao$_fun_notify INLINECALLDICT
+  }>
+  %registry PROC:<{
+    $Dao$_contract_load INLINECALLDICT
+    $Dao$_fun_registry INLINECALLDICT
+    6 1 BLKDROP2
+  }>
+  %owner PROC:<{
+    $Dao$_contract_load INLINECALLDICT
+    $Dao$_fun_owner INLINECALLDICT
+    6 1 BLKDROP2
+  }>
+  %proposalOwner PROC:<{
+    $Dao$_contract_load INLINECALLDICT
+    $Dao$_fun_proposalOwner INLINECALLDICT
+    6 1 BLKDROP2
+  }>
+  %metadata PROC:<{
+    $Dao$_contract_load INLINECALLDICT
+    $Dao$_fun_metadata INLINECALLDICT
+    6 1 BLKDROP2
+  }>
+  %daoIndex PROC:<{
+    $Dao$_contract_load INLINECALLDICT
+    $Dao$_fun_daoIndex INLINECALLDICT
+    6 1 BLKDROP2
+  }>
+  %fwdMsgFee PROC:<{
+    $Dao$_contract_load INLINECALLDICT
+    $Dao$_fun_fwdMsgFee INLINECALLDICT
+    6 1 BLKDROP2
+  }>
+  supported_interfaces PROC:<{
+    123515602279859691144772641439386770278 PUSHINT
+    209801025412363888721030803524359905849 PUSHINT
+    42980537499636128163026532310500881091 PUSHINT
+    36993126140238121407019133875791708966 PUSHINT
+    209474421377847335869795010607481022628 PUSHINT
+  }>
+  get_abi_ipfs PROC:<{
+    x{697066733a2f2f516d554b7878744d5869365a563668504643456a637a475558794771434279765455767944724374726a4d59414e} PUSHSLICE
+  }>
+  lazy_deployment_completed PROC:<{
+    c4 PUSH
+    CTOS
+    1 LDI
+    SWAP
+  }>
+  $Dao$_contract_router_internal PROCREF:<{
+    SWAP
+    IFJMP:<{
+      DROP
+      TRUE
+    }>
+    0 PUSHINT
+    OVER
+    SBITS
+    31 GTINT
+    IF:<{
+      DROP
+      DUP
+      32 PLDU
+    }>
+    DUP
+    444810285 PUSHINT
+    EQUAL
+    IFJMP:<{
+      DROP
+      $DaoInit$_load INLINECALLDICT
+      1 3 BLKDROP2
+      $Dao$_internal_binary_DaoInit INLINECALLDICT
+      TRUE
+    }>
+    DUP
+    3266583875 PUSHINT
+    EQUAL
+    IFJMP:<{
+      DROP
+      $SetOwner$_load INLINECALLDICT
+      NIP
+      $Dao$_internal_binary_SetOwner INLINECALLDICT
+      TRUE
+    }>
+    DUP
+    3504586358 PUSHINT
+    EQUAL
+    IFJMP:<{
+      DROP
+      $SetProposalOwner$_load INLINECALLDICT
+      NIP
+      $Dao$_internal_binary_SetProposalOwner INLINECALLDICT
+      TRUE
+    }>
+    DUP
+    3660550271 PUSHINT
+    EQUAL
+    IFJMP:<{
+      DROP
+      $SetMetadata$_load INLINECALLDICT
+      NIP
+      $Dao$_internal_binary_SetMetadata INLINECALLDICT
+      TRUE
+    }>
+    DUP
+    4109608450 PUSHINT
+    EQUAL
+    IFJMP:<{
+      DROP
+      $SetFwdMsgFee$_load INLINECALLDICT
+      NIP
+      $Dao$_internal_binary_SetFwdMsgFee INLINECALLDICT
+      TRUE
+    }>
+    DUP
+    1690551268 PUSHINT
+    EQUAL
+    IFJMP:<{
+      DROP
+      $FwdMsg$_load INLINECALLDICT
+      1 7 BLKDROP2
+      $Dao$_internal_binary_FwdMsg INLINECALLDICT
+      TRUE
+    }>
+    2490013878 PUSHINT
+    EQUAL
+    IFJMP:<{
+      $Deploy$_load INLINECALLDICT
+      NIP
+      $Dao$_internal_binary_Deploy INLINECALLDICT
+      TRUE
+    }>
+    DROP
+    FALSE
+  }>
+  recv_internal PROC:<{
+    SWAP
+    CTOS
+    4 LDU
+    SWAP
+    1 PUSHINT
+    AND
+    NEGATE
+    SWAP
+    LDMSGADDR
+    SWAP
+    __tact_verify_address INLINECALLDICT
+    s0 s4 s2 PUXCPU
+    s0 s3 XCHG
+    4 TUPLE
+    __tact_context SETGLOB
+    s0 s2 XCHG
+    __tact_context_sender SETGLOB
+    $Dao$_contract_load INLINECALLDICT
+    2 6 BLKSWAP
+    $Dao$_contract_router_internal INLINECALLDICT
+    130 THROWIFNOT
+    $Dao$_contract_store INLINECALLDICT
+  }>
+}END>c

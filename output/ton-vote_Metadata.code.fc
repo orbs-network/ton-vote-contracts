@@ -1,0 +1,219 @@
+#pragma version =0.4.3;
+#pragma allow-post-modification;
+#pragma compute-asm-ltr;
+
+#include "ton-vote_Metadata.headers.fc";
+#include "ton-vote_Metadata.stdlib.fc";
+#include "ton-vote_Metadata.storage.fc";
+
+;;
+;; Contract Metadata functions
+;;
+
+(slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $Metadata$_contract_init(slice $avatar, slice $name, slice $about, slice $website, slice $terms, slice $telegram, slice $github, slice $jetton, slice $nft, int $hide) impure inline_ref {
+    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = (null(), null(), null(), null(), null(), null(), null(), null(), null(), null());
+    $self'avatar = $avatar;
+    $self'name = $name;
+    $self'about = $about;
+    $self'website = $website;
+    $self'terms = $terms;
+    $self'telegram = $telegram;
+    $self'github = $github;
+    $self'jetton = $jetton;
+    $self'nft = $nft;
+    $self'hide = $hide;
+    return ($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide);
+}
+
+((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), slice) $Metadata$_fun_avatar((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
+    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
+    return (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide), $self'avatar);
+}
+
+((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), slice) $Metadata$_fun_name((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
+    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
+    return (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide), $self'name);
+}
+
+((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), slice) $Metadata$_fun_about((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
+    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
+    return (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide), $self'about);
+}
+
+((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), slice) $Metadata$_fun_website((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
+    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
+    return (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide), $self'website);
+}
+
+((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), slice) $Metadata$_fun_terms((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
+    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
+    return (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide), $self'terms);
+}
+
+((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), slice) $Metadata$_fun_telegram((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
+    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
+    return (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide), $self'telegram);
+}
+
+((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), slice) $Metadata$_fun_github((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
+    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
+    return (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide), $self'github);
+}
+
+((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), slice) $Metadata$_fun_jetton((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
+    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
+    return (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide), $self'jetton);
+}
+
+((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), slice) $Metadata$_fun_nft((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
+    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
+    return (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide), $self'nft);
+}
+
+((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), int) $Metadata$_fun_hide((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
+    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
+    return (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide), $self'hide);
+}
+
+;;
+;; Receivers of a Contract Metadata
+;;
+
+(((slice, slice, slice, slice, slice, slice, slice, slice, slice, int)), ()) $Metadata$_internal_binary_Deploy((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self, (int) $deploy) impure inline {
+    var ($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide) = $self;
+    var ($deploy'queryId) = $deploy;
+    ($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)~$Metadata$_fun_notify($DeployOk$_store_cell($DeployOk$_constructor_queryId($deploy'queryId)));
+    return (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide), ());
+}
+
+;;
+;; Get methods of a Contract Metadata
+;;
+
+_ %avatar() method_id(100315) {
+    var self = $Metadata$_contract_load();
+    var res = self~$Metadata$_fun_avatar();
+    return res;
+}
+
+_ %name() method_id(71334) {
+    var self = $Metadata$_contract_load();
+    var res = self~$Metadata$_fun_name();
+    return res;
+}
+
+_ %about() method_id(96722) {
+    var self = $Metadata$_contract_load();
+    var res = self~$Metadata$_fun_about();
+    return res;
+}
+
+_ %website() method_id(129198) {
+    var self = $Metadata$_contract_load();
+    var res = self~$Metadata$_fun_website();
+    return res;
+}
+
+_ %terms() method_id(128253) {
+    var self = $Metadata$_contract_load();
+    var res = self~$Metadata$_fun_terms();
+    return res;
+}
+
+_ %telegram() method_id(73771) {
+    var self = $Metadata$_contract_load();
+    var res = self~$Metadata$_fun_telegram();
+    return res;
+}
+
+_ %github() method_id(75775) {
+    var self = $Metadata$_contract_load();
+    var res = self~$Metadata$_fun_github();
+    return res;
+}
+
+_ %jetton() method_id(129441) {
+    var self = $Metadata$_contract_load();
+    var res = self~$Metadata$_fun_jetton();
+    return res;
+}
+
+_ %nft() method_id(73717) {
+    var self = $Metadata$_contract_load();
+    var res = self~$Metadata$_fun_nft();
+    return res;
+}
+
+_ %hide() method_id(74246) {
+    var self = $Metadata$_contract_load();
+    var res = self~$Metadata$_fun_hide();
+    return res;
+}
+
+_ supported_interfaces() method_id {
+    return (
+        "org.ton.introspection.v0"H >> 128,
+        "org.ton.abi.ipfs.v0"H >> 128,
+        "org.ton.deploy.lazy.v0"H >> 128,
+        "org.ton.debug.v0"H >> 128,
+        "org.ton.chain.workchain.v0"H >> 128
+    );
+}
+
+_ get_abi_ipfs() method_id {
+    return "ipfs://QmeSbFp88RdD89hh9U8RFrDwWZXUDSsDAJbw962WbaV9bD";
+}
+
+_ lazy_deployment_completed() method_id {
+    return get_data().begin_parse().load_int(1);
+}
+
+;;
+;; Routing of a Contract Metadata
+;;
+
+((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), int) $Metadata$_contract_router_internal((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) self, int msg_bounced, slice in_msg) impure inline_ref {
+    ;; Handle bounced messages
+    if (msg_bounced) {
+        return (self, true);
+    }
+    
+    ;; Parse incoming message
+    int op = 0;
+    if (slice_bits(in_msg) >= 32) {
+        op = in_msg.preload_uint(32);
+    }
+    
+    
+    ;; Receive Deploy message
+    if (op == 2490013878) {
+        var msg = in_msg~$Deploy$_load();
+        self~$Metadata$_internal_binary_Deploy(msg);
+        return (self, true);
+    }
+    
+    return (self, false);
+}
+
+() recv_internal(int msg_value, cell in_msg_cell, slice in_msg) impure {
+    
+    ;; Context
+    var cs = in_msg_cell.begin_parse();
+    var msg_flags = cs~load_uint(4);
+    var msg_bounced = -(msg_flags & 1);
+    slice msg_sender_addr = __tact_verify_address(cs~load_msg_addr());
+    __tact_context = (msg_bounced, msg_sender_addr, msg_value, cs);
+    __tact_context_sender = msg_sender_addr;
+    
+    ;; Load contract data
+    var self = $Metadata$_contract_load();
+    
+    ;; Handle operation
+    int handled = self~$Metadata$_contract_router_internal(msg_bounced, in_msg);
+    
+    ;; Throw if not handled
+    throw_unless(130, handled);
+    
+    ;; Persist state
+    $Metadata$_contract_store(self);
+}
