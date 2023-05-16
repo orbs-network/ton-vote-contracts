@@ -70,13 +70,13 @@ cell $DeployOk$_store_cell((int) v) inline {
 }
 
 ;;
-;; Type: CreateDao
-;; Header: 0x1aa05e3d
-;; TLB: create_dao#1aa05e3d owner:address proposalOwner:address metadata:address = CreateDao
+;; Type: DeployAndInitDao
+;; Header: 0xc95b9b64
+;; TLB: deploy_and_init_dao#c95b9b64 owner:address proposalOwner:address metadata:address = DeployAndInitDao
 ;;
 
-(slice, ((slice, slice, slice))) $CreateDao$_load(slice sc_0) inline {
-    throw_unless(129, sc_0~load_uint(32) == 446717501);
+(slice, ((slice, slice, slice))) $DeployAndInitDao$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 3378223972);
     var v'owner = sc_0~__tact_load_address();
     var v'proposalOwner = sc_0~__tact_load_address();
     var v'metadata = sc_0~__tact_load_address();
@@ -84,15 +84,15 @@ cell $DeployOk$_store_cell((int) v) inline {
 }
 
 ;;
-;; Type: SetCreateDaoFee
-;; Header: 0xce971753
-;; TLB: set_create_dao_fee#ce971753 newCreateDaoFee:uint64 = SetCreateDaoFee
+;; Type: SetDeployAndInitDaoFee
+;; Header: 0xa8969119
+;; TLB: set_deploy_and_init_dao_fee#a8969119 newDeployAndInitDaoFee:uint64 = SetDeployAndInitDaoFee
 ;;
 
-(slice, ((int))) $SetCreateDaoFee$_load(slice sc_0) inline {
-    throw_unless(129, sc_0~load_uint(32) == 3466008403);
-    var v'newCreateDaoFee = sc_0~load_uint(64);
-    return (sc_0, (v'newCreateDaoFee));
+(slice, ((int))) $SetDeployAndInitDaoFee$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 2828439833);
+    var v'newDeployAndInitDaoFee = sc_0~load_uint(64);
+    return (sc_0, (v'newDeployAndInitDaoFee));
 }
 
 ;;
@@ -197,11 +197,11 @@ builder $Dao$init$_store(builder build_0, (slice, int) v) inline {
 ;;
 
 builder $Registry$_store(builder build_0, (int, int, slice, int) v) inline {
-    var (v'registryId, v'nextDaoId, v'admin, v'createDaoFee) = v;
+    var (v'registryId, v'nextDaoId, v'admin, v'deployAndInitDaoFee) = v;
     build_0 = build_0.store_uint(v'registryId, 32);
     build_0 = build_0.store_uint(v'nextDaoId, 32);
     build_0 = __tact_store_address(build_0, v'admin);
-    build_0 = build_0.store_uint(v'createDaoFee, 64);
+    build_0 = build_0.store_uint(v'deployAndInitDaoFee, 64);
     return build_0;
 }
 
@@ -209,8 +209,8 @@ builder $Registry$_store(builder build_0, (int, int, slice, int) v) inline {
     var v'registryId = sc_0~load_uint(32);
     var v'nextDaoId = sc_0~load_uint(32);
     var v'admin = sc_0~__tact_load_address();
-    var v'createDaoFee = sc_0~load_uint(64);
-    return (sc_0, (v'registryId, v'nextDaoId, v'admin, v'createDaoFee));
+    var v'deployAndInitDaoFee = sc_0~load_uint(64);
+    return (sc_0, (v'registryId, v'nextDaoId, v'admin, v'deployAndInitDaoFee));
 }
 
 (slice, ((int))) $Registry$init$_load(slice sc_0) inline {

@@ -37,17 +37,17 @@ Signature: `ChangeOwner{queryId:uint64,newOwner:address}`
 TLB: `change_owner_ok#327b2b4a queryId:uint64 newOwner:address = ChangeOwnerOk`
 Signature: `ChangeOwnerOk{queryId:uint64,newOwner:address}`
 
-## CreateDao
-TLB: `create_dao#1aa05e3d owner:address proposalOwner:address metadata:address = CreateDao`
-Signature: `CreateDao{owner:address,proposalOwner:address,metadata:address}`
+## DeployAndInitDao
+TLB: `deploy_and_init_dao#c95b9b64 owner:address proposalOwner:address metadata:address = DeployAndInitDao`
+Signature: `DeployAndInitDao{owner:address,proposalOwner:address,metadata:address}`
 
 ## SendDaoInit
 TLB: `send_dao_init#c8b94bbb owner:address proposalOwner:address metadata:address = SendDaoInit`
 Signature: `SendDaoInit{owner:address,proposalOwner:address,metadata:address}`
 
-## SetCreateDaoFee
-TLB: `set_create_dao_fee#ce971753 newCreateDaoFee:uint64 = SetCreateDaoFee`
-Signature: `SetCreateDaoFee{newCreateDaoFee:uint64}`
+## SetDeployAndInitDaoFee
+TLB: `set_deploy_and_init_dao_fee#a8969119 newDeployAndInitDaoFee:uint64 = SetDeployAndInitDaoFee`
+Signature: `SetDeployAndInitDaoFee{newDeployAndInitDaoFee:uint64}`
 
 ## SendToDaoSetFwdMsgFee
 TLB: `send_to_dao_set_fwd_msg_fee#5815bd86 daoId:uint32 newFwdMsgFee:uint64 = SendToDaoSetFwdMsgFee`

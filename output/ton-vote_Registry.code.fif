@@ -15,8 +15,8 @@ PROGRAM{
   DECLPROC $Deploy$_load
   DECLPROC $DeployOk$_store
   DECLPROC $DeployOk$_store_cell
-  DECLPROC $CreateDao$_load
-  DECLPROC $SetCreateDaoFee$_load
+  DECLPROC $DeployAndInitDao$_load
+  DECLPROC $SetDeployAndInitDaoFee$_load
   DECLPROC $SendToDaoSetFwdMsgFee$_load
   DECLPROC $SetRegistryAdmin$_load
   DECLPROC $SetFwdMsgFee$_store
@@ -41,7 +41,7 @@ PROGRAM{
   DECLPROC $Registry$_fun_daoAddress
   DECLPROC $Registry$_fun_registryId
   DECLPROC $Registry$_fun_admin
-  DECLPROC $Registry$_fun_createDaoFee
+  DECLPROC $Registry$_fun_deployAndInitDaoFee
   DECLPROC $Registry$_fun_forward
   DECLPROC $Registry$_fun_notify
   DECLPROC $SendParameters$_constructor_to_value_bounce_mode_body_code_data
@@ -49,8 +49,8 @@ PROGRAM{
   DECLPROC $SendParameters$_constructor_to_value_bounce_mode_body
   DECLPROC $SetFwdMsgFee$_constructor_newFwdMsgFee
   DECLPROC $DeployOk$_constructor_queryId
-  DECLPROC $Registry$_internal_binary_CreateDao
-  DECLPROC $Registry$_internal_binary_SetCreateDaoFee
+  DECLPROC $Registry$_internal_binary_DeployAndInitDao
+  DECLPROC $Registry$_internal_binary_SetDeployAndInitDaoFee
   DECLPROC $Registry$_internal_binary_SendToDaoSetFwdMsgFee
   DECLPROC $Registry$_internal_binary_SetRegistryAdmin
   DECLPROC $Registry$_internal_binary_Deploy
@@ -58,7 +58,7 @@ PROGRAM{
   115144 DECLMETHOD %daoAddress
   78234 DECLMETHOD %registryId
   116046 DECLMETHOD %admin
-  96050 DECLMETHOD %createDaoFee
+  103813 DECLMETHOD %deployAndInitDaoFee
   113617 DECLMETHOD supported_interfaces
   121275 DECLMETHOD get_abi_ipfs
   115390 DECLMETHOD lazy_deployment_completed
@@ -182,10 +182,10 @@ PROGRAM{
     $DeployOk$_store INLINECALLDICT
     ENDC
   }>
-  $CreateDao$_load PROCINLINE:<{
+  $DeployAndInitDao$_load PROCINLINE:<{
     32 LDU
     SWAP
-    446717501 PUSHINT
+    3378223972 PUSHINT
     EQUAL
     129 THROWIFNOT
     __tact_load_address INLINECALLDICT
@@ -195,10 +195,10 @@ PROGRAM{
     __tact_load_address INLINECALLDICT
     s3 s3 s0 XCHG3
   }>
-  $SetCreateDaoFee$_load PROCINLINE:<{
+  $SetDeployAndInitDaoFee$_load PROCINLINE:<{
     32 LDU
     SWAP
-    3466008403 PUSHINT
+    2828439833 PUSHINT
     EQUAL
     129 THROWIFNOT
     64 LDU
@@ -484,7 +484,7 @@ PROGRAM{
   $Registry$_fun_admin PROCREF:<{
     OVER
   }>
-  $Registry$_fun_createDaoFee PROCREF:<{
+  $Registry$_fun_deployAndInitDaoFee PROCREF:<{
     DUP
   }>
   $Registry$_fun_forward PROCREF:<{
@@ -532,7 +532,7 @@ PROGRAM{
   }>
   $DeployOk$_constructor_queryId PROCINLINE:<{
   }>
-  $Registry$_internal_binary_CreateDao PROCINLINE:<{
+  $Registry$_internal_binary_DeployAndInitDao PROCINLINE:<{
     46336 PUSHINT
     __tact_context_get INLINECALLDICT
     $Context$_get_value INLINECALLDICT
@@ -564,7 +564,7 @@ PROGRAM{
     INC
     -ROT
   }>
-  $Registry$_internal_binary_SetCreateDaoFee PROCINLINE:<{
+  $Registry$_internal_binary_SetDeployAndInitDaoFee PROCINLINE:<{
     NIP
     62925 PUSHINT
     __tact_context_get_sender INLINECALLDICT
@@ -638,9 +638,9 @@ PROGRAM{
     $Registry$_fun_admin INLINECALLDICT
     4 1 BLKDROP2
   }>
-  %createDaoFee PROC:<{
+  %deployAndInitDaoFee PROC:<{
     $Registry$_contract_load INLINECALLDICT
-    $Registry$_fun_createDaoFee INLINECALLDICT
+    $Registry$_fun_deployAndInitDaoFee INLINECALLDICT
     4 1 BLKDROP2
   }>
   supported_interfaces PROC:<{
@@ -651,7 +651,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d65364e516e68357052417544463863413867474337674e56547a42686941597931515033367431524a336870} PUSHSLICE
+    x{697066733a2f2f516d6633696d42697265316256674a3854645078664d374d5963616b4a43334c6b4a54764864646555363348326d} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH
@@ -675,23 +675,23 @@ PROGRAM{
       32 PLDU
     }>
     DUP
-    446717501 PUSHINT
+    3378223972 PUSHINT
     EQUAL
     IFJMP:<{
       DROP
-      $CreateDao$_load INLINECALLDICT
+      $DeployAndInitDao$_load INLINECALLDICT
       1 3 BLKDROP2
-      $Registry$_internal_binary_CreateDao INLINECALLDICT
+      $Registry$_internal_binary_DeployAndInitDao INLINECALLDICT
       TRUE
     }>
     DUP
-    3466008403 PUSHINT
+    2828439833 PUSHINT
     EQUAL
     IFJMP:<{
       DROP
-      $SetCreateDaoFee$_load INLINECALLDICT
+      $SetDeployAndInitDaoFee$_load INLINECALLDICT
       NIP
-      $Registry$_internal_binary_SetCreateDaoFee INLINECALLDICT
+      $Registry$_internal_binary_SetDeployAndInitDaoFee INLINECALLDICT
       TRUE
     }>
     DUP

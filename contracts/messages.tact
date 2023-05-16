@@ -2,7 +2,7 @@
 // ---------------------------------------
 // Registry
 // ---------------------------------------
-message CreateDao {
+message DeployAndInitDao {
     owner: Address;
     proposalOwner: Address;
     metadata: Address;
@@ -14,8 +14,8 @@ message SendDaoInit {
     metadata: Address;
 }
 
-message SetCreateDaoFee {
-    newCreateDaoFee: Int as uint64;
+message SetDeployAndInitDaoFee {
+    newDeployAndInitDaoFee: Int as uint64;
 }
 
 message SendToDaoSetFwdMsgFee {

@@ -51,11 +51,11 @@ builder $DeployOk$_store(builder build_0, (int) v) inline;
 ;; $DeployOk$_store_cell
 cell $DeployOk$_store_cell((int) v) inline;
 
-;; $CreateDao$_load
-(slice, ((slice, slice, slice))) $CreateDao$_load(slice sc_0) inline;
+;; $DeployAndInitDao$_load
+(slice, ((slice, slice, slice))) $DeployAndInitDao$_load(slice sc_0) inline;
 
-;; $SetCreateDaoFee$_load
-(slice, ((int))) $SetCreateDaoFee$_load(slice sc_0) inline;
+;; $SetDeployAndInitDaoFee$_load
+(slice, ((int))) $SetDeployAndInitDaoFee$_load(slice sc_0) inline;
 
 ;; $SendToDaoSetFwdMsgFee$_load
 (slice, ((int, int))) $SendToDaoSetFwdMsgFee$_load(slice sc_0) inline;
@@ -129,8 +129,8 @@ slice $global_contractAddress((cell, cell) $s) impure inline;
 ;; $Registry$_fun_admin
 ((int, int, slice, int), slice) $Registry$_fun_admin((int, int, slice, int) $self) impure inline_ref;
 
-;; $Registry$_fun_createDaoFee
-((int, int, slice, int), int) $Registry$_fun_createDaoFee((int, int, slice, int) $self) impure inline_ref;
+;; $Registry$_fun_deployAndInitDaoFee
+((int, int, slice, int), int) $Registry$_fun_deployAndInitDaoFee((int, int, slice, int) $self) impure inline_ref;
 
 ;; $Registry$_fun_forward
 ((int, int, slice, int), ()) $Registry$_fun_forward((int, int, slice, int) $self, slice $to, cell $body, int $bounce, tuple $init) impure inline_ref;

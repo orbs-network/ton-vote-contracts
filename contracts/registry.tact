@@ -9,17 +9,17 @@ contract Registry with Deployable {
     registryId: Int as uint32;
     nextDaoId: Int as uint32;
     admin: Address;
-    createDaoFee: Int as uint64;
+    deployAndInitDaoFee: Int as uint64;
 
     init(registryId: Int) {
         self.registryId = registryId;
         self.nextDaoId = 0;
         self.admin = newAddress(0, 0x0);
-        self.createDaoFee = ton("1");
+        self.deployAndInitDaoFee = ton("1");
     }
     
-    receive(createDao: CreateDao) {
-        require(context().value >= self.createDaoFee, "Below min fee for create dao");
+    receive(deployAndInitDao: DeployAndInitDao) {
+        require(context().value >= self.deployAndInitDaoFee, "Below min fee for create dao");
         
         let init: StateInit = self.getDaoStateInit(self.nextDaoId);
         let daoAddress: Address = contractAddress(init);
@@ -29,7 +29,7 @@ contract Registry with Deployable {
             value: 0, 
             bounce: false,
             mode: SendRemainingValue,
-            body: DaoInit{owner: createDao.owner, proposalOwner: createDao.proposalOwner, metadata: createDao.metadata}.toCell(),
+            body: DaoInit{owner: deployAndInitDao.owner, proposalOwner: deployAndInitDao.proposalOwner, metadata: deployAndInitDao.metadata}.toCell(),
             code: init.code,
             data: init.data
         });
@@ -37,9 +37,9 @@ contract Registry with Deployable {
         self.nextDaoId = self.nextDaoId + 1;
     }
 
-    receive(msg: SetCreateDaoFee) {
+    receive(msg: SetDeployAndInitDaoFee) {
         require(sender() == self.admin, "Only admin can set create dao fee");
-        self.createDaoFee = msg.newCreateDaoFee;
+        self.deployAndInitDaoFee = msg.newDeployAndInitDaoFee;
     }
 
     receive(msg: SendToDaoSetFwdMsgFee) {
@@ -85,8 +85,8 @@ contract Registry with Deployable {
         return self.admin;
     }
 
-    get fun createDaoFee(): Int {
-        return self.createDaoFee;
+    get fun deployAndInitDaoFee(): Int {
+        return self.deployAndInitDaoFee;
     }
 
 }
