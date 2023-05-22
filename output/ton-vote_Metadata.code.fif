@@ -13,36 +13,20 @@ PROGRAM{
   DECLPROC $Metadata$_store
   DECLPROC $Metadata$_load
   DECLPROC $StateInit$_not_null
+  DECLPROC $MetadataState$_to_external
   DECLPROC $Metadata$init$_load
   DECLPROC $Metadata$_contract_init
   DECLPROC $Metadata$_contract_load
   DECLPROC $Metadata$_contract_store
   DECLPROC $global_send
-  DECLPROC $Metadata$_fun_avatar
-  DECLPROC $Metadata$_fun_name
-  DECLPROC $Metadata$_fun_about
-  DECLPROC $Metadata$_fun_website
-  DECLPROC $Metadata$_fun_terms
-  DECLPROC $Metadata$_fun_telegram
-  DECLPROC $Metadata$_fun_github
-  DECLPROC $Metadata$_fun_jetton
-  DECLPROC $Metadata$_fun_nft
-  DECLPROC $Metadata$_fun_hide
+  DECLPROC $MetadataState$_constructor_avatar_name_about_website_terms_telegram_github_jetton_nft_hide
+  DECLPROC $Metadata$_fun_state
   DECLPROC $SendParameters$_constructor_bounce_to_value_mode_body_code_data
   DECLPROC $Metadata$_fun_forward
   DECLPROC $Metadata$_fun_notify
   DECLPROC $DeployOk$_constructor_queryId
   DECLPROC $Metadata$_internal_binary_Deploy
-  100315 DECLMETHOD %avatar
-  71334 DECLMETHOD %name
-  96722 DECLMETHOD %about
-  129198 DECLMETHOD %website
-  128253 DECLMETHOD %terms
-  73771 DECLMETHOD %telegram
-  75775 DECLMETHOD %github
-  129441 DECLMETHOD %jetton
-  73717 DECLMETHOD %nft
-  74246 DECLMETHOD %hide
+  77589 DECLMETHOD %state
   113617 DECLMETHOD supported_interfaces
   121275 DECLMETHOD get_abi_ipfs
   115390 DECLMETHOD lazy_deployment_completed
@@ -225,6 +209,8 @@ PROGRAM{
     ISNULL
     128 THROWIF
     2 UNTUPLE
+  }>
+  $MetadataState$_to_external PROCINLINE:<{
   }>
   $Metadata$init$_load PROCREF:<{
     LDREF
@@ -410,35 +396,14 @@ PROGRAM{
     SWAP
     SENDRAWMSG
   }>
-  $Metadata$_fun_avatar PROCREF:<{
+  $MetadataState$_constructor_avatar_name_about_website_terms_telegram_github_jetton_nft_hide PROCINLINE:<{
+  }>
+  $Metadata$_fun_state PROCREF:<{
+    s9 s8 s7 PUSH3
+    s9 s8 s7 PUSH3
+    s9 s8 s7 PUSH3
     s9 PUSH
-  }>
-  $Metadata$_fun_name PROCREF:<{
-    s8 PUSH
-  }>
-  $Metadata$_fun_about PROCREF:<{
-    s7 PUSH
-  }>
-  $Metadata$_fun_website PROCREF:<{
-    s6 PUSH
-  }>
-  $Metadata$_fun_terms PROCREF:<{
-    s5 PUSH
-  }>
-  $Metadata$_fun_telegram PROCREF:<{
-    s4 PUSH
-  }>
-  $Metadata$_fun_github PROCREF:<{
-    s3 PUSH
-  }>
-  $Metadata$_fun_jetton PROCREF:<{
-    s2 PUSH
-  }>
-  $Metadata$_fun_nft PROCREF:<{
-    OVER
-  }>
-  $Metadata$_fun_hide PROCREF:<{
-    DUP
+    $MetadataState$_constructor_avatar_name_about_website_terms_telegram_github_jetton_nft_hide INLINECALLDICT
   }>
   $SendParameters$_constructor_bounce_to_value_mode_body_code_data PROCINLINE:<{
   }>
@@ -478,55 +443,11 @@ PROGRAM{
     $DeployOk$_store_cell INLINECALLDICT
     $Metadata$_fun_notify INLINECALLDICT
   }>
-  %avatar PROC:<{
+  %state PROC:<{
     $Metadata$_contract_load INLINECALLDICT
-    $Metadata$_fun_avatar INLINECALLDICT
-    10 1 BLKDROP2
-  }>
-  %name PROC:<{
-    $Metadata$_contract_load INLINECALLDICT
-    $Metadata$_fun_name INLINECALLDICT
-    10 1 BLKDROP2
-  }>
-  %about PROC:<{
-    $Metadata$_contract_load INLINECALLDICT
-    $Metadata$_fun_about INLINECALLDICT
-    10 1 BLKDROP2
-  }>
-  %website PROC:<{
-    $Metadata$_contract_load INLINECALLDICT
-    $Metadata$_fun_website INLINECALLDICT
-    10 1 BLKDROP2
-  }>
-  %terms PROC:<{
-    $Metadata$_contract_load INLINECALLDICT
-    $Metadata$_fun_terms INLINECALLDICT
-    10 1 BLKDROP2
-  }>
-  %telegram PROC:<{
-    $Metadata$_contract_load INLINECALLDICT
-    $Metadata$_fun_telegram INLINECALLDICT
-    10 1 BLKDROP2
-  }>
-  %github PROC:<{
-    $Metadata$_contract_load INLINECALLDICT
-    $Metadata$_fun_github INLINECALLDICT
-    10 1 BLKDROP2
-  }>
-  %jetton PROC:<{
-    $Metadata$_contract_load INLINECALLDICT
-    $Metadata$_fun_jetton INLINECALLDICT
-    10 1 BLKDROP2
-  }>
-  %nft PROC:<{
-    $Metadata$_contract_load INLINECALLDICT
-    $Metadata$_fun_nft INLINECALLDICT
-    10 1 BLKDROP2
-  }>
-  %hide PROC:<{
-    $Metadata$_contract_load INLINECALLDICT
-    $Metadata$_fun_hide INLINECALLDICT
-    10 1 BLKDROP2
+    $Metadata$_fun_state INLINECALLDICT
+    10 10 BLKDROP2
+    $MetadataState$_to_external INLINECALLDICT
   }>
   supported_interfaces PROC:<{
     123515602279859691144772641439386770278 PUSHINT
@@ -536,7 +457,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d65536246703838526444383968683955385246724477575a585544537344414a627739363257626156396244} PUSHSLICE
+    x{697066733a2f2f516d5859436834786a554d57746173795859466f364762627258627664646f545136714654336f706933476f4e48} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH

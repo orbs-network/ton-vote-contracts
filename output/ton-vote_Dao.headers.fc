@@ -75,6 +75,9 @@ builder $Dao$_store(builder build_0, (slice, slice, slice, int, slice, int) v) i
 ;; $Context$_get_value
 _ $Context$_get_value((int, slice, int, slice) v) inline;
 
+;; $DaoContractState$_to_external
+(slice, slice, slice, slice, int, int) $DaoContractState$_to_external(((slice, slice, slice, slice, int, int)) v) inline;
+
 ;; $Dao$init$_load
 (slice, ((slice, int))) $Dao$init$_load(slice sc_0) inline;
 
@@ -90,23 +93,11 @@ _ $Context$_get_value((int, slice, int, slice) v) inline;
 ;; $global_send
 () $global_send((int, slice, int, int, cell, cell, cell) $params) impure inline_ref;
 
-;; $Dao$_fun_registry
-((slice, slice, slice, int, slice, int), slice) $Dao$_fun_registry((slice, slice, slice, int, slice, int) $self) impure inline_ref;
+;; $DaoContractState$_constructor_registry_owner_proposalOwner_metadata_daoIndex_fwdMsgFee
+((slice, slice, slice, slice, int, int)) $DaoContractState$_constructor_registry_owner_proposalOwner_metadata_daoIndex_fwdMsgFee(slice registry, slice owner, slice proposalOwner, slice metadata, int daoIndex, int fwdMsgFee) inline;
 
-;; $Dao$_fun_owner
-((slice, slice, slice, int, slice, int), slice) $Dao$_fun_owner((slice, slice, slice, int, slice, int) $self) impure inline_ref;
-
-;; $Dao$_fun_proposalOwner
-((slice, slice, slice, int, slice, int), slice) $Dao$_fun_proposalOwner((slice, slice, slice, int, slice, int) $self) impure inline_ref;
-
-;; $Dao$_fun_metadata
-((slice, slice, slice, int, slice, int), slice) $Dao$_fun_metadata((slice, slice, slice, int, slice, int) $self) impure inline_ref;
-
-;; $Dao$_fun_daoIndex
-((slice, slice, slice, int, slice, int), int) $Dao$_fun_daoIndex((slice, slice, slice, int, slice, int) $self) impure inline_ref;
-
-;; $Dao$_fun_fwdMsgFee
-((slice, slice, slice, int, slice, int), int) $Dao$_fun_fwdMsgFee((slice, slice, slice, int, slice, int) $self) impure inline_ref;
+;; $Dao$_fun_state
+((slice, slice, slice, int, slice, int), (slice, slice, slice, slice, int, int)) $Dao$_fun_state((slice, slice, slice, int, slice, int) $self) impure inline_ref;
 
 ;; $SendParameters$_constructor_bounce_to_value_mode_body_code_data
 ((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_bounce_to_value_mode_body_code_data(int bounce, slice to, int value, int mode, cell body, cell code, cell data) inline;

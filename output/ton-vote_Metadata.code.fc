@@ -25,54 +25,9 @@
     return ($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide);
 }
 
-((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), slice) $Metadata$_fun_avatar((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
+((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), (slice, slice, slice, slice, slice, slice, slice, slice, slice, int)) $Metadata$_fun_state((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
     var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
-    return (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide), $self'avatar);
-}
-
-((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), slice) $Metadata$_fun_name((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
-    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
-    return (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide), $self'name);
-}
-
-((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), slice) $Metadata$_fun_about((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
-    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
-    return (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide), $self'about);
-}
-
-((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), slice) $Metadata$_fun_website((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
-    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
-    return (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide), $self'website);
-}
-
-((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), slice) $Metadata$_fun_terms((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
-    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
-    return (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide), $self'terms);
-}
-
-((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), slice) $Metadata$_fun_telegram((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
-    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
-    return (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide), $self'telegram);
-}
-
-((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), slice) $Metadata$_fun_github((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
-    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
-    return (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide), $self'github);
-}
-
-((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), slice) $Metadata$_fun_jetton((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
-    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
-    return (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide), $self'jetton);
-}
-
-((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), slice) $Metadata$_fun_nft((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
-    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
-    return (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide), $self'nft);
-}
-
-((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), int) $Metadata$_fun_hide((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
-    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
-    return (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide), $self'hide);
+    return (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide), $MetadataState$_constructor_avatar_name_about_website_terms_telegram_github_jetton_nft_hide($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide));
 }
 
 ;;
@@ -90,64 +45,10 @@
 ;; Get methods of a Contract Metadata
 ;;
 
-_ %avatar() method_id(100315) {
+_ %state() method_id(77589) {
     var self = $Metadata$_contract_load();
-    var res = self~$Metadata$_fun_avatar();
-    return res;
-}
-
-_ %name() method_id(71334) {
-    var self = $Metadata$_contract_load();
-    var res = self~$Metadata$_fun_name();
-    return res;
-}
-
-_ %about() method_id(96722) {
-    var self = $Metadata$_contract_load();
-    var res = self~$Metadata$_fun_about();
-    return res;
-}
-
-_ %website() method_id(129198) {
-    var self = $Metadata$_contract_load();
-    var res = self~$Metadata$_fun_website();
-    return res;
-}
-
-_ %terms() method_id(128253) {
-    var self = $Metadata$_contract_load();
-    var res = self~$Metadata$_fun_terms();
-    return res;
-}
-
-_ %telegram() method_id(73771) {
-    var self = $Metadata$_contract_load();
-    var res = self~$Metadata$_fun_telegram();
-    return res;
-}
-
-_ %github() method_id(75775) {
-    var self = $Metadata$_contract_load();
-    var res = self~$Metadata$_fun_github();
-    return res;
-}
-
-_ %jetton() method_id(129441) {
-    var self = $Metadata$_contract_load();
-    var res = self~$Metadata$_fun_jetton();
-    return res;
-}
-
-_ %nft() method_id(73717) {
-    var self = $Metadata$_contract_load();
-    var res = self~$Metadata$_fun_nft();
-    return res;
-}
-
-_ %hide() method_id(74246) {
-    var self = $Metadata$_contract_load();
-    var res = self~$Metadata$_fun_hide();
-    return res;
+    var res = self~$Metadata$_fun_state();
+    return $MetadataState$_to_external(res);
 }
 
 _ supported_interfaces() method_id {
@@ -161,7 +62,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() method_id {
-    return "ipfs://QmeSbFp88RdD89hh9U8RFrDwWZXUDSsDAJbw962WbaV9bD";
+    return "ipfs://QmXYCh4xjUMWtasyXYFo6GbbrXbvddoTQ6qFT3opi3GoNH";
 }
 
 _ lazy_deployment_completed() method_id {

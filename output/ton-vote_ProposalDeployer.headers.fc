@@ -52,19 +52,19 @@ builder $DeployOk$_store(builder build_0, (int) v) inline;
 cell $DeployOk$_store_cell((int) v) inline;
 
 ;; $Params$_store
-builder $Params$_store(builder build_0, (int, int, int, slice, slice, slice, slice) v) inline_ref;
+builder $Params$_store(builder build_0, (int, int, int, slice, slice, slice, slice, slice) v) inline_ref;
 
 ;; $Params$_load
-(slice, ((int, int, int, slice, slice, slice, slice))) $Params$_load(slice sc_0) inline_ref;
+(slice, ((int, int, int, slice, slice, slice, slice, slice))) $Params$_load(slice sc_0) inline_ref;
 
-;; $CreateProposal$_load
-(slice, (((int, int, int, slice, slice, slice, slice)))) $CreateProposal$_load(slice sc_0) inline;
+;; $DeployAndInitProposal$_load
+(slice, (((int, int, int, slice, slice, slice, slice, slice)))) $DeployAndInitProposal$_load(slice sc_0) inline;
 
 ;; $ProposalInit$_store
-builder $ProposalInit$_store(builder build_0, ((int, int, int, slice, slice, slice, slice)) v) inline;
+builder $ProposalInit$_store(builder build_0, ((int, int, int, slice, slice, slice, slice, slice)) v) inline;
 
 ;; $ProposalInit$_store_cell
-cell $ProposalInit$_store_cell(((int, int, int, slice, slice, slice, slice)) v) inline;
+cell $ProposalInit$_store_cell(((int, int, int, slice, slice, slice, slice, slice)) v) inline;
 
 ;; $ProposalDeployer$_store
 builder $ProposalDeployer$_store(builder build_0, (slice, int) v) inline;
@@ -124,7 +124,7 @@ slice $global_contractAddress((cell, cell) $s) impure inline;
 ((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_to_value_bounce_mode_body_code_data(slice to, int value, int bounce, int mode, cell body, cell code, cell data) inline;
 
 ;; $ProposalInit$_constructor_body
-(((int, int, int, slice, slice, slice, slice))) $ProposalInit$_constructor_body((int, int, int, slice, slice, slice, slice) body) inline;
+(((int, int, int, slice, slice, slice, slice, slice))) $ProposalInit$_constructor_body((int, int, int, slice, slice, slice, slice, slice) body) inline;
 
 ;; $DeployOk$_constructor_queryId
 ((int)) $DeployOk$_constructor_queryId(int queryId) inline;

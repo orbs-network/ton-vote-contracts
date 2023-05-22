@@ -147,6 +147,20 @@ cell $DeployOk$_store_cell((int) v) inline {
 }
 
 ;;
+;; Type: DaoContractState
+;; TLB: _ registry:address owner:address proposalOwner:address metadata:address daoIndex:uint32 fwdMsgFee:uint64 = DaoContractState
+;;
+
+(slice, slice, slice, slice, int, int) $DaoContractState$_to_external(((slice, slice, slice, slice, int, int)) v) inline {
+    var (v'registry, v'owner, v'proposalOwner, v'metadata, v'daoIndex, v'fwdMsgFee) = v; 
+    return (v'registry, v'owner, v'proposalOwner, v'metadata, v'daoIndex, v'fwdMsgFee);
+}
+
+((slice, slice, slice, slice, int, int)) $DaoContractState$_constructor_registry_owner_proposalOwner_metadata_daoIndex_fwdMsgFee(slice registry, slice owner, slice proposalOwner, slice metadata, int daoIndex, int fwdMsgFee) inline {
+    return (registry, owner, proposalOwner, metadata, daoIndex, fwdMsgFee);
+}
+
+;;
 ;; Type: Dao
 ;;
 

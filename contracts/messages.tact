@@ -56,10 +56,20 @@ message DaoInit {
     metadata: Address;
 }
 
+struct DaoContractState {
+
+    registry: Address;
+    owner: Address;
+    proposalOwner: Address;
+    metadata: Address;
+    daoIndex: Int as uint32;    
+    fwdMsgFee: Int as uint64;
+}
+
 // ---------------------------------------
 // ProposalDeployer
 // ---------------------------------------
-message CreateProposal {
+message DeployAndInitProposal {
     body: Params;
 }
 
@@ -78,8 +88,38 @@ struct Params {
     votingPowerStrategies: String;
     title: String;
     description: String;
+    quorum: String;
 }
 
 message ProposalInit {
     body: Params;
+}
+
+struct ProposalContractState {
+    proposalDeployer: Address;
+    id: Int as uint32;
+    proposalStartTime: Int as uint64;
+    proposalEndTime: Int as uint64;
+    proposalSnapshotTime: Int as uint64;
+    votingSystem: String;
+    votingPowerStrategies: String;
+    title: String;
+    description: String;
+    quorum: String;        
+}
+
+// ---------------------------------------
+// Metadata
+// ---------------------------------------
+struct MetadataState {
+    avatar: String;
+    name: String;
+    about: String;
+    website: String;
+    terms: String;
+    telegram: String;
+    github: String;
+    jetton: Address;
+    nft: Address;
+    hide: Bool;    
 }

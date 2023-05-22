@@ -58,28 +58,14 @@ contract Dao with Deployable {
         send(msg.fwdMsg);
     }
 
-    get fun registry(): Address {
-        return self.registry;
+    get fun state(): DaoContractState {
+        return DaoContractState {
+            registry: self.registry, 
+            owner: self.owner, 
+            proposalOwner: self.proposalOwner, 
+            metadata: self.metadata, 
+            daoIndex: self.daoIndex, 
+            fwdMsgFee: self.fwdMsgFee
+        };
     }
-
-    get fun owner(): Address {
-        return self.owner;
-    }
-
-    get fun proposalOwner(): Address {
-        return self.proposalOwner;
-    }
-
-    get fun metadata(): Address {
-        return self.metadata;
-    }
-
-    get fun daoIndex(): Int {
-        return self.daoIndex;
-    }
-
-    get fun fwdMsgFee(): Int {
-        return self.fwdMsgFee;
-    }
-
 }

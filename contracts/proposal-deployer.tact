@@ -14,7 +14,7 @@ contract ProposalDeployer with Deployable {
         self.nextProposalId = 0;
     }
 
-    receive(msg: CreateProposal) {
+    receive(msg: DeployAndInitProposal) {
         require(sender() == self.dao, "only dao can send create proposal message");
 
         // Create message

@@ -52,6 +52,20 @@ cell $DeployOk$_store_cell((int) v) inline {
 }
 
 ;;
+;; Type: MetadataState
+;; TLB: _ avatar:^string name:^string about:^string website:^string terms:^string telegram:^string github:^string jetton:address nft:address hide:bool = MetadataState
+;;
+
+(slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $MetadataState$_to_external(((slice, slice, slice, slice, slice, slice, slice, slice, slice, int)) v) inline {
+    var (v'avatar, v'name, v'about, v'website, v'terms, v'telegram, v'github, v'jetton, v'nft, v'hide) = v; 
+    return (v'avatar, v'name, v'about, v'website, v'terms, v'telegram, v'github, v'jetton, v'nft, v'hide);
+}
+
+((slice, slice, slice, slice, slice, slice, slice, slice, slice, int)) $MetadataState$_constructor_avatar_name_about_website_terms_telegram_github_jetton_nft_hide(slice avatar, slice name, slice about, slice website, slice terms, slice telegram, slice github, slice jetton, slice nft, int hide) inline {
+    return (avatar, name, about, website, terms, telegram, github, jetton, nft, hide);
+}
+
+;;
 ;; Type: Metadata
 ;;
 

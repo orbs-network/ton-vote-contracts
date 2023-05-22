@@ -1,4 +1,5 @@
 import "@stdlib/deploy";
+import "./messages";
 
 
 contract Metadata with Deployable {
@@ -28,44 +29,18 @@ contract Metadata with Deployable {
         self.hide = hide;
     }
 
-    get fun avatar(): String {
-        return self.avatar;
+    get fun state(): MetadataState {
+        return MetadataState {
+            avatar: self.avatar,
+            name: self.name,
+            about: self.about,
+            website: self.website,
+            terms: self.terms,
+            telegram: self.telegram,
+            github: self.github,
+            jetton: self.jetton,
+            nft: self.nft,
+            hide: self.hide           
+        };
     }
-
-    get fun name(): String {
-        return self.name;
-    }
-
-    get fun about(): String {
-        return self.about;
-    }
-
-    get fun website(): String {
-        return self.website;
-    }
-
-    get fun terms(): String {
-        return self.terms;
-    }
-
-    get fun telegram(): String {
-        return self.telegram;
-    }
-
-    get fun github(): String {
-        return self.github;
-    }
-
-    get fun jetton(): Address {
-        return self.jetton;
-    }
-
-    get fun nft(): Address {
-        return self.nft;
-    }
-
-    get fun hide(): Bool {
-        return self.hide;
-    }
-
 }

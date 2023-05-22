@@ -1,34 +1,16 @@
 PROGRAM{
   DECLPROC recv_internal;
-  DECLPROC ?fun_71334;
-  DECLPROC ?fun_73717;
-  DECLPROC ?fun_73771;
-  DECLPROC ?fun_74246;
-  DECLPROC ?fun_75775;
-  DECLPROC ?fun_96722;
-  DECLPROC ?fun_100315;
+  DECLPROC ?fun_77589;
   DECLPROC supported_interfaces;
   DECLPROC lazy_deployment_completed;
   DECLPROC get_abi_ipfs;
-  DECLPROC ?fun_128253;
-  DECLPROC ?fun_129198;
-  DECLPROC ?fun_129441;
-  DECLPROC ?fun_ref_10c319ce0484d846;
   DECLPROC ?fun_ref_1dd4b06caa854cc5;
-  DECLPROC ?fun_ref_1e8d3bea85f5828b;
+  DECLPROC ?fun_ref_362f405abe5b5b1e;
   DECLPROC ?fun_ref_3e5297a6a626beaa;
-  DECLPROC ?fun_ref_40d98146a47dbe3b;
-  DECLPROC ?fun_ref_44086a5ce86162fe;
   DECLPROC ?fun_ref_495b2119f2e675d4;
-  DECLPROC ?fun_ref_6326faa87beffd08;
-  DECLPROC ?fun_ref_750b5e2df7ffc4f5;
   DECLPROC ?fun_ref_98d947fcbff5d428;
-  DECLPROC ?fun_ref_b2f99ae1a1dd4dfb;
-  DECLPROC ?fun_ref_b347d9c3ebd197d4;
   DECLPROC ?fun_ref_b93b9862cda1783c;
-  DECLPROC ?fun_ref_d9e1b9d1e5ec3b45;
   DECLPROC ?fun_ref_e31d986f279fa0fb;
-  DECLPROC ?fun_ref_febca6c4d71293f1;
   recv_internal PROC:<{
     s0 s1 XCHG
     CTOS
@@ -76,40 +58,10 @@ PROGRAM{
     ENDC
     c4 POP
   }>
-  ?fun_71334 PROC:<{
+  ?fun_77589 PROC:<{
     ?fun_ref_495b2119f2e675d4 INLINECALLDICT
-    ?fun_ref_febca6c4d71293f1 INLINECALLDICT
-    10 1 BLKDROP2
-  }>
-  ?fun_73717 PROC:<{
-    ?fun_ref_495b2119f2e675d4 INLINECALLDICT
-    ?fun_ref_44086a5ce86162fe INLINECALLDICT
-    10 1 BLKDROP2
-  }>
-  ?fun_73771 PROC:<{
-    ?fun_ref_495b2119f2e675d4 INLINECALLDICT
-    ?fun_ref_b347d9c3ebd197d4 INLINECALLDICT
-    10 1 BLKDROP2
-  }>
-  ?fun_74246 PROC:<{
-    ?fun_ref_495b2119f2e675d4 INLINECALLDICT
-    ?fun_ref_40d98146a47dbe3b INLINECALLDICT
-    10 1 BLKDROP2
-  }>
-  ?fun_75775 PROC:<{
-    ?fun_ref_495b2119f2e675d4 INLINECALLDICT
-    ?fun_ref_10c319ce0484d846 INLINECALLDICT
-    10 1 BLKDROP2
-  }>
-  ?fun_96722 PROC:<{
-    ?fun_ref_495b2119f2e675d4 INLINECALLDICT
-    ?fun_ref_1e8d3bea85f5828b INLINECALLDICT
-    10 1 BLKDROP2
-  }>
-  ?fun_100315 PROC:<{
-    ?fun_ref_495b2119f2e675d4 INLINECALLDICT
-    ?fun_ref_d9e1b9d1e5ec3b45 INLINECALLDICT
-    10 1 BLKDROP2
+    ?fun_ref_362f405abe5b5b1e INLINECALLDICT
+    10 10 BLKDROP2
   }>
   supported_interfaces PROC:<{
     123515602279859691144772641439386770278 PUSHINT
@@ -125,25 +77,7 @@ PROGRAM{
     s0 s1 XCHG
   }>
   get_abi_ipfs PROC:<{
-    x{697066733A2F2F516D65536246703838526444383968683955385246724477575A585544537344414A62773936325762615639624482_} PUSHSLICE
-  }>
-  ?fun_128253 PROC:<{
-    ?fun_ref_495b2119f2e675d4 INLINECALLDICT
-    ?fun_ref_6326faa87beffd08 INLINECALLDICT
-    10 1 BLKDROP2
-  }>
-  ?fun_129198 PROC:<{
-    ?fun_ref_495b2119f2e675d4 INLINECALLDICT
-    ?fun_ref_750b5e2df7ffc4f5 INLINECALLDICT
-    10 1 BLKDROP2
-  }>
-  ?fun_129441 PROC:<{
-    ?fun_ref_495b2119f2e675d4 INLINECALLDICT
-    ?fun_ref_b2f99ae1a1dd4dfb INLINECALLDICT
-    10 1 BLKDROP2
-  }>
-  ?fun_ref_10c319ce0484d846 PROCREF:<{
-    s3 PUSH
+    x{697066733A2F2F516D5859436834786A554D57746173795859466F364762627258627664646F545136714654336F706933476F4E4882_} PUSHSLICE
   }>
   ?fun_ref_1dd4b06caa854cc5 PROCREF:<{
     s0 s1 XCHG
@@ -191,8 +125,11 @@ PROGRAM{
     s0 POP
     0 PUSHINT
   }>
-  ?fun_ref_1e8d3bea85f5828b PROCREF:<{
-    s7 PUSH
+  ?fun_ref_362f405abe5b5b1e PROCREF:<{
+    s9 s8 s7 PUSH3
+    s9 s8 s7 PUSH3
+    s9 s8 s7 PUSH3
+    s9 PUSH
   }>
   ?fun_ref_3e5297a6a626beaa PROCREF:<{
     LDREF
@@ -267,12 +204,6 @@ PROGRAM{
     s0 POP
     s8 s10 XCHG
     s8 s9 XCHG
-  }>
-  ?fun_ref_40d98146a47dbe3b PROCREF:<{
-    s0 PUSH
-  }>
-  ?fun_ref_44086a5ce86162fe PROCREF:<{
-    s1 PUSH
   }>
   ?fun_ref_495b2119f2e675d4 PROCREF:<{
     c4 PUSH
@@ -368,12 +299,6 @@ PROGRAM{
     ENDS
     1 9 BLKSWAP
   }>
-  ?fun_ref_6326faa87beffd08 PROCREF:<{
-    s5 PUSH
-  }>
-  ?fun_ref_750b5e2df7ffc4f5 PROCREF:<{
-    s6 PUSH
-  }>
   ?fun_ref_98d947fcbff5d428 PROCREF:<{
     NEWC
     s0 s10 XCHG2
@@ -459,12 +384,6 @@ PROGRAM{
     ENDC
     s0 s1 XCHG
     STREF
-  }>
-  ?fun_ref_b2f99ae1a1dd4dfb PROCREF:<{
-    s2 PUSH
-  }>
-  ?fun_ref_b347d9c3ebd197d4 PROCREF:<{
-    s4 PUSH
   }>
   ?fun_ref_b93b9862cda1783c PROCREF:<{
     NEWC
@@ -610,9 +529,6 @@ PROGRAM{
     s0 s1 XCHG
     SENDRAWMSG
   }>
-  ?fun_ref_d9e1b9d1e5ec3b45 PROCREF:<{
-    s9 PUSH
-  }>
   ?fun_ref_e31d986f279fa0fb PROCREF:<{
     NULL
     NULL
@@ -638,8 +554,5 @@ PROGRAM{
     66 PUSHINT
     s2 s3 XCHG2
     ?fun_ref_b93b9862cda1783c INLINECALLDICT
-  }>
-  ?fun_ref_febca6c4d71293f1 PROCREF:<{
-    s8 PUSH
   }>
 }END>c

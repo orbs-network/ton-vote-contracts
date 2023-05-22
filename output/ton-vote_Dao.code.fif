@@ -23,17 +23,14 @@ PROGRAM{
   DECLPROC $Dao$_load
   DECLPROC $StateInit$_not_null
   DECLPROC $Context$_get_value
+  DECLPROC $DaoContractState$_to_external
   DECLPROC $Dao$init$_load
   DECLPROC $Dao$_contract_init
   DECLPROC $Dao$_contract_load
   DECLPROC $Dao$_contract_store
   DECLPROC $global_send
-  DECLPROC $Dao$_fun_registry
-  DECLPROC $Dao$_fun_owner
-  DECLPROC $Dao$_fun_proposalOwner
-  DECLPROC $Dao$_fun_metadata
-  DECLPROC $Dao$_fun_daoIndex
-  DECLPROC $Dao$_fun_fwdMsgFee
+  DECLPROC $DaoContractState$_constructor_registry_owner_proposalOwner_metadata_daoIndex_fwdMsgFee
+  DECLPROC $Dao$_fun_state
   DECLPROC $SendParameters$_constructor_bounce_to_value_mode_body_code_data
   DECLPROC $Dao$_fun_forward
   DECLPROC $Dao$_fun_notify
@@ -45,12 +42,7 @@ PROGRAM{
   DECLPROC $Dao$_internal_binary_SetFwdMsgFee
   DECLPROC $Dao$_internal_binary_FwdMsg
   DECLPROC $Dao$_internal_binary_Deploy
-  102154 DECLMETHOD %registry
-  83229 DECLMETHOD %owner
-  86890 DECLMETHOD %proposalOwner
-  91827 DECLMETHOD %metadata
-  73154 DECLMETHOD %daoIndex
-  73548 DECLMETHOD %fwdMsgFee
+  77589 DECLMETHOD %state
   113617 DECLMETHOD supported_interfaces
   121275 DECLMETHOD get_abi_ipfs
   115390 DECLMETHOD lazy_deployment_completed
@@ -278,6 +270,8 @@ PROGRAM{
     s1 s3 XCHG
     3 BLKDROP
   }>
+  $DaoContractState$_to_external PROCINLINE:<{
+  }>
   $Dao$init$_load PROCINLINE:<{
     __tact_load_address INLINECALLDICT
     SWAP
@@ -437,23 +431,12 @@ PROGRAM{
     SWAP
     SENDRAWMSG
   }>
-  $Dao$_fun_registry PROCREF:<{
-    s4 PUSH
+  $DaoContractState$_constructor_registry_owner_proposalOwner_metadata_daoIndex_fwdMsgFee PROCINLINE:<{
   }>
-  $Dao$_fun_owner PROCREF:<{
-    s5 PUSH
-  }>
-  $Dao$_fun_proposalOwner PROCREF:<{
-    s3 PUSH
-  }>
-  $Dao$_fun_metadata PROCREF:<{
-    OVER
-  }>
-  $Dao$_fun_daoIndex PROCREF:<{
-    s2 PUSH
-  }>
-  $Dao$_fun_fwdMsgFee PROCREF:<{
-    DUP
+  $Dao$_fun_state PROCREF:<{
+    s4 s5 s3 PUSH3
+    s4 s5 s3 PUSH3
+    $DaoContractState$_constructor_registry_owner_proposalOwner_metadata_daoIndex_fwdMsgFee INLINECALLDICT
   }>
   $SendParameters$_constructor_bounce_to_value_mode_body_code_data PROCINLINE:<{
   }>
@@ -563,35 +546,11 @@ PROGRAM{
     $DeployOk$_store_cell INLINECALLDICT
     $Dao$_fun_notify INLINECALLDICT
   }>
-  %registry PROC:<{
+  %state PROC:<{
     $Dao$_contract_load INLINECALLDICT
-    $Dao$_fun_registry INLINECALLDICT
-    6 1 BLKDROP2
-  }>
-  %owner PROC:<{
-    $Dao$_contract_load INLINECALLDICT
-    $Dao$_fun_owner INLINECALLDICT
-    6 1 BLKDROP2
-  }>
-  %proposalOwner PROC:<{
-    $Dao$_contract_load INLINECALLDICT
-    $Dao$_fun_proposalOwner INLINECALLDICT
-    6 1 BLKDROP2
-  }>
-  %metadata PROC:<{
-    $Dao$_contract_load INLINECALLDICT
-    $Dao$_fun_metadata INLINECALLDICT
-    6 1 BLKDROP2
-  }>
-  %daoIndex PROC:<{
-    $Dao$_contract_load INLINECALLDICT
-    $Dao$_fun_daoIndex INLINECALLDICT
-    6 1 BLKDROP2
-  }>
-  %fwdMsgFee PROC:<{
-    $Dao$_contract_load INLINECALLDICT
-    $Dao$_fun_fwdMsgFee INLINECALLDICT
-    6 1 BLKDROP2
+    $Dao$_fun_state INLINECALLDICT
+    6 6 BLKDROP2
+    $DaoContractState$_to_external INLINECALLDICT
   }>
   supported_interfaces PROC:<{
     123515602279859691144772641439386770278 PUSHINT
@@ -601,7 +560,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d66554377614d32646b3539786d3238504b5348465237324a7976655976526b714a4161366336324637556b66} PUSHSLICE
+    x{697066733a2f2f516d507778465942375750645542616a4b74467650386d3372514d725874576152395a486e4d5550355533723369} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH

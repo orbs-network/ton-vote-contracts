@@ -1,9 +1,9 @@
 # TACT Compilation Report
 Contract: Metadata
-BOC Size: 1169 bytes
+BOC Size: 995 bytes
 
 # Types
-Total Types: 6
+Total Types: 24
 
 ## StateInit
 TLB: `_ code:^cell data:^cell = StateInit`
@@ -29,28 +29,82 @@ Signature: `DeployOk{queryId:uint64}`
 TLB: `factory_deploy#6d0ff13b queryId:uint64 cashback:address = FactoryDeploy`
 Signature: `FactoryDeploy{queryId:uint64,cashback:address}`
 
+## DeployAndInitDao
+TLB: `deploy_and_init_dao#c95b9b64 owner:address proposalOwner:address metadata:address = DeployAndInitDao`
+Signature: `DeployAndInitDao{owner:address,proposalOwner:address,metadata:address}`
+
+## SendDaoInit
+TLB: `send_dao_init#c8b94bbb owner:address proposalOwner:address metadata:address = SendDaoInit`
+Signature: `SendDaoInit{owner:address,proposalOwner:address,metadata:address}`
+
+## SetDeployAndInitDaoFee
+TLB: `set_deploy_and_init_dao_fee#a8969119 newDeployAndInitDaoFee:uint64 = SetDeployAndInitDaoFee`
+Signature: `SetDeployAndInitDaoFee{newDeployAndInitDaoFee:uint64}`
+
+## SendToDaoSetFwdMsgFee
+TLB: `send_to_dao_set_fwd_msg_fee#5815bd86 daoId:uint32 newFwdMsgFee:uint64 = SendToDaoSetFwdMsgFee`
+Signature: `SendToDaoSetFwdMsgFee{daoId:uint32,newFwdMsgFee:uint64}`
+
+## SetRegistryAdmin
+TLB: `set_registry_admin#c6d673ca newAdmin:address = SetRegistryAdmin`
+Signature: `SetRegistryAdmin{newAdmin:address}`
+
+## SetOwner
+TLB: `set_owner#c2b41d43 newOwner:address = SetOwner`
+Signature: `SetOwner{newOwner:address}`
+
+## SetProposalOwner
+TLB: `set_proposal_owner#d0e3be76 newProposalOwner:address = SetProposalOwner`
+Signature: `SetProposalOwner{newProposalOwner:address}`
+
+## SetFwdMsgFee
+TLB: `set_fwd_msg_fee#f4f3a602 newFwdMsgFee:uint64 = SetFwdMsgFee`
+Signature: `SetFwdMsgFee{newFwdMsgFee:uint64}`
+
+## SetMetadata
+TLB: `set_metadata#da2f907f newMetadata:address = SetMetadata`
+Signature: `SetMetadata{newMetadata:address}`
+
+## FwdMsg
+TLB: `fwd_msg#64c3c3e4 fwdMsg:SendParameters{bounce:bool,to:address,value:int257,mode:int257,body:Maybe ^cell,code:Maybe ^cell,data:Maybe ^cell} = FwdMsg`
+Signature: `FwdMsg{fwdMsg:SendParameters{bounce:bool,to:address,value:int257,mode:int257,body:Maybe ^cell,code:Maybe ^cell,data:Maybe ^cell}}`
+
+## DaoInit
+TLB: `dao_init#1a83442d owner:address proposalOwner:address metadata:address = DaoInit`
+Signature: `DaoInit{owner:address,proposalOwner:address,metadata:address}`
+
+## DaoContractState
+TLB: `_ registry:address owner:address proposalOwner:address metadata:address daoIndex:uint32 fwdMsgFee:uint64 = DaoContractState`
+Signature: `DaoContractState{registry:address,owner:address,proposalOwner:address,metadata:address,daoIndex:uint32,fwdMsgFee:uint64}`
+
+## DeployAndInitProposal
+TLB: `deploy_and_init_proposal#9be57ef7 body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string} = DeployAndInitProposal`
+Signature: `DeployAndInitProposal{body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string}}`
+
+## SendProposalInit
+TLB: `send_proposal_init#da72c6df body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string} = SendProposalInit`
+Signature: `SendProposalInit{body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string}}`
+
+## Params
+TLB: `_ proposalStartTime:uint64 proposalEndTime:uint64 proposalSnapshotTime:uint64 votingSystem:^string votingPowerStrategies:^string title:^string description:^string quorum:^string = Params`
+Signature: `Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string}`
+
+## ProposalInit
+TLB: `proposal_init#cd517809 body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string} = ProposalInit`
+Signature: `ProposalInit{body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string}}`
+
+## ProposalContractState
+TLB: `_ proposalDeployer:address id:uint32 proposalStartTime:uint64 proposalEndTime:uint64 proposalSnapshotTime:uint64 votingSystem:^string votingPowerStrategies:^string title:^string description:^string quorum:^string = ProposalContractState`
+Signature: `ProposalContractState{proposalDeployer:address,id:uint32,proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string}`
+
+## MetadataState
+TLB: `_ avatar:^string name:^string about:^string website:^string terms:^string telegram:^string github:^string jetton:address nft:address hide:bool = MetadataState`
+Signature: `MetadataState{avatar:^string,name:^string,about:^string,website:^string,terms:^string,telegram:^string,github:^string,jetton:address,nft:address,hide:bool}`
+
 # Get Methods
-Total Get Methods: 10
+Total Get Methods: 1
 
-## avatar
-
-## name
-
-## about
-
-## website
-
-## terms
-
-## telegram
-
-## github
-
-## jetton
-
-## nft
-
-## hide
+## state
 
 # Error Codes
 2: Stack undeflow

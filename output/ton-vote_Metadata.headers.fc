@@ -45,6 +45,9 @@ builder $Metadata$_store(builder build_0, (slice, slice, slice, slice, slice, sl
 ;; $StateInit$_not_null
 ((cell, cell)) $StateInit$_not_null(tuple v) inline;
 
+;; $MetadataState$_to_external
+(slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $MetadataState$_to_external(((slice, slice, slice, slice, slice, slice, slice, slice, slice, int)) v) inline;
+
 ;; $Metadata$init$_load
 (slice, ((slice, slice, slice, slice, slice, slice, slice, slice, slice, int))) $Metadata$init$_load(slice sc_0) inline_ref;
 
@@ -60,35 +63,11 @@ builder $Metadata$_store(builder build_0, (slice, slice, slice, slice, slice, sl
 ;; $global_send
 () $global_send((int, slice, int, int, cell, cell, cell) $params) impure inline_ref;
 
-;; $Metadata$_fun_avatar
-((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), slice) $Metadata$_fun_avatar((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref;
+;; $MetadataState$_constructor_avatar_name_about_website_terms_telegram_github_jetton_nft_hide
+((slice, slice, slice, slice, slice, slice, slice, slice, slice, int)) $MetadataState$_constructor_avatar_name_about_website_terms_telegram_github_jetton_nft_hide(slice avatar, slice name, slice about, slice website, slice terms, slice telegram, slice github, slice jetton, slice nft, int hide) inline;
 
-;; $Metadata$_fun_name
-((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), slice) $Metadata$_fun_name((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref;
-
-;; $Metadata$_fun_about
-((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), slice) $Metadata$_fun_about((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref;
-
-;; $Metadata$_fun_website
-((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), slice) $Metadata$_fun_website((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref;
-
-;; $Metadata$_fun_terms
-((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), slice) $Metadata$_fun_terms((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref;
-
-;; $Metadata$_fun_telegram
-((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), slice) $Metadata$_fun_telegram((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref;
-
-;; $Metadata$_fun_github
-((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), slice) $Metadata$_fun_github((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref;
-
-;; $Metadata$_fun_jetton
-((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), slice) $Metadata$_fun_jetton((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref;
-
-;; $Metadata$_fun_nft
-((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), slice) $Metadata$_fun_nft((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref;
-
-;; $Metadata$_fun_hide
-((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), int) $Metadata$_fun_hide((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref;
+;; $Metadata$_fun_state
+((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), (slice, slice, slice, slice, slice, slice, slice, slice, slice, int)) $Metadata$_fun_state((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self) impure inline_ref;
 
 ;; $SendParameters$_constructor_bounce_to_value_mode_body_code_data
 ((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_bounce_to_value_mode_body_code_data(int bounce, slice to, int value, int mode, cell body, cell code, cell data) inline;

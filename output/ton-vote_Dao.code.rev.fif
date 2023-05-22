@@ -1,23 +1,13 @@
 PROGRAM{
   DECLPROC recv_internal;
-  DECLPROC ?fun_73154;
-  DECLPROC ?fun_73548;
-  DECLPROC owner;
-  DECLPROC ?fun_86890;
-  DECLPROC ?fun_91827;
-  DECLPROC ?fun_102154;
+  DECLPROC ?fun_77589;
   DECLPROC supported_interfaces;
   DECLPROC lazy_deployment_completed;
   DECLPROC get_abi_ipfs;
   DECLPROC ?fun_ref_0afe062129e07933;
-  DECLPROC ?fun_ref_10c319ce0484d846;
   DECLPROC ?fun_ref_179ae1331ee50425;
-  DECLPROC ?fun_ref_40d98146a47dbe3b;
   DECLPROC ?fun_ref_434aabb0cab43c24;
-  DECLPROC ?fun_ref_44086a5ce86162fe;
-  DECLPROC ?fun_ref_6326faa87beffd08;
-  DECLPROC ?fun_ref_b2f99ae1a1dd4dfb;
-  DECLPROC ?fun_ref_b347d9c3ebd197d4;
+  DECLPROC ?fun_ref_773b7c85dafed994;
   DECLPROC ?fun_ref_b93b9862cda1783c;
   DECLPROC ?fun_ref_cee12fd1a4d4dfa3;
   DECLPROC ?fun_ref_d9e4ce7890370f8d;
@@ -70,35 +60,10 @@ PROGRAM{
     ENDC
     c4 POP
   }>
-  ?fun_73154 PROC:<{
+  ?fun_77589 PROC:<{
     ?fun_ref_0afe062129e07933 INLINECALLDICT
-    ?fun_ref_b2f99ae1a1dd4dfb INLINECALLDICT
-    6 1 BLKDROP2
-  }>
-  ?fun_73548 PROC:<{
-    ?fun_ref_0afe062129e07933 INLINECALLDICT
-    ?fun_ref_40d98146a47dbe3b INLINECALLDICT
-    6 1 BLKDROP2
-  }>
-  owner PROC:<{
-    ?fun_ref_0afe062129e07933 INLINECALLDICT
-    ?fun_ref_6326faa87beffd08 INLINECALLDICT
-    6 1 BLKDROP2
-  }>
-  ?fun_86890 PROC:<{
-    ?fun_ref_0afe062129e07933 INLINECALLDICT
-    ?fun_ref_10c319ce0484d846 INLINECALLDICT
-    6 1 BLKDROP2
-  }>
-  ?fun_91827 PROC:<{
-    ?fun_ref_0afe062129e07933 INLINECALLDICT
-    ?fun_ref_44086a5ce86162fe INLINECALLDICT
-    6 1 BLKDROP2
-  }>
-  ?fun_102154 PROC:<{
-    ?fun_ref_0afe062129e07933 INLINECALLDICT
-    ?fun_ref_b347d9c3ebd197d4 INLINECALLDICT
-    6 1 BLKDROP2
+    ?fun_ref_773b7c85dafed994 INLINECALLDICT
+    6 6 BLKDROP2
   }>
   supported_interfaces PROC:<{
     123515602279859691144772641439386770278 PUSHINT
@@ -114,7 +79,7 @@ PROGRAM{
     s0 s1 XCHG
   }>
   get_abi_ipfs PROC:<{
-    x{697066733A2F2F516D66554377614D32646B3539786D3238504B5348465237324A7976655976526B714A4161366336324637556B6682_} PUSHSLICE
+    x{697066733A2F2F516D507778465942375750645542616A4B74467650386D3372514D725874576152395A486E4D555035553372336982_} PUSHSLICE
   }>
   ?fun_ref_0afe062129e07933 PROCREF:<{
     c4 PUSH
@@ -158,9 +123,6 @@ PROGRAM{
     ENDS
     s0 s1 XCHG
     ?fun_ref_f301c10ff742bfb1 INLINECALLDICT
-  }>
-  ?fun_ref_10c319ce0484d846 PROCREF:<{
-    s3 PUSH
   }>
   ?fun_ref_179ae1331ee50425 PROCREF:<{
     s0 s1 XCHG
@@ -477,9 +439,6 @@ PROGRAM{
     s0 POP
     0 PUSHINT
   }>
-  ?fun_ref_40d98146a47dbe3b PROCREF:<{
-    s0 PUSH
-  }>
   ?fun_ref_434aabb0cab43c24 PROCREF:<{
     s6 s5 XCHG2
     s0 PUSH
@@ -552,17 +511,9 @@ PROGRAM{
     s0 s1 XCHG
     STREF
   }>
-  ?fun_ref_44086a5ce86162fe PROCREF:<{
-    s1 PUSH
-  }>
-  ?fun_ref_6326faa87beffd08 PROCREF:<{
-    s5 PUSH
-  }>
-  ?fun_ref_b2f99ae1a1dd4dfb PROCREF:<{
-    s2 PUSH
-  }>
-  ?fun_ref_b347d9c3ebd197d4 PROCREF:<{
-    s4 PUSH
+  ?fun_ref_773b7c85dafed994 PROCREF:<{
+    s4 s5 s3 PUSH3
+    s4 s5 s3 PUSH3
   }>
   ?fun_ref_b93b9862cda1783c PROCREF:<{
     NEWC

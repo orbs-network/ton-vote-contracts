@@ -13,6 +13,7 @@ contract Proposal with Deployable {
     votingPowerStrategies: String;
     title: String;
     description: String;
+    quorum: String;
     
     init(proposalDeployer: Address, id: Int) {
         self.proposalDeployer = proposalDeployer;
@@ -24,7 +25,8 @@ contract Proposal with Deployable {
         self.votingSystem = "";
         self.votingPowerStrategies = "";
         self.title = "";
-        self.description = "";
+        self.description = "";        
+        self.quorum = "";
     }
 
     receive(msg: ProposalInit) {
@@ -38,42 +40,21 @@ contract Proposal with Deployable {
         self.votingPowerStrategies = msg.body.votingPowerStrategies;
         self.title = msg.body.title;
         self.description = msg.body.description;
+        self.quorum = msg.body.quorum;
     }
 
-    get fun proposalDeployer(): Address {
-        return self.proposalDeployer;
+    get fun state(): ProposalContractState {
+        return ProposalContractState {
+            proposalDeployer: self.proposalDeployer,
+            id: self.id,
+            proposalStartTime: self.proposalStartTime,
+            proposalEndTime: self.proposalEndTime,
+            proposalSnapshotTime: self.proposalSnapshotTime,
+            votingSystem: self.votingSystem,
+            votingPowerStrategies: self.votingPowerStrategies,
+            title: self.title,
+            description: self.description,
+            quorum: self.quorum
+        };
     }
-
-    get fun id(): Int {
-        return self.id;
-    }
-
-    get fun proposalStartTime(): Int {
-        return self.proposalStartTime;
-    }
-
-    get fun proposalEndTime(): Int {
-        return self.proposalEndTime;
-    }
-
-    get fun proposalSnapshotTime(): Int {
-        return self.proposalSnapshotTime;
-    }
-
-    get fun votingSystem(): String {
-        return self.votingSystem;
-    }
-
-    get fun votingPowerStrategies(): String {
-        return self.votingPowerStrategies;
-    }
-
-    get fun title(): String {
-        return self.title;
-    }
-
-    get fun description(): String {
-        return self.description;
-    }
-
 }

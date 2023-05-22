@@ -321,6 +321,954 @@ function dictValueParserFactoryDeploy(): DictionaryValue<FactoryDeploy> {
     }
 }
 
+export type DeployAndInitDao = {
+    $$type: 'DeployAndInitDao';
+    owner: Address;
+    proposalOwner: Address;
+    metadata: Address;
+}
+
+export function storeDeployAndInitDao(src: DeployAndInitDao) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(3378223972, 32);
+        b_0.storeAddress(src.owner);
+        b_0.storeAddress(src.proposalOwner);
+        b_0.storeAddress(src.metadata);
+    };
+}
+
+export function loadDeployAndInitDao(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 3378223972) { throw Error('Invalid prefix'); }
+    let _owner = sc_0.loadAddress();
+    let _proposalOwner = sc_0.loadAddress();
+    let _metadata = sc_0.loadAddress();
+    return { $$type: 'DeployAndInitDao' as const, owner: _owner, proposalOwner: _proposalOwner, metadata: _metadata };
+}
+
+function loadTupleDeployAndInitDao(source: TupleReader) {
+    let _owner = source.readAddress();
+    let _proposalOwner = source.readAddress();
+    let _metadata = source.readAddress();
+    return { $$type: 'DeployAndInitDao' as const, owner: _owner, proposalOwner: _proposalOwner, metadata: _metadata };
+}
+
+function storeTupleDeployAndInitDao(source: DeployAndInitDao) {
+    let builder = new TupleBuilder();
+    builder.writeAddress(source.owner);
+    builder.writeAddress(source.proposalOwner);
+    builder.writeAddress(source.metadata);
+    return builder.build();
+}
+
+function dictValueParserDeployAndInitDao(): DictionaryValue<DeployAndInitDao> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeDeployAndInitDao(src)).endCell());
+        },
+        parse: (src) => {
+            return loadDeployAndInitDao(src.loadRef().beginParse());
+        }
+    }
+}
+
+export type SendDaoInit = {
+    $$type: 'SendDaoInit';
+    owner: Address;
+    proposalOwner: Address;
+    metadata: Address;
+}
+
+export function storeSendDaoInit(src: SendDaoInit) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(3367586747, 32);
+        b_0.storeAddress(src.owner);
+        b_0.storeAddress(src.proposalOwner);
+        b_0.storeAddress(src.metadata);
+    };
+}
+
+export function loadSendDaoInit(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 3367586747) { throw Error('Invalid prefix'); }
+    let _owner = sc_0.loadAddress();
+    let _proposalOwner = sc_0.loadAddress();
+    let _metadata = sc_0.loadAddress();
+    return { $$type: 'SendDaoInit' as const, owner: _owner, proposalOwner: _proposalOwner, metadata: _metadata };
+}
+
+function loadTupleSendDaoInit(source: TupleReader) {
+    let _owner = source.readAddress();
+    let _proposalOwner = source.readAddress();
+    let _metadata = source.readAddress();
+    return { $$type: 'SendDaoInit' as const, owner: _owner, proposalOwner: _proposalOwner, metadata: _metadata };
+}
+
+function storeTupleSendDaoInit(source: SendDaoInit) {
+    let builder = new TupleBuilder();
+    builder.writeAddress(source.owner);
+    builder.writeAddress(source.proposalOwner);
+    builder.writeAddress(source.metadata);
+    return builder.build();
+}
+
+function dictValueParserSendDaoInit(): DictionaryValue<SendDaoInit> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeSendDaoInit(src)).endCell());
+        },
+        parse: (src) => {
+            return loadSendDaoInit(src.loadRef().beginParse());
+        }
+    }
+}
+
+export type SetDeployAndInitDaoFee = {
+    $$type: 'SetDeployAndInitDaoFee';
+    newDeployAndInitDaoFee: bigint;
+}
+
+export function storeSetDeployAndInitDaoFee(src: SetDeployAndInitDaoFee) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(2828439833, 32);
+        b_0.storeUint(src.newDeployAndInitDaoFee, 64);
+    };
+}
+
+export function loadSetDeployAndInitDaoFee(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 2828439833) { throw Error('Invalid prefix'); }
+    let _newDeployAndInitDaoFee = sc_0.loadUintBig(64);
+    return { $$type: 'SetDeployAndInitDaoFee' as const, newDeployAndInitDaoFee: _newDeployAndInitDaoFee };
+}
+
+function loadTupleSetDeployAndInitDaoFee(source: TupleReader) {
+    let _newDeployAndInitDaoFee = source.readBigNumber();
+    return { $$type: 'SetDeployAndInitDaoFee' as const, newDeployAndInitDaoFee: _newDeployAndInitDaoFee };
+}
+
+function storeTupleSetDeployAndInitDaoFee(source: SetDeployAndInitDaoFee) {
+    let builder = new TupleBuilder();
+    builder.writeNumber(source.newDeployAndInitDaoFee);
+    return builder.build();
+}
+
+function dictValueParserSetDeployAndInitDaoFee(): DictionaryValue<SetDeployAndInitDaoFee> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeSetDeployAndInitDaoFee(src)).endCell());
+        },
+        parse: (src) => {
+            return loadSetDeployAndInitDaoFee(src.loadRef().beginParse());
+        }
+    }
+}
+
+export type SendToDaoSetFwdMsgFee = {
+    $$type: 'SendToDaoSetFwdMsgFee';
+    daoId: bigint;
+    newFwdMsgFee: bigint;
+}
+
+export function storeSendToDaoSetFwdMsgFee(src: SendToDaoSetFwdMsgFee) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(1477819782, 32);
+        b_0.storeUint(src.daoId, 32);
+        b_0.storeUint(src.newFwdMsgFee, 64);
+    };
+}
+
+export function loadSendToDaoSetFwdMsgFee(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 1477819782) { throw Error('Invalid prefix'); }
+    let _daoId = sc_0.loadUintBig(32);
+    let _newFwdMsgFee = sc_0.loadUintBig(64);
+    return { $$type: 'SendToDaoSetFwdMsgFee' as const, daoId: _daoId, newFwdMsgFee: _newFwdMsgFee };
+}
+
+function loadTupleSendToDaoSetFwdMsgFee(source: TupleReader) {
+    let _daoId = source.readBigNumber();
+    let _newFwdMsgFee = source.readBigNumber();
+    return { $$type: 'SendToDaoSetFwdMsgFee' as const, daoId: _daoId, newFwdMsgFee: _newFwdMsgFee };
+}
+
+function storeTupleSendToDaoSetFwdMsgFee(source: SendToDaoSetFwdMsgFee) {
+    let builder = new TupleBuilder();
+    builder.writeNumber(source.daoId);
+    builder.writeNumber(source.newFwdMsgFee);
+    return builder.build();
+}
+
+function dictValueParserSendToDaoSetFwdMsgFee(): DictionaryValue<SendToDaoSetFwdMsgFee> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeSendToDaoSetFwdMsgFee(src)).endCell());
+        },
+        parse: (src) => {
+            return loadSendToDaoSetFwdMsgFee(src.loadRef().beginParse());
+        }
+    }
+}
+
+export type SetRegistryAdmin = {
+    $$type: 'SetRegistryAdmin';
+    newAdmin: Address;
+}
+
+export function storeSetRegistryAdmin(src: SetRegistryAdmin) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(3335943114, 32);
+        b_0.storeAddress(src.newAdmin);
+    };
+}
+
+export function loadSetRegistryAdmin(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 3335943114) { throw Error('Invalid prefix'); }
+    let _newAdmin = sc_0.loadAddress();
+    return { $$type: 'SetRegistryAdmin' as const, newAdmin: _newAdmin };
+}
+
+function loadTupleSetRegistryAdmin(source: TupleReader) {
+    let _newAdmin = source.readAddress();
+    return { $$type: 'SetRegistryAdmin' as const, newAdmin: _newAdmin };
+}
+
+function storeTupleSetRegistryAdmin(source: SetRegistryAdmin) {
+    let builder = new TupleBuilder();
+    builder.writeAddress(source.newAdmin);
+    return builder.build();
+}
+
+function dictValueParserSetRegistryAdmin(): DictionaryValue<SetRegistryAdmin> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeSetRegistryAdmin(src)).endCell());
+        },
+        parse: (src) => {
+            return loadSetRegistryAdmin(src.loadRef().beginParse());
+        }
+    }
+}
+
+export type SetOwner = {
+    $$type: 'SetOwner';
+    newOwner: Address;
+}
+
+export function storeSetOwner(src: SetOwner) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(3266583875, 32);
+        b_0.storeAddress(src.newOwner);
+    };
+}
+
+export function loadSetOwner(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 3266583875) { throw Error('Invalid prefix'); }
+    let _newOwner = sc_0.loadAddress();
+    return { $$type: 'SetOwner' as const, newOwner: _newOwner };
+}
+
+function loadTupleSetOwner(source: TupleReader) {
+    let _newOwner = source.readAddress();
+    return { $$type: 'SetOwner' as const, newOwner: _newOwner };
+}
+
+function storeTupleSetOwner(source: SetOwner) {
+    let builder = new TupleBuilder();
+    builder.writeAddress(source.newOwner);
+    return builder.build();
+}
+
+function dictValueParserSetOwner(): DictionaryValue<SetOwner> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeSetOwner(src)).endCell());
+        },
+        parse: (src) => {
+            return loadSetOwner(src.loadRef().beginParse());
+        }
+    }
+}
+
+export type SetProposalOwner = {
+    $$type: 'SetProposalOwner';
+    newProposalOwner: Address;
+}
+
+export function storeSetProposalOwner(src: SetProposalOwner) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(3504586358, 32);
+        b_0.storeAddress(src.newProposalOwner);
+    };
+}
+
+export function loadSetProposalOwner(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 3504586358) { throw Error('Invalid prefix'); }
+    let _newProposalOwner = sc_0.loadAddress();
+    return { $$type: 'SetProposalOwner' as const, newProposalOwner: _newProposalOwner };
+}
+
+function loadTupleSetProposalOwner(source: TupleReader) {
+    let _newProposalOwner = source.readAddress();
+    return { $$type: 'SetProposalOwner' as const, newProposalOwner: _newProposalOwner };
+}
+
+function storeTupleSetProposalOwner(source: SetProposalOwner) {
+    let builder = new TupleBuilder();
+    builder.writeAddress(source.newProposalOwner);
+    return builder.build();
+}
+
+function dictValueParserSetProposalOwner(): DictionaryValue<SetProposalOwner> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeSetProposalOwner(src)).endCell());
+        },
+        parse: (src) => {
+            return loadSetProposalOwner(src.loadRef().beginParse());
+        }
+    }
+}
+
+export type SetFwdMsgFee = {
+    $$type: 'SetFwdMsgFee';
+    newFwdMsgFee: bigint;
+}
+
+export function storeSetFwdMsgFee(src: SetFwdMsgFee) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(4109608450, 32);
+        b_0.storeUint(src.newFwdMsgFee, 64);
+    };
+}
+
+export function loadSetFwdMsgFee(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 4109608450) { throw Error('Invalid prefix'); }
+    let _newFwdMsgFee = sc_0.loadUintBig(64);
+    return { $$type: 'SetFwdMsgFee' as const, newFwdMsgFee: _newFwdMsgFee };
+}
+
+function loadTupleSetFwdMsgFee(source: TupleReader) {
+    let _newFwdMsgFee = source.readBigNumber();
+    return { $$type: 'SetFwdMsgFee' as const, newFwdMsgFee: _newFwdMsgFee };
+}
+
+function storeTupleSetFwdMsgFee(source: SetFwdMsgFee) {
+    let builder = new TupleBuilder();
+    builder.writeNumber(source.newFwdMsgFee);
+    return builder.build();
+}
+
+function dictValueParserSetFwdMsgFee(): DictionaryValue<SetFwdMsgFee> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeSetFwdMsgFee(src)).endCell());
+        },
+        parse: (src) => {
+            return loadSetFwdMsgFee(src.loadRef().beginParse());
+        }
+    }
+}
+
+export type SetMetadata = {
+    $$type: 'SetMetadata';
+    newMetadata: Address;
+}
+
+export function storeSetMetadata(src: SetMetadata) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(3660550271, 32);
+        b_0.storeAddress(src.newMetadata);
+    };
+}
+
+export function loadSetMetadata(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 3660550271) { throw Error('Invalid prefix'); }
+    let _newMetadata = sc_0.loadAddress();
+    return { $$type: 'SetMetadata' as const, newMetadata: _newMetadata };
+}
+
+function loadTupleSetMetadata(source: TupleReader) {
+    let _newMetadata = source.readAddress();
+    return { $$type: 'SetMetadata' as const, newMetadata: _newMetadata };
+}
+
+function storeTupleSetMetadata(source: SetMetadata) {
+    let builder = new TupleBuilder();
+    builder.writeAddress(source.newMetadata);
+    return builder.build();
+}
+
+function dictValueParserSetMetadata(): DictionaryValue<SetMetadata> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeSetMetadata(src)).endCell());
+        },
+        parse: (src) => {
+            return loadSetMetadata(src.loadRef().beginParse());
+        }
+    }
+}
+
+export type FwdMsg = {
+    $$type: 'FwdMsg';
+    fwdMsg: SendParameters;
+}
+
+export function storeFwdMsg(src: FwdMsg) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(1690551268, 32);
+        b_0.store(storeSendParameters(src.fwdMsg));
+    };
+}
+
+export function loadFwdMsg(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 1690551268) { throw Error('Invalid prefix'); }
+    let _fwdMsg = loadSendParameters(sc_0);
+    return { $$type: 'FwdMsg' as const, fwdMsg: _fwdMsg };
+}
+
+function loadTupleFwdMsg(source: TupleReader) {
+    const _fwdMsg = loadTupleSendParameters(source.readTuple());
+    return { $$type: 'FwdMsg' as const, fwdMsg: _fwdMsg };
+}
+
+function storeTupleFwdMsg(source: FwdMsg) {
+    let builder = new TupleBuilder();
+    builder.writeTuple(storeTupleSendParameters(source.fwdMsg));
+    return builder.build();
+}
+
+function dictValueParserFwdMsg(): DictionaryValue<FwdMsg> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeFwdMsg(src)).endCell());
+        },
+        parse: (src) => {
+            return loadFwdMsg(src.loadRef().beginParse());
+        }
+    }
+}
+
+export type DaoInit = {
+    $$type: 'DaoInit';
+    owner: Address;
+    proposalOwner: Address;
+    metadata: Address;
+}
+
+export function storeDaoInit(src: DaoInit) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(444810285, 32);
+        b_0.storeAddress(src.owner);
+        b_0.storeAddress(src.proposalOwner);
+        b_0.storeAddress(src.metadata);
+    };
+}
+
+export function loadDaoInit(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 444810285) { throw Error('Invalid prefix'); }
+    let _owner = sc_0.loadAddress();
+    let _proposalOwner = sc_0.loadAddress();
+    let _metadata = sc_0.loadAddress();
+    return { $$type: 'DaoInit' as const, owner: _owner, proposalOwner: _proposalOwner, metadata: _metadata };
+}
+
+function loadTupleDaoInit(source: TupleReader) {
+    let _owner = source.readAddress();
+    let _proposalOwner = source.readAddress();
+    let _metadata = source.readAddress();
+    return { $$type: 'DaoInit' as const, owner: _owner, proposalOwner: _proposalOwner, metadata: _metadata };
+}
+
+function storeTupleDaoInit(source: DaoInit) {
+    let builder = new TupleBuilder();
+    builder.writeAddress(source.owner);
+    builder.writeAddress(source.proposalOwner);
+    builder.writeAddress(source.metadata);
+    return builder.build();
+}
+
+function dictValueParserDaoInit(): DictionaryValue<DaoInit> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeDaoInit(src)).endCell());
+        },
+        parse: (src) => {
+            return loadDaoInit(src.loadRef().beginParse());
+        }
+    }
+}
+
+export type DaoContractState = {
+    $$type: 'DaoContractState';
+    registry: Address;
+    owner: Address;
+    proposalOwner: Address;
+    metadata: Address;
+    daoIndex: bigint;
+    fwdMsgFee: bigint;
+}
+
+export function storeDaoContractState(src: DaoContractState) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeAddress(src.registry);
+        b_0.storeAddress(src.owner);
+        b_0.storeAddress(src.proposalOwner);
+        let b_1 = new Builder();
+        b_1.storeAddress(src.metadata);
+        b_1.storeUint(src.daoIndex, 32);
+        b_1.storeUint(src.fwdMsgFee, 64);
+        b_0.storeRef(b_1.endCell());
+    };
+}
+
+export function loadDaoContractState(slice: Slice) {
+    let sc_0 = slice;
+    let _registry = sc_0.loadAddress();
+    let _owner = sc_0.loadAddress();
+    let _proposalOwner = sc_0.loadAddress();
+    let sc_1 = sc_0.loadRef().beginParse();
+    let _metadata = sc_1.loadAddress();
+    let _daoIndex = sc_1.loadUintBig(32);
+    let _fwdMsgFee = sc_1.loadUintBig(64);
+    return { $$type: 'DaoContractState' as const, registry: _registry, owner: _owner, proposalOwner: _proposalOwner, metadata: _metadata, daoIndex: _daoIndex, fwdMsgFee: _fwdMsgFee };
+}
+
+function loadTupleDaoContractState(source: TupleReader) {
+    let _registry = source.readAddress();
+    let _owner = source.readAddress();
+    let _proposalOwner = source.readAddress();
+    let _metadata = source.readAddress();
+    let _daoIndex = source.readBigNumber();
+    let _fwdMsgFee = source.readBigNumber();
+    return { $$type: 'DaoContractState' as const, registry: _registry, owner: _owner, proposalOwner: _proposalOwner, metadata: _metadata, daoIndex: _daoIndex, fwdMsgFee: _fwdMsgFee };
+}
+
+function storeTupleDaoContractState(source: DaoContractState) {
+    let builder = new TupleBuilder();
+    builder.writeAddress(source.registry);
+    builder.writeAddress(source.owner);
+    builder.writeAddress(source.proposalOwner);
+    builder.writeAddress(source.metadata);
+    builder.writeNumber(source.daoIndex);
+    builder.writeNumber(source.fwdMsgFee);
+    return builder.build();
+}
+
+function dictValueParserDaoContractState(): DictionaryValue<DaoContractState> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeDaoContractState(src)).endCell());
+        },
+        parse: (src) => {
+            return loadDaoContractState(src.loadRef().beginParse());
+        }
+    }
+}
+
+export type DeployAndInitProposal = {
+    $$type: 'DeployAndInitProposal';
+    body: Params;
+}
+
+export function storeDeployAndInitProposal(src: DeployAndInitProposal) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(2615508727, 32);
+        b_0.store(storeParams(src.body));
+    };
+}
+
+export function loadDeployAndInitProposal(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 2615508727) { throw Error('Invalid prefix'); }
+    let _body = loadParams(sc_0);
+    return { $$type: 'DeployAndInitProposal' as const, body: _body };
+}
+
+function loadTupleDeployAndInitProposal(source: TupleReader) {
+    const _body = loadTupleParams(source.readTuple());
+    return { $$type: 'DeployAndInitProposal' as const, body: _body };
+}
+
+function storeTupleDeployAndInitProposal(source: DeployAndInitProposal) {
+    let builder = new TupleBuilder();
+    builder.writeTuple(storeTupleParams(source.body));
+    return builder.build();
+}
+
+function dictValueParserDeployAndInitProposal(): DictionaryValue<DeployAndInitProposal> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeDeployAndInitProposal(src)).endCell());
+        },
+        parse: (src) => {
+            return loadDeployAndInitProposal(src.loadRef().beginParse());
+        }
+    }
+}
+
+export type SendProposalInit = {
+    $$type: 'SendProposalInit';
+    body: Params;
+}
+
+export function storeSendProposalInit(src: SendProposalInit) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(3664955103, 32);
+        b_0.store(storeParams(src.body));
+    };
+}
+
+export function loadSendProposalInit(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 3664955103) { throw Error('Invalid prefix'); }
+    let _body = loadParams(sc_0);
+    return { $$type: 'SendProposalInit' as const, body: _body };
+}
+
+function loadTupleSendProposalInit(source: TupleReader) {
+    const _body = loadTupleParams(source.readTuple());
+    return { $$type: 'SendProposalInit' as const, body: _body };
+}
+
+function storeTupleSendProposalInit(source: SendProposalInit) {
+    let builder = new TupleBuilder();
+    builder.writeTuple(storeTupleParams(source.body));
+    return builder.build();
+}
+
+function dictValueParserSendProposalInit(): DictionaryValue<SendProposalInit> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeSendProposalInit(src)).endCell());
+        },
+        parse: (src) => {
+            return loadSendProposalInit(src.loadRef().beginParse());
+        }
+    }
+}
+
+export type Params = {
+    $$type: 'Params';
+    proposalStartTime: bigint;
+    proposalEndTime: bigint;
+    proposalSnapshotTime: bigint;
+    votingSystem: string;
+    votingPowerStrategies: string;
+    title: string;
+    description: string;
+    quorum: string;
+}
+
+export function storeParams(src: Params) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(src.proposalStartTime, 64);
+        b_0.storeUint(src.proposalEndTime, 64);
+        b_0.storeUint(src.proposalSnapshotTime, 64);
+        b_0.storeStringRefTail(src.votingSystem);
+        b_0.storeStringRefTail(src.votingPowerStrategies);
+        b_0.storeStringRefTail(src.title);
+        let b_1 = new Builder();
+        b_1.storeStringRefTail(src.description);
+        b_1.storeStringRefTail(src.quorum);
+        b_0.storeRef(b_1.endCell());
+    };
+}
+
+export function loadParams(slice: Slice) {
+    let sc_0 = slice;
+    let _proposalStartTime = sc_0.loadUintBig(64);
+    let _proposalEndTime = sc_0.loadUintBig(64);
+    let _proposalSnapshotTime = sc_0.loadUintBig(64);
+    let _votingSystem = sc_0.loadStringRefTail();
+    let _votingPowerStrategies = sc_0.loadStringRefTail();
+    let _title = sc_0.loadStringRefTail();
+    let sc_1 = sc_0.loadRef().beginParse();
+    let _description = sc_1.loadStringRefTail();
+    let _quorum = sc_1.loadStringRefTail();
+    return { $$type: 'Params' as const, proposalStartTime: _proposalStartTime, proposalEndTime: _proposalEndTime, proposalSnapshotTime: _proposalSnapshotTime, votingSystem: _votingSystem, votingPowerStrategies: _votingPowerStrategies, title: _title, description: _description, quorum: _quorum };
+}
+
+function loadTupleParams(source: TupleReader) {
+    let _proposalStartTime = source.readBigNumber();
+    let _proposalEndTime = source.readBigNumber();
+    let _proposalSnapshotTime = source.readBigNumber();
+    let _votingSystem = source.readString();
+    let _votingPowerStrategies = source.readString();
+    let _title = source.readString();
+    let _description = source.readString();
+    let _quorum = source.readString();
+    return { $$type: 'Params' as const, proposalStartTime: _proposalStartTime, proposalEndTime: _proposalEndTime, proposalSnapshotTime: _proposalSnapshotTime, votingSystem: _votingSystem, votingPowerStrategies: _votingPowerStrategies, title: _title, description: _description, quorum: _quorum };
+}
+
+function storeTupleParams(source: Params) {
+    let builder = new TupleBuilder();
+    builder.writeNumber(source.proposalStartTime);
+    builder.writeNumber(source.proposalEndTime);
+    builder.writeNumber(source.proposalSnapshotTime);
+    builder.writeString(source.votingSystem);
+    builder.writeString(source.votingPowerStrategies);
+    builder.writeString(source.title);
+    builder.writeString(source.description);
+    builder.writeString(source.quorum);
+    return builder.build();
+}
+
+function dictValueParserParams(): DictionaryValue<Params> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeParams(src)).endCell());
+        },
+        parse: (src) => {
+            return loadParams(src.loadRef().beginParse());
+        }
+    }
+}
+
+export type ProposalInit = {
+    $$type: 'ProposalInit';
+    body: Params;
+}
+
+export function storeProposalInit(src: ProposalInit) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(3444668425, 32);
+        b_0.store(storeParams(src.body));
+    };
+}
+
+export function loadProposalInit(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 3444668425) { throw Error('Invalid prefix'); }
+    let _body = loadParams(sc_0);
+    return { $$type: 'ProposalInit' as const, body: _body };
+}
+
+function loadTupleProposalInit(source: TupleReader) {
+    const _body = loadTupleParams(source.readTuple());
+    return { $$type: 'ProposalInit' as const, body: _body };
+}
+
+function storeTupleProposalInit(source: ProposalInit) {
+    let builder = new TupleBuilder();
+    builder.writeTuple(storeTupleParams(source.body));
+    return builder.build();
+}
+
+function dictValueParserProposalInit(): DictionaryValue<ProposalInit> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeProposalInit(src)).endCell());
+        },
+        parse: (src) => {
+            return loadProposalInit(src.loadRef().beginParse());
+        }
+    }
+}
+
+export type ProposalContractState = {
+    $$type: 'ProposalContractState';
+    proposalDeployer: Address;
+    id: bigint;
+    proposalStartTime: bigint;
+    proposalEndTime: bigint;
+    proposalSnapshotTime: bigint;
+    votingSystem: string;
+    votingPowerStrategies: string;
+    title: string;
+    description: string;
+    quorum: string;
+}
+
+export function storeProposalContractState(src: ProposalContractState) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeAddress(src.proposalDeployer);
+        b_0.storeUint(src.id, 32);
+        b_0.storeUint(src.proposalStartTime, 64);
+        b_0.storeUint(src.proposalEndTime, 64);
+        b_0.storeUint(src.proposalSnapshotTime, 64);
+        b_0.storeStringRefTail(src.votingSystem);
+        b_0.storeStringRefTail(src.votingPowerStrategies);
+        b_0.storeStringRefTail(src.title);
+        let b_1 = new Builder();
+        b_1.storeStringRefTail(src.description);
+        b_1.storeStringRefTail(src.quorum);
+        b_0.storeRef(b_1.endCell());
+    };
+}
+
+export function loadProposalContractState(slice: Slice) {
+    let sc_0 = slice;
+    let _proposalDeployer = sc_0.loadAddress();
+    let _id = sc_0.loadUintBig(32);
+    let _proposalStartTime = sc_0.loadUintBig(64);
+    let _proposalEndTime = sc_0.loadUintBig(64);
+    let _proposalSnapshotTime = sc_0.loadUintBig(64);
+    let _votingSystem = sc_0.loadStringRefTail();
+    let _votingPowerStrategies = sc_0.loadStringRefTail();
+    let _title = sc_0.loadStringRefTail();
+    let sc_1 = sc_0.loadRef().beginParse();
+    let _description = sc_1.loadStringRefTail();
+    let _quorum = sc_1.loadStringRefTail();
+    return { $$type: 'ProposalContractState' as const, proposalDeployer: _proposalDeployer, id: _id, proposalStartTime: _proposalStartTime, proposalEndTime: _proposalEndTime, proposalSnapshotTime: _proposalSnapshotTime, votingSystem: _votingSystem, votingPowerStrategies: _votingPowerStrategies, title: _title, description: _description, quorum: _quorum };
+}
+
+function loadTupleProposalContractState(source: TupleReader) {
+    let _proposalDeployer = source.readAddress();
+    let _id = source.readBigNumber();
+    let _proposalStartTime = source.readBigNumber();
+    let _proposalEndTime = source.readBigNumber();
+    let _proposalSnapshotTime = source.readBigNumber();
+    let _votingSystem = source.readString();
+    let _votingPowerStrategies = source.readString();
+    let _title = source.readString();
+    let _description = source.readString();
+    let _quorum = source.readString();
+    return { $$type: 'ProposalContractState' as const, proposalDeployer: _proposalDeployer, id: _id, proposalStartTime: _proposalStartTime, proposalEndTime: _proposalEndTime, proposalSnapshotTime: _proposalSnapshotTime, votingSystem: _votingSystem, votingPowerStrategies: _votingPowerStrategies, title: _title, description: _description, quorum: _quorum };
+}
+
+function storeTupleProposalContractState(source: ProposalContractState) {
+    let builder = new TupleBuilder();
+    builder.writeAddress(source.proposalDeployer);
+    builder.writeNumber(source.id);
+    builder.writeNumber(source.proposalStartTime);
+    builder.writeNumber(source.proposalEndTime);
+    builder.writeNumber(source.proposalSnapshotTime);
+    builder.writeString(source.votingSystem);
+    builder.writeString(source.votingPowerStrategies);
+    builder.writeString(source.title);
+    builder.writeString(source.description);
+    builder.writeString(source.quorum);
+    return builder.build();
+}
+
+function dictValueParserProposalContractState(): DictionaryValue<ProposalContractState> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeProposalContractState(src)).endCell());
+        },
+        parse: (src) => {
+            return loadProposalContractState(src.loadRef().beginParse());
+        }
+    }
+}
+
+export type MetadataState = {
+    $$type: 'MetadataState';
+    avatar: string;
+    name: string;
+    about: string;
+    website: string;
+    terms: string;
+    telegram: string;
+    github: string;
+    jetton: Address;
+    nft: Address;
+    hide: boolean;
+}
+
+export function storeMetadataState(src: MetadataState) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeStringRefTail(src.avatar);
+        b_0.storeStringRefTail(src.name);
+        b_0.storeStringRefTail(src.about);
+        let b_1 = new Builder();
+        b_1.storeStringRefTail(src.website);
+        b_1.storeStringRefTail(src.terms);
+        b_1.storeStringRefTail(src.telegram);
+        let b_2 = new Builder();
+        b_2.storeStringRefTail(src.github);
+        b_2.storeAddress(src.jetton);
+        b_2.storeAddress(src.nft);
+        b_2.storeBit(src.hide);
+        b_1.storeRef(b_2.endCell());
+        b_0.storeRef(b_1.endCell());
+    };
+}
+
+export function loadMetadataState(slice: Slice) {
+    let sc_0 = slice;
+    let _avatar = sc_0.loadStringRefTail();
+    let _name = sc_0.loadStringRefTail();
+    let _about = sc_0.loadStringRefTail();
+    let sc_1 = sc_0.loadRef().beginParse();
+    let _website = sc_1.loadStringRefTail();
+    let _terms = sc_1.loadStringRefTail();
+    let _telegram = sc_1.loadStringRefTail();
+    let sc_2 = sc_1.loadRef().beginParse();
+    let _github = sc_2.loadStringRefTail();
+    let _jetton = sc_2.loadAddress();
+    let _nft = sc_2.loadAddress();
+    let _hide = sc_2.loadBit();
+    return { $$type: 'MetadataState' as const, avatar: _avatar, name: _name, about: _about, website: _website, terms: _terms, telegram: _telegram, github: _github, jetton: _jetton, nft: _nft, hide: _hide };
+}
+
+function loadTupleMetadataState(source: TupleReader) {
+    let _avatar = source.readString();
+    let _name = source.readString();
+    let _about = source.readString();
+    let _website = source.readString();
+    let _terms = source.readString();
+    let _telegram = source.readString();
+    let _github = source.readString();
+    let _jetton = source.readAddress();
+    let _nft = source.readAddress();
+    let _hide = source.readBoolean();
+    return { $$type: 'MetadataState' as const, avatar: _avatar, name: _name, about: _about, website: _website, terms: _terms, telegram: _telegram, github: _github, jetton: _jetton, nft: _nft, hide: _hide };
+}
+
+function storeTupleMetadataState(source: MetadataState) {
+    let builder = new TupleBuilder();
+    builder.writeString(source.avatar);
+    builder.writeString(source.name);
+    builder.writeString(source.about);
+    builder.writeString(source.website);
+    builder.writeString(source.terms);
+    builder.writeString(source.telegram);
+    builder.writeString(source.github);
+    builder.writeAddress(source.jetton);
+    builder.writeAddress(source.nft);
+    builder.writeBoolean(source.hide);
+    return builder.build();
+}
+
+function dictValueParserMetadataState(): DictionaryValue<MetadataState> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeMetadataState(src)).endCell());
+        },
+        parse: (src) => {
+            return loadMetadataState(src.loadRef().beginParse());
+        }
+    }
+}
+
  type Metadata_init_args = {
     $$type: 'Metadata_init_args';
     avatar: string;
@@ -356,8 +1304,8 @@ function initMetadata_init_args(src: Metadata_init_args) {
 }
 
 async function Metadata_init(avatar: string, name: string, about: string, website: string, terms: string, telegram: string, github: string, jetton: Address, nft: Address, hide: boolean) {
-    const __code = Cell.fromBase64('te6ccgECLwEABIUAART/APSkE/S88sgLAQIBYgIDA5rQAdDTAwFxsKMB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiFRQUwNvBPhhAvhi2zxVGds88uCCyPhDAcx/AcoAVZDbPMntVCsEBQIBIAoLAYoBkjB/4HAh10nCH5UwINcLH96CEJRqmLa6jqfTHwGCEJRqmLa68uCB0z8BMcgBghCv+Q9XWMsfyz/J+EIBcG3bPH/gMHAGAcDIUArPFslQCszIUAjPFslQB8zIyFAHzxbJUAbMyFAFzxbJUATMyFADzxbJWMzIyFADzxbJWMzIUAPPFslYzFADINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiM8WUAQJATptbSJus5lbIG7y0IBvIgGRMuIQJHADBIBCUCPbPAcByshxAcoBUAcBygBwAcoCUAUg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIzxZQA/oCcAHKaCNus5F/kyRus+KXMzMBcAHKAOMNIW6znH8BygABIG7y0IABzJUxcAHKAOLJAfsACACYfwHKAMhwAcoAcAHKACRus51/AcoABCBu8tCAUATMljQDcAHKAOIkbrOdfwHKAAQgbvLQgFAEzJY0A3ABygDicAHKAAJ/AcoAAslYzABOINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiM8WEsoAyQHMyQHMAgEgHB0CASAMDQIBIA4PAgEgERICEbT7e2ebZ42UMCsQALm3ejBOC52Hq6WVz2PQnYc6yVCjbNBOE7rGpaVsj5ZkWnXlv74sRzBOBAq4A3AM7HKZywdVyOS2WHBOA3qTvfKost446np7wKs4ZNBOE7Lpy1Zp2W5nQdLNsozdFJAAAikCASATFAIBWBUWABGwr7tRNDSAAGAAdbJu40NWlwZnM6Ly9RbWVTYkZwODhSZEQ4OWhoOVU4UkZyRHdXWlhVRFNzREFKYnc5NjJXYmFWOWJEggAhGufu2ebZ42UMArFwIBYhgZAAIlAg+iu2zzbPGyhisaAg+ih2zzbPGyhisbAAImAAIiAgEgHh8CEbudLbPNs8bKGCssAgFYICECAWIkJQIRr1Ntnm2eNlDAKyICEa/67Z5tnjZQwCsjAAIoAAIhAgEgJicCDfW2ebZ42UMrKgIPpFe2ebZ42UMrKAIPpA22ebZ42UMrKQACJAACIAACIwH07UTQ1AH4Y9IAAY5r1AHQAdQB0AHUAdDUAdAB1AHQAdQB0AHUMNDUAdAB1AHQAfpAASDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IgB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiAHSADAQihCJbBrg+CgtAAInAR7XCwqDCbry4InbPArRVQguANLUAdAB1AHQAdQB0NQB0AHUAdAB1AHQAdQw0NQB0AHUAdAB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiAH6QAEg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIAdIAMBCKEIk=');
-    const __system = Cell.fromBase64('te6cckECMQEABI8AAQHAAQEFoDu3AgEU/wD0pBP0vPLICwMCAWInBAIBIBYFAgEgEgYCASAPBwIBWA0IAgFiCwkCD6KHbPNs8bKGLgoAAiICD6K7bPNs8bKGLgwAAiYCEa5+7Z5tnjZQwC4OAAIlAgEgERAAdbJu40NWlwZnM6Ly9RbWVTYkZwODhSZEQ4OWhoOVU4UkZyRHdXWlhVRFNzREFKYnc5NjJXYmFWOWJEggABGwr7tRNDSAAGACASAUEwC5t3owTgudh6ullc9j0J2HOslQo2zQThO6xqWlbI+WZFp15b++LEcwTgQKuANwDOxymcsHVcjktlhwTgN6k73yqLLeOOp6e8CrOGTQThOy6ctWadluZ0HSzbKM3RSQAhG0+3tnm2eNlDAuFQACKQIBIBkXAhG7nS2zzbPGyhguGAACJwIBICIaAgFiHRsCDfW2ebZ42UMuHAACIwIBICAeAg+kDbZ5tnjZQy4fAAIgAg+kV7Z5tnjZQy4hAAIkAgFYJSMCEa/67Z5tnjZQwC4kAAIhAhGvU22ebZ42UMAuJgACKAOa0AHQ0wMBcbCjAfpAASDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IhUUFMDbwT4YQL4Yts8VRnbPPLggsj4QwHMfwHKAFWQ2zzJ7VQuKigBwMhQCs8WyVAKzMhQCM8WyVAHzMjIUAfPFslQBszIUAXPFslQBMzIUAPPFslYzMjIUAPPFslYzMhQA88WyVjMUAMg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIzxZQBCkATiDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IjPFhLKAMkBzMkBzAGKAZIwf+BwIddJwh+VMCDXCx/eghCUapi2uo6n0x8BghCUapi2uvLggdM/ATHIAYIQr/kPV1jLH8s/yfhCAXBt2zx/4DBwKwE6bW0ibrOZWyBu8tCAbyIBkTLiECRwAwSAQlAj2zwsAcrIcQHKAVAHAcoAcAHKAlAFINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiM8WUAP6AnABymgjbrORf5MkbrPilzMzAXABygDjDSFus5x/AcoAASBu8tCAAcyVMXABygDiyQH7AC0AmH8BygDIcAHKAHABygAkbrOdfwHKAAQgbvLQgFAEzJY0A3ABygDiJG6znX8BygAEIG7y0IBQBMyWNANwAcoA4nABygACfwHKAALJWMwB9O1E0NQB+GPSAAGOa9QB0AHUAdAB1AHQ1AHQAdQB0AHUAdAB1DDQ1AHQAdQB0AH6QAEg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIAfpAASDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IgB0gAwEIoQiWwa4PgoLwEe1wsKgwm68uCJ2zwK0VUIMADS1AHQAdQB0AHUAdDUAdAB1AHQAdQB0AHUMNDUAdAB1AHQAfpAASDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IgB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiAHSADAQihCJUAWePw==');
+    const __code = Cell.fromBase64('te6ccgECFAEAA9cAART/APSkE/S88sgLAQIBYgIDA5rQAdDTAwFxsKMB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiFRQUwNvBPhhAvhi2zxVGds88uCCyPhDAcx/AcoAVZDbPMntVAwEBQIBIAoLAYoBkjB/4HAh10nCH5UwINcLH96CEJRqmLa6jqfTHwGCEJRqmLa68uCB0z8BMcgBghCv+Q9XWMsfyz/J+EIBcG3bPH/gMHAGAcDIUArPFslQCszIUAjPFslQB8zIyFAHzxbJUAbMyFAFzxbJUATMyFADzxbJWMzIyFADzxbJWMzIUAPPFslYzFADINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiM8WUAQJATptbSJus5lbIG7y0IBvIgGRMuIQJHADBIBCUCPbPAcByshxAcoBUAcBygBwAcoCUAUg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIzxZQA/oCcAHKaCNus5F/kyRus+KXMzMBcAHKAOMNIW6znH8BygABIG7y0IABzJUxcAHKAOLJAfsACACYfwHKAMhwAcoAcAHKACRus51/AcoABCBu8tCAUATMljQDcAHKAOIkbrOdfwHKAAQgbvLQgFAEzJY0A3ABygDicAHKAAJ/AcoAAslYzABOINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiM8WEsoAyQHMyQHMAhG9eK7Z5tnjZVQMDQIBIBARAfTtRNDUAfhj0gABjmvUAdAB1AHQAdQB0NQB0AHUAdAB1AHQAdQw0NQB0AHUAdAB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiAH6QAEg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIAdIAMBCKEIlsGuD4KA4AFFR5h1R5h1R5hykBHtcLCoMJuvLgids8CtFVCA8A0tQB0AHUAdAB1AHQ1AHQAdQB0AHUAdAB1DDQ1AHQAdQB0AH6QAEg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIAfpAASDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IgB0gAwEIoQiQC5u70YJwXOw9XSyuex6E7DnWSoUbZoJwndY1LStkfLMi068t/fFiOYJwIFXAG4BnY5TOWDquRyWyw4JwG9Sd75VFlvHHU9PeBVnDJoJwnZdOWrNOy3M6DpZtlGbopIAgFIEhMAEbCvu1E0NIAAYAB1sm7jQ1aXBmczovL1FtWFlDaDR4alVNV3Rhc3lYWUZvNkdiYnJYYnZkZG9UUTZxRlQzb3BpM0dvTkiCA=');
+    const __system = Cell.fromBase64('te6cckECFgEAA+EAAQHAAQEFoDu3AgEU/wD0pBP0vPLICwMCAWIMBAIBIAoFAgEgCQYCAUgIBwB1sm7jQ1aXBmczovL1FtWFlDaDR4alVNV3Rhc3lYWUZvNkdiYnJYYnZkZG9UUTZxRlQzb3BpM0dvTkiCAAEbCvu1E0NIAAYAC5u70YJwXOw9XSyuex6E7DnWSoUbZoJwndY1LStkfLMi068t/fFiOYJwIFXAG4BnY5TOWDquRyWyw4JwG9Sd75VFlvHHU9PeBVnDJoJwnZdOWrNOy3M6DpZtlGbopIAhG9eK7Z5tnjZVQTCwAUVHmHVHmHVHmHKQOa0AHQ0wMBcbCjAfpAASDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IhUUFMDbwT4YQL4Yts8VRnbPPLggsj4QwHMfwHKAFWQ2zzJ7VQTDw0BwMhQCs8WyVAKzMhQCM8WyVAHzMjIUAfPFslQBszIUAXPFslQBMzIUAPPFslYzMjIUAPPFslYzMhQA88WyVjMUAMg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIzxZQBA4ATiDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IjPFhLKAMkBzMkBzAGKAZIwf+BwIddJwh+VMCDXCx/eghCUapi2uo6n0x8BghCUapi2uvLggdM/ATHIAYIQr/kPV1jLH8s/yfhCAXBt2zx/4DBwEAE6bW0ibrOZWyBu8tCAbyIBkTLiECRwAwSAQlAj2zwRAcrIcQHKAVAHAcoAcAHKAlAFINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiM8WUAP6AnABymgjbrORf5MkbrPilzMzAXABygDjDSFus5x/AcoAASBu8tCAAcyVMXABygDiyQH7ABIAmH8BygDIcAHKAHABygAkbrOdfwHKAAQgbvLQgFAEzJY0A3ABygDiJG6znX8BygAEIG7y0IBQBMyWNANwAcoA4nABygACfwHKAALJWMwB9O1E0NQB+GPSAAGOa9QB0AHUAdAB1AHQ1AHQAdQB0AHUAdAB1DDQ1AHQAdQB0AH6QAEg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIAfpAASDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IgB0gAwEIoQiWwa4PgoFAEe1wsKgwm68uCJ2zwK0VUIFQDS1AHQAdQB0AHUAdDUAdAB1AHQAdQB0AHUMNDUAdAB1AHQAfpAASDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IgB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiAHSADAQihCJDulA7w==');
     let builder = beginCell();
     builder.storeRef(__system);
     builder.storeUint(0, 1);
@@ -400,19 +1348,28 @@ const Metadata_types: ABIType[] = [
     {"name":"Deploy","header":2490013878,"fields":[{"name":"queryId","type":{"kind":"simple","type":"uint","optional":false,"format":64}}]},
     {"name":"DeployOk","header":2952335191,"fields":[{"name":"queryId","type":{"kind":"simple","type":"uint","optional":false,"format":64}}]},
     {"name":"FactoryDeploy","header":1829761339,"fields":[{"name":"queryId","type":{"kind":"simple","type":"uint","optional":false,"format":64}},{"name":"cashback","type":{"kind":"simple","type":"address","optional":false}}]},
+    {"name":"DeployAndInitDao","header":3378223972,"fields":[{"name":"owner","type":{"kind":"simple","type":"address","optional":false}},{"name":"proposalOwner","type":{"kind":"simple","type":"address","optional":false}},{"name":"metadata","type":{"kind":"simple","type":"address","optional":false}}]},
+    {"name":"SendDaoInit","header":3367586747,"fields":[{"name":"owner","type":{"kind":"simple","type":"address","optional":false}},{"name":"proposalOwner","type":{"kind":"simple","type":"address","optional":false}},{"name":"metadata","type":{"kind":"simple","type":"address","optional":false}}]},
+    {"name":"SetDeployAndInitDaoFee","header":2828439833,"fields":[{"name":"newDeployAndInitDaoFee","type":{"kind":"simple","type":"uint","optional":false,"format":64}}]},
+    {"name":"SendToDaoSetFwdMsgFee","header":1477819782,"fields":[{"name":"daoId","type":{"kind":"simple","type":"uint","optional":false,"format":32}},{"name":"newFwdMsgFee","type":{"kind":"simple","type":"uint","optional":false,"format":64}}]},
+    {"name":"SetRegistryAdmin","header":3335943114,"fields":[{"name":"newAdmin","type":{"kind":"simple","type":"address","optional":false}}]},
+    {"name":"SetOwner","header":3266583875,"fields":[{"name":"newOwner","type":{"kind":"simple","type":"address","optional":false}}]},
+    {"name":"SetProposalOwner","header":3504586358,"fields":[{"name":"newProposalOwner","type":{"kind":"simple","type":"address","optional":false}}]},
+    {"name":"SetFwdMsgFee","header":4109608450,"fields":[{"name":"newFwdMsgFee","type":{"kind":"simple","type":"uint","optional":false,"format":64}}]},
+    {"name":"SetMetadata","header":3660550271,"fields":[{"name":"newMetadata","type":{"kind":"simple","type":"address","optional":false}}]},
+    {"name":"FwdMsg","header":1690551268,"fields":[{"name":"fwdMsg","type":{"kind":"simple","type":"SendParameters","optional":false}}]},
+    {"name":"DaoInit","header":444810285,"fields":[{"name":"owner","type":{"kind":"simple","type":"address","optional":false}},{"name":"proposalOwner","type":{"kind":"simple","type":"address","optional":false}},{"name":"metadata","type":{"kind":"simple","type":"address","optional":false}}]},
+    {"name":"DaoContractState","header":null,"fields":[{"name":"registry","type":{"kind":"simple","type":"address","optional":false}},{"name":"owner","type":{"kind":"simple","type":"address","optional":false}},{"name":"proposalOwner","type":{"kind":"simple","type":"address","optional":false}},{"name":"metadata","type":{"kind":"simple","type":"address","optional":false}},{"name":"daoIndex","type":{"kind":"simple","type":"uint","optional":false,"format":32}},{"name":"fwdMsgFee","type":{"kind":"simple","type":"uint","optional":false,"format":64}}]},
+    {"name":"DeployAndInitProposal","header":2615508727,"fields":[{"name":"body","type":{"kind":"simple","type":"Params","optional":false}}]},
+    {"name":"SendProposalInit","header":3664955103,"fields":[{"name":"body","type":{"kind":"simple","type":"Params","optional":false}}]},
+    {"name":"Params","header":null,"fields":[{"name":"proposalStartTime","type":{"kind":"simple","type":"uint","optional":false,"format":64}},{"name":"proposalEndTime","type":{"kind":"simple","type":"uint","optional":false,"format":64}},{"name":"proposalSnapshotTime","type":{"kind":"simple","type":"uint","optional":false,"format":64}},{"name":"votingSystem","type":{"kind":"simple","type":"string","optional":false}},{"name":"votingPowerStrategies","type":{"kind":"simple","type":"string","optional":false}},{"name":"title","type":{"kind":"simple","type":"string","optional":false}},{"name":"description","type":{"kind":"simple","type":"string","optional":false}},{"name":"quorum","type":{"kind":"simple","type":"string","optional":false}}]},
+    {"name":"ProposalInit","header":3444668425,"fields":[{"name":"body","type":{"kind":"simple","type":"Params","optional":false}}]},
+    {"name":"ProposalContractState","header":null,"fields":[{"name":"proposalDeployer","type":{"kind":"simple","type":"address","optional":false}},{"name":"id","type":{"kind":"simple","type":"uint","optional":false,"format":32}},{"name":"proposalStartTime","type":{"kind":"simple","type":"uint","optional":false,"format":64}},{"name":"proposalEndTime","type":{"kind":"simple","type":"uint","optional":false,"format":64}},{"name":"proposalSnapshotTime","type":{"kind":"simple","type":"uint","optional":false,"format":64}},{"name":"votingSystem","type":{"kind":"simple","type":"string","optional":false}},{"name":"votingPowerStrategies","type":{"kind":"simple","type":"string","optional":false}},{"name":"title","type":{"kind":"simple","type":"string","optional":false}},{"name":"description","type":{"kind":"simple","type":"string","optional":false}},{"name":"quorum","type":{"kind":"simple","type":"string","optional":false}}]},
+    {"name":"MetadataState","header":null,"fields":[{"name":"avatar","type":{"kind":"simple","type":"string","optional":false}},{"name":"name","type":{"kind":"simple","type":"string","optional":false}},{"name":"about","type":{"kind":"simple","type":"string","optional":false}},{"name":"website","type":{"kind":"simple","type":"string","optional":false}},{"name":"terms","type":{"kind":"simple","type":"string","optional":false}},{"name":"telegram","type":{"kind":"simple","type":"string","optional":false}},{"name":"github","type":{"kind":"simple","type":"string","optional":false}},{"name":"jetton","type":{"kind":"simple","type":"address","optional":false}},{"name":"nft","type":{"kind":"simple","type":"address","optional":false}},{"name":"hide","type":{"kind":"simple","type":"bool","optional":false}}]},
 ]
 
 const Metadata_getters: ABIGetter[] = [
-    {"name":"avatar","arguments":[],"returnType":{"kind":"simple","type":"string","optional":false}},
-    {"name":"name","arguments":[],"returnType":{"kind":"simple","type":"string","optional":false}},
-    {"name":"about","arguments":[],"returnType":{"kind":"simple","type":"string","optional":false}},
-    {"name":"website","arguments":[],"returnType":{"kind":"simple","type":"string","optional":false}},
-    {"name":"terms","arguments":[],"returnType":{"kind":"simple","type":"string","optional":false}},
-    {"name":"telegram","arguments":[],"returnType":{"kind":"simple","type":"string","optional":false}},
-    {"name":"github","arguments":[],"returnType":{"kind":"simple","type":"string","optional":false}},
-    {"name":"jetton","arguments":[],"returnType":{"kind":"simple","type":"address","optional":false}},
-    {"name":"nft","arguments":[],"returnType":{"kind":"simple","type":"address","optional":false}},
-    {"name":"hide","arguments":[],"returnType":{"kind":"simple","type":"bool","optional":false}},
+    {"name":"state","arguments":[],"returnType":{"kind":"simple","type":"MetadataState","optional":false}},
 ]
 
 const Metadata_receivers: ABIReceiver[] = [
@@ -461,73 +1418,10 @@ export class Metadata implements Contract {
         
     }
     
-    async getAvatar(provider: ContractProvider) {
+    async getState(provider: ContractProvider) {
         let builder = new TupleBuilder();
-        let source = (await provider.get('avatar', builder.build())).stack;
-        let result = source.readString();
-        return result;
-    }
-    
-    async getName(provider: ContractProvider) {
-        let builder = new TupleBuilder();
-        let source = (await provider.get('name', builder.build())).stack;
-        let result = source.readString();
-        return result;
-    }
-    
-    async getAbout(provider: ContractProvider) {
-        let builder = new TupleBuilder();
-        let source = (await provider.get('about', builder.build())).stack;
-        let result = source.readString();
-        return result;
-    }
-    
-    async getWebsite(provider: ContractProvider) {
-        let builder = new TupleBuilder();
-        let source = (await provider.get('website', builder.build())).stack;
-        let result = source.readString();
-        return result;
-    }
-    
-    async getTerms(provider: ContractProvider) {
-        let builder = new TupleBuilder();
-        let source = (await provider.get('terms', builder.build())).stack;
-        let result = source.readString();
-        return result;
-    }
-    
-    async getTelegram(provider: ContractProvider) {
-        let builder = new TupleBuilder();
-        let source = (await provider.get('telegram', builder.build())).stack;
-        let result = source.readString();
-        return result;
-    }
-    
-    async getGithub(provider: ContractProvider) {
-        let builder = new TupleBuilder();
-        let source = (await provider.get('github', builder.build())).stack;
-        let result = source.readString();
-        return result;
-    }
-    
-    async getJetton(provider: ContractProvider) {
-        let builder = new TupleBuilder();
-        let source = (await provider.get('jetton', builder.build())).stack;
-        let result = source.readAddress();
-        return result;
-    }
-    
-    async getNft(provider: ContractProvider) {
-        let builder = new TupleBuilder();
-        let source = (await provider.get('nft', builder.build())).stack;
-        let result = source.readAddress();
-        return result;
-    }
-    
-    async getHide(provider: ContractProvider) {
-        let builder = new TupleBuilder();
-        let source = (await provider.get('hide', builder.build())).stack;
-        let result = source.readBoolean();
+        let source = (await provider.get('state', builder.build())).stack;
+        const result = loadTupleMetadataState(source);
         return result;
     }
     

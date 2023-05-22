@@ -16,35 +16,21 @@ PROGRAM{
   DECLPROC $Proposal$_store
   DECLPROC $Proposal$_load
   DECLPROC $StateInit$_not_null
+  DECLPROC $ProposalContractState$_to_external
   DECLPROC $Proposal$init$_load
   DECLPROC $Proposal$_contract_init
   DECLPROC $Proposal$_contract_load
   DECLPROC $Proposal$_contract_store
   DECLPROC $global_send
   DECLPROC $SendParameters$_constructor_bounce_to_value_mode_body_code_data
-  DECLPROC $Proposal$_fun_proposalDeployer
-  DECLPROC $Proposal$_fun_id
-  DECLPROC $Proposal$_fun_proposalStartTime
-  DECLPROC $Proposal$_fun_proposalEndTime
-  DECLPROC $Proposal$_fun_proposalSnapshotTime
-  DECLPROC $Proposal$_fun_votingSystem
-  DECLPROC $Proposal$_fun_votingPowerStrategies
-  DECLPROC $Proposal$_fun_title
-  DECLPROC $Proposal$_fun_description
+  DECLPROC $ProposalContractState$_constructor_proposalDeployer_id_proposalStartTime_proposalEndTime_proposalSnapshotTime_votingSystem_votingPowerStrategies_title_description_quorum
+  DECLPROC $Proposal$_fun_state
   DECLPROC $Proposal$_fun_forward
   DECLPROC $Proposal$_fun_notify
   DECLPROC $DeployOk$_constructor_queryId
   DECLPROC $Proposal$_internal_binary_ProposalInit
   DECLPROC $Proposal$_internal_binary_Deploy
-  106145 DECLMETHOD %proposalDeployer
-  105872 DECLMETHOD %id
-  127546 DECLMETHOD %proposalStartTime
-  121148 DECLMETHOD %proposalEndTime
-  67040 DECLMETHOD %proposalSnapshotTime
-  99475 DECLMETHOD %votingSystem
-  70066 DECLMETHOD %votingPowerStrategies
-  84137 DECLMETHOD %title
-  65569 DECLMETHOD %description
+  77589 DECLMETHOD %state
   113617 DECLMETHOD supported_interfaces
   121275 DECLMETHOD get_abi_ipfs
   115390 DECLMETHOD lazy_deployment_completed
@@ -143,30 +129,35 @@ PROGRAM{
     SWAP
     CTOS
     LDREF
+    SWAP
+    CTOS
+    SWAP
+    LDREF
     DROP
     CTOS
-    s1 s7 XCHG
-    s1 s6 XCHG
-    s1 s5 XCHG
-    s1 s4 XCHG
-    s3 s3 s0 XCHG3
+    s2 s8 XCHG
+    s2 s7 XCHG
+    s2 s6 XCHG
+    s2 s5 XCHG
+    s2 s4 XCHG
+    s2 s3 XCHG
   }>
   $ProposalInit$_load PROCINLINE:<{
     32 LDU
     SWAP
-    4087233874 PUSHINT
+    3444668425 PUSHINT
     EQUAL
     129 THROWIFNOT
     $Params$_load INLINECALLDICT
   }>
   $Proposal$_store PROCINLINE:<{
-    s9 s8 XCHG2
+    s10 s9 XCHG2
     __tact_store_address INLINECALLDICT
-    s1 s6 XCHG
+    s1 s7 XCHG
     32 STU
-    s1 s4 XCHG
+    s1 s5 XCHG
     64 STU
-    s1 s2 XCHG
+    s1 s3 XCHG
     64 STU
     64 STU
     NEWC
@@ -182,6 +173,12 @@ PROGRAM{
     SWAP
     STREF
     NEWC
+    NEWC
+    s0 s3 XCHG2
+    STSLICER
+    ENDC
+    ROT
+    STREF
     NEWC
     s0 s4 XCHG2
     STSLICER
@@ -221,21 +218,27 @@ PROGRAM{
     CTOS
     SWAP
     LDREF
+    SWAP
+    CTOS
+    SWAP
+    LDREF
     DROP
     CTOS
-    s2 s9 XCHG
-    s2 s8 XCHG
-    s2 s7 XCHG
-    s2 s6 XCHG
-    s2 s5 XCHG
-    s2 s4 XCHG
-    s2 s3 XCHG
+    s3 s10 XCHG
+    s3 s9 XCHG
+    s3 s8 XCHG
+    s3 s7 XCHG
+    s3 s6 XCHG
+    s3 s5 XCHG
+    s3 s4 XCHG
   }>
   $StateInit$_not_null PROCINLINE:<{
     DUP
     ISNULL
     128 THROWIF
     2 UNTUPLE
+  }>
+  $ProposalContractState$_to_external PROCINLINE:<{
   }>
   $Proposal$init$_load PROCINLINE:<{
     __tact_load_address INLINECALLDICT
@@ -251,6 +254,7 @@ PROGRAM{
     B{b5ee9c724101010100020000004cacb9cd} B>boc <s PUSHSLICE
     B{b5ee9c724101010100020000004cacb9cd} B>boc <s PUSHSLICE
     B{b5ee9c724101010100020000004cacb9cd} B>boc <s PUSHSLICE
+    B{b5ee9c724101010100020000004cacb9cd} B>boc <s PUSHSLICE
   }>
   $Proposal$_contract_load PROCREF:<{
     c4 PUSH
@@ -262,7 +266,7 @@ PROGRAM{
     SWAP
     IFJMP:<{
       $Proposal$_load INLINECALLDICT
-      1 9 BLKDROP2
+      1 10 BLKDROP2
     }>
     MYADDR
     11 PLDU
@@ -283,7 +287,7 @@ PROGRAM{
     TRUE
     SWAP
     1 STI
-    9 -ROLL
+    10 -ROLL
     $Proposal$_store INLINECALLDICT
     ENDC
     c4 POP
@@ -392,32 +396,14 @@ PROGRAM{
   }>
   $SendParameters$_constructor_bounce_to_value_mode_body_code_data PROCINLINE:<{
   }>
-  $Proposal$_fun_proposalDeployer PROCREF:<{
-    s8 PUSH
+  $ProposalContractState$_constructor_proposalDeployer_id_proposalStartTime_proposalEndTime_proposalSnapshotTime_votingSystem_votingPowerStrategies_title_description_quorum PROCINLINE:<{
   }>
-  $Proposal$_fun_id PROCREF:<{
-    s7 PUSH
-  }>
-  $Proposal$_fun_proposalStartTime PROCREF:<{
-    s6 PUSH
-  }>
-  $Proposal$_fun_proposalEndTime PROCREF:<{
-    s5 PUSH
-  }>
-  $Proposal$_fun_proposalSnapshotTime PROCREF:<{
-    s4 PUSH
-  }>
-  $Proposal$_fun_votingSystem PROCREF:<{
-    s3 PUSH
-  }>
-  $Proposal$_fun_votingPowerStrategies PROCREF:<{
-    s2 PUSH
-  }>
-  $Proposal$_fun_title PROCREF:<{
-    OVER
-  }>
-  $Proposal$_fun_description PROCREF:<{
-    DUP
+  $Proposal$_fun_state PROCREF:<{
+    s9 s8 s7 PUSH3
+    s9 s8 s7 PUSH3
+    s9 s8 s7 PUSH3
+    s9 PUSH
+    $ProposalContractState$_constructor_proposalDeployer_id_proposalStartTime_proposalEndTime_proposalSnapshotTime_votingSystem_votingPowerStrategies_title_description_quorum INLINECALLDICT
   }>
   $Proposal$_fun_forward PROCREF:<{
     PUSHNULL
@@ -451,85 +437,47 @@ PROGRAM{
   $DeployOk$_constructor_queryId PROCINLINE:<{
   }>
   $Proposal$_internal_binary_ProposalInit PROCINLINE:<{
-    s7 POP
-    s7 POP
-    s7 POP
-    s7 POP
+    s8 POP
+    s8 POP
+    s8 POP
+    s8 POP
+    s8 POP
     2977 PUSHINT
-    s0 s10 XCHG
+    s0 s11 XCHG
     0 EQINT
     IF:<{
-      s0 s8 XCHG
+      s0 s9 XCHG
       0 EQINT
     }>ELSE<{
-      s8 POP
+      s9 POP
       FALSE
     }>
     IF:<{
-      s0 s6 XCHG
+      s0 s7 XCHG
       0 EQINT
     }>ELSE<{
-      s6 POP
+      s7 POP
       FALSE
     }>
-    s1 s8 XCHG
+    s1 s9 XCHG
     THROWANYIFNOT
     4429 PUSHINT
     __tact_context_get_sender INLINECALLDICT
-    s10 s(-1) PUXC
+    s11 s(-1) PUXC
     __tact_slice_eq_bits INLINECALLDICT
     THROWANYIFNOT
-    s4 s5 XCHG
+    s5 s6 XCHG
   }>
   $Proposal$_internal_binary_Deploy PROCINLINE:<{
     $DeployOk$_constructor_queryId INLINECALLDICT
     $DeployOk$_store_cell INLINECALLDICT
     $Proposal$_fun_notify INLINECALLDICT
   }>
-  %proposalDeployer PROC:<{
+  %state PROC:<{
     $Proposal$_contract_load INLINECALLDICT
-    $Proposal$_fun_proposalDeployer INLINECALLDICT
-    9 1 BLKDROP2
-  }>
-  %id PROC:<{
-    $Proposal$_contract_load INLINECALLDICT
-    $Proposal$_fun_id INLINECALLDICT
-    9 1 BLKDROP2
-  }>
-  %proposalStartTime PROC:<{
-    $Proposal$_contract_load INLINECALLDICT
-    $Proposal$_fun_proposalStartTime INLINECALLDICT
-    9 1 BLKDROP2
-  }>
-  %proposalEndTime PROC:<{
-    $Proposal$_contract_load INLINECALLDICT
-    $Proposal$_fun_proposalEndTime INLINECALLDICT
-    9 1 BLKDROP2
-  }>
-  %proposalSnapshotTime PROC:<{
-    $Proposal$_contract_load INLINECALLDICT
-    $Proposal$_fun_proposalSnapshotTime INLINECALLDICT
-    9 1 BLKDROP2
-  }>
-  %votingSystem PROC:<{
-    $Proposal$_contract_load INLINECALLDICT
-    $Proposal$_fun_votingSystem INLINECALLDICT
-    9 1 BLKDROP2
-  }>
-  %votingPowerStrategies PROC:<{
-    $Proposal$_contract_load INLINECALLDICT
-    $Proposal$_fun_votingPowerStrategies INLINECALLDICT
-    9 1 BLKDROP2
-  }>
-  %title PROC:<{
-    $Proposal$_contract_load INLINECALLDICT
-    $Proposal$_fun_title INLINECALLDICT
-    9 1 BLKDROP2
-  }>
-  %description PROC:<{
-    $Proposal$_contract_load INLINECALLDICT
-    $Proposal$_fun_description INLINECALLDICT
-    9 1 BLKDROP2
+    $Proposal$_fun_state INLINECALLDICT
+    10 10 BLKDROP2
+    $ProposalContractState$_to_external INLINECALLDICT
   }>
   supported_interfaces PROC:<{
     123515602279859691144772641439386770278 PUSHINT
@@ -539,7 +487,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d6250735872597a5065534a747268475a6652567677587652316577446174673146514e473746586a566f756b} PUSHSLICE
+    x{697066733a2f2f516d6155323971706d383765396966435a594d446e565376324a7667586667714b726d6b397a3734707347514e54} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH
@@ -563,12 +511,12 @@ PROGRAM{
       32 PLDU
     }>
     DUP
-    4087233874 PUSHINT
+    3444668425 PUSHINT
     EQUAL
     IFJMP:<{
       DROP
       $ProposalInit$_load INLINECALLDICT
-      1 7 BLKDROP2
+      1 8 BLKDROP2
       $Proposal$_internal_binary_ProposalInit INLINECALLDICT
       TRUE
     }>
@@ -602,7 +550,7 @@ PROGRAM{
     s0 s2 XCHG
     __tact_context_sender SETGLOB
     $Proposal$_contract_load INLINECALLDICT
-    2 9 BLKSWAP
+    2 10 BLKSWAP
     $Proposal$_contract_router_internal INLINECALLDICT
     130 THROWIFNOT
     $Proposal$_contract_store INLINECALLDICT

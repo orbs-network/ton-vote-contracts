@@ -21,34 +21,9 @@
     return ($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee);
 }
 
-((slice, slice, slice, int, slice, int), slice) $Dao$_fun_registry((slice, slice, slice, int, slice, int) $self) impure inline_ref {
+((slice, slice, slice, int, slice, int), (slice, slice, slice, slice, int, int)) $Dao$_fun_state((slice, slice, slice, int, slice, int) $self) impure inline_ref {
     var (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee)) = $self;
-    return (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee), $self'registry);
-}
-
-((slice, slice, slice, int, slice, int), slice) $Dao$_fun_owner((slice, slice, slice, int, slice, int) $self) impure inline_ref {
-    var (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee)) = $self;
-    return (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee), $self'owner);
-}
-
-((slice, slice, slice, int, slice, int), slice) $Dao$_fun_proposalOwner((slice, slice, slice, int, slice, int) $self) impure inline_ref {
-    var (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee)) = $self;
-    return (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee), $self'proposalOwner);
-}
-
-((slice, slice, slice, int, slice, int), slice) $Dao$_fun_metadata((slice, slice, slice, int, slice, int) $self) impure inline_ref {
-    var (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee)) = $self;
-    return (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee), $self'metadata);
-}
-
-((slice, slice, slice, int, slice, int), int) $Dao$_fun_daoIndex((slice, slice, slice, int, slice, int) $self) impure inline_ref {
-    var (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee)) = $self;
-    return (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee), $self'daoIndex);
-}
-
-((slice, slice, slice, int, slice, int), int) $Dao$_fun_fwdMsgFee((slice, slice, slice, int, slice, int) $self) impure inline_ref {
-    var (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee)) = $self;
-    return (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee), $self'fwdMsgFee);
+    return (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee), $DaoContractState$_constructor_registry_owner_proposalOwner_metadata_daoIndex_fwdMsgFee($self'registry, $self'owner, $self'proposalOwner, $self'metadata, $self'daoIndex, $self'fwdMsgFee));
 }
 
 ;;
@@ -118,40 +93,10 @@
 ;; Get methods of a Contract Dao
 ;;
 
-_ %registry() method_id(102154) {
+_ %state() method_id(77589) {
     var self = $Dao$_contract_load();
-    var res = self~$Dao$_fun_registry();
-    return res;
-}
-
-_ %owner() method_id(83229) {
-    var self = $Dao$_contract_load();
-    var res = self~$Dao$_fun_owner();
-    return res;
-}
-
-_ %proposalOwner() method_id(86890) {
-    var self = $Dao$_contract_load();
-    var res = self~$Dao$_fun_proposalOwner();
-    return res;
-}
-
-_ %metadata() method_id(91827) {
-    var self = $Dao$_contract_load();
-    var res = self~$Dao$_fun_metadata();
-    return res;
-}
-
-_ %daoIndex() method_id(73154) {
-    var self = $Dao$_contract_load();
-    var res = self~$Dao$_fun_daoIndex();
-    return res;
-}
-
-_ %fwdMsgFee() method_id(73548) {
-    var self = $Dao$_contract_load();
-    var res = self~$Dao$_fun_fwdMsgFee();
-    return res;
+    var res = self~$Dao$_fun_state();
+    return $DaoContractState$_to_external(res);
 }
 
 _ supported_interfaces() method_id {
@@ -165,7 +110,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() method_id {
-    return "ipfs://QmfUCwaM2dk59xm28PKSHFR72JyveYvRkqJAa6c62F7Ukf";
+    return "ipfs://QmPwxFYB7WPdUBajKtFvP8m3rQMrXtWaR9ZHnMUP5U3r3i";
 }
 
 _ lazy_deployment_completed() method_id {

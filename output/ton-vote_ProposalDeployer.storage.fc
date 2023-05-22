@@ -57,11 +57,11 @@ cell $DeployOk$_store_cell((int) v) inline {
 
 ;;
 ;; Type: Params
-;; TLB: _ proposalStartTime:uint64 proposalEndTime:uint64 proposalSnapshotTime:uint64 votingSystem:^string votingPowerStrategies:^string title:^string description:^string = Params
+;; TLB: _ proposalStartTime:uint64 proposalEndTime:uint64 proposalSnapshotTime:uint64 votingSystem:^string votingPowerStrategies:^string title:^string description:^string quorum:^string = Params
 ;;
 
-builder $Params$_store(builder build_0, (int, int, int, slice, slice, slice, slice) v) inline_ref {
-    var (v'proposalStartTime, v'proposalEndTime, v'proposalSnapshotTime, v'votingSystem, v'votingPowerStrategies, v'title, v'description) = v;
+builder $Params$_store(builder build_0, (int, int, int, slice, slice, slice, slice, slice) v) inline_ref {
+    var (v'proposalStartTime, v'proposalEndTime, v'proposalSnapshotTime, v'votingSystem, v'votingPowerStrategies, v'title, v'description, v'quorum) = v;
     build_0 = build_0.store_uint(v'proposalStartTime, 64);
     build_0 = build_0.store_uint(v'proposalEndTime, 64);
     build_0 = build_0.store_uint(v'proposalSnapshotTime, 64);
@@ -70,11 +70,12 @@ builder $Params$_store(builder build_0, (int, int, int, slice, slice, slice, sli
     build_0 = build_0.store_ref(begin_cell().store_slice(v'title).end_cell());
     var build_1 = begin_cell();
     build_1 = build_1.store_ref(begin_cell().store_slice(v'description).end_cell());
+    build_1 = build_1.store_ref(begin_cell().store_slice(v'quorum).end_cell());
     build_0 = store_ref(build_0, build_1.end_cell());
     return build_0;
 }
 
-(slice, ((int, int, int, slice, slice, slice, slice))) $Params$_load(slice sc_0) inline_ref {
+(slice, ((int, int, int, slice, slice, slice, slice, slice))) $Params$_load(slice sc_0) inline_ref {
     var v'proposalStartTime = sc_0~load_uint(64);
     var v'proposalEndTime = sc_0~load_uint(64);
     var v'proposalSnapshotTime = sc_0~load_uint(64);
@@ -83,39 +84,40 @@ builder $Params$_store(builder build_0, (int, int, int, slice, slice, slice, sli
     var v'title = sc_0~load_ref().begin_parse();
     slice sc_1 = sc_0~load_ref().begin_parse();
     var v'description = sc_1~load_ref().begin_parse();
-    return (sc_0, (v'proposalStartTime, v'proposalEndTime, v'proposalSnapshotTime, v'votingSystem, v'votingPowerStrategies, v'title, v'description));
+    var v'quorum = sc_1~load_ref().begin_parse();
+    return (sc_0, (v'proposalStartTime, v'proposalEndTime, v'proposalSnapshotTime, v'votingSystem, v'votingPowerStrategies, v'title, v'description, v'quorum));
 }
 
 ;;
-;; Type: CreateProposal
-;; Header: 0x2ab84bd1
-;; TLB: create_proposal#2ab84bd1 body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string} = CreateProposal
+;; Type: DeployAndInitProposal
+;; Header: 0x9be57ef7
+;; TLB: deploy_and_init_proposal#9be57ef7 body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string} = DeployAndInitProposal
 ;;
 
-(slice, (((int, int, int, slice, slice, slice, slice)))) $CreateProposal$_load(slice sc_0) inline {
-    throw_unless(129, sc_0~load_uint(32) == 716721105);
+(slice, (((int, int, int, slice, slice, slice, slice, slice)))) $DeployAndInitProposal$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 2615508727);
     var v'body = sc_0~$Params$_load();
     return (sc_0, (v'body));
 }
 
 ;;
 ;; Type: ProposalInit
-;; Header: 0xf39e3d52
-;; TLB: proposal_init#f39e3d52 body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string} = ProposalInit
+;; Header: 0xcd517809
+;; TLB: proposal_init#cd517809 body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string} = ProposalInit
 ;;
 
-builder $ProposalInit$_store(builder build_0, ((int, int, int, slice, slice, slice, slice)) v) inline {
-    var ((v'body'proposalStartTime, v'body'proposalEndTime, v'body'proposalSnapshotTime, v'body'votingSystem, v'body'votingPowerStrategies, v'body'title, v'body'description)) = v;
-    build_0 = store_uint(build_0, 4087233874, 32);
-    build_0 = $Params$_store(build_0, (v'body'proposalStartTime, v'body'proposalEndTime, v'body'proposalSnapshotTime, v'body'votingSystem, v'body'votingPowerStrategies, v'body'title, v'body'description));
+builder $ProposalInit$_store(builder build_0, ((int, int, int, slice, slice, slice, slice, slice)) v) inline {
+    var ((v'body'proposalStartTime, v'body'proposalEndTime, v'body'proposalSnapshotTime, v'body'votingSystem, v'body'votingPowerStrategies, v'body'title, v'body'description, v'body'quorum)) = v;
+    build_0 = store_uint(build_0, 3444668425, 32);
+    build_0 = $Params$_store(build_0, (v'body'proposalStartTime, v'body'proposalEndTime, v'body'proposalSnapshotTime, v'body'votingSystem, v'body'votingPowerStrategies, v'body'title, v'body'description, v'body'quorum));
     return build_0;
 }
 
-cell $ProposalInit$_store_cell(((int, int, int, slice, slice, slice, slice)) v) inline {
+cell $ProposalInit$_store_cell(((int, int, int, slice, slice, slice, slice, slice)) v) inline {
     return $ProposalInit$_store(begin_cell(), v).end_cell();
 }
 
-(((int, int, int, slice, slice, slice, slice))) $ProposalInit$_constructor_body((int, int, int, slice, slice, slice, slice) body) inline {
+(((int, int, int, slice, slice, slice, slice, slice))) $ProposalInit$_constructor_body((int, int, int, slice, slice, slice, slice, slice) body) inline {
     return (body);
 }
 
