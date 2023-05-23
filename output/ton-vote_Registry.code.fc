@@ -24,6 +24,11 @@
     return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee), $Dao$_init_child(__tact_context_sys, my_address(), $daoIndex));
 }
 
+((int, int, slice, int), (int, int, slice, int)) $Registry$_fun_state((int, int, slice, int) $self) impure inline_ref {
+    var (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee)) = $self;
+    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee), $RegistryContractState$_constructor_registryId_nextDaoId_admin_deployAndInitDaoFee($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee));
+}
+
 ((int, int, slice, int), int) $Registry$_fun_nextDaoId((int, int, slice, int) $self) impure inline_ref {
     var (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee)) = $self;
     return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee), $self'nextDaoId);
@@ -33,21 +38,6 @@
     var (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee)) = $self;
     var ($init'code, $init'data) = ($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee)~$Registry$_fun_getDaoStateInit($daoId);
     return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee), $global_contractAddress(($init'code, $init'data)));
-}
-
-((int, int, slice, int), int) $Registry$_fun_registryId((int, int, slice, int) $self) impure inline_ref {
-    var (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee)) = $self;
-    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee), $self'registryId);
-}
-
-((int, int, slice, int), slice) $Registry$_fun_admin((int, int, slice, int) $self) impure inline_ref {
-    var (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee)) = $self;
-    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee), $self'admin);
-}
-
-((int, int, slice, int), int) $Registry$_fun_deployAndInitDaoFee((int, int, slice, int) $self) impure inline_ref {
-    var (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee)) = $self;
-    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee), $self'deployAndInitDaoFee);
 }
 
 ;;
@@ -102,6 +92,12 @@
 ;; Get methods of a Contract Registry
 ;;
 
+_ %state() method_id(77589) {
+    var self = $Registry$_contract_load();
+    var res = self~$Registry$_fun_state();
+    return $RegistryContractState$_to_external(res);
+}
+
 _ %nextDaoId() method_id(98689) {
     var self = $Registry$_contract_load();
     var res = self~$Registry$_fun_nextDaoId();
@@ -112,24 +108,6 @@ _ %daoAddress(int $$daoId) method_id(115144) {
     int $daoId = $$daoId;
     var self = $Registry$_contract_load();
     var res = self~$Registry$_fun_daoAddress($daoId);
-    return res;
-}
-
-_ %registryId() method_id(78234) {
-    var self = $Registry$_contract_load();
-    var res = self~$Registry$_fun_registryId();
-    return res;
-}
-
-_ %admin() method_id(116046) {
-    var self = $Registry$_contract_load();
-    var res = self~$Registry$_fun_admin();
-    return res;
-}
-
-_ %deployAndInitDaoFee() method_id(103813) {
-    var self = $Registry$_contract_load();
-    var res = self~$Registry$_fun_deployAndInitDaoFee();
     return res;
 }
 
@@ -144,7 +122,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() method_id {
-    return "ipfs://QmNnmm9ug8Tbbiowm1AyhPGXRt1qPdPeTJFFMHazMDqJEv";
+    return "ipfs://QmUWs8oc2b6tt7t5uPkb25oVViFEcfNZQmWKk7gCFWbbeN";
 }
 
 _ lazy_deployment_completed() method_id {

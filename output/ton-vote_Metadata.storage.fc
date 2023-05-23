@@ -53,24 +53,24 @@ cell $DeployOk$_store_cell((int) v) inline {
 
 ;;
 ;; Type: MetadataState
-;; TLB: _ avatar:^string name:^string about:^string website:^string terms:^string telegram:^string github:^string jetton:address nft:address hide:bool = MetadataState
+;; TLB: _ avatar:^string name:^string about:^string website:^string terms:^string telegram:^string github:^string jetton:address nft:address hide:bool dns:^string = MetadataState
 ;;
 
-(slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $MetadataState$_to_external(((slice, slice, slice, slice, slice, slice, slice, slice, slice, int)) v) inline {
-    var (v'avatar, v'name, v'about, v'website, v'terms, v'telegram, v'github, v'jetton, v'nft, v'hide) = v; 
-    return (v'avatar, v'name, v'about, v'website, v'terms, v'telegram, v'github, v'jetton, v'nft, v'hide);
+(slice, slice, slice, slice, slice, slice, slice, slice, slice, int, slice) $MetadataState$_to_external(((slice, slice, slice, slice, slice, slice, slice, slice, slice, int, slice)) v) inline {
+    var (v'avatar, v'name, v'about, v'website, v'terms, v'telegram, v'github, v'jetton, v'nft, v'hide, v'dns) = v; 
+    return (v'avatar, v'name, v'about, v'website, v'terms, v'telegram, v'github, v'jetton, v'nft, v'hide, v'dns);
 }
 
-((slice, slice, slice, slice, slice, slice, slice, slice, slice, int)) $MetadataState$_constructor_avatar_name_about_website_terms_telegram_github_jetton_nft_hide(slice avatar, slice name, slice about, slice website, slice terms, slice telegram, slice github, slice jetton, slice nft, int hide) inline {
-    return (avatar, name, about, website, terms, telegram, github, jetton, nft, hide);
+((slice, slice, slice, slice, slice, slice, slice, slice, slice, int, slice)) $MetadataState$_constructor_avatar_name_about_website_terms_telegram_github_jetton_nft_hide_dns(slice avatar, slice name, slice about, slice website, slice terms, slice telegram, slice github, slice jetton, slice nft, int hide, slice dns) inline {
+    return (avatar, name, about, website, terms, telegram, github, jetton, nft, hide, dns);
 }
 
 ;;
 ;; Type: Metadata
 ;;
 
-builder $Metadata$_store(builder build_0, (slice, slice, slice, slice, slice, slice, slice, slice, slice, int) v) inline {
-    var (v'avatar, v'name, v'about, v'website, v'terms, v'telegram, v'github, v'jetton, v'nft, v'hide) = v;
+builder $Metadata$_store(builder build_0, (slice, slice, slice, slice, slice, slice, slice, slice, slice, int, slice) v) inline {
+    var (v'avatar, v'name, v'about, v'website, v'terms, v'telegram, v'github, v'jetton, v'nft, v'hide, v'dns) = v;
     build_0 = build_0.store_ref(begin_cell().store_slice(v'avatar).end_cell());
     build_0 = build_0.store_ref(begin_cell().store_slice(v'name).end_cell());
     var build_1 = begin_cell();
@@ -83,12 +83,13 @@ builder $Metadata$_store(builder build_0, (slice, slice, slice, slice, slice, sl
     build_2 = __tact_store_address(build_2, v'jetton);
     build_2 = __tact_store_address(build_2, v'nft);
     build_2 = build_2.store_int(v'hide, 1);
+    build_2 = build_2.store_ref(begin_cell().store_slice(v'dns).end_cell());
     build_1 = store_ref(build_1, build_2.end_cell());
     build_0 = store_ref(build_0, build_1.end_cell());
     return build_0;
 }
 
-(slice, ((slice, slice, slice, slice, slice, slice, slice, slice, slice, int))) $Metadata$_load(slice sc_0) inline {
+(slice, ((slice, slice, slice, slice, slice, slice, slice, slice, slice, int, slice))) $Metadata$_load(slice sc_0) inline {
     var v'avatar = sc_0~load_ref().begin_parse();
     var v'name = sc_0~load_ref().begin_parse();
     slice sc_1 = sc_0~load_ref().begin_parse();
@@ -101,10 +102,11 @@ builder $Metadata$_store(builder build_0, (slice, slice, slice, slice, slice, sl
     var v'jetton = sc_2~__tact_load_address();
     var v'nft = sc_2~__tact_load_address();
     var v'hide = sc_2~load_int(1);
-    return (sc_0, (v'avatar, v'name, v'about, v'website, v'terms, v'telegram, v'github, v'jetton, v'nft, v'hide));
+    var v'dns = sc_2~load_ref().begin_parse();
+    return (sc_0, (v'avatar, v'name, v'about, v'website, v'terms, v'telegram, v'github, v'jetton, v'nft, v'hide, v'dns));
 }
 
-(slice, ((slice, slice, slice, slice, slice, slice, slice, slice, slice, int))) $Metadata$init$_load(slice sc_0) inline_ref {
+(slice, ((slice, slice, slice, slice, slice, slice, slice, slice, slice, int, slice))) $Metadata$init$_load(slice sc_0) inline_ref {
     var v'avatar = sc_0~load_ref().begin_parse();
     var v'name = sc_0~load_ref().begin_parse();
     slice sc_1 = sc_0~load_ref().begin_parse();
@@ -117,10 +119,11 @@ builder $Metadata$_store(builder build_0, (slice, slice, slice, slice, slice, sl
     var v'jetton = sc_2~__tact_load_address();
     var v'nft = sc_2~__tact_load_address();
     var v'hide = sc_2~load_int(1);
-    return (sc_0, (v'avatar, v'name, v'about, v'website, v'terms, v'telegram, v'github, v'jetton, v'nft, v'hide));
+    var v'dns = sc_2~load_ref().begin_parse();
+    return (sc_0, (v'avatar, v'name, v'about, v'website, v'terms, v'telegram, v'github, v'jetton, v'nft, v'hide, v'dns));
 }
 
-(slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $Metadata$_contract_load() impure inline_ref {
+(slice, slice, slice, slice, slice, slice, slice, slice, slice, int, slice) $Metadata$_contract_load() impure inline_ref {
     slice $sc = get_data().begin_parse();
     __tact_context_sys = $sc~load_ref();
     int $loaded = $sc~load_int(1);
@@ -129,13 +132,13 @@ builder $Metadata$_store(builder build_0, (slice, slice, slice, slice, slice, sl
     } else {
         ;; Allow only workchain deployments
         throw_unless(137, my_address().preload_uint(11) == 1024);
-        (slice avatar, slice name, slice about, slice website, slice terms, slice telegram, slice github, slice jetton, slice nft, int hide) = $sc~$Metadata$init$_load();
+        (slice avatar, slice name, slice about, slice website, slice terms, slice telegram, slice github, slice jetton, slice nft, int hide, slice dns) = $sc~$Metadata$init$_load();
         $sc.end_parse();
-        return $Metadata$_contract_init(avatar, name, about, website, terms, telegram, github, jetton, nft, hide);
+        return $Metadata$_contract_init(avatar, name, about, website, terms, telegram, github, jetton, nft, hide, dns);
     }
 }
 
-() $Metadata$_contract_store((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) v) impure inline {
+() $Metadata$_contract_store((slice, slice, slice, slice, slice, slice, slice, slice, slice, int, slice) v) impure inline {
     builder b = begin_cell();
     b = b.store_ref(__tact_context_sys);
     b = b.store_int(true, 1);

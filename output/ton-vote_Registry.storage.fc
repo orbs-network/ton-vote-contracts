@@ -121,6 +121,20 @@ cell $DeployOk$_store_cell((int) v) inline {
 }
 
 ;;
+;; Type: RegistryContractState
+;; TLB: _ registryId:uint32 nextDaoId:uint32 admin:address deployAndInitDaoFee:uint64 = RegistryContractState
+;;
+
+(int, int, slice, int) $RegistryContractState$_to_external(((int, int, slice, int)) v) inline {
+    var (v'registryId, v'nextDaoId, v'admin, v'deployAndInitDaoFee) = v; 
+    return (v'registryId, v'nextDaoId, v'admin, v'deployAndInitDaoFee);
+}
+
+((int, int, slice, int)) $RegistryContractState$_constructor_registryId_nextDaoId_admin_deployAndInitDaoFee(int registryId, int nextDaoId, slice admin, int deployAndInitDaoFee) inline {
+    return (registryId, nextDaoId, admin, deployAndInitDaoFee);
+}
+
+;;
 ;; Type: SetFwdMsgFee
 ;; Header: 0xf4f3a602
 ;; TLB: set_fwd_msg_fee#f4f3a602 newFwdMsgFee:uint64 = SetFwdMsgFee

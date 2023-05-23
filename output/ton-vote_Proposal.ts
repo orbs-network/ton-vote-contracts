@@ -650,6 +650,61 @@ function dictValueParserSetRegistryAdmin(): DictionaryValue<SetRegistryAdmin> {
     }
 }
 
+export type RegistryContractState = {
+    $$type: 'RegistryContractState';
+    registryId: bigint;
+    nextDaoId: bigint;
+    admin: Address;
+    deployAndInitDaoFee: bigint;
+}
+
+export function storeRegistryContractState(src: RegistryContractState) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(src.registryId, 32);
+        b_0.storeUint(src.nextDaoId, 32);
+        b_0.storeAddress(src.admin);
+        b_0.storeUint(src.deployAndInitDaoFee, 64);
+    };
+}
+
+export function loadRegistryContractState(slice: Slice) {
+    let sc_0 = slice;
+    let _registryId = sc_0.loadUintBig(32);
+    let _nextDaoId = sc_0.loadUintBig(32);
+    let _admin = sc_0.loadAddress();
+    let _deployAndInitDaoFee = sc_0.loadUintBig(64);
+    return { $$type: 'RegistryContractState' as const, registryId: _registryId, nextDaoId: _nextDaoId, admin: _admin, deployAndInitDaoFee: _deployAndInitDaoFee };
+}
+
+function loadTupleRegistryContractState(source: TupleReader) {
+    let _registryId = source.readBigNumber();
+    let _nextDaoId = source.readBigNumber();
+    let _admin = source.readAddress();
+    let _deployAndInitDaoFee = source.readBigNumber();
+    return { $$type: 'RegistryContractState' as const, registryId: _registryId, nextDaoId: _nextDaoId, admin: _admin, deployAndInitDaoFee: _deployAndInitDaoFee };
+}
+
+function storeTupleRegistryContractState(source: RegistryContractState) {
+    let builder = new TupleBuilder();
+    builder.writeNumber(source.registryId);
+    builder.writeNumber(source.nextDaoId);
+    builder.writeAddress(source.admin);
+    builder.writeNumber(source.deployAndInitDaoFee);
+    return builder.build();
+}
+
+function dictValueParserRegistryContractState(): DictionaryValue<RegistryContractState> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeRegistryContractState(src)).endCell());
+        },
+        parse: (src) => {
+            return loadRegistryContractState(src.loadRef().beginParse());
+        }
+    }
+}
+
 export type SetOwner = {
     $$type: 'SetOwner';
     newOwner: Address;
@@ -1284,6 +1339,7 @@ export type MetadataState = {
     jetton: Address;
     nft: Address;
     hide: boolean;
+    dns: string;
 }
 
 export function storeMetadataState(src: MetadataState) {
@@ -1301,6 +1357,7 @@ export function storeMetadataState(src: MetadataState) {
         b_2.storeAddress(src.jetton);
         b_2.storeAddress(src.nft);
         b_2.storeBit(src.hide);
+        b_2.storeStringRefTail(src.dns);
         b_1.storeRef(b_2.endCell());
         b_0.storeRef(b_1.endCell());
     };
@@ -1320,7 +1377,8 @@ export function loadMetadataState(slice: Slice) {
     let _jetton = sc_2.loadAddress();
     let _nft = sc_2.loadAddress();
     let _hide = sc_2.loadBit();
-    return { $$type: 'MetadataState' as const, avatar: _avatar, name: _name, about: _about, website: _website, terms: _terms, telegram: _telegram, github: _github, jetton: _jetton, nft: _nft, hide: _hide };
+    let _dns = sc_2.loadStringRefTail();
+    return { $$type: 'MetadataState' as const, avatar: _avatar, name: _name, about: _about, website: _website, terms: _terms, telegram: _telegram, github: _github, jetton: _jetton, nft: _nft, hide: _hide, dns: _dns };
 }
 
 function loadTupleMetadataState(source: TupleReader) {
@@ -1334,7 +1392,8 @@ function loadTupleMetadataState(source: TupleReader) {
     let _jetton = source.readAddress();
     let _nft = source.readAddress();
     let _hide = source.readBoolean();
-    return { $$type: 'MetadataState' as const, avatar: _avatar, name: _name, about: _about, website: _website, terms: _terms, telegram: _telegram, github: _github, jetton: _jetton, nft: _nft, hide: _hide };
+    let _dns = source.readString();
+    return { $$type: 'MetadataState' as const, avatar: _avatar, name: _name, about: _about, website: _website, terms: _terms, telegram: _telegram, github: _github, jetton: _jetton, nft: _nft, hide: _hide, dns: _dns };
 }
 
 function storeTupleMetadataState(source: MetadataState) {
@@ -1349,6 +1408,7 @@ function storeTupleMetadataState(source: MetadataState) {
     builder.writeAddress(source.jetton);
     builder.writeAddress(source.nft);
     builder.writeBoolean(source.hide);
+    builder.writeString(source.dns);
     return builder.build();
 }
 
@@ -1378,8 +1438,8 @@ function initProposal_init_args(src: Proposal_init_args) {
 }
 
 async function Proposal_init(proposalDeployer: Address, id: bigint) {
-    const __code = Cell.fromBase64('te6ccgECFQEAA8IAART/APSkE/S88sgLAQIBYgIDA3rQAdDTAwFxsKMB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiFRQUwNvBPhhAvhi2zxVGds88uCCDQQFAgEgCwwCzAGSMH/gcCHXScIflTAg1wsf3iCCEM1ReAm6jr4w0x8BghDNUXgJuvLggds8bBg4ODg4OIELoQvAAJMJwACSOXDikwfAAJI3cOIZ8vSBEU34QlKwxwXy9BBWf+CCEJRqmLa64wIwcAYHAMbI+EMBzH8BygBVkFCpINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiM8WF8sfFcs/E8s/yz/IWM8WyQHMyFjPFskBzMjIUAPPFslYzMhQBM8WyVADzMhYzxbJAczJAczJ7VQAUNM/0z/TP9QB0AHUAdAB1AHQAdQB0NQB0AHUMNAQKBAnECYQJRAkECMBTtMfAYIQlGqYtrry4IHTPwExyAGCEK/5D1dYyx/LP8n4QgFwbds8fwgBOm1tIm6zmVsgbvLQgG8iAZEy4hAkcAMEgEJQI9s8CQHKyHEBygFQBwHKAHABygJQBSDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IjPFlAD+gJwAcpoI26zkX+TJG6z4pczMwFwAcoA4w0hbrOcfwHKAAEgbvLQgAHMlTFwAcoA4skB+wAKAJh/AcoAyHABygBwAcoAJG6znX8BygAEIG7y0IBQBMyWNANwAcoA4iRus51/AcoABCBu8tCAUATMljQDcAHKAOJwAcoAAn8BygACyVjMAhG9eK7Z5tnjZVQNDgIBIBESAcztRNDUAfhj0gABjk76QAEg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIAdMf0z/TP9M/1AHQAdQB0AHUAdDUAdAB1AHQAdQw0BA6EDkQOBA3EDYQNRA0bBrg+CjXCwqDCbry4IkPABRUeYdUeYdUeYcpAVb6QAEg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIAYEBAdcAWQLRAds8EAAacFMAiwiLCIsIiwiLCAC5u70YJwXOw9XSyuex6E7DnWSoUbZoJwndY1LStkfLMi068t/fFiOYJwIFXAG4BnY5TOWDquRyWyw4JwG9Sd75VFlvHHU9PeBVnDJoJwnZdOWrNOy3M6DpZtlGbopIAgFIExQAEbCvu1E0NIAAYAB1sm7jQ1aXBmczovL1FtYVUyOXFwbTg3ZTlpZkNaWU1EblZTdjJKdmdYZmdxS3Jtazl6NzRwc0dRTlSCA=');
-    const __system = Cell.fromBase64('te6cckECFwEAA8wAAQHAAQEFoGJdAgEU/wD0pBP0vPLICwMCAWIMBAIBIAoFAgEgCQYCAUgIBwB1sm7jQ1aXBmczovL1FtYVUyOXFwbTg3ZTlpZkNaWU1EblZTdjJKdmdYZmdxS3Jtazl6NzRwc0dRTlSCAAEbCvu1E0NIAAYAC5u70YJwXOw9XSyuex6E7DnWSoUbZoJwndY1LStkfLMi068t/fFiOYJwIFXAG4BnY5TOWDquRyWyw4JwG9Sd75VFlvHHU9PeBVnDJoJwnZdOWrNOy3M6DpZtlGbopIAhG9eK7Z5tnjZVQUCwAUVHmHVHmHVHmHKQN60AHQ0wMBcbCjAfpAASDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IhUUFMDbwT4YQL4Yts8VRnbPPLgghQODQDGyPhDAcx/AcoAVZBQqSDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IjPFhfLHxXLPxPLP8s/yFjPFskBzMhYzxbJAczIyFADzxbJWMzIUATPFslQA8zIWM8WyQHMyQHMye1UAswBkjB/4HAh10nCH5UwINcLH94gghDNUXgJuo6+MNMfAYIQzVF4Cbry4IHbPGwYODg4ODiBC6ELwACTCcAAkjlw4pMHwACSN3DiGfL0gRFN+EJSsMcF8vQQVn/gghCUapi2uuMCMHATDwFO0x8BghCUapi2uvLggdM/ATHIAYIQr/kPV1jLH8s/yfhCAXBt2zx/EAE6bW0ibrOZWyBu8tCAbyIBkTLiECRwAwSAQlAj2zwRAcrIcQHKAVAHAcoAcAHKAlAFINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiM8WUAP6AnABymgjbrORf5MkbrPilzMzAXABygDjDSFus5x/AcoAASBu8tCAAcyVMXABygDiyQH7ABIAmH8BygDIcAHKAHABygAkbrOdfwHKAAQgbvLQgFAEzJY0A3ABygDiJG6znX8BygAEIG7y0IBQBMyWNANwAcoA4nABygACfwHKAALJWMwAUNM/0z/TP9QB0AHUAdAB1AHQAdQB0NQB0AHUMNAQKBAnECYQJRAkECMBzO1E0NQB+GPSAAGOTvpAASDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IgB0x/TP9M/0z/UAdAB1AHQAdQB0NQB0AHUAdAB1DDQEDoQORA4EDcQNhA1EDRsGuD4KNcLCoMJuvLgiRUBVvpAASDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IgBgQEB1wBZAtEB2zwWABpwUwCLCIsIiwiLCIsIM7sa/Q==');
+    const __code = Cell.fromBase64('te6ccgECFQEAA8IAART/APSkE/S88sgLAQIBYgIDA3rQAdDTAwFxsKMB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiFRQUwNvBPhhAvhi2zxVGds88uCCDQQFAgEgCwwCzAGSMH/gcCHXScIflTAg1wsf3iCCEM1ReAm6jr4w0x8BghDNUXgJuvLggds8bBg4ODg4OIELoQvAAJMJwACSOXDikwfAAJI3cOIZ8vSBEU34QlKwxwXy9BBWf+CCEJRqmLa64wIwcAYHAMbI+EMBzH8BygBVkFCpINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiM8WF8sfFcs/E8s/yz/IWM8WyQHMyFjPFskBzMjIUAPPFslYzMhQBM8WyVADzMhYzxbJAczJAczJ7VQAUNM/0z/TP9QB0AHUAdAB1AHQAdQB0NQB0AHUMNAQKBAnECYQJRAkECMBTtMfAYIQlGqYtrry4IHTPwExyAGCEK/5D1dYyx/LP8n4QgFwbds8fwgBOm1tIm6zmVsgbvLQgG8iAZEy4hAkcAMEgEJQI9s8CQHKyHEBygFQBwHKAHABygJQBSDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IjPFlAD+gJwAcpoI26zkX+TJG6z4pczMwFwAcoA4w0hbrOcfwHKAAEgbvLQgAHMlTFwAcoA4skB+wAKAJh/AcoAyHABygBwAcoAJG6znX8BygAEIG7y0IBQBMyWNANwAcoA4iRus51/AcoABCBu8tCAUATMljQDcAHKAOJwAcoAAn8BygACyVjMAhG9eK7Z5tnjZVQNDgIBIBESAcztRNDUAfhj0gABjk76QAEg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIAdMf0z/TP9M/1AHQAdQB0AHUAdDUAdAB1AHQAdQw0BA6EDkQOBA3EDYQNRA0bBrg+CjXCwqDCbry4IkPABRUeYdUeYdUeYcpAVb6QAEg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIAYEBAdcAWQLRAds8EAAacFMAiwiLCIsIiwiLCAC5u70YJwXOw9XSyuex6E7DnWSoUbZoJwndY1LStkfLMi068t/fFiOYJwIFXAG4BnY5TOWDquRyWyw4JwG9Sd75VFlvHHU9PeBVnDJoJwnZdOWrNOy3M6DpZtlGbopIAgFIExQAEbCvu1E0NIAAYAB1sm7jQ1aXBmczovL1FtYVhxeVBwSFpqR1diMWtZRHVEWW9GM3VoOFRRYUtMRmFBb0hjaVRCaGVQY0uCA=');
+    const __system = Cell.fromBase64('te6cckECFwEAA8wAAQHAAQEFoGJdAgEU/wD0pBP0vPLICwMCAWIMBAIBIAoFAgEgCQYCAUgIBwB1sm7jQ1aXBmczovL1FtYVhxeVBwSFpqR1diMWtZRHVEWW9GM3VoOFRRYUtMRmFBb0hjaVRCaGVQY0uCAAEbCvu1E0NIAAYAC5u70YJwXOw9XSyuex6E7DnWSoUbZoJwndY1LStkfLMi068t/fFiOYJwIFXAG4BnY5TOWDquRyWyw4JwG9Sd75VFlvHHU9PeBVnDJoJwnZdOWrNOy3M6DpZtlGbopIAhG9eK7Z5tnjZVQUCwAUVHmHVHmHVHmHKQN60AHQ0wMBcbCjAfpAASDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IhUUFMDbwT4YQL4Yts8VRnbPPLgghQODQDGyPhDAcx/AcoAVZBQqSDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IjPFhfLHxXLPxPLP8s/yFjPFskBzMhYzxbJAczIyFADzxbJWMzIUATPFslQA8zIWM8WyQHMyQHMye1UAswBkjB/4HAh10nCH5UwINcLH94gghDNUXgJuo6+MNMfAYIQzVF4Cbry4IHbPGwYODg4ODiBC6ELwACTCcAAkjlw4pMHwACSN3DiGfL0gRFN+EJSsMcF8vQQVn/gghCUapi2uuMCMHATDwFO0x8BghCUapi2uvLggdM/ATHIAYIQr/kPV1jLH8s/yfhCAXBt2zx/EAE6bW0ibrOZWyBu8tCAbyIBkTLiECRwAwSAQlAj2zwRAcrIcQHKAVAHAcoAcAHKAlAFINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiM8WUAP6AnABymgjbrORf5MkbrPilzMzAXABygDjDSFus5x/AcoAASBu8tCAAcyVMXABygDiyQH7ABIAmH8BygDIcAHKAHABygAkbrOdfwHKAAQgbvLQgFAEzJY0A3ABygDiJG6znX8BygAEIG7y0IBQBMyWNANwAcoA4nABygACfwHKAALJWMwAUNM/0z/TP9QB0AHUAdAB1AHQAdQB0NQB0AHUMNAQKBAnECYQJRAkECMBzO1E0NQB+GPSAAGOTvpAASDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IgB0x/TP9M/0z/UAdAB1AHQAdQB0NQB0AHUAdAB1DDQEDoQORA4EDcQNhA1EDRsGuD4KNcLCoMJuvLgiRUBVvpAASDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IgBgQEB1wBZAtEB2zwWABpwUwCLCIsIiwiLCIsI5adlCA==');
     let builder = beginCell();
     builder.storeRef(__system);
     builder.storeUint(0, 1);
@@ -1437,6 +1497,7 @@ const Proposal_types: ABIType[] = [
     {"name":"SetDeployAndInitDaoFee","header":2828439833,"fields":[{"name":"newDeployAndInitDaoFee","type":{"kind":"simple","type":"uint","optional":false,"format":64}}]},
     {"name":"SendToDaoSetFwdMsgFee","header":1477819782,"fields":[{"name":"daoId","type":{"kind":"simple","type":"uint","optional":false,"format":32}},{"name":"newFwdMsgFee","type":{"kind":"simple","type":"uint","optional":false,"format":64}}]},
     {"name":"SetRegistryAdmin","header":3335943114,"fields":[{"name":"newAdmin","type":{"kind":"simple","type":"address","optional":false}}]},
+    {"name":"RegistryContractState","header":null,"fields":[{"name":"registryId","type":{"kind":"simple","type":"uint","optional":false,"format":32}},{"name":"nextDaoId","type":{"kind":"simple","type":"uint","optional":false,"format":32}},{"name":"admin","type":{"kind":"simple","type":"address","optional":false}},{"name":"deployAndInitDaoFee","type":{"kind":"simple","type":"uint","optional":false,"format":64}}]},
     {"name":"SetOwner","header":3266583875,"fields":[{"name":"newOwner","type":{"kind":"simple","type":"address","optional":false}}]},
     {"name":"SetProposalOwner","header":3504586358,"fields":[{"name":"newProposalOwner","type":{"kind":"simple","type":"address","optional":false}}]},
     {"name":"SetFwdMsgFee","header":4109608450,"fields":[{"name":"newFwdMsgFee","type":{"kind":"simple","type":"uint","optional":false,"format":64}}]},
@@ -1449,7 +1510,7 @@ const Proposal_types: ABIType[] = [
     {"name":"Params","header":null,"fields":[{"name":"proposalStartTime","type":{"kind":"simple","type":"uint","optional":false,"format":64}},{"name":"proposalEndTime","type":{"kind":"simple","type":"uint","optional":false,"format":64}},{"name":"proposalSnapshotTime","type":{"kind":"simple","type":"uint","optional":false,"format":64}},{"name":"votingSystem","type":{"kind":"simple","type":"string","optional":false}},{"name":"votingPowerStrategies","type":{"kind":"simple","type":"string","optional":false}},{"name":"title","type":{"kind":"simple","type":"string","optional":false}},{"name":"description","type":{"kind":"simple","type":"string","optional":false}},{"name":"quorum","type":{"kind":"simple","type":"string","optional":false}}]},
     {"name":"ProposalInit","header":3444668425,"fields":[{"name":"body","type":{"kind":"simple","type":"Params","optional":false}}]},
     {"name":"ProposalContractState","header":null,"fields":[{"name":"proposalDeployer","type":{"kind":"simple","type":"address","optional":false}},{"name":"id","type":{"kind":"simple","type":"uint","optional":false,"format":32}},{"name":"proposalStartTime","type":{"kind":"simple","type":"uint","optional":false,"format":64}},{"name":"proposalEndTime","type":{"kind":"simple","type":"uint","optional":false,"format":64}},{"name":"proposalSnapshotTime","type":{"kind":"simple","type":"uint","optional":false,"format":64}},{"name":"votingSystem","type":{"kind":"simple","type":"string","optional":false}},{"name":"votingPowerStrategies","type":{"kind":"simple","type":"string","optional":false}},{"name":"title","type":{"kind":"simple","type":"string","optional":false}},{"name":"description","type":{"kind":"simple","type":"string","optional":false}},{"name":"quorum","type":{"kind":"simple","type":"string","optional":false}}]},
-    {"name":"MetadataState","header":null,"fields":[{"name":"avatar","type":{"kind":"simple","type":"string","optional":false}},{"name":"name","type":{"kind":"simple","type":"string","optional":false}},{"name":"about","type":{"kind":"simple","type":"string","optional":false}},{"name":"website","type":{"kind":"simple","type":"string","optional":false}},{"name":"terms","type":{"kind":"simple","type":"string","optional":false}},{"name":"telegram","type":{"kind":"simple","type":"string","optional":false}},{"name":"github","type":{"kind":"simple","type":"string","optional":false}},{"name":"jetton","type":{"kind":"simple","type":"address","optional":false}},{"name":"nft","type":{"kind":"simple","type":"address","optional":false}},{"name":"hide","type":{"kind":"simple","type":"bool","optional":false}}]},
+    {"name":"MetadataState","header":null,"fields":[{"name":"avatar","type":{"kind":"simple","type":"string","optional":false}},{"name":"name","type":{"kind":"simple","type":"string","optional":false}},{"name":"about","type":{"kind":"simple","type":"string","optional":false}},{"name":"website","type":{"kind":"simple","type":"string","optional":false}},{"name":"terms","type":{"kind":"simple","type":"string","optional":false}},{"name":"telegram","type":{"kind":"simple","type":"string","optional":false}},{"name":"github","type":{"kind":"simple","type":"string","optional":false}},{"name":"jetton","type":{"kind":"simple","type":"address","optional":false}},{"name":"nft","type":{"kind":"simple","type":"address","optional":false}},{"name":"hide","type":{"kind":"simple","type":"bool","optional":false}},{"name":"dns","type":{"kind":"simple","type":"string","optional":false}}]},
 ]
 
 const Proposal_getters: ABIGetter[] = [

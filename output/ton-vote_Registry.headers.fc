@@ -87,6 +87,9 @@ builder $Registry$_store(builder build_0, (int, int, slice, int) v) inline;
 ;; $Context$_get_value
 _ $Context$_get_value((int, slice, int, slice) v) inline;
 
+;; $RegistryContractState$_to_external
+(int, int, slice, int) $RegistryContractState$_to_external(((int, int, slice, int)) v) inline;
+
 ;; $Dao$init$_store
 builder $Dao$init$_store(builder build_0, (slice, int) v) inline;
 
@@ -117,20 +120,17 @@ slice $global_contractAddress((cell, cell) $s) impure inline;
 ;; $Registry$_fun_getDaoStateInit
 ((int, int, slice, int), (cell, cell)) $Registry$_fun_getDaoStateInit((int, int, slice, int) $self, int $daoIndex) impure inline_ref;
 
+;; $RegistryContractState$_constructor_registryId_nextDaoId_admin_deployAndInitDaoFee
+((int, int, slice, int)) $RegistryContractState$_constructor_registryId_nextDaoId_admin_deployAndInitDaoFee(int registryId, int nextDaoId, slice admin, int deployAndInitDaoFee) inline;
+
+;; $Registry$_fun_state
+((int, int, slice, int), (int, int, slice, int)) $Registry$_fun_state((int, int, slice, int) $self) impure inline_ref;
+
 ;; $Registry$_fun_nextDaoId
 ((int, int, slice, int), int) $Registry$_fun_nextDaoId((int, int, slice, int) $self) impure inline_ref;
 
 ;; $Registry$_fun_daoAddress
 ((int, int, slice, int), slice) $Registry$_fun_daoAddress((int, int, slice, int) $self, int $daoId) impure inline_ref;
-
-;; $Registry$_fun_registryId
-((int, int, slice, int), int) $Registry$_fun_registryId((int, int, slice, int) $self) impure inline_ref;
-
-;; $Registry$_fun_admin
-((int, int, slice, int), slice) $Registry$_fun_admin((int, int, slice, int) $self) impure inline_ref;
-
-;; $Registry$_fun_deployAndInitDaoFee
-((int, int, slice, int), int) $Registry$_fun_deployAndInitDaoFee((int, int, slice, int) $self) impure inline_ref;
 
 ;; $Registry$_fun_forward
 ((int, int, slice, int), ()) $Registry$_fun_forward((int, int, slice, int) $self, slice $to, cell $body, int $bounce, tuple $init) impure inline_ref;

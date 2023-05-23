@@ -27,6 +27,13 @@ message SetRegistryAdmin {
     newAdmin: Address;
 }
 
+struct RegistryContractState {
+    registryId: Int as uint32;
+    nextDaoId: Int as uint32;
+    admin: Address;
+    deployAndInitDaoFee: Int as uint64;
+}
+
 // ---------------------------------------
 // Dao
 // ---------------------------------------
@@ -121,5 +128,6 @@ struct MetadataState {
     github: String;
     jetton: Address;
     nft: Address;
-    hide: Bool;    
+    hide: Bool; 
+    dns: String;   
 }

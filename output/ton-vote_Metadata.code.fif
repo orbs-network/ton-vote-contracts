@@ -19,7 +19,7 @@ PROGRAM{
   DECLPROC $Metadata$_contract_load
   DECLPROC $Metadata$_contract_store
   DECLPROC $global_send
-  DECLPROC $MetadataState$_constructor_avatar_name_about_website_terms_telegram_github_jetton_nft_hide
+  DECLPROC $MetadataState$_constructor_avatar_name_about_website_terms_telegram_github_jetton_nft_hide_dns
   DECLPROC $Metadata$_fun_state
   DECLPROC $SendParameters$_constructor_bounce_to_value_mode_body_code_data
   DECLPROC $Metadata$_fun_forward
@@ -104,11 +104,18 @@ PROGRAM{
   }>
   $Metadata$_store PROCINLINE:<{
     NEWC
-    s0 s10 XCHG2
+    s0 s11 XCHG2
     STSLICER
     ENDC
-    s0 s10 XCHG2
+    s0 s11 XCHG2
     STREF
+    NEWC
+    s0 s9 XCHG2
+    STSLICER
+    ENDC
+    s0 s8 XCHG2
+    STREF
+    NEWC
     NEWC
     s0 s8 XCHG2
     STSLICER
@@ -116,18 +123,18 @@ PROGRAM{
     s0 s7 XCHG2
     STREF
     NEWC
-    NEWC
-    s0 s7 XCHG2
-    STSLICER
-    ENDC
     s0 s6 XCHG2
-    STREF
-    NEWC
+    STSLICER
+    ENDC
     s0 s5 XCHG2
-    STSLICER
-    ENDC
+    STREF
+    NEWC
     s0 s4 XCHG2
+    STSLICER
+    ENDC
+    s0 s3 XCHG2
     STREF
+    NEWC
     NEWC
     s0 s3 XCHG2
     STSLICER
@@ -135,24 +142,23 @@ PROGRAM{
     ROT
     STREF
     NEWC
-    NEWC
     s0 s3 XCHG2
     STSLICER
     ENDC
     ROT
     STREF
-    NEWC
-    s0 s3 XCHG2
-    STSLICER
-    ENDC
     ROT
-    STREF
+    __tact_store_address INLINECALLDICT
     s0 s3 XCHG2
     __tact_store_address INLINECALLDICT
-    s0 s4 XCHG2
-    __tact_store_address INLINECALLDICT
-    s1 s2 XCHG
+    s1 s4 XCHG
     1 STI
+    NEWC
+    s0 s3 XCHG2
+    STSLICER
+    ENDC
+    ROT
+    STREF
     ENDC
     SWAP
     STREF
@@ -200,9 +206,11 @@ PROGRAM{
     __tact_load_address INLINECALLDICT
     SWAP
     1 LDI
+    LDREF
     DROP
-    s8 s10 XCHG
-    s8 s9 XCHG
+    CTOS
+    s9 s11 XCHG
+    s9 s10 XCHG
   }>
   $StateInit$_not_null PROCINLINE:<{
     DUP
@@ -252,9 +260,11 @@ PROGRAM{
     __tact_load_address INLINECALLDICT
     SWAP
     1 LDI
+    LDREF
     DROP
-    s8 s10 XCHG
-    s8 s9 XCHG
+    CTOS
+    s9 s11 XCHG
+    s9 s10 XCHG
   }>
   $Metadata$_contract_init PROCREF:<{
   }>
@@ -268,7 +278,7 @@ PROGRAM{
     SWAP
     IFJMP:<{
       $Metadata$_load INLINECALLDICT
-      1 10 BLKDROP2
+      1 11 BLKDROP2
     }>
     MYADDR
     11 PLDU
@@ -276,9 +286,9 @@ PROGRAM{
     EQUAL
     137 THROWIFNOT
     $Metadata$init$_load INLINECALLDICT
-    s0 s10 XCHG
+    s0 s11 XCHG
     ENDS
-    9 ROLL
+    10 ROLL
     $Metadata$_contract_init INLINECALLDICT
   }>
   $Metadata$_contract_store PROCINLINE:<{
@@ -289,7 +299,7 @@ PROGRAM{
     TRUE
     SWAP
     1 STI
-    10 -ROLL
+    11 -ROLL
     $Metadata$_store INLINECALLDICT
     ENDC
     c4 POP
@@ -396,14 +406,14 @@ PROGRAM{
     SWAP
     SENDRAWMSG
   }>
-  $MetadataState$_constructor_avatar_name_about_website_terms_telegram_github_jetton_nft_hide PROCINLINE:<{
+  $MetadataState$_constructor_avatar_name_about_website_terms_telegram_github_jetton_nft_hide_dns PROCINLINE:<{
   }>
   $Metadata$_fun_state PROCREF:<{
-    s9 s8 s7 PUSH3
-    s9 s8 s7 PUSH3
-    s9 s8 s7 PUSH3
-    s9 PUSH
-    $MetadataState$_constructor_avatar_name_about_website_terms_telegram_github_jetton_nft_hide INLINECALLDICT
+    s10 s9 s8 PUSH3
+    s10 s9 s8 PUSH3
+    s10 s9 s8 PUSH3
+    s10 s9 PUSH2
+    $MetadataState$_constructor_avatar_name_about_website_terms_telegram_github_jetton_nft_hide_dns INLINECALLDICT
   }>
   $SendParameters$_constructor_bounce_to_value_mode_body_code_data PROCINLINE:<{
   }>
@@ -446,7 +456,7 @@ PROGRAM{
   %state PROC:<{
     $Metadata$_contract_load INLINECALLDICT
     $Metadata$_fun_state INLINECALLDICT
-    10 10 BLKDROP2
+    11 11 BLKDROP2
     $MetadataState$_to_external INLINECALLDICT
   }>
   supported_interfaces PROC:<{
@@ -457,7 +467,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d5859436834786a554d57746173795859466f364762627258627664646f545136714654336f706933476f4e48} PUSHSLICE
+    x{697066733a2f2f516d6237576e467a31386569396a796d4e7770475362416f58445a6e575173506a5963656464427231345a61384c} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH
@@ -510,7 +520,7 @@ PROGRAM{
     s0 s2 XCHG
     __tact_context_sender SETGLOB
     $Metadata$_contract_load INLINECALLDICT
-    2 10 BLKSWAP
+    2 11 BLKSWAP
     $Metadata$_contract_router_internal INLINECALLDICT
     130 THROWIFNOT
     $Metadata$_contract_store INLINECALLDICT

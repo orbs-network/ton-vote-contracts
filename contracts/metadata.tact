@@ -14,9 +14,10 @@ contract Metadata with Deployable {
     jetton: Address;
     nft: Address;
     hide: Bool;
+    dns: String;
 
     init(avatar: String, name: String, about: String, website: String, terms: String, telegram: String, github: String, 
-        jetton: Address, nft: Address, hide: Bool) {
+        jetton: Address, nft: Address, hide: Bool, dns: String) {
         self.avatar = avatar;
         self.name = name;
         self.about = about;
@@ -27,6 +28,7 @@ contract Metadata with Deployable {
         self.jetton = jetton;
         self.nft = nft;
         self.hide = hide;
+        self.dns = dns;
     }
 
     get fun state(): MetadataState {
@@ -40,7 +42,8 @@ contract Metadata with Deployable {
             github: self.github,
             jetton: self.jetton,
             nft: self.nft,
-            hide: self.hide           
+            hide: self.hide ,
+            dns: self.dns          
         };
     }
 }

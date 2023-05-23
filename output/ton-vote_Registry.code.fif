@@ -27,6 +27,7 @@ PROGRAM{
   DECLPROC $Registry$_load
   DECLPROC $StateInit$_not_null
   DECLPROC $Context$_get_value
+  DECLPROC $RegistryContractState$_to_external
   DECLPROC $Dao$init$_store
   DECLPROC $Registry$init$_load
   DECLPROC $Registry$_contract_init
@@ -37,11 +38,10 @@ PROGRAM{
   DECLPROC $Dao$_init_child
   DECLPROC $SendParameters$_constructor_bounce_to_value_mode_body_code_data
   DECLPROC $Registry$_fun_getDaoStateInit
+  DECLPROC $RegistryContractState$_constructor_registryId_nextDaoId_admin_deployAndInitDaoFee
+  DECLPROC $Registry$_fun_state
   DECLPROC $Registry$_fun_nextDaoId
   DECLPROC $Registry$_fun_daoAddress
-  DECLPROC $Registry$_fun_registryId
-  DECLPROC $Registry$_fun_admin
-  DECLPROC $Registry$_fun_deployAndInitDaoFee
   DECLPROC $Registry$_fun_forward
   DECLPROC $Registry$_fun_notify
   DECLPROC $SendParameters$_constructor_to_value_bounce_mode_body_code_data
@@ -54,11 +54,9 @@ PROGRAM{
   DECLPROC $Registry$_internal_binary_SendToDaoSetFwdMsgFee
   DECLPROC $Registry$_internal_binary_SetRegistryAdmin
   DECLPROC $Registry$_internal_binary_Deploy
+  77589 DECLMETHOD %state
   98689 DECLMETHOD %nextDaoId
   115144 DECLMETHOD %daoAddress
-  78234 DECLMETHOD %registryId
-  116046 DECLMETHOD %admin
-  103813 DECLMETHOD %deployAndInitDaoFee
   113617 DECLMETHOD supported_interfaces
   121275 DECLMETHOD get_abi_ipfs
   115390 DECLMETHOD lazy_deployment_completed
@@ -277,6 +275,8 @@ PROGRAM{
     s1 s3 XCHG
     3 BLKDROP
   }>
+  $RegistryContractState$_to_external PROCINLINE:<{
+  }>
   $Dao$init$_store PROCINLINE:<{
     -ROT
     __tact_store_address INLINECALLDICT
@@ -471,21 +471,19 @@ PROGRAM{
     ROT
     $Dao$_init_child INLINECALLDICT
   }>
+  $RegistryContractState$_constructor_registryId_nextDaoId_admin_deployAndInitDaoFee PROCINLINE:<{
+  }>
+  $Registry$_fun_state PROCREF:<{
+    s3 s2 s1 PUSH3
+    s3 PUSH
+    $RegistryContractState$_constructor_registryId_nextDaoId_admin_deployAndInitDaoFee INLINECALLDICT
+  }>
   $Registry$_fun_nextDaoId PROCREF:<{
     s2 PUSH
   }>
   $Registry$_fun_daoAddress PROCREF:<{
     $Registry$_fun_getDaoStateInit INLINECALLDICT
     $global_contractAddress INLINECALLDICT
-  }>
-  $Registry$_fun_registryId PROCREF:<{
-    s3 PUSH
-  }>
-  $Registry$_fun_admin PROCREF:<{
-    OVER
-  }>
-  $Registry$_fun_deployAndInitDaoFee PROCREF:<{
-    DUP
   }>
   $Registry$_fun_forward PROCREF:<{
     PUSHNULL
@@ -617,6 +615,12 @@ PROGRAM{
     $DeployOk$_store_cell INLINECALLDICT
     $Registry$_fun_notify INLINECALLDICT
   }>
+  %state PROC:<{
+    $Registry$_contract_load INLINECALLDICT
+    $Registry$_fun_state INLINECALLDICT
+    4 4 BLKDROP2
+    $RegistryContractState$_to_external INLINECALLDICT
+  }>
   %nextDaoId PROC:<{
     $Registry$_contract_load INLINECALLDICT
     $Registry$_fun_nextDaoId INLINECALLDICT
@@ -628,21 +632,6 @@ PROGRAM{
     $Registry$_fun_daoAddress INLINECALLDICT
     4 1 BLKDROP2
   }>
-  %registryId PROC:<{
-    $Registry$_contract_load INLINECALLDICT
-    $Registry$_fun_registryId INLINECALLDICT
-    4 1 BLKDROP2
-  }>
-  %admin PROC:<{
-    $Registry$_contract_load INLINECALLDICT
-    $Registry$_fun_admin INLINECALLDICT
-    4 1 BLKDROP2
-  }>
-  %deployAndInitDaoFee PROC:<{
-    $Registry$_contract_load INLINECALLDICT
-    $Registry$_fun_deployAndInitDaoFee INLINECALLDICT
-    4 1 BLKDROP2
-  }>
   supported_interfaces PROC:<{
     123515602279859691144772641439386770278 PUSHINT
     209801025412363888721030803524359905849 PUSHINT
@@ -651,7 +640,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d4e6e6d6d39756738546262696f776d314179685047585274317150645065544a46464d48617a4d44714a4576} PUSHSLICE
+    x{697066733a2f2f516d555773386f63326236747437743575506b6232356f565669464563664e5a516d574b6b37674346576262654e} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH

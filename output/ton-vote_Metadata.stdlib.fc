@@ -85,8 +85,8 @@ forall X0, X1 -> (X0, X1) __tact_tuple_destroy_2(tuple v) asm "2 UNTUPLE";
     send_raw_message($c, $params'mode);
 }
 
-((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), ()) $Metadata$_fun_forward((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self, slice $to, cell $body, int $bounce, tuple $init) impure inline_ref {
-    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
+((slice, slice, slice, slice, slice, slice, slice, slice, slice, int, slice), ()) $Metadata$_fun_forward((slice, slice, slice, slice, slice, slice, slice, slice, slice, int, slice) $self, slice $to, cell $body, int $bounce, tuple $init) impure inline_ref {
+    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide, $self'dns)) = $self;
     var ($init) = $init;
     cell $code = null();
     cell $data = null();
@@ -102,15 +102,15 @@ forall X0, X1 -> (X0, X1) __tact_tuple_destroy_2(tuple v) asm "2 UNTUPLE";
         if (($balanceBeforeMessage < 0)) {
             raw_reserve(0, 0);
             $global_send($SendParameters$_constructor_bounce_to_value_mode_body_code_data($bounce, $to, 0, (128 + 2), $body, $code, $data));
-            return (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide), ());
+            return (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide, $self'dns), ());
         }
     }
     $global_send($SendParameters$_constructor_bounce_to_value_mode_body_code_data($bounce, $to, 0, (64 + 2), $body, $code, $data));
-    return (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide), ());
+    return (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide, $self'dns), ());
 }
 
-((slice, slice, slice, slice, slice, slice, slice, slice, slice, int), ()) $Metadata$_fun_notify((slice, slice, slice, slice, slice, slice, slice, slice, slice, int) $self, cell $body) impure inline {
-    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)) = $self;
-    ($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide)~$Metadata$_fun_forward(__tact_context_get_sender(), $body, false, null());
-    return (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide), ());
+((slice, slice, slice, slice, slice, slice, slice, slice, slice, int, slice), ()) $Metadata$_fun_notify((slice, slice, slice, slice, slice, slice, slice, slice, slice, int, slice) $self, cell $body) impure inline {
+    var (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide, $self'dns)) = $self;
+    ($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide, $self'dns)~$Metadata$_fun_forward(__tact_context_get_sender(), $body, false, null());
+    return (($self'avatar, $self'name, $self'about, $self'website, $self'terms, $self'telegram, $self'github, $self'jetton, $self'nft, $self'hide, $self'dns), ());
 }

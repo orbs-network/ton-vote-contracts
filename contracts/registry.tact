@@ -68,6 +68,15 @@ contract Registry with Deployable {
         return initOf Dao(myAddress(), daoIndex);
     }
 
+    get fun state(): RegistryContractState {
+        return RegistryContractState {
+            registryId: self.registryId,
+            nextDaoId: self.nextDaoId,
+            admin: self.admin,
+            deployAndInitDaoFee: self.deployAndInitDaoFee
+        };
+    }
+
     get fun nextDaoId(): Int {
         return self.nextDaoId;
     }
@@ -76,17 +85,4 @@ contract Registry with Deployable {
         let init: StateInit = self.getDaoStateInit(daoId);
         return contractAddress(init);
     }
-
-    get fun registryId(): Int {
-        return self.registryId;
-    }
-
-    get fun admin(): Address {
-        return self.admin;
-    }
-
-    get fun deployAndInitDaoFee(): Int {
-        return self.deployAndInitDaoFee;
-    }
-
 }
