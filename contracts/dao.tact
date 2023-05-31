@@ -1,7 +1,6 @@
 import "@stdlib/deploy";
 import "@stdlib/ownable";
 import "./messages/dao-messages";
-import "./proposal";
 
 
 contract Dao with Deployable {

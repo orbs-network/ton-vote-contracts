@@ -3,7 +3,7 @@ Contract: Registry
 BOC Size: 1657 bytes
 
 # Types
-Total Types: 25
+Total Types: 21
 
 ## StateInit
 TLB: `_ code:^cell data:^cell = StateInit`
@@ -88,22 +88,6 @@ Signature: `DaoInit{owner:address,proposalOwner:address,metadata:address}`
 ## DaoContractState
 TLB: `_ registry:address owner:address proposalOwner:address metadata:address daoIndex:uint32 fwdMsgFee:uint64 = DaoContractState`
 Signature: `DaoContractState{registry:address,owner:address,proposalOwner:address,metadata:address,daoIndex:uint32,fwdMsgFee:uint64}`
-
-## Params
-TLB: `_ proposalStartTime:uint64 proposalEndTime:uint64 proposalSnapshotTime:uint64 votingSystem:^string votingPowerStrategies:^string title:^string description:^string quorum:^string = Params`
-Signature: `Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string}`
-
-## ProposalInit
-TLB: `proposal_init#cd517809 body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string} = ProposalInit`
-Signature: `ProposalInit{body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string}}`
-
-## Vote
-TLB: `vote#7c420ea2 comment:^string = Vote`
-Signature: `Vote{comment:^string}`
-
-## ProposalContractState
-TLB: `_ proposalDeployer:address id:uint32 proposalStartTime:uint64 proposalEndTime:uint64 proposalSnapshotTime:uint64 votingSystem:^string votingPowerStrategies:^string title:^string description:^string quorum:^string = ProposalContractState`
-Signature: `ProposalContractState{proposalDeployer:address,id:uint32,proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string}`
 
 # Get Methods
 Total Get Methods: 3

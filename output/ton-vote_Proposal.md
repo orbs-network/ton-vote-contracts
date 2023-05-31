@@ -3,7 +3,7 @@ Contract: Proposal
 BOC Size: 1006 bytes
 
 # Types
-Total Types: 25
+Total Types: 10
 
 ## StateInit
 TLB: `_ code:^cell data:^cell = StateInit`
@@ -28,66 +28,6 @@ Signature: `DeployOk{queryId:uint64}`
 ## FactoryDeploy
 TLB: `factory_deploy#6d0ff13b queryId:uint64 cashback:address = FactoryDeploy`
 Signature: `FactoryDeploy{queryId:uint64,cashback:address}`
-
-## ChangeOwner
-TLB: `change_owner#819dbe99 queryId:uint64 newOwner:address = ChangeOwner`
-Signature: `ChangeOwner{queryId:uint64,newOwner:address}`
-
-## ChangeOwnerOk
-TLB: `change_owner_ok#327b2b4a queryId:uint64 newOwner:address = ChangeOwnerOk`
-Signature: `ChangeOwnerOk{queryId:uint64,newOwner:address}`
-
-## DeployAndInitDao
-TLB: `deploy_and_init_dao#c95b9b64 owner:address proposalOwner:address metadata:address = DeployAndInitDao`
-Signature: `DeployAndInitDao{owner:address,proposalOwner:address,metadata:address}`
-
-## SendDaoInit
-TLB: `send_dao_init#c8b94bbb owner:address proposalOwner:address metadata:address = SendDaoInit`
-Signature: `SendDaoInit{owner:address,proposalOwner:address,metadata:address}`
-
-## SetDeployAndInitDaoFee
-TLB: `set_deploy_and_init_dao_fee#a8969119 newDeployAndInitDaoFee:uint64 = SetDeployAndInitDaoFee`
-Signature: `SetDeployAndInitDaoFee{newDeployAndInitDaoFee:uint64}`
-
-## SendToDaoSetFwdMsgFee
-TLB: `send_to_dao_set_fwd_msg_fee#5815bd86 daoId:uint32 newFwdMsgFee:uint64 = SendToDaoSetFwdMsgFee`
-Signature: `SendToDaoSetFwdMsgFee{daoId:uint32,newFwdMsgFee:uint64}`
-
-## SetRegistryAdmin
-TLB: `set_registry_admin#c6d673ca newAdmin:address = SetRegistryAdmin`
-Signature: `SetRegistryAdmin{newAdmin:address}`
-
-## RegistryContractState
-TLB: `_ registryId:uint32 nextDaoId:uint32 admin:address deployAndInitDaoFee:uint64 = RegistryContractState`
-Signature: `RegistryContractState{registryId:uint32,nextDaoId:uint32,admin:address,deployAndInitDaoFee:uint64}`
-
-## SetOwner
-TLB: `set_owner#c2b41d43 newOwner:address = SetOwner`
-Signature: `SetOwner{newOwner:address}`
-
-## SetProposalOwner
-TLB: `set_proposal_owner#d0e3be76 newProposalOwner:address = SetProposalOwner`
-Signature: `SetProposalOwner{newProposalOwner:address}`
-
-## SetFwdMsgFee
-TLB: `set_fwd_msg_fee#f4f3a602 newFwdMsgFee:uint64 = SetFwdMsgFee`
-Signature: `SetFwdMsgFee{newFwdMsgFee:uint64}`
-
-## SetMetadata
-TLB: `set_metadata#da2f907f newMetadata:address = SetMetadata`
-Signature: `SetMetadata{newMetadata:address}`
-
-## FwdMsg
-TLB: `fwd_msg#64c3c3e4 fwdMsg:SendParameters{bounce:bool,to:address,value:int257,mode:int257,body:Maybe ^cell,code:Maybe ^cell,data:Maybe ^cell} = FwdMsg`
-Signature: `FwdMsg{fwdMsg:SendParameters{bounce:bool,to:address,value:int257,mode:int257,body:Maybe ^cell,code:Maybe ^cell,data:Maybe ^cell}}`
-
-## DaoInit
-TLB: `dao_init#1a83442d owner:address proposalOwner:address metadata:address = DaoInit`
-Signature: `DaoInit{owner:address,proposalOwner:address,metadata:address}`
-
-## DaoContractState
-TLB: `_ registry:address owner:address proposalOwner:address metadata:address daoIndex:uint32 fwdMsgFee:uint64 = DaoContractState`
-Signature: `DaoContractState{registry:address,owner:address,proposalOwner:address,metadata:address,daoIndex:uint32,fwdMsgFee:uint64}`
 
 ## Params
 TLB: `_ proposalStartTime:uint64 proposalEndTime:uint64 proposalSnapshotTime:uint64 votingSystem:^string votingPowerStrategies:^string title:^string description:^string quorum:^string = Params`
@@ -137,9 +77,3 @@ Total Get Methods: 1
 137: Masterchain support is not enabled for this contract
 2977: Already initialized
 4429: Invalid sender
-23452: Only admin can set new registry admin
-46336: Below min fee for create dao
-51893: Only registry can change fwd msg fee
-52512: Only admin can set dao fwd msg fee
-60173: Below min fee for dao forward message
-62925: Only admin can set create dao fee

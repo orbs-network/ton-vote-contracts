@@ -23,9 +23,9 @@ PROGRAM{
   DECLPROC $Proposal$_contract_load
   DECLPROC $Proposal$_contract_store
   DECLPROC $global_send
-  DECLPROC $SendParameters$_constructor_bounce_to_value_mode_body_code_data
   DECLPROC $ProposalContractState$_constructor_proposalDeployer_id_proposalStartTime_proposalEndTime_proposalSnapshotTime_votingSystem_votingPowerStrategies_title_description_quorum
   DECLPROC $Proposal$_fun_state
+  DECLPROC $SendParameters$_constructor_bounce_to_value_mode_body_code_data
   DECLPROC $Proposal$_fun_forward
   DECLPROC $Proposal$_fun_notify
   DECLPROC $DeployOk$_constructor_queryId
@@ -406,8 +406,6 @@ PROGRAM{
     SWAP
     SENDRAWMSG
   }>
-  $SendParameters$_constructor_bounce_to_value_mode_body_code_data PROCINLINE:<{
-  }>
   $ProposalContractState$_constructor_proposalDeployer_id_proposalStartTime_proposalEndTime_proposalSnapshotTime_votingSystem_votingPowerStrategies_title_description_quorum PROCINLINE:<{
   }>
   $Proposal$_fun_state PROCREF:<{
@@ -416,6 +414,8 @@ PROGRAM{
     s9 s8 s7 PUSH3
     s9 PUSH
     $ProposalContractState$_constructor_proposalDeployer_id_proposalStartTime_proposalEndTime_proposalSnapshotTime_votingSystem_votingPowerStrategies_title_description_quorum INLINECALLDICT
+  }>
+  $SendParameters$_constructor_bounce_to_value_mode_body_code_data PROCINLINE:<{
   }>
   $Proposal$_fun_forward PROCREF:<{
     PUSHNULL
@@ -502,7 +502,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d62396b4a75534a5151515a6348464a5a6d336359614b7951796257476e685a35437357665348505778444239} PUSHSLICE
+    x{697066733a2f2f516d615147424351615041526b78386270334b6f3631716e74476453377a73396775613475784e31776878506f55} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH
