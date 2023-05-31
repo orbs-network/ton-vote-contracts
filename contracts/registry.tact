@@ -1,6 +1,6 @@
 import "@stdlib/deploy";
 import "@stdlib/ownable";
-import "./messages";
+import "./messages/registry-messages";
 import "./dao";
 
 

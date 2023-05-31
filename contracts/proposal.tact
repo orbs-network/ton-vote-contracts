@@ -1,5 +1,5 @@
 import "@stdlib/deploy";
-import "./messages";
+import "./messages/proposal-messages";
 
 
 contract Proposal with Deployable {
@@ -41,6 +41,9 @@ contract Proposal with Deployable {
         self.title = msg.body.title;
         self.description = msg.body.description;
         self.quorum = msg.body.quorum;
+    }
+
+    receive(vote: Vote) {
     }
 
     get fun state(): ProposalContractState {

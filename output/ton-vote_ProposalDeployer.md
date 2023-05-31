@@ -3,7 +3,7 @@ Contract: ProposalDeployer
 BOC Size: 1194 bytes
 
 # Types
-Total Types: 27
+Total Types: 14
 
 ## StateInit
 TLB: `_ code:^cell data:^cell = StateInit`
@@ -37,58 +37,6 @@ Signature: `ChangeOwner{queryId:uint64,newOwner:address}`
 TLB: `change_owner_ok#327b2b4a queryId:uint64 newOwner:address = ChangeOwnerOk`
 Signature: `ChangeOwnerOk{queryId:uint64,newOwner:address}`
 
-## DeployAndInitDao
-TLB: `deploy_and_init_dao#c95b9b64 owner:address proposalOwner:address metadata:address = DeployAndInitDao`
-Signature: `DeployAndInitDao{owner:address,proposalOwner:address,metadata:address}`
-
-## SendDaoInit
-TLB: `send_dao_init#c8b94bbb owner:address proposalOwner:address metadata:address = SendDaoInit`
-Signature: `SendDaoInit{owner:address,proposalOwner:address,metadata:address}`
-
-## SetDeployAndInitDaoFee
-TLB: `set_deploy_and_init_dao_fee#a8969119 newDeployAndInitDaoFee:uint64 = SetDeployAndInitDaoFee`
-Signature: `SetDeployAndInitDaoFee{newDeployAndInitDaoFee:uint64}`
-
-## SendToDaoSetFwdMsgFee
-TLB: `send_to_dao_set_fwd_msg_fee#5815bd86 daoId:uint32 newFwdMsgFee:uint64 = SendToDaoSetFwdMsgFee`
-Signature: `SendToDaoSetFwdMsgFee{daoId:uint32,newFwdMsgFee:uint64}`
-
-## SetRegistryAdmin
-TLB: `set_registry_admin#c6d673ca newAdmin:address = SetRegistryAdmin`
-Signature: `SetRegistryAdmin{newAdmin:address}`
-
-## RegistryContractState
-TLB: `_ registryId:uint32 nextDaoId:uint32 admin:address deployAndInitDaoFee:uint64 = RegistryContractState`
-Signature: `RegistryContractState{registryId:uint32,nextDaoId:uint32,admin:address,deployAndInitDaoFee:uint64}`
-
-## SetOwner
-TLB: `set_owner#c2b41d43 newOwner:address = SetOwner`
-Signature: `SetOwner{newOwner:address}`
-
-## SetProposalOwner
-TLB: `set_proposal_owner#d0e3be76 newProposalOwner:address = SetProposalOwner`
-Signature: `SetProposalOwner{newProposalOwner:address}`
-
-## SetFwdMsgFee
-TLB: `set_fwd_msg_fee#f4f3a602 newFwdMsgFee:uint64 = SetFwdMsgFee`
-Signature: `SetFwdMsgFee{newFwdMsgFee:uint64}`
-
-## SetMetadata
-TLB: `set_metadata#da2f907f newMetadata:address = SetMetadata`
-Signature: `SetMetadata{newMetadata:address}`
-
-## FwdMsg
-TLB: `fwd_msg#64c3c3e4 fwdMsg:SendParameters{bounce:bool,to:address,value:int257,mode:int257,body:Maybe ^cell,code:Maybe ^cell,data:Maybe ^cell} = FwdMsg`
-Signature: `FwdMsg{fwdMsg:SendParameters{bounce:bool,to:address,value:int257,mode:int257,body:Maybe ^cell,code:Maybe ^cell,data:Maybe ^cell}}`
-
-## DaoInit
-TLB: `dao_init#1a83442d owner:address proposalOwner:address metadata:address = DaoInit`
-Signature: `DaoInit{owner:address,proposalOwner:address,metadata:address}`
-
-## DaoContractState
-TLB: `_ registry:address owner:address proposalOwner:address metadata:address daoIndex:uint32 fwdMsgFee:uint64 = DaoContractState`
-Signature: `DaoContractState{registry:address,owner:address,proposalOwner:address,metadata:address,daoIndex:uint32,fwdMsgFee:uint64}`
-
 ## DeployAndInitProposal
 TLB: `deploy_and_init_proposal#9be57ef7 body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string} = DeployAndInitProposal`
 Signature: `DeployAndInitProposal{body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string}}`
@@ -105,13 +53,13 @@ Signature: `Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnaps
 TLB: `proposal_init#cd517809 body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string} = ProposalInit`
 Signature: `ProposalInit{body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string}}`
 
+## Vote
+TLB: `vote#7c420ea2 comment:^string = Vote`
+Signature: `Vote{comment:^string}`
+
 ## ProposalContractState
 TLB: `_ proposalDeployer:address id:uint32 proposalStartTime:uint64 proposalEndTime:uint64 proposalSnapshotTime:uint64 votingSystem:^string votingPowerStrategies:^string title:^string description:^string quorum:^string = ProposalContractState`
 Signature: `ProposalContractState{proposalDeployer:address,id:uint32,proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string}`
-
-## MetadataState
-TLB: `_ avatar:^string name:^string about:^string website:^string terms:^string telegram:^string github:^string jetton:address nft:address hide:bool dns:^string = MetadataState`
-Signature: `MetadataState{avatar:^string,name:^string,about:^string,website:^string,terms:^string,telegram:^string,github:^string,jetton:address,nft:address,hide:bool,dns:^string}`
 
 # Get Methods
 Total Get Methods: 3

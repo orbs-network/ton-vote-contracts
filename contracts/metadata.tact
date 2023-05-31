@@ -1,5 +1,5 @@
 import "@stdlib/deploy";
-import "./messages";
+import "./messages/metadata-messages";
 
 
 contract Metadata with Deployable {

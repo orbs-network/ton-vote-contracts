@@ -82,6 +82,18 @@ cell $DeployOk$_store_cell((int) v) inline {
 }
 
 ;;
+;; Type: Vote
+;; Header: 0x7c420ea2
+;; TLB: vote#7c420ea2 comment:^string = Vote
+;;
+
+(slice, ((slice))) $Vote$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 2084703906);
+    var v'comment = sc_0~load_ref().begin_parse();
+    return (sc_0, (v'comment));
+}
+
+;;
 ;; Type: ProposalContractState
 ;; TLB: _ proposalDeployer:address id:uint32 proposalStartTime:uint64 proposalEndTime:uint64 proposalSnapshotTime:uint64 votingSystem:^string votingPowerStrategies:^string title:^string description:^string quorum:^string = ProposalContractState
 ;;

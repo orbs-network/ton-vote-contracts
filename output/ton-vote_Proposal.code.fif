@@ -13,6 +13,7 @@ PROGRAM{
   DECLPROC $DeployOk$_store_cell
   DECLPROC $Params$_load
   DECLPROC $ProposalInit$_load
+  DECLPROC $Vote$_load
   DECLPROC $Proposal$_store
   DECLPROC $Proposal$_load
   DECLPROC $StateInit$_not_null
@@ -29,6 +30,7 @@ PROGRAM{
   DECLPROC $Proposal$_fun_notify
   DECLPROC $DeployOk$_constructor_queryId
   DECLPROC $Proposal$_internal_binary_ProposalInit
+  DECLPROC $Proposal$_internal_binary_Vote
   DECLPROC $Proposal$_internal_binary_Deploy
   77589 DECLMETHOD %state
   113617 DECLMETHOD supported_interfaces
@@ -149,6 +151,16 @@ PROGRAM{
     EQUAL
     129 THROWIFNOT
     $Params$_load INLINECALLDICT
+  }>
+  $Vote$_load PROCINLINE:<{
+    32 LDU
+    SWAP
+    2084703906 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    LDREF
+    SWAP
+    CTOS
   }>
   $Proposal$_store PROCINLINE:<{
     s10 s9 XCHG2
@@ -468,6 +480,9 @@ PROGRAM{
     THROWANYIFNOT
     s5 s6 XCHG
   }>
+  $Proposal$_internal_binary_Vote PROCINLINE:<{
+    DROP
+  }>
   $Proposal$_internal_binary_Deploy PROCINLINE:<{
     $DeployOk$_constructor_queryId INLINECALLDICT
     $DeployOk$_store_cell INLINECALLDICT
@@ -487,7 +502,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d615871795070485a6a475762316b59447544596f46337568385451614b4c4661416f4863695442686550634b} PUSHSLICE
+    x{697066733a2f2f516d62396b4a75534a5151515a6348464a5a6d336359614b7951796257476e685a35437357665348505778444239} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH
@@ -518,6 +533,16 @@ PROGRAM{
       $ProposalInit$_load INLINECALLDICT
       1 8 BLKDROP2
       $Proposal$_internal_binary_ProposalInit INLINECALLDICT
+      TRUE
+    }>
+    DUP
+    2084703906 PUSHINT
+    EQUAL
+    IFJMP:<{
+      DROP
+      $Vote$_load INLINECALLDICT
+      NIP
+      $Proposal$_internal_binary_Vote INLINECALLDICT
       TRUE
     }>
     2490013878 PUSHINT

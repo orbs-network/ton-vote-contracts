@@ -51,6 +51,12 @@
     return (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum), ());
 }
 
+(((slice, int, int, int, int, slice, slice, slice, slice, slice)), ()) $Proposal$_internal_binary_Vote((slice, int, int, int, int, slice, slice, slice, slice, slice) $self, (slice) $vote) impure inline {
+    var ($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum) = $self;
+    var ($vote'comment) = $vote;
+    return (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum), ());
+}
+
 (((slice, int, int, int, int, slice, slice, slice, slice, slice)), ()) $Proposal$_internal_binary_Deploy((slice, int, int, int, int, slice, slice, slice, slice, slice) $self, (int) $deploy) impure inline {
     var ($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum) = $self;
     var ($deploy'queryId) = $deploy;
@@ -79,7 +85,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() method_id {
-    return "ipfs://QmaXqyPpHZjGWb1kYDuDYoF3uh8TQaKLFaAoHciTBhePcK";
+    return "ipfs://Qmb9kJuSJQQQZcHFJZm3cYaKyQybWGnhZ5CsWfSHPWxDB9";
 }
 
 _ lazy_deployment_completed() method_id {
@@ -107,6 +113,13 @@ _ lazy_deployment_completed() method_id {
     if (op == 3444668425) {
         var msg = in_msg~$ProposalInit$_load();
         self~$Proposal$_internal_binary_ProposalInit(msg);
+        return (self, true);
+    }
+    
+    ;; Receive Vote message
+    if (op == 2084703906) {
+        var msg = in_msg~$Vote$_load();
+        self~$Proposal$_internal_binary_Vote(msg);
         return (self, true);
     }
     
