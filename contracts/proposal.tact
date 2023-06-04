@@ -44,6 +44,16 @@ contract Proposal with Deployable {
     }
 
     receive(vote: Vote) {
+        require(now() >= self.proposalStartTime && now() <= self.proposalEndTime, "Incative proposal");
+    }
+
+    receive(msg: UpdateProposal) {
+        require(self.proposalStartTime != 0 && self.proposalEndTime != 0 && self.proposalSnapshotTime != 0, "Propsal was not initialized yet");
+        require(sender() == self.proposalDeployer, "Invalid sender");
+        require(now() <= self.proposalEndTime, "Proposal already ended");
+
+        self.title = msg.title;
+        self.description = msg.description;        
     }
 
     get fun state(): ProposalContractState {

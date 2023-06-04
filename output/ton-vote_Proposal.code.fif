@@ -14,6 +14,7 @@ PROGRAM{
   DECLPROC $Params$_load
   DECLPROC $ProposalInit$_load
   DECLPROC $Vote$_load
+  DECLPROC $UpdateProposal$_load
   DECLPROC $Proposal$_store
   DECLPROC $Proposal$_load
   DECLPROC $StateInit$_not_null
@@ -31,6 +32,7 @@ PROGRAM{
   DECLPROC $DeployOk$_constructor_queryId
   DECLPROC $Proposal$_internal_binary_ProposalInit
   DECLPROC $Proposal$_internal_binary_Vote
+  DECLPROC $Proposal$_internal_binary_UpdateProposal
   DECLPROC $Proposal$_internal_binary_Deploy
   77589 DECLMETHOD %state
   113617 DECLMETHOD supported_interfaces
@@ -161,6 +163,21 @@ PROGRAM{
     LDREF
     SWAP
     CTOS
+  }>
+  $UpdateProposal$_load PROCINLINE:<{
+    32 LDU
+    SWAP
+    787259334 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    LDREF
+    SWAP
+    CTOS
+    SWAP
+    LDREF
+    SWAP
+    CTOS
+    s1 s2 XCHG
   }>
   $Proposal$_store PROCINLINE:<{
     s10 s9 XCHG2
@@ -482,6 +499,48 @@ PROGRAM{
   }>
   $Proposal$_internal_binary_Vote PROCINLINE:<{
     DROP
+    52334 PUSHINT
+    NOW
+    s9 PUSH
+    GEQ
+    IF:<{
+      NOW
+      s8 PUSH
+      LEQ
+    }>ELSE<{
+      FALSE
+    }>
+    THROWANYIFNOT
+  }>
+  $Proposal$_internal_binary_UpdateProposal PROCINLINE:<{
+    s3 POP
+    s3 POP
+    61278 PUSHINT
+    s8 PUSH
+    0 NEQINT
+    IF:<{
+      s7 PUSH
+      0 NEQINT
+    }>ELSE<{
+      FALSE
+    }>
+    IF:<{
+      s6 PUSH
+      0 NEQINT
+    }>ELSE<{
+      FALSE
+    }>
+    THROWANYIFNOT
+    4429 PUSHINT
+    __tact_context_get_sender INLINECALLDICT
+    s11 s(-1) PUXC
+    __tact_slice_eq_bits INLINECALLDICT
+    THROWANYIFNOT
+    44469 PUSHINT
+    NOW
+    s8 PUSH
+    LEQ
+    THROWANYIFNOT
   }>
   $Proposal$_internal_binary_Deploy PROCINLINE:<{
     $DeployOk$_constructor_queryId INLINECALLDICT
@@ -502,7 +561,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d615147424351615041526b78386270334b6f3631716e74476453377a73396775613475784e31776878506f55} PUSHSLICE
+    x{697066733a2f2f516d524b6557434a654c4669516450634b397074414178376857323975796437646f4b6e667470656857687a366a} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH
@@ -543,6 +602,16 @@ PROGRAM{
       $Vote$_load INLINECALLDICT
       NIP
       $Proposal$_internal_binary_Vote INLINECALLDICT
+      TRUE
+    }>
+    DUP
+    787259334 PUSHINT
+    EQUAL
+    IFJMP:<{
+      DROP
+      $UpdateProposal$_load INLINECALLDICT
+      1 2 BLKDROP2
+      $Proposal$_internal_binary_UpdateProposal INLINECALLDICT
       TRUE
     }>
     2490013878 PUSHINT

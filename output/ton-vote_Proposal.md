@@ -1,9 +1,9 @@
 # TACT Compilation Report
 Contract: Proposal
-BOC Size: 1006 bytes
+BOC Size: 1110 bytes
 
 # Types
-Total Types: 10
+Total Types: 11
 
 ## StateInit
 TLB: `_ code:^cell data:^cell = StateInit`
@@ -41,6 +41,10 @@ Signature: `ProposalInit{body:Params{proposalStartTime:uint64,proposalEndTime:ui
 TLB: `vote#7c420ea2 comment:^string = Vote`
 Signature: `Vote{comment:^string}`
 
+## UpdateProposal
+TLB: `update_proposal#2eec9fc6 title:^string description:^string = UpdateProposal`
+Signature: `UpdateProposal{title:^string,description:^string}`
+
 ## ProposalContractState
 TLB: `_ proposalDeployer:address id:uint32 proposalStartTime:uint64 proposalEndTime:uint64 proposalSnapshotTime:uint64 votingSystem:^string votingPowerStrategies:^string title:^string description:^string quorum:^string = ProposalContractState`
 Signature: `ProposalContractState{proposalDeployer:address,id:uint32,proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string}`
@@ -77,3 +81,6 @@ Total Get Methods: 1
 137: Masterchain support is not enabled for this contract
 2977: Already initialized
 4429: Invalid sender
+44469: Proposal already ended
+52334: Incative proposal
+61278: Propsal was not initialized yet

@@ -34,6 +34,19 @@ contract ProposalDeployer with Deployable {
         self.nextProposalId = self.nextProposalId + 1;
     }
 
+    receive(msg: FwdUpdateProposal) {
+        require(sender() == self.dao, "only dao can send update proposal message");
+
+        send(SendParameters{
+            to: msg.proposalAddress, 
+            value: 0, 
+            bounce: false,
+            mode: SendRemainingValue,
+            body: UpdateProposal{title: msg.title, description: msg.description}.toCell()
+        });
+    }
+
+
     fun getProposalStateInit(index: Int): StateInit {
         return initOf Proposal(myAddress(), index);
     }

@@ -94,6 +94,19 @@ cell $DeployOk$_store_cell((int) v) inline {
 }
 
 ;;
+;; Type: UpdateProposal
+;; Header: 0x2eec9fc6
+;; TLB: update_proposal#2eec9fc6 title:^string description:^string = UpdateProposal
+;;
+
+(slice, ((slice, slice))) $UpdateProposal$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 787259334);
+    var v'title = sc_0~load_ref().begin_parse();
+    var v'description = sc_0~load_ref().begin_parse();
+    return (sc_0, (v'title, v'description));
+}
+
+;;
 ;; Type: ProposalContractState
 ;; TLB: _ proposalDeployer:address id:uint32 proposalStartTime:uint64 proposalEndTime:uint64 proposalSnapshotTime:uint64 votingSystem:^string votingPowerStrategies:^string title:^string description:^string quorum:^string = ProposalContractState
 ;;

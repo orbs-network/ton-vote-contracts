@@ -48,6 +48,9 @@ cell $DeployOk$_store_cell((int) v) inline;
 ;; $Vote$_load
 (slice, ((slice))) $Vote$_load(slice sc_0) inline;
 
+;; $UpdateProposal$_load
+(slice, ((slice, slice))) $UpdateProposal$_load(slice sc_0) inline;
+
 ;; $Proposal$_store
 builder $Proposal$_store(builder build_0, (slice, int, int, int, int, slice, slice, slice, slice, slice) v) inline;
 

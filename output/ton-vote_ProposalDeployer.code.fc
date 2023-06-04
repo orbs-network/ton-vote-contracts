@@ -53,6 +53,14 @@
     return (($self'dao, $self'nextProposalId), ());
 }
 
+(((slice, int)), ()) $ProposalDeployer$_internal_binary_FwdUpdateProposal((slice, int) $self, (slice, slice, slice) $msg) impure inline {
+    var ($self'dao, $self'nextProposalId) = $self;
+    var ($msg'proposalAddress, $msg'title, $msg'description) = $msg;
+    throw_unless(50214, ( __tact_slice_eq_bits($self'dao, __tact_context_get_sender()) ));
+    $global_send($SendParameters$_constructor_to_value_bounce_mode_body($msg'proposalAddress, 0, false, 64, $UpdateProposal$_store_cell($UpdateProposal$_constructor_title_description($msg'title, $msg'description))));
+    return (($self'dao, $self'nextProposalId), ());
+}
+
 (((slice, int)), ()) $ProposalDeployer$_internal_binary_Deploy((slice, int) $self, (int) $deploy) impure inline {
     var ($self'dao, $self'nextProposalId) = $self;
     var ($deploy'queryId) = $deploy;
@@ -94,7 +102,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() method_id {
-    return "ipfs://QmeGsNAjo7QEfztUcZiaUv8J7sdXknttrGqggiw96gXBXw";
+    return "ipfs://QmVgHC8xrC8HEtYcgfujHHiRjXgpEye9Pesi3mT6Zr2gBo";
 }
 
 _ lazy_deployment_completed() method_id {
@@ -122,6 +130,13 @@ _ lazy_deployment_completed() method_id {
     if (op == 2615508727) {
         var msg = in_msg~$DeployAndInitProposal$_load();
         self~$ProposalDeployer$_internal_binary_DeployAndInitProposal(msg);
+        return (self, true);
+    }
+    
+    ;; Receive FwdUpdateProposal message
+    if (op == 1594630426) {
+        var msg = in_msg~$FwdUpdateProposal$_load();
+        self~$ProposalDeployer$_internal_binary_FwdUpdateProposal(msg);
         return (self, true);
     }
     

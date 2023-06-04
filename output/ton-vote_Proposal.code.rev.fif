@@ -6,7 +6,7 @@ PROGRAM{
   DECLPROC get_abi_ipfs;
   DECLPROC ?fun_ref_362f405abe5b5b1e;
   DECLPROC ?fun_ref_36e6ba0eff599634;
-  DECLPROC ?fun_ref_3986862895a08258;
+  DECLPROC ?fun_ref_7bf045fec458943a;
   DECLPROC ?fun_ref_9e83150ada4e288d;
   DECLPROC ?fun_ref_b93b9862cda1783c;
   DECLPROC ?fun_ref_ca070340aa80071b;
@@ -44,7 +44,7 @@ PROGRAM{
     2 SETGLOBVAR
     ?fun_ref_9e83150ada4e288d INLINECALLDICT
     2 10 BLKSWAP
-    ?fun_ref_3986862895a08258 INLINECALLDICT
+    ?fun_ref_7bf045fec458943a INLINECALLDICT
     130 THROWIFNOT
     NEWC
     3 GETGLOBVAR
@@ -133,7 +133,7 @@ PROGRAM{
     s0 s1 XCHG
   }>
   get_abi_ipfs PROC:<{
-    x{697066733A2F2F516D615147424351615041526B78386270334B6F3631716E74476453377A73396775613475784E31776878506F5582_} PUSHSLICE
+    x{697066733A2F2F516D524B6557434A654C4669516450634B397074414178376857323975796437646F4B6E667470656857687A366A82_} PUSHSLICE
   }>
   ?fun_ref_362f405abe5b5b1e PROCREF:<{
     s9 s8 s7 PUSH3
@@ -174,7 +174,7 @@ PROGRAM{
     s2 s4 XCHG
     s2 s3 XCHG
   }>
-  ?fun_ref_3986862895a08258 PROCREF:<{
+  ?fun_ref_7bf045fec458943a PROCREF:<{
     s0 s1 XCHG
     <{
       s0 POP
@@ -255,9 +255,75 @@ PROGRAM{
       CTOS
       s1 POP
       s0 POP
+      52334 PUSHINT
+      NOW
+      s9 PUSH
+      GEQ
+      <{
+        NOW
+        s8 PUSH
+        LEQ
+      }> PUSHCONT
+      <{
+        0 PUSHINT
+      }> PUSHCONT
+      IFELSE
+      THROWANYIFNOT
       -1 PUSHINT
-    }> PUSHCONT
-    IFJMP
+    }> IFJMPREF
+    s0 PUSH
+    787259334 PUSHINT
+    EQUAL
+    <{
+      s0 POP
+      32 LDU
+      s0 s1 XCHG
+      787259334 PUSHINT
+      EQUAL
+      129 THROWIFNOT
+      LDREF
+      s0 s1 XCHG
+      CTOS
+      s0 s1 XCHG
+      LDREF
+      s0 s1 XCHG
+      CTOS
+      s1 s2 XCHG
+      1 2 BLKDROP2
+      s3 POP
+      s3 POP
+      61278 PUSHINT
+      s8 PUSH
+      0 NEQINT
+      <{
+        s7 PUSH
+        0 NEQINT
+      }> PUSHCONT
+      <{
+        0 PUSHINT
+      }> PUSHCONT
+      IFELSE
+      <{
+        s6 PUSH
+        0 NEQINT
+      }> PUSHCONT
+      <{
+        0 PUSHINT
+      }> PUSHCONT
+      IFELSE
+      THROWANYIFNOT
+      4429 PUSHINT
+      2 GETGLOBVAR
+      s11 s1 PUXC
+      SDEQ
+      THROWANYIFNOT
+      44469 PUSHINT
+      NOW
+      s8 PUSH
+      LEQ
+      THROWANYIFNOT
+      -1 PUSHINT
+    }> IFJMPREF
     2490013878 PUSHINT
     EQUAL
     <{

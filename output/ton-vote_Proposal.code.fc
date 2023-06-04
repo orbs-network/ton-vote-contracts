@@ -54,6 +54,18 @@
 (((slice, int, int, int, int, slice, slice, slice, slice, slice)), ()) $Proposal$_internal_binary_Vote((slice, int, int, int, int, slice, slice, slice, slice, slice) $self, (slice) $vote) impure inline {
     var ($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum) = $self;
     var ($vote'comment) = $vote;
+    throw_unless(52334, ( ((now() >= $self'proposalStartTime)) ? ((now() <= $self'proposalEndTime)) : (false) ));
+    return (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum), ());
+}
+
+(((slice, int, int, int, int, slice, slice, slice, slice, slice)), ()) $Proposal$_internal_binary_UpdateProposal((slice, int, int, int, int, slice, slice, slice, slice, slice) $self, (slice, slice) $msg) impure inline {
+    var ($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum) = $self;
+    var ($msg'title, $msg'description) = $msg;
+    throw_unless(61278, ( (( (($self'proposalStartTime != 0)) ? (($self'proposalEndTime != 0)) : (false) )) ? (($self'proposalSnapshotTime != 0)) : (false) ));
+    throw_unless(4429, ( __tact_slice_eq_bits($self'proposalDeployer, __tact_context_get_sender()) ));
+    throw_unless(44469, (now() <= $self'proposalEndTime));
+    $self'title = $msg'title;
+    $self'description = $msg'description;
     return (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum), ());
 }
 
@@ -85,7 +97,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() method_id {
-    return "ipfs://QmaQGBCQaPARkx8bp3Ko61qntGdS7zs9gua4uxN1whxPoU";
+    return "ipfs://QmRKeWCJeLFiQdPcK9ptAAx7hW29uyd7doKnftpehWhz6j";
 }
 
 _ lazy_deployment_completed() method_id {
@@ -120,6 +132,13 @@ _ lazy_deployment_completed() method_id {
     if (op == 2084703906) {
         var msg = in_msg~$Vote$_load();
         self~$Proposal$_internal_binary_Vote(msg);
+        return (self, true);
+    }
+    
+    ;; Receive UpdateProposal message
+    if (op == 787259334) {
+        var msg = in_msg~$UpdateProposal$_load();
+        self~$Proposal$_internal_binary_UpdateProposal(msg);
         return (self, true);
     }
     

@@ -22,6 +22,10 @@
     return (bounce, to, value, mode, body, code, data);
 }
 
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_to_value_bounce_mode_body(slice to, int value, int bounce, int mode, cell body) inline {
+    return (bounce, to, value, mode, body, null(), null());
+}
+
 ;;
 ;; Type: Deploy
 ;; Header: 0x946a98b6
@@ -101,6 +105,20 @@ builder $Params$_store(builder build_0, (int, int, int, slice, slice, slice, sli
 }
 
 ;;
+;; Type: FwdUpdateProposal
+;; Header: 0x5f0c211a
+;; TLB: fwd_update_proposal#5f0c211a proposalAddress:address title:^string description:^string = FwdUpdateProposal
+;;
+
+(slice, ((slice, slice, slice))) $FwdUpdateProposal$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 1594630426);
+    var v'proposalAddress = sc_0~__tact_load_address();
+    var v'title = sc_0~load_ref().begin_parse();
+    var v'description = sc_0~load_ref().begin_parse();
+    return (sc_0, (v'proposalAddress, v'title, v'description));
+}
+
+;;
 ;; Type: ProposalInit
 ;; Header: 0xcd517809
 ;; TLB: proposal_init#cd517809 body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string} = ProposalInit
@@ -119,6 +137,28 @@ cell $ProposalInit$_store_cell(((int, int, int, slice, slice, slice, slice, slic
 
 (((int, int, int, slice, slice, slice, slice, slice))) $ProposalInit$_constructor_body((int, int, int, slice, slice, slice, slice, slice) body) inline {
     return (body);
+}
+
+;;
+;; Type: UpdateProposal
+;; Header: 0x2eec9fc6
+;; TLB: update_proposal#2eec9fc6 title:^string description:^string = UpdateProposal
+;;
+
+builder $UpdateProposal$_store(builder build_0, (slice, slice) v) inline {
+    var (v'title, v'description) = v;
+    build_0 = store_uint(build_0, 787259334, 32);
+    build_0 = build_0.store_ref(begin_cell().store_slice(v'title).end_cell());
+    build_0 = build_0.store_ref(begin_cell().store_slice(v'description).end_cell());
+    return build_0;
+}
+
+cell $UpdateProposal$_store_cell((slice, slice) v) inline {
+    return $UpdateProposal$_store(begin_cell(), v).end_cell();
+}
+
+((slice, slice)) $UpdateProposal$_constructor_title_description(slice title, slice description) inline {
+    return (title, description);
 }
 
 ;;

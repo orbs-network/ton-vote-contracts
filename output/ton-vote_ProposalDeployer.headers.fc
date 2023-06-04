@@ -60,11 +60,20 @@ builder $Params$_store(builder build_0, (int, int, int, slice, slice, slice, sli
 ;; $DeployAndInitProposal$_load
 (slice, (((int, int, int, slice, slice, slice, slice, slice)))) $DeployAndInitProposal$_load(slice sc_0) inline;
 
+;; $FwdUpdateProposal$_load
+(slice, ((slice, slice, slice))) $FwdUpdateProposal$_load(slice sc_0) inline;
+
 ;; $ProposalInit$_store
 builder $ProposalInit$_store(builder build_0, ((int, int, int, slice, slice, slice, slice, slice)) v) inline;
 
 ;; $ProposalInit$_store_cell
 cell $ProposalInit$_store_cell(((int, int, int, slice, slice, slice, slice, slice)) v) inline;
+
+;; $UpdateProposal$_store
+builder $UpdateProposal$_store(builder build_0, (slice, slice) v) inline;
+
+;; $UpdateProposal$_store_cell
+cell $UpdateProposal$_store_cell((slice, slice) v) inline;
 
 ;; $ProposalDeployer$_store
 builder $ProposalDeployer$_store(builder build_0, (slice, int) v) inline;
@@ -125,6 +134,12 @@ slice $global_contractAddress((cell, cell) $s) impure inline;
 
 ;; $ProposalInit$_constructor_body
 (((int, int, int, slice, slice, slice, slice, slice))) $ProposalInit$_constructor_body((int, int, int, slice, slice, slice, slice, slice) body) inline;
+
+;; $SendParameters$_constructor_to_value_bounce_mode_body
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_to_value_bounce_mode_body(slice to, int value, int bounce, int mode, cell body) inline;
+
+;; $UpdateProposal$_constructor_title_description
+((slice, slice)) $UpdateProposal$_constructor_title_description(slice title, slice description) inline;
 
 ;; $DeployOk$_constructor_queryId
 ((int)) $DeployOk$_constructor_queryId(int queryId) inline;
