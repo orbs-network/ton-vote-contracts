@@ -61,7 +61,7 @@ cell $DeployOk$_store_cell((int) v) inline;
 (slice, (((int, slice, int, int, cell, cell, cell)))) $FwdMsg$_load(slice sc_0) inline;
 
 ;; $DaoInit$_load
-(slice, ((slice, slice, slice))) $DaoInit$_load(slice sc_0) inline;
+(slice, ((slice, slice, slice, int))) $DaoInit$_load(slice sc_0) inline;
 
 ;; $Dao$_store
 builder $Dao$_store(builder build_0, (slice, slice, slice, int, slice, int) v) inline;

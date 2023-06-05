@@ -18,6 +18,10 @@ message SetDeployAndInitDaoFee {
     newDeployAndInitDaoFee: Int as uint64;
 }
 
+message SetNewDaoFwdMsgFee {
+    newDaosfwdMsgFee: Int as uint64;
+}
+
 message SendToDaoSetFwdMsgFee {
     daoId: Int as uint32;
     newFwdMsgFee: Int as uint64;    

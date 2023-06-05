@@ -1,9 +1,9 @@
 # TACT Compilation Report
 Contract: Registry
-BOC Size: 1657 bytes
+BOC Size: 1719 bytes
 
 # Types
-Total Types: 21
+Total Types: 22
 
 ## StateInit
 TLB: `_ code:^cell data:^cell = StateInit`
@@ -49,6 +49,10 @@ Signature: `SendDaoInit{owner:address,proposalOwner:address,metadata:address}`
 TLB: `set_deploy_and_init_dao_fee#a8969119 newDeployAndInitDaoFee:uint64 = SetDeployAndInitDaoFee`
 Signature: `SetDeployAndInitDaoFee{newDeployAndInitDaoFee:uint64}`
 
+## SetNewDaoFwdMsgFee
+TLB: `set_new_dao_fwd_msg_fee#03964bce newDaosfwdMsgFee:uint64 = SetNewDaoFwdMsgFee`
+Signature: `SetNewDaoFwdMsgFee{newDaosfwdMsgFee:uint64}`
+
 ## SendToDaoSetFwdMsgFee
 TLB: `send_to_dao_set_fwd_msg_fee#5815bd86 daoId:uint32 newFwdMsgFee:uint64 = SendToDaoSetFwdMsgFee`
 Signature: `SendToDaoSetFwdMsgFee{daoId:uint32,newFwdMsgFee:uint64}`
@@ -82,8 +86,8 @@ TLB: `fwd_msg#64c3c3e4 fwdMsg:SendParameters{bounce:bool,to:address,value:int257
 Signature: `FwdMsg{fwdMsg:SendParameters{bounce:bool,to:address,value:int257,mode:int257,body:Maybe ^cell,code:Maybe ^cell,data:Maybe ^cell}}`
 
 ## DaoInit
-TLB: `dao_init#1a83442d owner:address proposalOwner:address metadata:address = DaoInit`
-Signature: `DaoInit{owner:address,proposalOwner:address,metadata:address}`
+TLB: `dao_init#ecb876eb owner:address proposalOwner:address metadata:address fwdMsgFee:uint64 = DaoInit`
+Signature: `DaoInit{owner:address,proposalOwner:address,metadata:address,fwdMsgFee:uint64}`
 
 ## DaoContractState
 TLB: `_ registry:address owner:address proposalOwner:address metadata:address daoIndex:uint32 fwdMsgFee:uint64 = DaoContractState`
@@ -126,9 +130,10 @@ Argument: daoId
 137: Masterchain support is not enabled for this contract
 2977: Already initialized
 4429: Invalid sender
+4600: Only admin can set the create dao fee
+8645: Only admin can set the dao fwd msg fee
 23452: Only admin can set new registry admin
 46336: Below min fee for create dao
 51893: Only registry can change fwd msg fee
-52512: Only admin can set dao fwd msg fee
+56012: Only admin can set the new dao fwd msg fee
 60173: Below min fee for dao forward message
-62925: Only admin can set create dao fee

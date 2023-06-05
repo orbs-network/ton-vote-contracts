@@ -561,6 +561,48 @@ function dictValueParserSetDeployAndInitDaoFee(): DictionaryValue<SetDeployAndIn
     }
 }
 
+export type SetNewDaoFwdMsgFee = {
+    $$type: 'SetNewDaoFwdMsgFee';
+    newDaosfwdMsgFee: bigint;
+}
+
+export function storeSetNewDaoFwdMsgFee(src: SetNewDaoFwdMsgFee) {
+    return (builder: Builder) => {
+        let b_0 = builder;
+        b_0.storeUint(60181454, 32);
+        b_0.storeUint(src.newDaosfwdMsgFee, 64);
+    };
+}
+
+export function loadSetNewDaoFwdMsgFee(slice: Slice) {
+    let sc_0 = slice;
+    if (sc_0.loadUint(32) !== 60181454) { throw Error('Invalid prefix'); }
+    let _newDaosfwdMsgFee = sc_0.loadUintBig(64);
+    return { $$type: 'SetNewDaoFwdMsgFee' as const, newDaosfwdMsgFee: _newDaosfwdMsgFee };
+}
+
+function loadTupleSetNewDaoFwdMsgFee(source: TupleReader) {
+    let _newDaosfwdMsgFee = source.readBigNumber();
+    return { $$type: 'SetNewDaoFwdMsgFee' as const, newDaosfwdMsgFee: _newDaosfwdMsgFee };
+}
+
+function storeTupleSetNewDaoFwdMsgFee(source: SetNewDaoFwdMsgFee) {
+    let builder = new TupleBuilder();
+    builder.writeNumber(source.newDaosfwdMsgFee);
+    return builder.build();
+}
+
+function dictValueParserSetNewDaoFwdMsgFee(): DictionaryValue<SetNewDaoFwdMsgFee> {
+    return {
+        serialize: (src, buidler) => {
+            buidler.storeRef(beginCell().store(storeSetNewDaoFwdMsgFee(src)).endCell());
+        },
+        parse: (src) => {
+            return loadSetNewDaoFwdMsgFee(src.loadRef().beginParse());
+        }
+    }
+}
+
 export type SendToDaoSetFwdMsgFee = {
     $$type: 'SendToDaoSetFwdMsgFee';
     daoId: bigint;
@@ -920,32 +962,36 @@ export type DaoInit = {
     owner: Address;
     proposalOwner: Address;
     metadata: Address;
+    fwdMsgFee: bigint;
 }
 
 export function storeDaoInit(src: DaoInit) {
     return (builder: Builder) => {
         let b_0 = builder;
-        b_0.storeUint(444810285, 32);
+        b_0.storeUint(3971512043, 32);
         b_0.storeAddress(src.owner);
         b_0.storeAddress(src.proposalOwner);
         b_0.storeAddress(src.metadata);
+        b_0.storeUint(src.fwdMsgFee, 64);
     };
 }
 
 export function loadDaoInit(slice: Slice) {
     let sc_0 = slice;
-    if (sc_0.loadUint(32) !== 444810285) { throw Error('Invalid prefix'); }
+    if (sc_0.loadUint(32) !== 3971512043) { throw Error('Invalid prefix'); }
     let _owner = sc_0.loadAddress();
     let _proposalOwner = sc_0.loadAddress();
     let _metadata = sc_0.loadAddress();
-    return { $$type: 'DaoInit' as const, owner: _owner, proposalOwner: _proposalOwner, metadata: _metadata };
+    let _fwdMsgFee = sc_0.loadUintBig(64);
+    return { $$type: 'DaoInit' as const, owner: _owner, proposalOwner: _proposalOwner, metadata: _metadata, fwdMsgFee: _fwdMsgFee };
 }
 
 function loadTupleDaoInit(source: TupleReader) {
     let _owner = source.readAddress();
     let _proposalOwner = source.readAddress();
     let _metadata = source.readAddress();
-    return { $$type: 'DaoInit' as const, owner: _owner, proposalOwner: _proposalOwner, metadata: _metadata };
+    let _fwdMsgFee = source.readBigNumber();
+    return { $$type: 'DaoInit' as const, owner: _owner, proposalOwner: _proposalOwner, metadata: _metadata, fwdMsgFee: _fwdMsgFee };
 }
 
 function storeTupleDaoInit(source: DaoInit) {
@@ -953,6 +999,7 @@ function storeTupleDaoInit(source: DaoInit) {
     builder.writeAddress(source.owner);
     builder.writeAddress(source.proposalOwner);
     builder.writeAddress(source.metadata);
+    builder.writeNumber(source.fwdMsgFee);
     return builder.build();
 }
 
@@ -1048,8 +1095,8 @@ function initRegistry_init_args(src: Registry_init_args) {
 }
 
 async function Registry_init(registryId: bigint) {
-    const __code = Cell.fromBase64('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');
-    const __system = Cell.fromBase64('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');
+    const __code = Cell.fromBase64('te6ccgECIQEABqsAART/APSkE/S88sgLAQIBYgIDAurQAdDTAwFxsKMB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiFRQUwNvBPhhAvhi2zxVFNs88uCCyPhDAcx/AcoAVUBQRcsfEssfASDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IjPFss/yz/J7VQcBAIBIBARA/QBkjB/4HAh10nCH5UwINcLH94gghDJW5tkuuMCIIIQqJaRGbqOHzDTHwGCEKiWkRm68uCB0z8BMTKBEfj4QlJAxwXy9H/gIIILlkvOuo4fMNMfAYILlkvOuvLggdM/ATExggDazPhCUkDHBfL0f+AgghBYFb2GuuMCIAUGBwHoMNMfAYIQyVubZLry4IH6QAEg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIAfpAASDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IgB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiEMwbBPbPH8IASow0x8BghBYFb2GuvLggdMf0z9ZbBILAfqCEMbWc8q6jnMw0x8BghDG1nPKuvLggfpAASDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IgxgVuc+EJSUMcFkjR/jjJwIMhyAcsBcAHLABLKB8v/ydAg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIUAXHBeIU8vR/4AwCxoIAtQD4QW8kE18DJr7y9CYQWAQQNkgH2zxccFnIcAHLAXMBywFwAcsAEszMyfkAyHIBywFwAcsAEsoHy//J0CDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IhwcFCsgEBRxh8JAvzIVTCCEOy4dutQBcsfUAMg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIzxYBINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiM8WASDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IjPFss/yRYQWRBLEDpQohBGEEXbPKQOCgAGVSAEAuaBIcX4QlJgxwXy9FVQ2zxwWchwAcsBcwHLAXABywASzMzJ+QDIcgHLAXABywASygfL/8nQINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiHBwgEAJyAGCEPTzpgJYyx/LP8kQNEEwGRAkECNtbds8VQN/Hw4BZoIQlGqYtrqOp9MfAYIQlGqYtrry4IHTPwExyAGCEK/5D1dYyx/LP8n4QgFwbds8f+AwcA0BOm1tIm6zmVsgbvLQgG8iAZEy4hAkcAMEgEJQI9s8DgHKyHEBygFQBwHKAHABygJQBSDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IjPFlAD+gJwAcpoI26zkX+TJG6z4pczMwFwAcoA4w0hbrOcfwHKAAEgbvLQgAHMlTFwAcoA4skB+wAPAJh/AcoAyHABygBwAcoAJG6znX8BygAEIG7y0IBQBMyWNANwAcoA4iRus51/AcoABCBu8tCAUATMljQDcAHKAOJwAcoAAn8BygACyVjMAhG9eK7Z5tnjYqQcEgIBIBMUAAhUdDIkAgEgFRYCAUgYGQIRtDA7Z5tnjYowHBcAubd6ME4LnYerpZXPY9CdhzrJUKNs0E4TusalpWyPlmRadeW/vixHME4ECrgDcAzscpnLB1XI5LZYcE4DepO98qiy3jjqenvAqzhk0E4TsunLVmnZbmdB0s2yjN0UkAACIwIBYhobAHWybuNDVpcGZzOi8vUW1SQlNWdWhyVXh2aTNWWU14NXlCY1FSYzJ6MjFNV3daMmpNbWl3bVlabVY3SoIAITp5G2eKoJtnjYoxwdAA+lfdqJoaQAAwGc7UTQ1AH4Y9IAAY4s0x/TH/pAASDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IgB0z/TP1VAbBXg+CjXCwqDCbry4ImBAQHXAAEB0ds8HgGG2zxwWchwAcsBcwHLAXABywASzMzJ+QDIcgHLAXABywASygfL/8nQINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiB8AdnBTAMhyAcsBcAHLABLKB8v/ydAg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIghA7msoAghAF9eEAAQ74Q/goWNs8IACiAtD0BDBtAYFkPwGAEPQPb6Hy4IcBgWQ/IgKAEPQXyAHI9ADJAcxwAcoAQANZINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiM8WgQEBzwDJ');
+    const __system = Cell.fromBase64('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');
     let builder = beginCell();
     builder.storeRef(__system);
     builder.storeUint(0, 1);
@@ -1085,12 +1132,13 @@ const Registry_errors: { [key: number]: { message: string } } = {
     137: { message: `Masterchain support is not enabled for this contract` },
     2977: { message: `Already initialized` },
     4429: { message: `Invalid sender` },
+    4600: { message: `Only admin can set the create dao fee` },
+    8645: { message: `Only admin can set the dao fwd msg fee` },
     23452: { message: `Only admin can set new registry admin` },
     46336: { message: `Below min fee for create dao` },
     51893: { message: `Only registry can change fwd msg fee` },
-    52512: { message: `Only admin can set dao fwd msg fee` },
+    56012: { message: `Only admin can set the new dao fwd msg fee` },
     60173: { message: `Below min fee for dao forward message` },
-    62925: { message: `Only admin can set create dao fee` },
 }
 
 const Registry_types: ABIType[] = [
@@ -1105,6 +1153,7 @@ const Registry_types: ABIType[] = [
     {"name":"DeployAndInitDao","header":3378223972,"fields":[{"name":"owner","type":{"kind":"simple","type":"address","optional":false}},{"name":"proposalOwner","type":{"kind":"simple","type":"address","optional":false}},{"name":"metadata","type":{"kind":"simple","type":"address","optional":false}}]},
     {"name":"SendDaoInit","header":3367586747,"fields":[{"name":"owner","type":{"kind":"simple","type":"address","optional":false}},{"name":"proposalOwner","type":{"kind":"simple","type":"address","optional":false}},{"name":"metadata","type":{"kind":"simple","type":"address","optional":false}}]},
     {"name":"SetDeployAndInitDaoFee","header":2828439833,"fields":[{"name":"newDeployAndInitDaoFee","type":{"kind":"simple","type":"uint","optional":false,"format":64}}]},
+    {"name":"SetNewDaoFwdMsgFee","header":60181454,"fields":[{"name":"newDaosfwdMsgFee","type":{"kind":"simple","type":"uint","optional":false,"format":64}}]},
     {"name":"SendToDaoSetFwdMsgFee","header":1477819782,"fields":[{"name":"daoId","type":{"kind":"simple","type":"uint","optional":false,"format":32}},{"name":"newFwdMsgFee","type":{"kind":"simple","type":"uint","optional":false,"format":64}}]},
     {"name":"SetRegistryAdmin","header":3335943114,"fields":[{"name":"newAdmin","type":{"kind":"simple","type":"address","optional":false}}]},
     {"name":"RegistryContractState","header":null,"fields":[{"name":"registryId","type":{"kind":"simple","type":"uint","optional":false,"format":32}},{"name":"nextDaoId","type":{"kind":"simple","type":"uint","optional":false,"format":32}},{"name":"admin","type":{"kind":"simple","type":"address","optional":false}},{"name":"deployAndInitDaoFee","type":{"kind":"simple","type":"uint","optional":false,"format":64}}]},
@@ -1113,7 +1162,7 @@ const Registry_types: ABIType[] = [
     {"name":"SetFwdMsgFee","header":4109608450,"fields":[{"name":"newFwdMsgFee","type":{"kind":"simple","type":"uint","optional":false,"format":64}}]},
     {"name":"SetMetadata","header":3660550271,"fields":[{"name":"newMetadata","type":{"kind":"simple","type":"address","optional":false}}]},
     {"name":"FwdMsg","header":1690551268,"fields":[{"name":"fwdMsg","type":{"kind":"simple","type":"SendParameters","optional":false}}]},
-    {"name":"DaoInit","header":444810285,"fields":[{"name":"owner","type":{"kind":"simple","type":"address","optional":false}},{"name":"proposalOwner","type":{"kind":"simple","type":"address","optional":false}},{"name":"metadata","type":{"kind":"simple","type":"address","optional":false}}]},
+    {"name":"DaoInit","header":3971512043,"fields":[{"name":"owner","type":{"kind":"simple","type":"address","optional":false}},{"name":"proposalOwner","type":{"kind":"simple","type":"address","optional":false}},{"name":"metadata","type":{"kind":"simple","type":"address","optional":false}},{"name":"fwdMsgFee","type":{"kind":"simple","type":"uint","optional":false,"format":64}}]},
     {"name":"DaoContractState","header":null,"fields":[{"name":"registry","type":{"kind":"simple","type":"address","optional":false}},{"name":"owner","type":{"kind":"simple","type":"address","optional":false}},{"name":"proposalOwner","type":{"kind":"simple","type":"address","optional":false}},{"name":"metadata","type":{"kind":"simple","type":"address","optional":false}},{"name":"daoIndex","type":{"kind":"simple","type":"uint","optional":false,"format":32}},{"name":"fwdMsgFee","type":{"kind":"simple","type":"uint","optional":false,"format":64}}]},
 ]
 
@@ -1126,6 +1175,7 @@ const Registry_getters: ABIGetter[] = [
 const Registry_receivers: ABIReceiver[] = [
     {"receiver":"internal","message":{"kind":"typed","type":"DeployAndInitDao"}},
     {"receiver":"internal","message":{"kind":"typed","type":"SetDeployAndInitDaoFee"}},
+    {"receiver":"internal","message":{"kind":"typed","type":"SetNewDaoFwdMsgFee"}},
     {"receiver":"internal","message":{"kind":"typed","type":"SendToDaoSetFwdMsgFee"}},
     {"receiver":"internal","message":{"kind":"typed","type":"SetRegistryAdmin"}},
     {"receiver":"internal","message":{"kind":"typed","type":"Deploy"}},
@@ -1161,7 +1211,7 @@ export class Registry implements Contract {
         this.init = init;
     }
     
-    async send(provider: ContractProvider, via: Sender, args: { value: bigint, bounce?: boolean| null | undefined }, message: DeployAndInitDao | SetDeployAndInitDaoFee | SendToDaoSetFwdMsgFee | SetRegistryAdmin | Deploy) {
+    async send(provider: ContractProvider, via: Sender, args: { value: bigint, bounce?: boolean| null | undefined }, message: DeployAndInitDao | SetDeployAndInitDaoFee | SetNewDaoFwdMsgFee | SendToDaoSetFwdMsgFee | SetRegistryAdmin | Deploy) {
         
         let body: Cell | null = null;
         if (message && typeof message === 'object' && !(message instanceof Slice) && message.$$type === 'DeployAndInitDao') {
@@ -1169,6 +1219,9 @@ export class Registry implements Contract {
         }
         if (message && typeof message === 'object' && !(message instanceof Slice) && message.$$type === 'SetDeployAndInitDaoFee') {
             body = beginCell().store(storeSetDeployAndInitDaoFee(message)).endCell();
+        }
+        if (message && typeof message === 'object' && !(message instanceof Slice) && message.$$type === 'SetNewDaoFwdMsgFee') {
+            body = beginCell().store(storeSetNewDaoFwdMsgFee(message)).endCell();
         }
         if (message && typeof message === 'object' && !(message instanceof Slice) && message.$$type === 'SendToDaoSetFwdMsgFee') {
             body = beginCell().store(storeSendToDaoSetFwdMsgFee(message)).endCell();

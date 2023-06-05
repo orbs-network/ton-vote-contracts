@@ -19,7 +19,7 @@ contract Dao with Deployable {
         self.owner =  newAddress(0, 0x0);
         self.proposalOwner = newAddress(0, 0x0);
         self.metadata =  newAddress(0, 0x0);
-        self.fwdMsgFee = ton("1");
+        self.fwdMsgFee = ton("1000000");
     }
     
     receive(init: DaoInit) {
@@ -29,6 +29,7 @@ contract Dao with Deployable {
         self.owner = init.owner;
         self.proposalOwner = init.proposalOwner;
         self.metadata = init.metadata;
+        self.fwdMsgFee = init.fwdMsgFee;
     }
 
     receive(msg: SetOwner) {

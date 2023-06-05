@@ -96,6 +96,18 @@ cell $DeployOk$_store_cell((int) v) inline {
 }
 
 ;;
+;; Type: SetNewDaoFwdMsgFee
+;; Header: 0x03964bce
+;; TLB: set_new_dao_fwd_msg_fee#03964bce newDaosfwdMsgFee:uint64 = SetNewDaoFwdMsgFee
+;;
+
+(slice, ((int))) $SetNewDaoFwdMsgFee$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 60181454);
+    var v'newDaosfwdMsgFee = sc_0~load_uint(64);
+    return (sc_0, (v'newDaosfwdMsgFee));
+}
+
+;;
 ;; Type: SendToDaoSetFwdMsgFee
 ;; Header: 0x5815bd86
 ;; TLB: send_to_dao_set_fwd_msg_fee#5815bd86 daoId:uint32 newFwdMsgFee:uint64 = SendToDaoSetFwdMsgFee
@@ -157,25 +169,26 @@ cell $SetFwdMsgFee$_store_cell((int) v) inline {
 
 ;;
 ;; Type: DaoInit
-;; Header: 0x1a83442d
-;; TLB: dao_init#1a83442d owner:address proposalOwner:address metadata:address = DaoInit
+;; Header: 0xecb876eb
+;; TLB: dao_init#ecb876eb owner:address proposalOwner:address metadata:address fwdMsgFee:uint64 = DaoInit
 ;;
 
-builder $DaoInit$_store(builder build_0, (slice, slice, slice) v) inline {
-    var (v'owner, v'proposalOwner, v'metadata) = v;
-    build_0 = store_uint(build_0, 444810285, 32);
+builder $DaoInit$_store(builder build_0, (slice, slice, slice, int) v) inline {
+    var (v'owner, v'proposalOwner, v'metadata, v'fwdMsgFee) = v;
+    build_0 = store_uint(build_0, 3971512043, 32);
     build_0 = __tact_store_address(build_0, v'owner);
     build_0 = __tact_store_address(build_0, v'proposalOwner);
     build_0 = __tact_store_address(build_0, v'metadata);
+    build_0 = build_0.store_uint(v'fwdMsgFee, 64);
     return build_0;
 }
 
-cell $DaoInit$_store_cell((slice, slice, slice) v) inline {
+cell $DaoInit$_store_cell((slice, slice, slice, int) v) inline {
     return $DaoInit$_store(begin_cell(), v).end_cell();
 }
 
-((slice, slice, slice)) $DaoInit$_constructor_owner_proposalOwner_metadata(slice owner, slice proposalOwner, slice metadata) inline {
-    return (owner, proposalOwner, metadata);
+((slice, slice, slice, int)) $DaoInit$_constructor_owner_proposalOwner_metadata_fwdMsgFee(slice owner, slice proposalOwner, slice metadata, int fwdMsgFee) inline {
+    return (owner, proposalOwner, metadata, fwdMsgFee);
 }
 
 ;;
@@ -210,21 +223,23 @@ builder $Dao$init$_store(builder build_0, (slice, int) v) inline {
 ;; Type: Registry
 ;;
 
-builder $Registry$_store(builder build_0, (int, int, slice, int) v) inline {
-    var (v'registryId, v'nextDaoId, v'admin, v'deployAndInitDaoFee) = v;
+builder $Registry$_store(builder build_0, (int, int, slice, int, int) v) inline {
+    var (v'registryId, v'nextDaoId, v'admin, v'deployAndInitDaoFee, v'newDaosfwdMsgFee) = v;
     build_0 = build_0.store_uint(v'registryId, 32);
     build_0 = build_0.store_uint(v'nextDaoId, 32);
     build_0 = __tact_store_address(build_0, v'admin);
     build_0 = build_0.store_uint(v'deployAndInitDaoFee, 64);
+    build_0 = build_0.store_uint(v'newDaosfwdMsgFee, 64);
     return build_0;
 }
 
-(slice, ((int, int, slice, int))) $Registry$_load(slice sc_0) inline {
+(slice, ((int, int, slice, int, int))) $Registry$_load(slice sc_0) inline {
     var v'registryId = sc_0~load_uint(32);
     var v'nextDaoId = sc_0~load_uint(32);
     var v'admin = sc_0~__tact_load_address();
     var v'deployAndInitDaoFee = sc_0~load_uint(64);
-    return (sc_0, (v'registryId, v'nextDaoId, v'admin, v'deployAndInitDaoFee));
+    var v'newDaosfwdMsgFee = sc_0~load_uint(64);
+    return (sc_0, (v'registryId, v'nextDaoId, v'admin, v'deployAndInitDaoFee, v'newDaosfwdMsgFee));
 }
 
 (slice, ((int))) $Registry$init$_load(slice sc_0) inline {
@@ -232,7 +247,7 @@ builder $Registry$_store(builder build_0, (int, int, slice, int) v) inline {
     return (sc_0, (v'registryId));
 }
 
-(int, int, slice, int) $Registry$_contract_load() impure inline_ref {
+(int, int, slice, int, int) $Registry$_contract_load() impure inline_ref {
     slice $sc = get_data().begin_parse();
     __tact_context_sys = $sc~load_ref();
     int $loaded = $sc~load_int(1);
@@ -247,7 +262,7 @@ builder $Registry$_store(builder build_0, (int, int, slice, int) v) inline {
     }
 }
 
-() $Registry$_contract_store((int, int, slice, int) v) impure inline {
+() $Registry$_contract_store((int, int, slice, int, int) v) impure inline {
     builder b = begin_cell();
     b = b.store_ref(__tact_context_sys);
     b = b.store_int(true, 1);

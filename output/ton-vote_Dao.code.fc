@@ -17,7 +17,7 @@
     $self'owner = __tact_create_address(0, 0);
     $self'proposalOwner = __tact_create_address(0, 0);
     $self'metadata = __tact_create_address(0, 0);
-    $self'fwdMsgFee = 1000000000;
+    $self'fwdMsgFee = 1000000000000000;
     return ($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee);
 }
 
@@ -30,14 +30,15 @@
 ;; Receivers of a Contract Dao
 ;;
 
-(((slice, slice, slice, int, slice, int)), ()) $Dao$_internal_binary_DaoInit((slice, slice, slice, int, slice, int) $self, (slice, slice, slice) $init) impure inline {
+(((slice, slice, slice, int, slice, int)), ()) $Dao$_internal_binary_DaoInit((slice, slice, slice, int, slice, int) $self, (slice, slice, slice, int) $init) impure inline {
     var ($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee) = $self;
-    var ($init'owner, $init'proposalOwner, $init'metadata) = $init;
+    var ($init'owner, $init'proposalOwner, $init'metadata, $init'fwdMsgFee) = $init;
     throw_unless(2977, ( __tact_slice_eq_bits(__tact_create_address(0, 0), $self'owner) ));
     throw_unless(4429, ( __tact_slice_eq_bits($self'registry, __tact_context_get_sender()) ));
     $self'owner = $init'owner;
     $self'proposalOwner = $init'proposalOwner;
     $self'metadata = $init'metadata;
+    $self'fwdMsgFee = $init'fwdMsgFee;
     return (($self'owner, $self'registry, $self'proposalOwner, $self'daoIndex, $self'metadata, $self'fwdMsgFee), ());
 }
 
@@ -110,7 +111,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() method_id {
-    return "ipfs://QmXEeQGvd7xW4McJkzcFTRUkRWVtdnWrJNjtLiq5hJTv2c";
+    return "ipfs://QmSzm36zrEX1i8nwwG1bAkEfgRsLkWyDV48yUktAUK95dB";
 }
 
 _ lazy_deployment_completed() method_id {
@@ -135,7 +136,7 @@ _ lazy_deployment_completed() method_id {
     
     
     ;; Receive DaoInit message
-    if (op == 444810285) {
+    if (op == 3971512043) {
         var msg = in_msg~$DaoInit$_load();
         self~$Dao$_internal_binary_DaoInit(msg);
         return (self, true);

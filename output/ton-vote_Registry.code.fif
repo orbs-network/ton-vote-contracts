@@ -17,6 +17,7 @@ PROGRAM{
   DECLPROC $DeployOk$_store_cell
   DECLPROC $DeployAndInitDao$_load
   DECLPROC $SetDeployAndInitDaoFee$_load
+  DECLPROC $SetNewDaoFwdMsgFee$_load
   DECLPROC $SendToDaoSetFwdMsgFee$_load
   DECLPROC $SetRegistryAdmin$_load
   DECLPROC $SetFwdMsgFee$_store
@@ -45,12 +46,13 @@ PROGRAM{
   DECLPROC $Registry$_fun_forward
   DECLPROC $Registry$_fun_notify
   DECLPROC $SendParameters$_constructor_to_value_bounce_mode_body_code_data
-  DECLPROC $DaoInit$_constructor_owner_proposalOwner_metadata
+  DECLPROC $DaoInit$_constructor_owner_proposalOwner_metadata_fwdMsgFee
   DECLPROC $SendParameters$_constructor_to_value_bounce_mode_body
   DECLPROC $SetFwdMsgFee$_constructor_newFwdMsgFee
   DECLPROC $DeployOk$_constructor_queryId
   DECLPROC $Registry$_internal_binary_DeployAndInitDao
   DECLPROC $Registry$_internal_binary_SetDeployAndInitDaoFee
+  DECLPROC $Registry$_internal_binary_SetNewDaoFwdMsgFee
   DECLPROC $Registry$_internal_binary_SendToDaoSetFwdMsgFee
   DECLPROC $Registry$_internal_binary_SetRegistryAdmin
   DECLPROC $Registry$_internal_binary_Deploy
@@ -202,6 +204,15 @@ PROGRAM{
     64 LDU
     SWAP
   }>
+  $SetNewDaoFwdMsgFee$_load PROCINLINE:<{
+    32 LDU
+    SWAP
+    60181454 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    64 LDU
+    SWAP
+  }>
   $SendToDaoSetFwdMsgFee$_load PROCINLINE:<{
     32 LDU
     SWAP
@@ -233,28 +244,31 @@ PROGRAM{
     ENDC
   }>
   $DaoInit$_store PROCINLINE:<{
-    444810285 PUSHINT
-    s0 s4 XCHG2
+    3971512043 PUSHINT
+    s0 s5 XCHG2
     32 STU
-    ROT
+    s0 s3 XCHG2
     __tact_store_address INLINECALLDICT
     SWAP
     __tact_store_address INLINECALLDICT
     SWAP
     __tact_store_address INLINECALLDICT
+    64 STU
   }>
   $DaoInit$_store_cell PROCINLINE:<{
     NEWC
-    3 -ROLL
+    4 -ROLL
     $DaoInit$_store INLINECALLDICT
     ENDC
   }>
   $Registry$_store PROCINLINE:<{
-    s3 s4 XCHG2
+    s4 s5 XCHG2
     32 STU
+    s1 s2 XCHG
     32 STU
     SWAP
     __tact_store_address INLINECALLDICT
+    64 STU
     64 STU
   }>
   $Registry$_load PROCINLINE:<{
@@ -263,7 +277,8 @@ PROGRAM{
     __tact_load_address INLINECALLDICT
     SWAP
     64 LDU
-    4 -ROLL
+    64 LDU
+    5 -ROLL
   }>
   $StateInit$_not_null PROCINLINE:<{
     DUP
@@ -293,6 +308,7 @@ PROGRAM{
     s0 s0 PUSH2
     __tact_create_address INLINECALLDICT
     1000000000 PUSHINT
+    100000000 PUSHINT
   }>
   $Registry$_contract_load PROCREF:<{
     c4 PUSH
@@ -304,7 +320,7 @@ PROGRAM{
     SWAP
     IFJMP:<{
       $Registry$_load INLINECALLDICT
-      1 4 BLKDROP2
+      1 5 BLKDROP2
     }>
     MYADDR
     11 PLDU
@@ -324,7 +340,7 @@ PROGRAM{
     TRUE
     SWAP
     1 STI
-    4 -ROLL
+    5 -ROLL
     $Registry$_store INLINECALLDICT
     ENDC
     c4 POP
@@ -474,12 +490,12 @@ PROGRAM{
   $RegistryContractState$_constructor_registryId_nextDaoId_admin_deployAndInitDaoFee PROCINLINE:<{
   }>
   $Registry$_fun_state PROCREF:<{
-    s3 s2 s1 PUSH3
-    s3 PUSH
+    s4 s3 s2 PUSH3
+    s4 PUSH
     $RegistryContractState$_constructor_registryId_nextDaoId_admin_deployAndInitDaoFee INLINECALLDICT
   }>
   $Registry$_fun_nextDaoId PROCREF:<{
-    s2 PUSH
+    s3 PUSH
   }>
   $Registry$_fun_daoAddress PROCREF:<{
     $Registry$_fun_getDaoStateInit INLINECALLDICT
@@ -518,7 +534,7 @@ PROGRAM{
     s4 s6 XCHG
     s4 s5 XCHG
   }>
-  $DaoInit$_constructor_owner_proposalOwner_metadata PROCINLINE:<{
+  $DaoInit$_constructor_owner_proposalOwner_metadata_fwdMsgFee PROCINLINE:<{
   }>
   $SendParameters$_constructor_to_value_bounce_mode_body PROCINLINE:<{
     s2 s4 XCHG
@@ -534,80 +550,89 @@ PROGRAM{
     46336 PUSHINT
     __tact_context_get INLINECALLDICT
     $Context$_get_value INLINECALLDICT
-    s5 PUSH
+    s6 PUSH
     GEQ
     THROWANYIFNOT
-    s5 PUSH
-    s4 s7 XCHG
-    s5 s1 s3 XCHG3
-    s7 s6 XCHG2
+    s6 PUSH
+    s5 s8 XCHG
+    s0 s4 XCHG
+    s3 s6 XCHG
+    s8 s0 s7 XCHG3
     $Registry$_fun_getDaoStateInit INLINECALLDICT
     2DUP
     $global_contractAddress INLINECALLDICT
     0 PUSHINT
     FALSE
-    s10 s9 XCHG2
+    s10 s12 XCHG2
     64 PUSHINT
-    s0 s12 XCHG
-    $DaoInit$_constructor_owner_proposalOwner_metadata INLINECALLDICT
+    s12 s6 XCPU
+    $DaoInit$_constructor_owner_proposalOwner_metadata_fwdMsgFee INLINECALLDICT
     $DaoInit$_store_cell INLINECALLDICT
     s1 s6 XCHG
     s5 s9 XCHG
-    s4 s8 XCHG
+    s4 s11 XCHG
     s3 s10 XCHG
     s10 s2 XCHG2
     $SendParameters$_constructor_to_value_bounce_mode_body_code_data INLINECALLDICT
     $global_send INLINECALLDICT
-    s0 s3 XCHG
     INC
-    -ROT
+    3 -ROLL
+    s0 s4 XCHG
   }>
   $Registry$_internal_binary_SetDeployAndInitDaoFee PROCINLINE:<{
-    NIP
-    62925 PUSHINT
+    s2 POP
+    4600 PUSHINT
     __tact_context_get_sender INLINECALLDICT
-    s3 s(-1) PUXC
+    s4 s(-1) PUXC
+    __tact_slice_eq_bits INLINECALLDICT
+    THROWANYIFNOT
+  }>
+  $Registry$_internal_binary_SetNewDaoFwdMsgFee PROCINLINE:<{
+    NIP
+    56012 PUSHINT
+    __tact_context_get_sender INLINECALLDICT
+    s4 s(-1) PUXC
     __tact_slice_eq_bits INLINECALLDICT
     THROWANYIFNOT
   }>
   $Registry$_internal_binary_SendToDaoSetFwdMsgFee PROCINLINE:<{
-    52512 PUSHINT
+    8645 PUSHINT
     __tact_context_get_sender INLINECALLDICT
-    s5 s(-1) PUXC
+    s6 s(-1) PUXC
     __tact_slice_eq_bits INLINECALLDICT
     THROWANYIFNOT
-    5 -ROLL
+    6 -ROLL
     $Registry$_fun_getDaoStateInit INLINECALLDICT
     $global_contractAddress INLINECALLDICT
     0 PUSHINT
     FALSE
     64 PUSHINT
-    s0 s8 XCHG
+    s0 s9 XCHG
     $SetFwdMsgFee$_constructor_newFwdMsgFee INLINECALLDICT
     $SetFwdMsgFee$_store_cell INLINECALLDICT
     s3 s4 XCHG
     s1 s3 s0 XCHG3
-    s1 s8 XCHG
+    s1 s9 XCHG
     $SendParameters$_constructor_to_value_bounce_mode_body INLINECALLDICT
     $global_send INLINECALLDICT
-    3 ROLL
+    4 ROLL
   }>
   $Registry$_internal_binary_SetRegistryAdmin PROCINLINE:<{
     23452 PUSHINT
     __tact_context_get_sender INLINECALLDICT
-    s4 s(-1) PUXC
+    s5 s(-1) PUXC
     __tact_slice_eq_bits INLINECALLDICT
     IF:<{
-      s3 POP
+      s4 POP
       TRUE
     }>ELSE<{
       0 PUSHINT
       DUP
       __tact_create_address INLINECALLDICT
-      s0 s4 XCHG2
+      s0 s5 XCHG2
       __tact_slice_eq_bits INLINECALLDICT
     }>
-    s1 s3 XCHG
+    s1 s4 XCHG
     THROWANYIFNOT
   }>
   $Registry$_internal_binary_Deploy PROCINLINE:<{
@@ -618,19 +643,19 @@ PROGRAM{
   %state PROC:<{
     $Registry$_contract_load INLINECALLDICT
     $Registry$_fun_state INLINECALLDICT
-    4 4 BLKDROP2
+    5 4 BLKDROP2
     $RegistryContractState$_to_external INLINECALLDICT
   }>
   %nextDaoId PROC:<{
     $Registry$_contract_load INLINECALLDICT
     $Registry$_fun_nextDaoId INLINECALLDICT
-    4 1 BLKDROP2
+    5 1 BLKDROP2
   }>
   %daoAddress PROC:<{
     $Registry$_contract_load INLINECALLDICT
-    4 ROLL
+    5 ROLL
     $Registry$_fun_daoAddress INLINECALLDICT
-    4 1 BLKDROP2
+    5 1 BLKDROP2
   }>
   supported_interfaces PROC:<{
     123515602279859691144772641439386770278 PUSHINT
@@ -640,7 +665,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d555041576354633369504a4171645234545161334a664b72334d4b6a5572457255677a5051533272346e7865} PUSHSLICE
+    x{697066733a2f2f516d52425356756872557876693356594d7835794263515263327a32314d57775a326a4d6d69776d595a6d56374a} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH
@@ -681,6 +706,16 @@ PROGRAM{
       $SetDeployAndInitDaoFee$_load INLINECALLDICT
       NIP
       $Registry$_internal_binary_SetDeployAndInitDaoFee INLINECALLDICT
+      TRUE
+    }>
+    DUP
+    60181454 PUSHINT
+    EQUAL
+    IFJMP:<{
+      DROP
+      $SetNewDaoFwdMsgFee$_load INLINECALLDICT
+      NIP
+      $Registry$_internal_binary_SetNewDaoFwdMsgFee INLINECALLDICT
       TRUE
     }>
     DUP
@@ -733,7 +768,7 @@ PROGRAM{
     s0 s2 XCHG
     __tact_context_sender SETGLOB
     $Registry$_contract_load INLINECALLDICT
-    2 4 BLKSWAP
+    2 5 BLKSWAP
     $Registry$_contract_router_internal INLINECALLDICT
     130 THROWIFNOT
     $Registry$_contract_store INLINECALLDICT

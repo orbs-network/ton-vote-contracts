@@ -125,8 +125,8 @@ slice $global_contractAddress((cell, cell) $s) impure inline {
     send_raw_message($c, $params'mode);
 }
 
-((int, int, slice, int), ()) $Registry$_fun_forward((int, int, slice, int) $self, slice $to, cell $body, int $bounce, tuple $init) impure inline_ref {
-    var (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee)) = $self;
+((int, int, slice, int, int), ()) $Registry$_fun_forward((int, int, slice, int, int) $self, slice $to, cell $body, int $bounce, tuple $init) impure inline_ref {
+    var (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee)) = $self;
     var ($init) = $init;
     cell $code = null();
     cell $data = null();
@@ -142,15 +142,15 @@ slice $global_contractAddress((cell, cell) $s) impure inline {
         if (($balanceBeforeMessage < 0)) {
             raw_reserve(0, 0);
             $global_send($SendParameters$_constructor_bounce_to_value_mode_body_code_data($bounce, $to, 0, (128 + 2), $body, $code, $data));
-            return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee), ());
+            return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee), ());
         }
     }
     $global_send($SendParameters$_constructor_bounce_to_value_mode_body_code_data($bounce, $to, 0, (64 + 2), $body, $code, $data));
-    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee), ());
+    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee), ());
 }
 
-((int, int, slice, int), ()) $Registry$_fun_notify((int, int, slice, int) $self, cell $body) impure inline {
-    var (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee)) = $self;
-    ($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee)~$Registry$_fun_forward(__tact_context_get_sender(), $body, false, null());
-    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee), ());
+((int, int, slice, int, int), ()) $Registry$_fun_notify((int, int, slice, int, int) $self, cell $body) impure inline {
+    var (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee)) = $self;
+    ($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee)~$Registry$_fun_forward(__tact_context_get_sender(), $body, false, null());
+    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee), ());
 }

@@ -10,82 +10,91 @@
 ;; Contract Registry functions
 ;;
 
-(int, int, slice, int) $Registry$_contract_init(int $registryId) impure inline_ref {
-    var (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee)) = (null(), null(), null(), null());
+(int, int, slice, int, int) $Registry$_contract_init(int $registryId) impure inline_ref {
+    var (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee)) = (null(), null(), null(), null(), null());
     $self'registryId = $registryId;
     $self'nextDaoId = 0;
     $self'admin = __tact_create_address(0, 0);
     $self'deployAndInitDaoFee = 1000000000;
-    return ($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee);
+    $self'newDaosfwdMsgFee = 100000000;
+    return ($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee);
 }
 
-((int, int, slice, int), (cell, cell)) $Registry$_fun_getDaoStateInit((int, int, slice, int) $self, int $daoIndex) impure inline_ref {
-    var (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee)) = $self;
-    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee), $Dao$_init_child(__tact_context_sys, my_address(), $daoIndex));
+((int, int, slice, int, int), (cell, cell)) $Registry$_fun_getDaoStateInit((int, int, slice, int, int) $self, int $daoIndex) impure inline_ref {
+    var (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee)) = $self;
+    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee), $Dao$_init_child(__tact_context_sys, my_address(), $daoIndex));
 }
 
-((int, int, slice, int), (int, int, slice, int)) $Registry$_fun_state((int, int, slice, int) $self) impure inline_ref {
-    var (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee)) = $self;
-    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee), $RegistryContractState$_constructor_registryId_nextDaoId_admin_deployAndInitDaoFee($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee));
+((int, int, slice, int, int), (int, int, slice, int)) $Registry$_fun_state((int, int, slice, int, int) $self) impure inline_ref {
+    var (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee)) = $self;
+    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee), $RegistryContractState$_constructor_registryId_nextDaoId_admin_deployAndInitDaoFee($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee));
 }
 
-((int, int, slice, int), int) $Registry$_fun_nextDaoId((int, int, slice, int) $self) impure inline_ref {
-    var (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee)) = $self;
-    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee), $self'nextDaoId);
+((int, int, slice, int, int), int) $Registry$_fun_nextDaoId((int, int, slice, int, int) $self) impure inline_ref {
+    var (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee)) = $self;
+    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee), $self'nextDaoId);
 }
 
-((int, int, slice, int), slice) $Registry$_fun_daoAddress((int, int, slice, int) $self, int $daoId) impure inline_ref {
-    var (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee)) = $self;
-    var ($init'code, $init'data) = ($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee)~$Registry$_fun_getDaoStateInit($daoId);
-    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee), $global_contractAddress(($init'code, $init'data)));
+((int, int, slice, int, int), slice) $Registry$_fun_daoAddress((int, int, slice, int, int) $self, int $daoId) impure inline_ref {
+    var (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee)) = $self;
+    var ($init'code, $init'data) = ($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee)~$Registry$_fun_getDaoStateInit($daoId);
+    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee), $global_contractAddress(($init'code, $init'data)));
 }
 
 ;;
 ;; Receivers of a Contract Registry
 ;;
 
-(((int, int, slice, int)), ()) $Registry$_internal_binary_DeployAndInitDao((int, int, slice, int) $self, (slice, slice, slice) $deployAndInitDao) impure inline {
-    var ($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee) = $self;
+(((int, int, slice, int, int)), ()) $Registry$_internal_binary_DeployAndInitDao((int, int, slice, int, int) $self, (slice, slice, slice) $deployAndInitDao) impure inline {
+    var ($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee) = $self;
     var ($deployAndInitDao'owner, $deployAndInitDao'proposalOwner, $deployAndInitDao'metadata) = $deployAndInitDao;
     throw_unless(46336, ($Context$_get_value(__tact_context_get()) >= $self'deployAndInitDaoFee));
-    var ($init'code, $init'data) = ($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee)~$Registry$_fun_getDaoStateInit($self'nextDaoId);
+    var ($init'code, $init'data) = ($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee)~$Registry$_fun_getDaoStateInit($self'nextDaoId);
     slice $daoAddress = $global_contractAddress(($init'code, $init'data));
-    $global_send($SendParameters$_constructor_to_value_bounce_mode_body_code_data($daoAddress, 0, false, 64, $DaoInit$_store_cell($DaoInit$_constructor_owner_proposalOwner_metadata($deployAndInitDao'owner, $deployAndInitDao'proposalOwner, $deployAndInitDao'metadata)), $init'code, $init'data));
+    $global_send($SendParameters$_constructor_to_value_bounce_mode_body_code_data($daoAddress, 0, false, 64, $DaoInit$_store_cell($DaoInit$_constructor_owner_proposalOwner_metadata_fwdMsgFee($deployAndInitDao'owner, $deployAndInitDao'proposalOwner, $deployAndInitDao'metadata, $self'newDaosfwdMsgFee)), $init'code, $init'data));
     $self'nextDaoId = ($self'nextDaoId + 1);
-    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee), ());
+    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee), ());
 }
 
-(((int, int, slice, int)), ()) $Registry$_internal_binary_SetDeployAndInitDaoFee((int, int, slice, int) $self, (int) $msg) impure inline {
-    var ($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee) = $self;
+(((int, int, slice, int, int)), ()) $Registry$_internal_binary_SetDeployAndInitDaoFee((int, int, slice, int, int) $self, (int) $msg) impure inline {
+    var ($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee) = $self;
     var ($msg'newDeployAndInitDaoFee) = $msg;
-    throw_unless(62925, ( __tact_slice_eq_bits($self'admin, __tact_context_get_sender()) ));
+    throw_unless(4600, ( __tact_slice_eq_bits($self'admin, __tact_context_get_sender()) ));
     $self'deployAndInitDaoFee = $msg'newDeployAndInitDaoFee;
-    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee), ());
+    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee), ());
 }
 
-(((int, int, slice, int)), ()) $Registry$_internal_binary_SendToDaoSetFwdMsgFee((int, int, slice, int) $self, (int, int) $msg) impure inline {
-    var ($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee) = $self;
+(((int, int, slice, int, int)), ()) $Registry$_internal_binary_SetNewDaoFwdMsgFee((int, int, slice, int, int) $self, (int) $msg) impure inline {
+    var ($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee) = $self;
+    var ($msg'newDaosfwdMsgFee) = $msg;
+    throw_unless(56012, ( __tact_slice_eq_bits($self'admin, __tact_context_get_sender()) ));
+    $self'newDaosfwdMsgFee = $msg'newDaosfwdMsgFee;
+    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee), ());
+}
+
+(((int, int, slice, int, int)), ()) $Registry$_internal_binary_SendToDaoSetFwdMsgFee((int, int, slice, int, int) $self, (int, int) $msg) impure inline {
+    var ($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee) = $self;
     var ($msg'daoId, $msg'newFwdMsgFee) = $msg;
-    throw_unless(52512, ( __tact_slice_eq_bits($self'admin, __tact_context_get_sender()) ));
-    var ($init'code, $init'data) = ($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee)~$Registry$_fun_getDaoStateInit($msg'daoId);
+    throw_unless(8645, ( __tact_slice_eq_bits($self'admin, __tact_context_get_sender()) ));
+    var ($init'code, $init'data) = ($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee)~$Registry$_fun_getDaoStateInit($msg'daoId);
     slice $daoAddress = $global_contractAddress(($init'code, $init'data));
     $global_send($SendParameters$_constructor_to_value_bounce_mode_body($daoAddress, 0, false, 64, $SetFwdMsgFee$_store_cell($SetFwdMsgFee$_constructor_newFwdMsgFee($msg'newFwdMsgFee))));
-    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee), ());
+    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee), ());
 }
 
-(((int, int, slice, int)), ()) $Registry$_internal_binary_SetRegistryAdmin((int, int, slice, int) $self, (slice) $msg) impure inline {
-    var ($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee) = $self;
+(((int, int, slice, int, int)), ()) $Registry$_internal_binary_SetRegistryAdmin((int, int, slice, int, int) $self, (slice) $msg) impure inline {
+    var ($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee) = $self;
     var ($msg'newAdmin) = $msg;
     throw_unless(23452, ( (( __tact_slice_eq_bits($self'admin, __tact_context_get_sender()) )) ? (true) : (( __tact_slice_eq_bits(__tact_create_address(0, 0), $self'admin) )) ));
     $self'admin = $msg'newAdmin;
-    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee), ());
+    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee), ());
 }
 
-(((int, int, slice, int)), ()) $Registry$_internal_binary_Deploy((int, int, slice, int) $self, (int) $deploy) impure inline {
-    var ($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee) = $self;
+(((int, int, slice, int, int)), ()) $Registry$_internal_binary_Deploy((int, int, slice, int, int) $self, (int) $deploy) impure inline {
+    var ($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee) = $self;
     var ($deploy'queryId) = $deploy;
-    ($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee)~$Registry$_fun_notify($DeployOk$_store_cell($DeployOk$_constructor_queryId($deploy'queryId)));
-    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee), ());
+    ($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee)~$Registry$_fun_notify($DeployOk$_store_cell($DeployOk$_constructor_queryId($deploy'queryId)));
+    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee), ());
 }
 
 ;;
@@ -122,7 +131,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() method_id {
-    return "ipfs://QmUPAWcTc3iPJAqdR4TQa3JfKr3MKjUrErUgzPQS2r4nxe";
+    return "ipfs://QmRBSVuhrUxvi3VYMx5yBcQRc2z21MWwZ2jMmiwmYZmV7J";
 }
 
 _ lazy_deployment_completed() method_id {
@@ -133,7 +142,7 @@ _ lazy_deployment_completed() method_id {
 ;; Routing of a Contract Registry
 ;;
 
-((int, int, slice, int), int) $Registry$_contract_router_internal((int, int, slice, int) self, int msg_bounced, slice in_msg) impure inline_ref {
+((int, int, slice, int, int), int) $Registry$_contract_router_internal((int, int, slice, int, int) self, int msg_bounced, slice in_msg) impure inline_ref {
     ;; Handle bounced messages
     if (msg_bounced) {
         return (self, true);
@@ -157,6 +166,13 @@ _ lazy_deployment_completed() method_id {
     if (op == 2828439833) {
         var msg = in_msg~$SetDeployAndInitDaoFee$_load();
         self~$Registry$_internal_binary_SetDeployAndInitDaoFee(msg);
+        return (self, true);
+    }
+    
+    ;; Receive SetNewDaoFwdMsgFee message
+    if (op == 60181454) {
+        var msg = in_msg~$SetNewDaoFwdMsgFee$_load();
+        self~$Registry$_internal_binary_SetNewDaoFwdMsgFee(msg);
         return (self, true);
     }
     

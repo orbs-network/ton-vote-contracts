@@ -10,12 +10,14 @@ contract Registry with Deployable {
     nextDaoId: Int as uint32;
     admin: Address;
     deployAndInitDaoFee: Int as uint64;
+    newDaosfwdMsgFee: Int as uint64;
 
     init(registryId: Int) {
         self.registryId = registryId;
         self.nextDaoId = 0;
         self.admin = newAddress(0, 0x0);
         self.deployAndInitDaoFee = ton("1");
+        self.newDaosfwdMsgFee = ton("0.1");
     }
     
     receive(deployAndInitDao: DeployAndInitDao) {
@@ -29,7 +31,8 @@ contract Registry with Deployable {
             value: 0, 
             bounce: false,
             mode: SendRemainingValue,
-            body: DaoInit{owner: deployAndInitDao.owner, proposalOwner: deployAndInitDao.proposalOwner, metadata: deployAndInitDao.metadata}.toCell(),
+            body: DaoInit{owner: deployAndInitDao.owner, proposalOwner: deployAndInitDao.proposalOwner, 
+            metadata: deployAndInitDao.metadata, fwdMsgFee: self.newDaosfwdMsgFee}.toCell(),
             code: init.code,
             data: init.data
         });
@@ -38,12 +41,19 @@ contract Registry with Deployable {
     }
 
     receive(msg: SetDeployAndInitDaoFee) {
-        require(sender() == self.admin, "Only admin can set create dao fee");
+        require(sender() == self.admin, "Only admin can set the create dao fee");
         self.deployAndInitDaoFee = msg.newDeployAndInitDaoFee;
     }
 
+    // effects daos which were not created yet
+    receive(msg: SetNewDaoFwdMsgFee) {
+        require(sender() == self.admin, "Only admin can set the new dao fwd msg fee");
+        self.newDaosfwdMsgFee = msg.newDaosfwdMsgFee;
+    }
+
+    // effects already created daos
     receive(msg: SendToDaoSetFwdMsgFee) {
-        require(sender() == self.admin, "Only admin can set dao fwd msg fee");
+        require(sender() == self.admin, "Only admin can set the dao fwd msg fee");
 
         let init: StateInit = self.getDaoStateInit(msg.daoId);
         let daoAddress: Address = contractAddress(init);
@@ -55,7 +65,6 @@ contract Registry with Deployable {
             mode: SendRemainingValue,
             body: SetFwdMsgFee{newFwdMsgFee: msg.newFwdMsgFee}.toCell()
         });
-
     }
 
     receive(msg: SetRegistryAdmin) {

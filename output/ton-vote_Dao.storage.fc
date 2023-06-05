@@ -134,16 +134,17 @@ cell $DeployOk$_store_cell((int) v) inline {
 
 ;;
 ;; Type: DaoInit
-;; Header: 0x1a83442d
-;; TLB: dao_init#1a83442d owner:address proposalOwner:address metadata:address = DaoInit
+;; Header: 0xecb876eb
+;; TLB: dao_init#ecb876eb owner:address proposalOwner:address metadata:address fwdMsgFee:uint64 = DaoInit
 ;;
 
-(slice, ((slice, slice, slice))) $DaoInit$_load(slice sc_0) inline {
-    throw_unless(129, sc_0~load_uint(32) == 444810285);
+(slice, ((slice, slice, slice, int))) $DaoInit$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 3971512043);
     var v'owner = sc_0~__tact_load_address();
     var v'proposalOwner = sc_0~__tact_load_address();
     var v'metadata = sc_0~__tact_load_address();
-    return (sc_0, (v'owner, v'proposalOwner, v'metadata));
+    var v'fwdMsgFee = sc_0~load_uint(64);
+    return (sc_0, (v'owner, v'proposalOwner, v'metadata, v'fwdMsgFee));
 }
 
 ;;

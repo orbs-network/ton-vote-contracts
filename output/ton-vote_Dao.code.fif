@@ -214,7 +214,7 @@ PROGRAM{
   $DaoInit$_load PROCINLINE:<{
     32 LDU
     SWAP
-    444810285 PUSHINT
+    3971512043 PUSHINT
     EQUAL
     129 THROWIFNOT
     __tact_load_address INLINECALLDICT
@@ -222,7 +222,9 @@ PROGRAM{
     __tact_load_address INLINECALLDICT
     SWAP
     __tact_load_address INLINECALLDICT
-    s3 s3 s0 XCHG3
+    SWAP
+    64 LDU
+    4 -ROLL
   }>
   $Dao$_store PROCINLINE:<{
     s6 s5 XCHG2
@@ -291,7 +293,7 @@ PROGRAM{
     __tact_create_address INLINECALLDICT
     s1 s4 s0 XCHG3
     s1 s3 XCHG
-    1000000000 PUSHINT
+    1000000000000000 PUSHINT
   }>
   $Dao$_contract_load PROCREF:<{
     c4 PUSH
@@ -473,6 +475,7 @@ PROGRAM{
   }>
   $Dao$_internal_binary_DaoInit PROCINLINE:<{
     s4 POP
+    s4 POP
     s5 POP
     2977 PUSHINT
     0 PUSHINT
@@ -560,7 +563,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d58456551477664377857344d634a6b7a63465452556b52575674646e57724a4e6a744c697135684a54763263} PUSHSLICE
+    x{697066733a2f2f516d537a6d33367a7245583169386e7777473162416b45666752734c6b57794456343879556b7441554b39356442} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH
@@ -584,12 +587,12 @@ PROGRAM{
       32 PLDU
     }>
     DUP
-    444810285 PUSHINT
+    3971512043 PUSHINT
     EQUAL
     IFJMP:<{
       DROP
       $DaoInit$_load INLINECALLDICT
-      1 3 BLKDROP2
+      1 4 BLKDROP2
       $Dao$_internal_binary_DaoInit INLINECALLDICT
       TRUE
     }>

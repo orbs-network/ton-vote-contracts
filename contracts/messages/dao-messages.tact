@@ -26,6 +26,7 @@ message DaoInit {
     owner: Address;
     proposalOwner: Address;
     metadata: Address;
+    fwdMsgFee: Int as uint64;
 }
 
 struct DaoContractState {

@@ -57,6 +57,9 @@ cell $DeployOk$_store_cell((int) v) inline;
 ;; $SetDeployAndInitDaoFee$_load
 (slice, ((int))) $SetDeployAndInitDaoFee$_load(slice sc_0) inline;
 
+;; $SetNewDaoFwdMsgFee$_load
+(slice, ((int))) $SetNewDaoFwdMsgFee$_load(slice sc_0) inline;
+
 ;; $SendToDaoSetFwdMsgFee$_load
 (slice, ((int, int))) $SendToDaoSetFwdMsgFee$_load(slice sc_0) inline;
 
@@ -70,16 +73,16 @@ builder $SetFwdMsgFee$_store(builder build_0, (int) v) inline;
 cell $SetFwdMsgFee$_store_cell((int) v) inline;
 
 ;; $DaoInit$_store
-builder $DaoInit$_store(builder build_0, (slice, slice, slice) v) inline;
+builder $DaoInit$_store(builder build_0, (slice, slice, slice, int) v) inline;
 
 ;; $DaoInit$_store_cell
-cell $DaoInit$_store_cell((slice, slice, slice) v) inline;
+cell $DaoInit$_store_cell((slice, slice, slice, int) v) inline;
 
 ;; $Registry$_store
-builder $Registry$_store(builder build_0, (int, int, slice, int) v) inline;
+builder $Registry$_store(builder build_0, (int, int, slice, int, int) v) inline;
 
 ;; $Registry$_load
-(slice, ((int, int, slice, int))) $Registry$_load(slice sc_0) inline;
+(slice, ((int, int, slice, int, int))) $Registry$_load(slice sc_0) inline;
 
 ;; $StateInit$_not_null
 ((cell, cell)) $StateInit$_not_null(tuple v) inline;
@@ -97,13 +100,13 @@ builder $Dao$init$_store(builder build_0, (slice, int) v) inline;
 (slice, ((int))) $Registry$init$_load(slice sc_0) inline;
 
 ;; $Registry$_contract_init
-(int, int, slice, int) $Registry$_contract_init(int $registryId) impure inline_ref;
+(int, int, slice, int, int) $Registry$_contract_init(int $registryId) impure inline_ref;
 
 ;; $Registry$_contract_load
-(int, int, slice, int) $Registry$_contract_load() impure inline_ref;
+(int, int, slice, int, int) $Registry$_contract_load() impure inline_ref;
 
 ;; $Registry$_contract_store
-() $Registry$_contract_store((int, int, slice, int) v) impure inline;
+() $Registry$_contract_store((int, int, slice, int, int) v) impure inline;
 
 ;; $global_contractAddress
 slice $global_contractAddress((cell, cell) $s) impure inline;
@@ -118,31 +121,31 @@ slice $global_contractAddress((cell, cell) $s) impure inline;
 ((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_bounce_to_value_mode_body_code_data(int bounce, slice to, int value, int mode, cell body, cell code, cell data) inline;
 
 ;; $Registry$_fun_getDaoStateInit
-((int, int, slice, int), (cell, cell)) $Registry$_fun_getDaoStateInit((int, int, slice, int) $self, int $daoIndex) impure inline_ref;
+((int, int, slice, int, int), (cell, cell)) $Registry$_fun_getDaoStateInit((int, int, slice, int, int) $self, int $daoIndex) impure inline_ref;
 
 ;; $RegistryContractState$_constructor_registryId_nextDaoId_admin_deployAndInitDaoFee
 ((int, int, slice, int)) $RegistryContractState$_constructor_registryId_nextDaoId_admin_deployAndInitDaoFee(int registryId, int nextDaoId, slice admin, int deployAndInitDaoFee) inline;
 
 ;; $Registry$_fun_state
-((int, int, slice, int), (int, int, slice, int)) $Registry$_fun_state((int, int, slice, int) $self) impure inline_ref;
+((int, int, slice, int, int), (int, int, slice, int)) $Registry$_fun_state((int, int, slice, int, int) $self) impure inline_ref;
 
 ;; $Registry$_fun_nextDaoId
-((int, int, slice, int), int) $Registry$_fun_nextDaoId((int, int, slice, int) $self) impure inline_ref;
+((int, int, slice, int, int), int) $Registry$_fun_nextDaoId((int, int, slice, int, int) $self) impure inline_ref;
 
 ;; $Registry$_fun_daoAddress
-((int, int, slice, int), slice) $Registry$_fun_daoAddress((int, int, slice, int) $self, int $daoId) impure inline_ref;
+((int, int, slice, int, int), slice) $Registry$_fun_daoAddress((int, int, slice, int, int) $self, int $daoId) impure inline_ref;
 
 ;; $Registry$_fun_forward
-((int, int, slice, int), ()) $Registry$_fun_forward((int, int, slice, int) $self, slice $to, cell $body, int $bounce, tuple $init) impure inline_ref;
+((int, int, slice, int, int), ()) $Registry$_fun_forward((int, int, slice, int, int) $self, slice $to, cell $body, int $bounce, tuple $init) impure inline_ref;
 
 ;; $Registry$_fun_notify
-((int, int, slice, int), ()) $Registry$_fun_notify((int, int, slice, int) $self, cell $body) impure inline;
+((int, int, slice, int, int), ()) $Registry$_fun_notify((int, int, slice, int, int) $self, cell $body) impure inline;
 
 ;; $SendParameters$_constructor_to_value_bounce_mode_body_code_data
 ((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_to_value_bounce_mode_body_code_data(slice to, int value, int bounce, int mode, cell body, cell code, cell data) inline;
 
-;; $DaoInit$_constructor_owner_proposalOwner_metadata
-((slice, slice, slice)) $DaoInit$_constructor_owner_proposalOwner_metadata(slice owner, slice proposalOwner, slice metadata) inline;
+;; $DaoInit$_constructor_owner_proposalOwner_metadata_fwdMsgFee
+((slice, slice, slice, int)) $DaoInit$_constructor_owner_proposalOwner_metadata_fwdMsgFee(slice owner, slice proposalOwner, slice metadata, int fwdMsgFee) inline;
 
 ;; $SendParameters$_constructor_to_value_bounce_mode_body
 ((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_to_value_bounce_mode_body(slice to, int value, int bounce, int mode, cell body) inline;
