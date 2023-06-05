@@ -6,7 +6,7 @@
 - [Caching server for ton.vote providing convenient API over on-chain data](https://github.com/orbs-network/ton-vote-cache)
 
 ---
-[TON.Vote](https://github.com/orbs-network/ton-vote) is a completely decentralized, on-chain DAO governance platform designed exclusively for the TON ecosystem. The system architecture is heavily inspired from [snapshot.org](https://snapshot.org), the de-facto standard in the EVM ecosystem for DAO governance which is used by Uniswap, Sushi, Aave, Arbitrum, etc.
+[TON.Vote](https://ton.vote) is a completely decentralized, on-chain DAO governance platform designed exclusively for the TON ecosystem. The system architecture is heavily inspired from [snapshot.org](https://snapshot.org), the de-facto standard in the EVM ecosystem for DAO governance which is used by Uniswap, Sushi, Aave, Arbitrum, etc.
 
 To create a new space or a new proposal for existing projects, developers can utilize our user interface available at [ton.vote](https://ton.vote/). It is completely free to use, and you only need to cover the transaction costs when sending data to the blockchain.
 
