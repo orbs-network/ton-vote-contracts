@@ -1,6 +1,12 @@
-# Ton.vote contract
+# TON blockchain smart contracts for ton.vote
 
-[TON.Vote](https://github.com/orbs-network/ton-vote) is a completely decentralized, on-chain DAO governance platform designed exclusively for the TON ecosystem.
+- [TON blockchain smart contracts for ton.vote](https://github.com/orbs-network/ton-vote-contracts)
+- [TypeScript SDK for interacting with ton.vote contracts](https://github.com/orbs-network/ton-vote-contracts-sdk)
+- [Open source React frontend for ton.vote website](https://github.com/orbs-network/ton-vote)
+- [Caching server for ton.vote providing convenient API over on-chain data](https://github.com/orbs-network/ton-vote-cache)
+
+---
+[TON.Vote](https://ton.vote) is a completely decentralized, on-chain DAO governance platform designed exclusively for the TON ecosystem. The system architecture is heavily inspired from [snapshot.org](https://snapshot.org), the de-facto standard in the EVM ecosystem for DAO governance which is used by Uniswap, Sushi, Aave, Arbitrum, etc.
 
 To create a new space or a new proposal for existing projects, developers can utilize our user interface available at [ton.vote](https://ton.vote/). It is completely free to use, and you only need to cover the transaction costs when sending data to the blockchain.
 
@@ -27,7 +33,9 @@ The architecture consists of five types of contracts:
 
 For more details about the each contract see the contracts section below.
 
-## Mitigate vector attacks
+## How can you verify the results?
+
+## Mitigated attack vectors
 
 ### DDOS Attack
 To safeguard against potential spamming and mitigate the impact on the UI and cache server, it is common practice to implement a minimum fee mechanism. In this case, a minimum fee of 1 TON is set for creating new DAOs or proposals. The admin owner has control over this fee and can modify it as needed. This approach helps maintain a balance between accessibility and preventing abuse by requiring a reasonable fee for DAO and proposal creation.
@@ -117,9 +125,3 @@ The proposal contract encapsulates information about the proposal such as the st
 We appreciate your help in improving the TON.Vote platform. If you've encountered a bug or have an idea for a new feature, please open a new issue or pull request on our [GitHub repository](https://github.com/orbs-network/ton-vote-contracts/issues).
 
 When opening an issue, please provide as much detail as possible about the bug or feature request, including steps to reproduce the issue and any relevant logs or screenshots.
-
-# Related Repositories
-- Ton.Vote UI: https://github.com/orbs-network/ton-vote
-- Ton.Vote Contracts SDK: https://github.com/orbs-network/ton-vote-contracts-sdk
-- Ton.Vote Cache Server: https://github.com/orbs-network/ton-vote-cache
-
