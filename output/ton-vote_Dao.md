@@ -62,8 +62,8 @@ TLB: `set_registry_admin#c6d673ca newAdmin:address = SetRegistryAdmin`
 Signature: `SetRegistryAdmin{newAdmin:address}`
 
 ## RegistryContractState
-TLB: `_ registryId:uint32 nextDaoId:uint32 admin:address deployAndInitDaoFee:uint64 = RegistryContractState`
-Signature: `RegistryContractState{registryId:uint32,nextDaoId:uint32,admin:address,deployAndInitDaoFee:uint64}`
+TLB: `_ registryId:uint32 nextDaoId:uint32 admin:address deployAndInitDaoFee:uint64 newDaosfwdMsgFee:uint64 = RegistryContractState`
+Signature: `RegistryContractState{registryId:uint32,nextDaoId:uint32,admin:address,deployAndInitDaoFee:uint64,newDaosfwdMsgFee:uint64}`
 
 ## SetOwner
 TLB: `set_owner#c2b41d43 newOwner:address = SetOwner`

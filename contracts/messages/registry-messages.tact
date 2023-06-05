@@ -36,4 +36,5 @@ struct RegistryContractState {
     nextDaoId: Int as uint32;
     admin: Address;
     deployAndInitDaoFee: Int as uint64;
+    newDaosfwdMsgFee: Int as uint64;
 }

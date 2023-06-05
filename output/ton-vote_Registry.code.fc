@@ -25,9 +25,9 @@
     return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee), $Dao$_init_child(__tact_context_sys, my_address(), $daoIndex));
 }
 
-((int, int, slice, int, int), (int, int, slice, int)) $Registry$_fun_state((int, int, slice, int, int) $self) impure inline_ref {
+((int, int, slice, int, int), (int, int, slice, int, int)) $Registry$_fun_state((int, int, slice, int, int) $self) impure inline_ref {
     var (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee)) = $self;
-    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee), $RegistryContractState$_constructor_registryId_nextDaoId_admin_deployAndInitDaoFee($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee));
+    return (($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee), $RegistryContractState$_constructor_registryId_nextDaoId_admin_deployAndInitDaoFee_newDaosfwdMsgFee($self'registryId, $self'nextDaoId, $self'admin, $self'deployAndInitDaoFee, $self'newDaosfwdMsgFee));
 }
 
 ((int, int, slice, int, int), int) $Registry$_fun_nextDaoId((int, int, slice, int, int) $self) impure inline_ref {
@@ -131,7 +131,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() method_id {
-    return "ipfs://QmRBSVuhrUxvi3VYMx5yBcQRc2z21MWwZ2jMmiwmYZmV7J";
+    return "ipfs://Qme418W4wnzj3bbdTBtfNHhiYBN6BtC4aJZfmsf4GixctF";
 }
 
 _ lazy_deployment_completed() method_id {

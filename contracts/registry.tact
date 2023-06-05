@@ -82,7 +82,8 @@ contract Registry with Deployable {
             registryId: self.registryId,
             nextDaoId: self.nextDaoId,
             admin: self.admin,
-            deployAndInitDaoFee: self.deployAndInitDaoFee
+            deployAndInitDaoFee: self.deployAndInitDaoFee,
+            newDaosfwdMsgFee: self.newDaosfwdMsgFee
         };
     }
 

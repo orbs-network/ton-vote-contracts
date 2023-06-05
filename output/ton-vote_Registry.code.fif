@@ -39,7 +39,7 @@ PROGRAM{
   DECLPROC $Dao$_init_child
   DECLPROC $SendParameters$_constructor_bounce_to_value_mode_body_code_data
   DECLPROC $Registry$_fun_getDaoStateInit
-  DECLPROC $RegistryContractState$_constructor_registryId_nextDaoId_admin_deployAndInitDaoFee
+  DECLPROC $RegistryContractState$_constructor_registryId_nextDaoId_admin_deployAndInitDaoFee_newDaosfwdMsgFee
   DECLPROC $Registry$_fun_state
   DECLPROC $Registry$_fun_nextDaoId
   DECLPROC $Registry$_fun_daoAddress
@@ -487,12 +487,12 @@ PROGRAM{
     ROT
     $Dao$_init_child INLINECALLDICT
   }>
-  $RegistryContractState$_constructor_registryId_nextDaoId_admin_deployAndInitDaoFee PROCINLINE:<{
+  $RegistryContractState$_constructor_registryId_nextDaoId_admin_deployAndInitDaoFee_newDaosfwdMsgFee PROCINLINE:<{
   }>
   $Registry$_fun_state PROCREF:<{
     s4 s3 s2 PUSH3
-    s4 PUSH
-    $RegistryContractState$_constructor_registryId_nextDaoId_admin_deployAndInitDaoFee INLINECALLDICT
+    s4 s3 PUSH2
+    $RegistryContractState$_constructor_registryId_nextDaoId_admin_deployAndInitDaoFee_newDaosfwdMsgFee INLINECALLDICT
   }>
   $Registry$_fun_nextDaoId PROCREF:<{
     s3 PUSH
@@ -643,7 +643,7 @@ PROGRAM{
   %state PROC:<{
     $Registry$_contract_load INLINECALLDICT
     $Registry$_fun_state INLINECALLDICT
-    5 4 BLKDROP2
+    5 5 BLKDROP2
     $RegistryContractState$_to_external INLINECALLDICT
   }>
   %nextDaoId PROC:<{
@@ -665,7 +665,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d52425356756872557876693356594d7835794263515263327a32314d57775a326a4d6d69776d595a6d56374a} PUSHSLICE
+    x{697066733a2f2f516d653431385734776e7a6a33626264544274664e48686959424e3642744334614a5a666d736634476978637446} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH

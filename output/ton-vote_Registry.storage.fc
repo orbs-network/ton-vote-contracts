@@ -134,16 +134,16 @@ cell $DeployOk$_store_cell((int) v) inline {
 
 ;;
 ;; Type: RegistryContractState
-;; TLB: _ registryId:uint32 nextDaoId:uint32 admin:address deployAndInitDaoFee:uint64 = RegistryContractState
+;; TLB: _ registryId:uint32 nextDaoId:uint32 admin:address deployAndInitDaoFee:uint64 newDaosfwdMsgFee:uint64 = RegistryContractState
 ;;
 
-(int, int, slice, int) $RegistryContractState$_to_external(((int, int, slice, int)) v) inline {
-    var (v'registryId, v'nextDaoId, v'admin, v'deployAndInitDaoFee) = v; 
-    return (v'registryId, v'nextDaoId, v'admin, v'deployAndInitDaoFee);
+(int, int, slice, int, int) $RegistryContractState$_to_external(((int, int, slice, int, int)) v) inline {
+    var (v'registryId, v'nextDaoId, v'admin, v'deployAndInitDaoFee, v'newDaosfwdMsgFee) = v; 
+    return (v'registryId, v'nextDaoId, v'admin, v'deployAndInitDaoFee, v'newDaosfwdMsgFee);
 }
 
-((int, int, slice, int)) $RegistryContractState$_constructor_registryId_nextDaoId_admin_deployAndInitDaoFee(int registryId, int nextDaoId, slice admin, int deployAndInitDaoFee) inline {
-    return (registryId, nextDaoId, admin, deployAndInitDaoFee);
+((int, int, slice, int, int)) $RegistryContractState$_constructor_registryId_nextDaoId_admin_deployAndInitDaoFee_newDaosfwdMsgFee(int registryId, int nextDaoId, slice admin, int deployAndInitDaoFee, int newDaosfwdMsgFee) inline {
+    return (registryId, nextDaoId, admin, deployAndInitDaoFee, newDaosfwdMsgFee);
 }
 
 ;;
