@@ -1,4 +1,4 @@
-# Ton.vote contract
+# TON blockchain smart contracts for ton.vote
 
 [TON.Vote](https://github.com/orbs-network/ton-vote) is a completely decentralized, on-chain DAO governance platform designed exclusively for the TON ecosystem.
 
