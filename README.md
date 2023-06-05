@@ -33,7 +33,9 @@ The architecture consists of five types of contracts:
 
 For more details about the each contract see the contracts section below.
 
-## Mitigate vector attacks
+## How can you verify the results?
+
+## Mitigated attack vectors
 
 ### DDOS Attack
 To safeguard against potential spamming and mitigate the impact on the UI and cache server, it is common practice to implement a minimum fee mechanism. In this case, a minimum fee of 1 TON is set for creating new DAOs or proposals. The admin owner has control over this fee and can modify it as needed. This approach helps maintain a balance between accessibility and preventing abuse by requiring a reasonable fee for DAO and proposal creation.
