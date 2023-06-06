@@ -1,6 +1,6 @@
 # TACT Compilation Report
 Contract: ProposalDeployer
-BOC Size: 1324 bytes
+BOC Size: 1319 bytes
 
 # Types
 Total Types: 16
@@ -45,9 +45,9 @@ Signature: `DeployAndInitProposal{body:Params{proposalStartTime:uint64,proposalE
 TLB: `send_proposal_init#da72c6df body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string} = SendProposalInit`
 Signature: `SendProposalInit{body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string}}`
 
-## FwdUpdateProposal
-TLB: `fwd_update_proposal#5f0c211a proposalAddress:address title:^string description:^string = FwdUpdateProposal`
-Signature: `FwdUpdateProposal{proposalAddress:address,title:^string,description:^string}`
+## SendUpdateProposal
+TLB: `send_update_proposal#1ed651ab proposalAddress:address updateParams:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string} hide:bool = SendUpdateProposal`
+Signature: `SendUpdateProposal{proposalAddress:address,updateParams:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string},hide:bool}`
 
 ## Params
 TLB: `_ proposalStartTime:uint64 proposalEndTime:uint64 proposalSnapshotTime:uint64 votingSystem:^string votingPowerStrategies:^string title:^string description:^string quorum:^string = Params`
@@ -62,12 +62,12 @@ TLB: `vote#7c420ea2 comment:^string = Vote`
 Signature: `Vote{comment:^string}`
 
 ## UpdateProposal
-TLB: `update_proposal#2eec9fc6 title:^string description:^string = UpdateProposal`
-Signature: `UpdateProposal{title:^string,description:^string}`
+TLB: `update_proposal#1a445d79 updateParams:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string} hide:bool = UpdateProposal`
+Signature: `UpdateProposal{updateParams:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string},hide:bool}`
 
 ## ProposalContractState
-TLB: `_ proposalDeployer:address id:uint32 proposalStartTime:uint64 proposalEndTime:uint64 proposalSnapshotTime:uint64 votingSystem:^string votingPowerStrategies:^string title:^string description:^string quorum:^string = ProposalContractState`
-Signature: `ProposalContractState{proposalDeployer:address,id:uint32,proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string}`
+TLB: `_ proposalDeployer:address id:uint32 proposalStartTime:uint64 proposalEndTime:uint64 proposalSnapshotTime:uint64 votingSystem:^string votingPowerStrategies:^string title:^string description:^string quorum:^string hide:bool = ProposalContractState`
+Signature: `ProposalContractState{proposalDeployer:address,id:uint32,proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string,hide:bool}`
 
 # Get Methods
 Total Get Methods: 3
@@ -106,8 +106,8 @@ Argument: index
 137: Masterchain support is not enabled for this contract
 2977: Already initialized
 4429: Invalid sender
+8923: Update proposals is possible only before start time
 13403: only dao can send create proposal message
-44469: Proposal already ended
 50214: only dao can send update proposal message
 52334: Incative proposal
 61278: Propsal was not initialized yet

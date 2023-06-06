@@ -11,8 +11,8 @@
 ;; Contract Proposal functions
 ;;
 
-(slice, int, int, int, int, slice, slice, slice, slice, slice) $Proposal$_contract_init(slice $proposalDeployer, int $id) impure inline_ref {
-    var (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum)) = (null(), null(), null(), null(), null(), null(), null(), null(), null(), null());
+(slice, int, int, int, int, slice, slice, slice, slice, slice, int) $Proposal$_contract_init(slice $proposalDeployer, int $id) impure inline_ref {
+    var (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum, $self'hide)) = (null(), null(), null(), null(), null(), null(), null(), null(), null(), null(), null());
     $self'proposalDeployer = $proposalDeployer;
     $self'id = $id;
     $self'proposalStartTime = 0;
@@ -23,20 +23,21 @@
     $self'title = __gen_slice_string_96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7();
     $self'description = __gen_slice_string_96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7();
     $self'quorum = __gen_slice_string_96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7();
-    return ($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum);
+    $self'hide = false;
+    return ($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum, $self'hide);
 }
 
-((slice, int, int, int, int, slice, slice, slice, slice, slice), (slice, int, int, int, int, slice, slice, slice, slice, slice)) $Proposal$_fun_state((slice, int, int, int, int, slice, slice, slice, slice, slice) $self) impure inline_ref {
-    var (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum)) = $self;
-    return (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum), $ProposalContractState$_constructor_proposalDeployer_id_proposalStartTime_proposalEndTime_proposalSnapshotTime_votingSystem_votingPowerStrategies_title_description_quorum($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum));
+((slice, int, int, int, int, slice, slice, slice, slice, slice, int), (slice, int, int, int, int, slice, slice, slice, slice, slice, int)) $Proposal$_fun_state((slice, int, int, int, int, slice, slice, slice, slice, slice, int) $self) impure inline_ref {
+    var (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum, $self'hide)) = $self;
+    return (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum, $self'hide), $ProposalContractState$_constructor_proposalDeployer_id_proposalStartTime_proposalEndTime_proposalSnapshotTime_votingSystem_votingPowerStrategies_title_description_quorum_hide($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum, $self'hide));
 }
 
 ;;
 ;; Receivers of a Contract Proposal
 ;;
 
-(((slice, int, int, int, int, slice, slice, slice, slice, slice)), ()) $Proposal$_internal_binary_ProposalInit((slice, int, int, int, int, slice, slice, slice, slice, slice) $self, ((int, int, int, slice, slice, slice, slice, slice)) $msg) impure inline {
-    var ($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum) = $self;
+(((slice, int, int, int, int, slice, slice, slice, slice, slice, int)), ()) $Proposal$_internal_binary_ProposalInit((slice, int, int, int, int, slice, slice, slice, slice, slice, int) $self, ((int, int, int, slice, slice, slice, slice, slice)) $msg) impure inline {
+    var ($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum, $self'hide) = $self;
     var (($msg'body'proposalStartTime, $msg'body'proposalEndTime, $msg'body'proposalSnapshotTime, $msg'body'votingSystem, $msg'body'votingPowerStrategies, $msg'body'title, $msg'body'description, $msg'body'quorum)) = $msg;
     throw_unless(2977, ( (( (($self'proposalStartTime == 0)) ? (($self'proposalEndTime == 0)) : (false) )) ? (($self'proposalSnapshotTime == 0)) : (false) ));
     throw_unless(4429, ( __tact_slice_eq_bits($self'proposalDeployer, __tact_context_get_sender()) ));
@@ -48,32 +49,39 @@
     $self'title = $msg'body'title;
     $self'description = $msg'body'description;
     $self'quorum = $msg'body'quorum;
-    return (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum), ());
+    return (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum, $self'hide), ());
 }
 
-(((slice, int, int, int, int, slice, slice, slice, slice, slice)), ()) $Proposal$_internal_binary_Vote((slice, int, int, int, int, slice, slice, slice, slice, slice) $self, (slice) $vote) impure inline {
-    var ($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum) = $self;
+(((slice, int, int, int, int, slice, slice, slice, slice, slice, int)), ()) $Proposal$_internal_binary_Vote((slice, int, int, int, int, slice, slice, slice, slice, slice, int) $self, (slice) $vote) impure inline {
+    var ($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum, $self'hide) = $self;
     var ($vote'comment) = $vote;
     throw_unless(52334, ( ((now() >= $self'proposalStartTime)) ? ((now() <= $self'proposalEndTime)) : (false) ));
-    return (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum), ());
+    return (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum, $self'hide), ());
 }
 
-(((slice, int, int, int, int, slice, slice, slice, slice, slice)), ()) $Proposal$_internal_binary_UpdateProposal((slice, int, int, int, int, slice, slice, slice, slice, slice) $self, (slice, slice) $msg) impure inline {
-    var ($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum) = $self;
-    var ($msg'title, $msg'description) = $msg;
+(((slice, int, int, int, int, slice, slice, slice, slice, slice, int)), ()) $Proposal$_internal_binary_UpdateProposal((slice, int, int, int, int, slice, slice, slice, slice, slice, int) $self, ((int, int, int, slice, slice, slice, slice, slice), int) $msg) impure inline {
+    var ($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum, $self'hide) = $self;
+    var (($msg'updateParams'proposalStartTime, $msg'updateParams'proposalEndTime, $msg'updateParams'proposalSnapshotTime, $msg'updateParams'votingSystem, $msg'updateParams'votingPowerStrategies, $msg'updateParams'title, $msg'updateParams'description, $msg'updateParams'quorum), $msg'hide) = $msg;
     throw_unless(61278, ( (( (($self'proposalStartTime != 0)) ? (($self'proposalEndTime != 0)) : (false) )) ? (($self'proposalSnapshotTime != 0)) : (false) ));
     throw_unless(4429, ( __tact_slice_eq_bits($self'proposalDeployer, __tact_context_get_sender()) ));
-    throw_unless(44469, (now() <= $self'proposalEndTime));
-    $self'title = $msg'title;
-    $self'description = $msg'description;
-    return (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum), ());
+    throw_unless(8923, (now() <= $self'proposalStartTime));
+    $self'proposalStartTime = $msg'updateParams'proposalStartTime;
+    $self'proposalEndTime = $msg'updateParams'proposalEndTime;
+    $self'proposalSnapshotTime = $msg'updateParams'proposalSnapshotTime;
+    $self'votingSystem = $msg'updateParams'votingSystem;
+    $self'votingPowerStrategies = $msg'updateParams'votingPowerStrategies;
+    $self'title = $msg'updateParams'title;
+    $self'description = $msg'updateParams'description;
+    $self'quorum = $msg'updateParams'quorum;
+    $self'hide = $msg'hide;
+    return (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum, $self'hide), ());
 }
 
-(((slice, int, int, int, int, slice, slice, slice, slice, slice)), ()) $Proposal$_internal_binary_Deploy((slice, int, int, int, int, slice, slice, slice, slice, slice) $self, (int) $deploy) impure inline {
-    var ($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum) = $self;
+(((slice, int, int, int, int, slice, slice, slice, slice, slice, int)), ()) $Proposal$_internal_binary_Deploy((slice, int, int, int, int, slice, slice, slice, slice, slice, int) $self, (int) $deploy) impure inline {
+    var ($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum, $self'hide) = $self;
     var ($deploy'queryId) = $deploy;
-    ($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum)~$Proposal$_fun_notify($DeployOk$_store_cell($DeployOk$_constructor_queryId($deploy'queryId)));
-    return (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum), ());
+    ($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum, $self'hide)~$Proposal$_fun_notify($DeployOk$_store_cell($DeployOk$_constructor_queryId($deploy'queryId)));
+    return (($self'proposalDeployer, $self'id, $self'proposalStartTime, $self'proposalEndTime, $self'proposalSnapshotTime, $self'votingSystem, $self'votingPowerStrategies, $self'title, $self'description, $self'quorum, $self'hide), ());
 }
 
 ;;
@@ -97,7 +105,7 @@ _ supported_interfaces() method_id {
 }
 
 _ get_abi_ipfs() method_id {
-    return "ipfs://QmRKeWCJeLFiQdPcK9ptAAx7hW29uyd7doKnftpehWhz6j";
+    return "ipfs://QmWtTUmD14mZ9gz2Scn84nvRHCcJSCSAdZqdCV4XkqokZK";
 }
 
 _ lazy_deployment_completed() method_id {
@@ -108,7 +116,7 @@ _ lazy_deployment_completed() method_id {
 ;; Routing of a Contract Proposal
 ;;
 
-((slice, int, int, int, int, slice, slice, slice, slice, slice), int) $Proposal$_contract_router_internal((slice, int, int, int, int, slice, slice, slice, slice, slice) self, int msg_bounced, slice in_msg) impure inline_ref {
+((slice, int, int, int, int, slice, slice, slice, slice, slice, int), int) $Proposal$_contract_router_internal((slice, int, int, int, int, slice, slice, slice, slice, slice, int) self, int msg_bounced, slice in_msg) impure inline_ref {
     ;; Handle bounced messages
     if (msg_bounced) {
         return (self, true);
@@ -136,7 +144,7 @@ _ lazy_deployment_completed() method_id {
     }
     
     ;; Receive UpdateProposal message
-    if (op == 787259334) {
+    if (op == 440687993) {
         var msg = in_msg~$UpdateProposal$_load();
         self~$Proposal$_internal_binary_UpdateProposal(msg);
         return (self, true);

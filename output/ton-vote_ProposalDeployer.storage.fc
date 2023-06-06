@@ -105,17 +105,17 @@ builder $Params$_store(builder build_0, (int, int, int, slice, slice, slice, sli
 }
 
 ;;
-;; Type: FwdUpdateProposal
-;; Header: 0x5f0c211a
-;; TLB: fwd_update_proposal#5f0c211a proposalAddress:address title:^string description:^string = FwdUpdateProposal
+;; Type: SendUpdateProposal
+;; Header: 0x1ed651ab
+;; TLB: send_update_proposal#1ed651ab proposalAddress:address updateParams:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string} hide:bool = SendUpdateProposal
 ;;
 
-(slice, ((slice, slice, slice))) $FwdUpdateProposal$_load(slice sc_0) inline {
-    throw_unless(129, sc_0~load_uint(32) == 1594630426);
+(slice, ((slice, (int, int, int, slice, slice, slice, slice, slice), int))) $SendUpdateProposal$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 517362091);
     var v'proposalAddress = sc_0~__tact_load_address();
-    var v'title = sc_0~load_ref().begin_parse();
-    var v'description = sc_0~load_ref().begin_parse();
-    return (sc_0, (v'proposalAddress, v'title, v'description));
+    var v'updateParams = sc_0~$Params$_load();
+    var v'hide = sc_0~load_int(1);
+    return (sc_0, (v'proposalAddress, v'updateParams, v'hide));
 }
 
 ;;
@@ -141,24 +141,24 @@ cell $ProposalInit$_store_cell(((int, int, int, slice, slice, slice, slice, slic
 
 ;;
 ;; Type: UpdateProposal
-;; Header: 0x2eec9fc6
-;; TLB: update_proposal#2eec9fc6 title:^string description:^string = UpdateProposal
+;; Header: 0x1a445d79
+;; TLB: update_proposal#1a445d79 updateParams:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string} hide:bool = UpdateProposal
 ;;
 
-builder $UpdateProposal$_store(builder build_0, (slice, slice) v) inline {
-    var (v'title, v'description) = v;
-    build_0 = store_uint(build_0, 787259334, 32);
-    build_0 = build_0.store_ref(begin_cell().store_slice(v'title).end_cell());
-    build_0 = build_0.store_ref(begin_cell().store_slice(v'description).end_cell());
+builder $UpdateProposal$_store(builder build_0, ((int, int, int, slice, slice, slice, slice, slice), int) v) inline {
+    var ((v'updateParams'proposalStartTime, v'updateParams'proposalEndTime, v'updateParams'proposalSnapshotTime, v'updateParams'votingSystem, v'updateParams'votingPowerStrategies, v'updateParams'title, v'updateParams'description, v'updateParams'quorum), v'hide) = v;
+    build_0 = store_uint(build_0, 440687993, 32);
+    build_0 = $Params$_store(build_0, (v'updateParams'proposalStartTime, v'updateParams'proposalEndTime, v'updateParams'proposalSnapshotTime, v'updateParams'votingSystem, v'updateParams'votingPowerStrategies, v'updateParams'title, v'updateParams'description, v'updateParams'quorum));
+    build_0 = build_0.store_int(v'hide, 1);
     return build_0;
 }
 
-cell $UpdateProposal$_store_cell((slice, slice) v) inline {
+cell $UpdateProposal$_store_cell(((int, int, int, slice, slice, slice, slice, slice), int) v) inline {
     return $UpdateProposal$_store(begin_cell(), v).end_cell();
 }
 
-((slice, slice)) $UpdateProposal$_constructor_title_description(slice title, slice description) inline {
-    return (title, description);
+(((int, int, int, slice, slice, slice, slice, slice), int)) $UpdateProposal$_constructor_updateParams_hide((int, int, int, slice, slice, slice, slice, slice) updateParams, int hide) inline {
+    return (updateParams, hide);
 }
 
 ;;

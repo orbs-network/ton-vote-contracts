@@ -14,6 +14,7 @@ contract Proposal with Deployable {
     title: String;
     description: String;
     quorum: String;
+    hide: Bool;
     
     init(proposalDeployer: Address, id: Int) {
         self.proposalDeployer = proposalDeployer;
@@ -27,6 +28,7 @@ contract Proposal with Deployable {
         self.title = "";
         self.description = "";        
         self.quorum = "";
+        self.hide = false;
     }
 
     receive(msg: ProposalInit) {
@@ -50,10 +52,18 @@ contract Proposal with Deployable {
     receive(msg: UpdateProposal) {
         require(self.proposalStartTime != 0 && self.proposalEndTime != 0 && self.proposalSnapshotTime != 0, "Propsal was not initialized yet");
         require(sender() == self.proposalDeployer, "Invalid sender");
-        require(now() <= self.proposalEndTime, "Proposal already ended");
+        require(now() <= self.proposalStartTime, "Update proposals is possible only before start time");
 
-        self.title = msg.title;
-        self.description = msg.description;        
+        self.proposalStartTime = msg.updateParams.proposalStartTime;
+        self.proposalEndTime = msg.updateParams.proposalEndTime;
+        self.proposalSnapshotTime = msg.updateParams.proposalSnapshotTime;
+        self.votingSystem = msg.updateParams.votingSystem;
+        self.votingPowerStrategies = msg.updateParams.votingPowerStrategies;
+        self.title = msg.updateParams.title;
+        self.description = msg.updateParams.description;
+        self.quorum = msg.updateParams.quorum;
+
+        self.hide = msg.hide;        
     }
 
     get fun state(): ProposalContractState {
@@ -67,7 +77,8 @@ contract Proposal with Deployable {
             votingPowerStrategies: self.votingPowerStrategies,
             title: self.title,
             description: self.description,
-            quorum: self.quorum
+            quorum: self.quorum,
+            hide: self.hide
         };
     }
 }

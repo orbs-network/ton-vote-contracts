@@ -22,8 +22,8 @@ message(0x7c420ea2) Vote {
 }
 
 message UpdateProposal {
-    title: String;
-    description: String;
+    updateParams: Params;
+    hide: Bool;
 }
 
 struct ProposalContractState {
@@ -36,5 +36,6 @@ struct ProposalContractState {
     votingPowerStrategies: String;
     title: String;
     description: String;
-    quorum: String;        
+    quorum: String;
+    hide: Bool;        
 }

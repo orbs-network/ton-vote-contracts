@@ -1,6 +1,6 @@
 # TACT Compilation Report
 Contract: Proposal
-BOC Size: 1110 bytes
+BOC Size: 1128 bytes
 
 # Types
 Total Types: 11
@@ -42,12 +42,12 @@ TLB: `vote#7c420ea2 comment:^string = Vote`
 Signature: `Vote{comment:^string}`
 
 ## UpdateProposal
-TLB: `update_proposal#2eec9fc6 title:^string description:^string = UpdateProposal`
-Signature: `UpdateProposal{title:^string,description:^string}`
+TLB: `update_proposal#1a445d79 updateParams:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string} hide:bool = UpdateProposal`
+Signature: `UpdateProposal{updateParams:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string},hide:bool}`
 
 ## ProposalContractState
-TLB: `_ proposalDeployer:address id:uint32 proposalStartTime:uint64 proposalEndTime:uint64 proposalSnapshotTime:uint64 votingSystem:^string votingPowerStrategies:^string title:^string description:^string quorum:^string = ProposalContractState`
-Signature: `ProposalContractState{proposalDeployer:address,id:uint32,proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string}`
+TLB: `_ proposalDeployer:address id:uint32 proposalStartTime:uint64 proposalEndTime:uint64 proposalSnapshotTime:uint64 votingSystem:^string votingPowerStrategies:^string title:^string description:^string quorum:^string hide:bool = ProposalContractState`
+Signature: `ProposalContractState{proposalDeployer:address,id:uint32,proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string,hide:bool}`
 
 # Get Methods
 Total Get Methods: 1
@@ -81,6 +81,6 @@ Total Get Methods: 1
 137: Masterchain support is not enabled for this contract
 2977: Already initialized
 4429: Invalid sender
-44469: Proposal already ended
+8923: Update proposals is possible only before start time
 52334: Incative proposal
 61278: Propsal was not initialized yet

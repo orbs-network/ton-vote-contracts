@@ -11,8 +11,8 @@ message SendProposalInit {
     body: Params;
 }
 
-message FwdUpdateProposal {
+message SendUpdateProposal {
     proposalAddress: Address;
-    title: String;
-    description: String;
+    updateParams: Params;
+    hide: Bool;
 }

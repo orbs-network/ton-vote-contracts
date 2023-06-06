@@ -485,37 +485,37 @@ function dictValueParserVote(): DictionaryValue<Vote> {
 
 export type UpdateProposal = {
     $$type: 'UpdateProposal';
-    title: string;
-    description: string;
+    updateParams: Params;
+    hide: boolean;
 }
 
 export function storeUpdateProposal(src: UpdateProposal) {
     return (builder: Builder) => {
         let b_0 = builder;
-        b_0.storeUint(787259334, 32);
-        b_0.storeStringRefTail(src.title);
-        b_0.storeStringRefTail(src.description);
+        b_0.storeUint(440687993, 32);
+        b_0.store(storeParams(src.updateParams));
+        b_0.storeBit(src.hide);
     };
 }
 
 export function loadUpdateProposal(slice: Slice) {
     let sc_0 = slice;
-    if (sc_0.loadUint(32) !== 787259334) { throw Error('Invalid prefix'); }
-    let _title = sc_0.loadStringRefTail();
-    let _description = sc_0.loadStringRefTail();
-    return { $$type: 'UpdateProposal' as const, title: _title, description: _description };
+    if (sc_0.loadUint(32) !== 440687993) { throw Error('Invalid prefix'); }
+    let _updateParams = loadParams(sc_0);
+    let _hide = sc_0.loadBit();
+    return { $$type: 'UpdateProposal' as const, updateParams: _updateParams, hide: _hide };
 }
 
 function loadTupleUpdateProposal(source: TupleReader) {
-    let _title = source.readString();
-    let _description = source.readString();
-    return { $$type: 'UpdateProposal' as const, title: _title, description: _description };
+    const _updateParams = loadTupleParams(source.readTuple());
+    let _hide = source.readBoolean();
+    return { $$type: 'UpdateProposal' as const, updateParams: _updateParams, hide: _hide };
 }
 
 function storeTupleUpdateProposal(source: UpdateProposal) {
     let builder = new TupleBuilder();
-    builder.writeString(source.title);
-    builder.writeString(source.description);
+    builder.writeTuple(storeTupleParams(source.updateParams));
+    builder.writeBoolean(source.hide);
     return builder.build();
 }
 
@@ -542,6 +542,7 @@ export type ProposalContractState = {
     title: string;
     description: string;
     quorum: string;
+    hide: boolean;
 }
 
 export function storeProposalContractState(src: ProposalContractState) {
@@ -558,6 +559,7 @@ export function storeProposalContractState(src: ProposalContractState) {
         let b_1 = new Builder();
         b_1.storeStringRefTail(src.description);
         b_1.storeStringRefTail(src.quorum);
+        b_1.storeBit(src.hide);
         b_0.storeRef(b_1.endCell());
     };
 }
@@ -575,7 +577,8 @@ export function loadProposalContractState(slice: Slice) {
     let sc_1 = sc_0.loadRef().beginParse();
     let _description = sc_1.loadStringRefTail();
     let _quorum = sc_1.loadStringRefTail();
-    return { $$type: 'ProposalContractState' as const, proposalDeployer: _proposalDeployer, id: _id, proposalStartTime: _proposalStartTime, proposalEndTime: _proposalEndTime, proposalSnapshotTime: _proposalSnapshotTime, votingSystem: _votingSystem, votingPowerStrategies: _votingPowerStrategies, title: _title, description: _description, quorum: _quorum };
+    let _hide = sc_1.loadBit();
+    return { $$type: 'ProposalContractState' as const, proposalDeployer: _proposalDeployer, id: _id, proposalStartTime: _proposalStartTime, proposalEndTime: _proposalEndTime, proposalSnapshotTime: _proposalSnapshotTime, votingSystem: _votingSystem, votingPowerStrategies: _votingPowerStrategies, title: _title, description: _description, quorum: _quorum, hide: _hide };
 }
 
 function loadTupleProposalContractState(source: TupleReader) {
@@ -589,7 +592,8 @@ function loadTupleProposalContractState(source: TupleReader) {
     let _title = source.readString();
     let _description = source.readString();
     let _quorum = source.readString();
-    return { $$type: 'ProposalContractState' as const, proposalDeployer: _proposalDeployer, id: _id, proposalStartTime: _proposalStartTime, proposalEndTime: _proposalEndTime, proposalSnapshotTime: _proposalSnapshotTime, votingSystem: _votingSystem, votingPowerStrategies: _votingPowerStrategies, title: _title, description: _description, quorum: _quorum };
+    let _hide = source.readBoolean();
+    return { $$type: 'ProposalContractState' as const, proposalDeployer: _proposalDeployer, id: _id, proposalStartTime: _proposalStartTime, proposalEndTime: _proposalEndTime, proposalSnapshotTime: _proposalSnapshotTime, votingSystem: _votingSystem, votingPowerStrategies: _votingPowerStrategies, title: _title, description: _description, quorum: _quorum, hide: _hide };
 }
 
 function storeTupleProposalContractState(source: ProposalContractState) {
@@ -604,6 +608,7 @@ function storeTupleProposalContractState(source: ProposalContractState) {
     builder.writeString(source.title);
     builder.writeString(source.description);
     builder.writeString(source.quorum);
+    builder.writeBoolean(source.hide);
     return builder.build();
 }
 
@@ -633,8 +638,8 @@ function initProposal_init_args(src: Proposal_init_args) {
 }
 
 async function Proposal_init(proposalDeployer: Address, id: bigint) {
-    const __code = Cell.fromBase64('te6ccgECFwEABEoAART/APSkE/S88sgLAQIBYgIDA3rQAdDTAwFxsKMB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiFRQUwNvBPhhAvhi2zxVGds88uCCDwQFAgEgDQ4E7AGSMH/gcCHXScIflTAg1wsf3iCCEM1ReAm6jr4w0x8BghDNUXgJuvLggds8bBg4ODg4OIELoQvAAJMJwACSOXDikwfAAJI3cOIZ8vSBEU34QlKwxwXy9BBWf+AgghB8Qg6iuuMCIIIQLuyfxrrjAoIQlGqYtroGBwgJAMbI+EMBzH8BygBVkFCpINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiM8WF8sfFcs/E8s/yz/IWM8WyQHMyFjPFskBzMjIUAPPFslYzMhQBM8WyVADzMhYzxbJAczJAczJ7VQAUNM/0z/TP9QB0AHUAdAB1AHQAdQB0NQB0AHUMNAQKBAnECYQJRAkECMATDDTHwGCEHxCDqK68uCB1AHQMTCCAMxu+CMpvpT4Iyi7kXDi8vR/AI4w0x8BghAu7J/GuvLggdQB0AHUAdASbBIzM4IA714owwCTJ8MAkXDikybDAJFw4vL0gRFN+EJSsMcF8vSCAK21+CMou/L0fwFYjqfTHwGCEJRqmLa68uCB0z8BMcgBghCv+Q9XWMsfyz/J+EIBcG3bPH/gMHAKATptbSJus5lbIG7y0IBvIgGRMuIQJHADBIBCUCPbPAsByshxAcoBUAcBygBwAcoCUAUg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIzxZQA/oCcAHKaCNus5F/kyRus+KXMzMBcAHKAOMNIW6znH8BygABIG7y0IABzJUxcAHKAOLJAfsADACYfwHKAMhwAcoAcAHKACRus51/AcoABCBu8tCAUATMljQDcAHKAOIkbrOdfwHKAAQgbvLQgFAEzJY0A3ABygDicAHKAAJ/AcoAAslYzAIRvXiu2ebZ42VUDxACASATFAHM7UTQ1AH4Y9IAAY5O+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiAHTH9M/0z/TP9QB0AHUAdAB1AHQ1AHQAdQB0AHUMNAQOhA5EDgQNxA2EDUQNGwa4Pgo1wsKgwm68uCJEQAUVHmHVHmHVHmHKQFW+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiAGBAQHXAFkC0QHbPBIAGnBTAIsIiwiLCIsIiwgAubu9GCcFzsPV0srnsehOw51kqFG2aCcJ3WNS0rZHyzItOvLf3xYjmCcCBVwBuAZ2OUzlg6rkclssOCcBvUne+VRZbxx1PT3gVZwyaCcJ2XTlqzTstzOg6WbZRm6KSAIBSBUWABGwr7tRNDSAAGAAdbJu40NWlwZnM6Ly9RbVJLZVdDSmVMRmlRZFBjSzlwdEFBeDdoVzI5dXlkN2RvS25mdHBlaFdoejZqgg');
-    const __system = Cell.fromBase64('te6cckECGQEABFQAAQHAAQEFoGJdAgEU/wD0pBP0vPLICwMCAWIMBAIBIAoFAgEgCQYCAUgIBwB1sm7jQ1aXBmczovL1FtUktlV0NKZUxGaVFkUGNLOXB0QUF4N2hXMjl1eWQ3ZG9LbmZ0cGVoV2h6NmqCAAEbCvu1E0NIAAYAC5u70YJwXOw9XSyuex6E7DnWSoUbZoJwndY1LStkfLMi068t/fFiOYJwIFXAG4BnY5TOWDquRyWyw4JwG9Sd75VFlvHHU9PeBVnDJoJwnZdOWrNOy3M6DpZtlGbopIAhG9eK7Z5tnjZVQWCwAUVHmHVHmHVHmHKQN60AHQ0wMBcbCjAfpAASDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IhUUFMDbwT4YQL4Yts8VRnbPPLgghYODQDGyPhDAcx/AcoAVZBQqSDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IjPFhfLHxXLPxPLP8s/yFjPFskBzMhYzxbJAczIyFADzxbJWMzIUATPFslQA8zIWM8WyQHMyQHMye1UBOwBkjB/4HAh10nCH5UwINcLH94gghDNUXgJuo6+MNMfAYIQzVF4Cbry4IHbPGwYODg4ODiBC6ELwACTCcAAkjlw4pMHwACSN3DiGfL0gRFN+EJSsMcF8vQQVn/gIIIQfEIOorrjAiCCEC7sn8a64wKCEJRqmLa6FRQTDwFYjqfTHwGCEJRqmLa68uCB0z8BMcgBghCv+Q9XWMsfyz/J+EIBcG3bPH/gMHAQATptbSJus5lbIG7y0IBvIgGRMuIQJHADBIBCUCPbPBEByshxAcoBUAcBygBwAcoCUAUg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIzxZQA/oCcAHKaCNus5F/kyRus+KXMzMBcAHKAOMNIW6znH8BygABIG7y0IABzJUxcAHKAOLJAfsAEgCYfwHKAMhwAcoAcAHKACRus51/AcoABCBu8tCAUATMljQDcAHKAOIkbrOdfwHKAAQgbvLQgFAEzJY0A3ABygDicAHKAAJ/AcoAAslYzACOMNMfAYIQLuyfxrry4IHUAdAB1AHQEmwSMzOCAO9eKMMAkyfDAJFw4pMmwwCRcOLy9IERTfhCUrDHBfL0ggCttfgjKLvy9H8ATDDTHwGCEHxCDqK68uCB1AHQMTCCAMxu+CMpvpT4Iyi7kXDi8vR/AFDTP9M/0z/UAdAB1AHQAdQB0AHUAdDUAdAB1DDQECgQJxAmECUQJBAjAcztRNDUAfhj0gABjk76QAEg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIAdMf0z/TP9M/1AHQAdQB0AHUAdDUAdAB1AHQAdQw0BA6EDkQOBA3EDYQNRA0bBrg+CjXCwqDCbry4IkXAVb6QAEg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIAYEBAdcAWQLRAds8GAAacFMAiwiLCIsIiwiLCMHx7zw=');
+    const __code = Cell.fromBase64('te6ccgECFwEABFwAART/APSkE/S88sgLAQIBYgIDA3rQAdDTAwFxsKMB+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiFRQUwNvBPhhAvhi2zxVGts88uCCDwQFAgEgDQ4E7AGSMH/gcCHXScIflTAg1wsf3iCCEM1ReAm6jr4w0x8BghDNUXgJuvLggds8bBg5OTk5OYELoQzAAJMKwACSOnDikwjAAJI4cOIa8vSBEU34QlLAxwXy9BBnf+AgghB8Qg6iuuMCIIIQGkRdebrjAoIQlGqYtroJBgcIAM7I+EMBzH8BygBVoFC6INdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiM8WGMsfFss/FMs/Ess/yFjPFskBzMhYzxbJAczIyFADzxbJWMzIUAPPFslYzMhQBM8WyVADzMoAyQHMye1UAEww0x8BghB8Qg6iuvLggdQB0DEwggDMbvgjKr6U+CMpu5Fw4vL0fwGcMNMfAYIQGkRdebry4IHbPAjSAFCZbBk5OTk5OTmCAO9eLMMAkwvDAJI7cOKTCcMAkjlw4hry9IERTfhCUtDHBfL0gSLb+CNQC7sa8vR/CQFYjqfTHwGCEJRqmLa68uCB0z8BMcgBghCv+Q9XWMsfyz/J+EIBcG3bPH/gMHAKAFDTP9M/0z/UAdAB1AHQAdQB0AHUAdDUAdAB1DDQECgQJxAmECUQJBAjATptbSJus5lbIG7y0IBvIgGRMuIQJHADBIBCUCPbPAsByshxAcoBUAcBygBwAcoCUAUg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIzxZQA/oCcAHKaCNus5F/kyRus+KXMzMBcAHKAOMNIW6znH8BygABIG7y0IABzJUxcAHKAOLJAfsADACYfwHKAMhwAcoAcAHKACRus51/AcoABCBu8tCAUATMljQDcAHKAOIkbrOdfwHKAAQgbvLQgFAEzJY0A3ABygDicAHKAAJ/AcoAAslYzAIRvXiu2ebZ42XcDxACASATFAHU7UTQ1AH4Y9IAAY5S+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiAHTH9M/0z/TP9QB0AHUAdAB1AHQ1AHQAdQB0AHUAdAB0gAwEEsQShBJEEgQRxBGEEVsG+D4KNcLCoMJuvLgiREAFlR6mFR6mFR6mFOpAVb6QAEg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIAYEBAdcAWQLRAds8EgAccFMAiwiLCIsIiwiLCHAAubu9GCcFzsPV0srnsehOw51kqFG2aCcJ3WNS0rZHyzItOvLf3xYjmCcCBVwBuAZ2OUzlg6rkclssOCcBvUne+VRZbxx1PT3gVZwyaCcJ2XTlqzTstzOg6WbZRm6KSAIBSBUWABGwr7tRNDSAAGAAdbJu40NWlwZnM6Ly9RbVd0VFVtRDE0bVo5Z3oyU2NuODRudlJIQ2NKU0NTQWRacWRDVjRYa3Fva1pLgg');
+    const __system = Cell.fromBase64('te6cckECGQEABGYAAQHAAQEFoGJdAgEU/wD0pBP0vPLICwMCAWIMBAIBIAoFAgEgCQYCAUgIBwB1sm7jQ1aXBmczovL1FtV3RUVW1EMTRtWjlnejJTY244NG52UkhDY0pTQ1NBZFpxZENWNFhrcW9rWkuCAAEbCvu1E0NIAAYAC5u70YJwXOw9XSyuex6E7DnWSoUbZoJwndY1LStkfLMi068t/fFiOYJwIFXAG4BnY5TOWDquRyWyw4JwG9Sd75VFlvHHU9PeBVnDJoJwnZdOWrNOy3M6DpZtlGbopIAhG9eK7Z5tnjZdwWCwAWVHqYVHqYVHqYU6kDetAB0NMDAXGwowH6QAEg10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIVFBTA28E+GEC+GLbPFUa2zzy4IIWDg0Azsj4QwHMfwHKAFWgULog10mBAQu68uCIINcLCiCBBP+68tCJgwm68uCIzxYYyx8Wyz8Uyz8Syz/IWM8WyQHMyFjPFskBzMjIUAPPFslYzMhQA88WyVjMyFAEzxbJUAPMygDJAczJ7VQE7AGSMH/gcCHXScIflTAg1wsf3iCCEM1ReAm6jr4w0x8BghDNUXgJuvLggds8bBg5OTk5OYELoQzAAJMKwACSOnDikwjAAJI4cOIa8vSBEU34QlLAxwXy9BBnf+AgghB8Qg6iuuMCIIIQGkRdebrjAoIQlGqYtroVFBMPAViOp9MfAYIQlGqYtrry4IHTPwExyAGCEK/5D1dYyx/LP8n4QgFwbds8f+AwcBABOm1tIm6zmVsgbvLQgG8iAZEy4hAkcAMEgEJQI9s8EQHKyHEBygFQBwHKAHABygJQBSDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IjPFlAD+gJwAcpoI26zkX+TJG6z4pczMwFwAcoA4w0hbrOcfwHKAAEgbvLQgAHMlTFwAcoA4skB+wASAJh/AcoAyHABygBwAcoAJG6znX8BygAEIG7y0IBQBMyWNANwAcoA4iRus51/AcoABCBu8tCAUATMljQDcAHKAOJwAcoAAn8BygACyVjMAZww0x8BghAaRF15uvLggds8CNIAUJlsGTk5OTk5OYIA714swwCTC8MAkjtw4pMJwwCSOXDiGvL0gRFN+EJS0McF8vSBItv4I1ALuxry9H8VAEww0x8BghB8Qg6iuvLggdQB0DEwggDMbvgjKr6U+CMpu5Fw4vL0fwBQ0z/TP9M/1AHQAdQB0AHUAdAB1AHQ1AHQAdQw0BAoECcQJhAlECQQIwHU7UTQ1AH4Y9IAAY5S+kABINdJgQELuvLgiCDXCwoggQT/uvLQiYMJuvLgiAHTH9M/0z/TP9QB0AHUAdAB1AHQ1AHQAdQB0AHUAdAB0gAwEEsQShBJEEgQRxBGEEVsG+D4KNcLCoMJuvLgiRcBVvpAASDXSYEBC7ry4Igg1wsKIIEE/7ry0ImDCbry4IgBgQEB1wBZAtEB2zwYABxwUwCLCIsIiwiLCIsIcJ5BRB4=');
     let builder = beginCell();
     builder.storeRef(__system);
     builder.storeUint(0, 1);
@@ -670,7 +675,7 @@ const Proposal_errors: { [key: number]: { message: string } } = {
     137: { message: `Masterchain support is not enabled for this contract` },
     2977: { message: `Already initialized` },
     4429: { message: `Invalid sender` },
-    44469: { message: `Proposal already ended` },
+    8923: { message: `Update proposals is possible only before start time` },
     52334: { message: `Incative proposal` },
     61278: { message: `Propsal was not initialized yet` },
 }
@@ -685,8 +690,8 @@ const Proposal_types: ABIType[] = [
     {"name":"Params","header":null,"fields":[{"name":"proposalStartTime","type":{"kind":"simple","type":"uint","optional":false,"format":64}},{"name":"proposalEndTime","type":{"kind":"simple","type":"uint","optional":false,"format":64}},{"name":"proposalSnapshotTime","type":{"kind":"simple","type":"uint","optional":false,"format":64}},{"name":"votingSystem","type":{"kind":"simple","type":"string","optional":false}},{"name":"votingPowerStrategies","type":{"kind":"simple","type":"string","optional":false}},{"name":"title","type":{"kind":"simple","type":"string","optional":false}},{"name":"description","type":{"kind":"simple","type":"string","optional":false}},{"name":"quorum","type":{"kind":"simple","type":"string","optional":false}}]},
     {"name":"ProposalInit","header":3444668425,"fields":[{"name":"body","type":{"kind":"simple","type":"Params","optional":false}}]},
     {"name":"Vote","header":2084703906,"fields":[{"name":"comment","type":{"kind":"simple","type":"string","optional":false}}]},
-    {"name":"UpdateProposal","header":787259334,"fields":[{"name":"title","type":{"kind":"simple","type":"string","optional":false}},{"name":"description","type":{"kind":"simple","type":"string","optional":false}}]},
-    {"name":"ProposalContractState","header":null,"fields":[{"name":"proposalDeployer","type":{"kind":"simple","type":"address","optional":false}},{"name":"id","type":{"kind":"simple","type":"uint","optional":false,"format":32}},{"name":"proposalStartTime","type":{"kind":"simple","type":"uint","optional":false,"format":64}},{"name":"proposalEndTime","type":{"kind":"simple","type":"uint","optional":false,"format":64}},{"name":"proposalSnapshotTime","type":{"kind":"simple","type":"uint","optional":false,"format":64}},{"name":"votingSystem","type":{"kind":"simple","type":"string","optional":false}},{"name":"votingPowerStrategies","type":{"kind":"simple","type":"string","optional":false}},{"name":"title","type":{"kind":"simple","type":"string","optional":false}},{"name":"description","type":{"kind":"simple","type":"string","optional":false}},{"name":"quorum","type":{"kind":"simple","type":"string","optional":false}}]},
+    {"name":"UpdateProposal","header":440687993,"fields":[{"name":"updateParams","type":{"kind":"simple","type":"Params","optional":false}},{"name":"hide","type":{"kind":"simple","type":"bool","optional":false}}]},
+    {"name":"ProposalContractState","header":null,"fields":[{"name":"proposalDeployer","type":{"kind":"simple","type":"address","optional":false}},{"name":"id","type":{"kind":"simple","type":"uint","optional":false,"format":32}},{"name":"proposalStartTime","type":{"kind":"simple","type":"uint","optional":false,"format":64}},{"name":"proposalEndTime","type":{"kind":"simple","type":"uint","optional":false,"format":64}},{"name":"proposalSnapshotTime","type":{"kind":"simple","type":"uint","optional":false,"format":64}},{"name":"votingSystem","type":{"kind":"simple","type":"string","optional":false}},{"name":"votingPowerStrategies","type":{"kind":"simple","type":"string","optional":false}},{"name":"title","type":{"kind":"simple","type":"string","optional":false}},{"name":"description","type":{"kind":"simple","type":"string","optional":false}},{"name":"quorum","type":{"kind":"simple","type":"string","optional":false}},{"name":"hide","type":{"kind":"simple","type":"bool","optional":false}}]},
 ]
 
 const Proposal_getters: ABIGetter[] = [

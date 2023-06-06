@@ -13,7 +13,7 @@ PROGRAM{
   DECLPROC ?fun_ref_44086a5ce86162fe;
   DECLPROC ?fun_ref_538889fa31df0f6d;
   DECLPROC ?fun_ref_644ef5250652bdfa;
-  DECLPROC ?fun_ref_64fe8008d0525e41;
+  DECLPROC ?fun_ref_a5e2ae72618c6238;
   DECLPROC ?fun_ref_ad8b8ae3080855e5;
   DECLPROC ?fun_ref_b80ea1a16c7b95cc;
   DECLPROC ?fun_ref_b93b9862cda1783c;
@@ -52,7 +52,7 @@ PROGRAM{
     2 SETGLOBVAR
     ?fun_ref_ad8b8ae3080855e5 INLINECALLDICT
     SWAP2
-    ?fun_ref_64fe8008d0525e41 INLINECALLDICT
+    ?fun_ref_a5e2ae72618c6238 INLINECALLDICT
     130 THROWIFNOT
     NEWC
     3 GETGLOBVAR
@@ -107,7 +107,7 @@ PROGRAM{
     s0 s1 XCHG
   }>
   get_abi_ipfs PROC:<{
-    x{697066733A2F2F516D56674843387872433848457459636766756A484869526A5867704579653950657369336D54365A723267426F82_} PUSHSLICE
+    x{697066733A2F2F516D61773168417138767042654C4E563131733163634C74746B67417675784667753936725676736D50454E757082_} PUSHSLICE
   }>
   ?fun_123641 PROC:<{
     ?fun_ref_ad8b8ae3080855e5 INLINECALLDICT
@@ -294,7 +294,7 @@ PROGRAM{
   ?fun_ref_644ef5250652bdfa PROCREF:<{
     0 PUSHINT
   }>
-  ?fun_ref_64fe8008d0525e41 PROCREF:<{
+  ?fun_ref_a5e2ae72618c6238 PROCREF:<{
     s0 s1 XCHG
     <{
       s0 POP
@@ -328,13 +328,13 @@ PROGRAM{
     }> PUSHCONT
     IFJMP
     s0 PUSH
-    1594630426 PUSHINT
+    517362091 PUSHINT
     EQUAL
     <{
       s0 POP
       32 LDU
       s0 s1 XCHG
-      1594630426 PUSHINT
+      517362091 PUSHINT
       EQUAL
       129 THROWIFNOT
       LDMSGADDR
@@ -354,44 +354,32 @@ PROGRAM{
       EQUAL
       136 THROWIFNOT
       s0 s1 XCHG
-      LDREF
-      s0 s1 XCHG
-      CTOS
-      s0 s1 XCHG
-      LDREF
-      s0 s1 XCHG
-      CTOS
-      s3 s3 s0 XCHG3
-      1 3 BLKDROP2
+      ?fun_ref_36e6ba0eff599634 INLINECALLDICT
+      s0 s8 XCHG
+      1 LDI
+      s0 s10 XCHG
+      s9 s9 XCHG2
+      1 10 BLKDROP2
       50214 PUSHINT
       2 GETGLOBVAR
-      s6 s1 PUXC
+      s13 s1 PUXC
       SDEQ
       THROWANYIFNOT
+      6 3 BLKSWAP
       0 PUSHINT
       0 PUSHINT
-      s0 s3 XCHG
+      s10 s9 XCHG2
       64 PUSHINT
-      s0 s3 XCHG
+      s0 s9 XCHG
       NEWC
-      ROTREV
-      787259334 PUSHINT
-      s0 s3 XCHG2
+      9 1 BLKSWAP
+      440687993 PUSHINT
+      s0 s10 XCHG2
       32 STU
-      NEWC
-      ROT
-      STSLICER
+      8 1 BLKSWAP
+      ?fun_ref_1445b66b472f1bfe INLINECALLDICT
+      1 STI
       ENDC
-      s0 s1 XCHG
-      STREF
-      NEWC
-      ROT
-      STSLICER
-      ENDC
-      s0 s1 XCHG
-      STREF
-      ENDC
-      s3 s3 s0 XCHG3
       s2 s4 XCHG
       s2 s3 XCHG
       NULL
