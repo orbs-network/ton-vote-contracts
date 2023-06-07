@@ -40,16 +40,16 @@ builder $DeployOk$_store(builder build_0, (int) v) inline;
 cell $DeployOk$_store_cell((int) v) inline;
 
 ;; $Params$_load
-(slice, ((int, int, int, slice, slice, slice, slice, slice))) $Params$_load(slice sc_0) inline_ref;
+(slice, ((int, int, int, slice, slice, slice, slice, slice, int))) $Params$_load(slice sc_0) inline_ref;
 
 ;; $ProposalInit$_load
-(slice, (((int, int, int, slice, slice, slice, slice, slice)))) $ProposalInit$_load(slice sc_0) inline;
+(slice, (((int, int, int, slice, slice, slice, slice, slice, int)))) $ProposalInit$_load(slice sc_0) inline;
 
 ;; $Vote$_load
 (slice, ((slice))) $Vote$_load(slice sc_0) inline;
 
 ;; $UpdateProposal$_load
-(slice, (((int, int, int, slice, slice, slice, slice, slice), int))) $UpdateProposal$_load(slice sc_0) inline;
+(slice, (((int, int, int, slice, slice, slice, slice, slice, int)))) $UpdateProposal$_load(slice sc_0) inline;
 
 ;; $Proposal$_store
 builder $Proposal$_store(builder build_0, (slice, int, int, int, int, slice, slice, slice, slice, slice, int) v) inline;

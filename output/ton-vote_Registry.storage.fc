@@ -192,34 +192,6 @@ cell $DaoInit$_store_cell((slice, slice, slice, int) v) inline {
 }
 
 ;;
-;; Type: Dao
-;;
-
-builder $Dao$init$_store(builder build_0, (slice, int) v) inline {
-    var (v'registry, v'daoIndex) = v;
-    build_0 = __tact_store_address(build_0, v'registry);
-    build_0 = build_0.store_int(v'daoIndex, 257);
-    return build_0;
-}
-
-(cell, cell) $Dao$_init_child(cell sys', slice $registry, int $daoIndex) inline_ref {
-    slice sc' = sys'.begin_parse();
-    cell source = sc'~load_dict();
-    cell contracts = new_dict();
-    
-    ;; Contract Code: Dao
-    cell mine = __tact_dict_get_code(source, 25663);
-    contracts = __tact_dict_set_code(contracts, 25663, mine);
-    
-    ;; Build cell
-    builder b = begin_cell();
-    b = b.store_ref(begin_cell().store_dict(contracts).end_cell());
-    b = b.store_int(false, 1);
-    b = $Dao$init$_store(b, ($registry, $daoIndex));
-    return (mine, b.end_cell());
-}
-
-;;
 ;; Type: Registry
 ;;
 
@@ -268,4 +240,32 @@ builder $Registry$_store(builder build_0, (int, int, slice, int, int) v) inline 
     b = b.store_int(true, 1);
     b = $Registry$_store(b, v);
     set_data(b.end_cell());
+}
+
+;;
+;; Type: Dao
+;;
+
+builder $Dao$init$_store(builder build_0, (slice, int) v) inline {
+    var (v'registry, v'daoIndex) = v;
+    build_0 = __tact_store_address(build_0, v'registry);
+    build_0 = build_0.store_int(v'daoIndex, 257);
+    return build_0;
+}
+
+(cell, cell) $Dao$_init_child(cell sys', slice $registry, int $daoIndex) inline_ref {
+    slice sc' = sys'.begin_parse();
+    cell source = sc'~load_dict();
+    cell contracts = new_dict();
+    
+    ;; Contract Code: Dao
+    cell mine = __tact_dict_get_code(source, 25663);
+    contracts = __tact_dict_set_code(contracts, 25663, mine);
+    
+    ;; Build cell
+    builder b = begin_cell();
+    b = b.store_ref(begin_cell().store_dict(contracts).end_cell());
+    b = b.store_int(false, 1);
+    b = $Dao$init$_store(b, ($registry, $daoIndex));
+    return (mine, b.end_cell());
 }

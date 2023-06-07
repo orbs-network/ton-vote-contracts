@@ -43,6 +43,7 @@ contract Proposal with Deployable {
         self.title = msg.body.title;
         self.description = msg.body.description;
         self.quorum = msg.body.quorum;
+        self.hide = msg.body.hide;
     }
 
     receive(vote: Vote) {
@@ -62,8 +63,7 @@ contract Proposal with Deployable {
         self.title = msg.updateParams.title;
         self.description = msg.updateParams.description;
         self.quorum = msg.updateParams.quorum;
-
-        self.hide = msg.hide;        
+        self.hide = msg.updateParams.hide;        
     }
 
     get fun state(): ProposalContractState {

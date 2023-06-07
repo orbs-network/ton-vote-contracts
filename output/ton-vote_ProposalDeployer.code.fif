@@ -44,7 +44,7 @@ PROGRAM{
   DECLPROC $SendParameters$_constructor_to_value_bounce_mode_body_code_data
   DECLPROC $ProposalInit$_constructor_body
   DECLPROC $SendParameters$_constructor_to_value_bounce_mode_body
-  DECLPROC $UpdateProposal$_constructor_updateParams_hide
+  DECLPROC $UpdateProposal$_constructor_updateParams
   DECLPROC $DeployOk$_constructor_queryId
   DECLPROC $ProposalDeployer$_internal_binary_DeployAndInitProposal
   DECLPROC $ProposalDeployer$_internal_binary_SendUpdateProposal
@@ -176,17 +176,17 @@ PROGRAM{
     ENDC
   }>
   $Params$_store PROCREF:<{
-    s7 s8 XCHG2
+    s8 s9 XCHG2
     64 STU
-    s1 s5 XCHG
+    s1 s6 XCHG
     64 STU
-    s1 s3 XCHG
+    s1 s4 XCHG
     64 STU
     NEWC
-    ROT
+    s0 s3 XCHG2
     STSLICER
     ENDC
-    SWAP
+    ROT
     STREF
     NEWC
     ROT
@@ -213,6 +213,8 @@ PROGRAM{
     ENDC
     ROT
     STREF
+    s1 s2 XCHG
+    1 STI
     ENDC
     SWAP
     STREF
@@ -241,19 +243,22 @@ PROGRAM{
     CTOS
     SWAP
     LDREF
-    DROP
+    SWAP
     CTOS
-    s2 s8 XCHG
-    s2 s7 XCHG
-    s2 s6 XCHG
-    s2 s5 XCHG
-    s2 s4 XCHG
-    s2 s3 XCHG
+    SWAP
+    1 LDI
+    DROP
+    s3 s9 XCHG
+    s3 s8 XCHG
+    s3 s7 XCHG
+    s3 s6 XCHG
+    s3 s5 XCHG
+    s3 s4 XCHG
   }>
   $DeployAndInitProposal$_load PROCINLINE:<{
     32 LDU
     SWAP
-    2615508727 PUSHINT
+    1496883659 PUSHINT
     EQUAL
     129 THROWIFNOT
     $Params$_load INLINECALLDICT
@@ -261,37 +266,33 @@ PROGRAM{
   $SendUpdateProposal$_load PROCINLINE:<{
     32 LDU
     SWAP
-    517362091 PUSHINT
+    2568858687 PUSHINT
     EQUAL
     129 THROWIFNOT
     __tact_load_address INLINECALLDICT
     SWAP
     $Params$_load INLINECALLDICT
-    s0 s8 XCHG
-    1 LDI
-    s0 s10 XCHG
-    s9 s9 XCHG2
+    s9 s10 XCHG
   }>
   $ProposalInit$_store PROCINLINE:<{
-    3444668425 PUSHINT
-    s0 s9 XCHG2
+    1008560988 PUSHINT
+    s0 s10 XCHG2
     32 STU
-    s0 s8 XCHG
+    s0 s9 XCHG
     $Params$_store INLINECALLDICT
   }>
   $ProposalInit$_store_cell PROCINLINE:<{
     NEWC
-    8 -ROLL
+    9 -ROLL
     $ProposalInit$_store INLINECALLDICT
     ENDC
   }>
   $UpdateProposal$_store PROCINLINE:<{
-    440687993 PUSHINT
+    817223820 PUSHINT
     s0 s10 XCHG2
     32 STU
-    8 -ROLL
+    s0 s9 XCHG
     $Params$_store INLINECALLDICT
-    1 STI
   }>
   $UpdateProposal$_store_cell PROCINLINE:<{
     NEWC
@@ -556,34 +557,33 @@ PROGRAM{
     PUSHNULL
     PUSHNULL
   }>
-  $UpdateProposal$_constructor_updateParams_hide PROCINLINE:<{
+  $UpdateProposal$_constructor_updateParams PROCINLINE:<{
   }>
   $DeployOk$_constructor_queryId PROCINLINE:<{
   }>
   $ProposalDeployer$_internal_binary_DeployAndInitProposal PROCINLINE:<{
     13403 PUSHINT
     __tact_context_get_sender INLINECALLDICT
-    s11 s(-1) PUXC
+    s12 s(-1) PUXC
     __tact_slice_eq_bits INLINECALLDICT
     THROWANYIFNOT
-    s9 s8 s0 XC2PU
+    s10 s9 s0 XC2PU
     $ProposalDeployer$_fun_getProposalStateInit INLINECALLDICT
     2DUP
     $global_contractAddress INLINECALLDICT
-    s4 s10 XCHG
-    s3 s9 XCHG
-    s8 s7 s6 XCHG3
+    6 6 BLKSWAP
     0 PUSHINT
     FALSE
-    s7 s14 XCHG2
+    s13 s15 XCHG2
     64 PUSHINT
-    s0 s14 XCHG
+    s0 s15 XCHG
     $ProposalInit$_constructor_body INLINECALLDICT
     $ProposalInit$_store_cell INLINECALLDICT
-    s6 s5 s0 XCHG3
+    s1 s6 XCHG
+    s1 s5 XCHG
     s4 s8 XCHG
     s3 s7 XCHG
-    s0 s8 s7 XCHG3
+    s7 s2 XCHG2
     $SendParameters$_constructor_to_value_bounce_mode_body_code_data INLINECALLDICT
     $global_send INLINECALLDICT
     SWAP
@@ -601,7 +601,7 @@ PROGRAM{
     s10 s9 XCHG2
     64 PUSHINT
     s0 s9 XCHG
-    $UpdateProposal$_constructor_updateParams_hide INLINECALLDICT
+    $UpdateProposal$_constructor_updateParams INLINECALLDICT
     $UpdateProposal$_store_cell INLINECALLDICT
     $SendParameters$_constructor_to_value_bounce_mode_body INLINECALLDICT
     $global_send INLINECALLDICT
@@ -635,7 +635,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d61773168417138767042654c4e563131733163634c74746b67417675784667753936725676736d50454e7570} PUSHSLICE
+    x{697066733a2f2f516d5a3833796e69376771335a32757332544555414143374c645537357155757767796668713353787843597737} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH
@@ -659,17 +659,17 @@ PROGRAM{
       32 PLDU
     }>
     DUP
-    2615508727 PUSHINT
+    1496883659 PUSHINT
     EQUAL
     IFJMP:<{
       DROP
       $DeployAndInitProposal$_load INLINECALLDICT
-      1 8 BLKDROP2
+      1 9 BLKDROP2
       $ProposalDeployer$_internal_binary_DeployAndInitProposal INLINECALLDICT
       TRUE
     }>
     DUP
-    517362091 PUSHINT
+    2568858687 PUSHINT
     EQUAL
     IFJMP:<{
       DROP

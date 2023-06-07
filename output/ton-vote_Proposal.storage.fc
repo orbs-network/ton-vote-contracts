@@ -53,10 +53,10 @@ cell $DeployOk$_store_cell((int) v) inline {
 
 ;;
 ;; Type: Params
-;; TLB: _ proposalStartTime:uint64 proposalEndTime:uint64 proposalSnapshotTime:uint64 votingSystem:^string votingPowerStrategies:^string title:^string description:^string quorum:^string = Params
+;; TLB: _ proposalStartTime:uint64 proposalEndTime:uint64 proposalSnapshotTime:uint64 votingSystem:^string votingPowerStrategies:^string title:^string description:^string quorum:^string hide:bool = Params
 ;;
 
-(slice, ((int, int, int, slice, slice, slice, slice, slice))) $Params$_load(slice sc_0) inline_ref {
+(slice, ((int, int, int, slice, slice, slice, slice, slice, int))) $Params$_load(slice sc_0) inline_ref {
     var v'proposalStartTime = sc_0~load_uint(64);
     var v'proposalEndTime = sc_0~load_uint(64);
     var v'proposalSnapshotTime = sc_0~load_uint(64);
@@ -66,17 +66,18 @@ cell $DeployOk$_store_cell((int) v) inline {
     slice sc_1 = sc_0~load_ref().begin_parse();
     var v'description = sc_1~load_ref().begin_parse();
     var v'quorum = sc_1~load_ref().begin_parse();
-    return (sc_0, (v'proposalStartTime, v'proposalEndTime, v'proposalSnapshotTime, v'votingSystem, v'votingPowerStrategies, v'title, v'description, v'quorum));
+    var v'hide = sc_1~load_int(1);
+    return (sc_0, (v'proposalStartTime, v'proposalEndTime, v'proposalSnapshotTime, v'votingSystem, v'votingPowerStrategies, v'title, v'description, v'quorum, v'hide));
 }
 
 ;;
 ;; Type: ProposalInit
-;; Header: 0xcd517809
-;; TLB: proposal_init#cd517809 body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string} = ProposalInit
+;; Header: 0x3c1d6b5c
+;; TLB: proposal_init#3c1d6b5c body:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string,hide:bool} = ProposalInit
 ;;
 
-(slice, (((int, int, int, slice, slice, slice, slice, slice)))) $ProposalInit$_load(slice sc_0) inline {
-    throw_unless(129, sc_0~load_uint(32) == 3444668425);
+(slice, (((int, int, int, slice, slice, slice, slice, slice, int)))) $ProposalInit$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 1008560988);
     var v'body = sc_0~$Params$_load();
     return (sc_0, (v'body));
 }
@@ -95,15 +96,14 @@ cell $DeployOk$_store_cell((int) v) inline {
 
 ;;
 ;; Type: UpdateProposal
-;; Header: 0x1a445d79
-;; TLB: update_proposal#1a445d79 updateParams:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string} hide:bool = UpdateProposal
+;; Header: 0x30b5d88c
+;; TLB: update_proposal#30b5d88c updateParams:Params{proposalStartTime:uint64,proposalEndTime:uint64,proposalSnapshotTime:uint64,votingSystem:^string,votingPowerStrategies:^string,title:^string,description:^string,quorum:^string,hide:bool} = UpdateProposal
 ;;
 
-(slice, (((int, int, int, slice, slice, slice, slice, slice), int))) $UpdateProposal$_load(slice sc_0) inline {
-    throw_unless(129, sc_0~load_uint(32) == 440687993);
+(slice, (((int, int, int, slice, slice, slice, slice, slice, int)))) $UpdateProposal$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 817223820);
     var v'updateParams = sc_0~$Params$_load();
-    var v'hide = sc_0~load_int(1);
-    return (sc_0, (v'updateParams, v'hide));
+    return (sc_0, (v'updateParams));
 }
 
 ;;

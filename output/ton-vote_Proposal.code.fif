@@ -137,19 +137,22 @@ PROGRAM{
     CTOS
     SWAP
     LDREF
-    DROP
+    SWAP
     CTOS
-    s2 s8 XCHG
-    s2 s7 XCHG
-    s2 s6 XCHG
-    s2 s5 XCHG
-    s2 s4 XCHG
-    s2 s3 XCHG
+    SWAP
+    1 LDI
+    DROP
+    s3 s9 XCHG
+    s3 s8 XCHG
+    s3 s7 XCHG
+    s3 s6 XCHG
+    s3 s5 XCHG
+    s3 s4 XCHG
   }>
   $ProposalInit$_load PROCINLINE:<{
     32 LDU
     SWAP
-    3444668425 PUSHINT
+    1008560988 PUSHINT
     EQUAL
     129 THROWIFNOT
     $Params$_load INLINECALLDICT
@@ -167,13 +170,10 @@ PROGRAM{
   $UpdateProposal$_load PROCINLINE:<{
     32 LDU
     SWAP
-    440687993 PUSHINT
+    817223820 PUSHINT
     EQUAL
     129 THROWIFNOT
     $Params$_load INLINECALLDICT
-    s0 s8 XCHG
-    1 LDI
-    s9 s9 XCHG2
   }>
   $Proposal$_store PROCINLINE:<{
     s11 s10 XCHG2
@@ -473,6 +473,7 @@ PROGRAM{
     s9 POP
     s9 POP
     s9 POP
+    s9 POP
     2977 PUSHINT
     s0 s12 XCHG
     0 EQINT
@@ -571,7 +572,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d577454556d4431346d5a39677a3253636e38346e76524843634a53435341645a7164435634586b716f6b5a4b} PUSHSLICE
+    x{697066733a2f2f516d526f5a584d554a6361584b63333653704179364a52327a6f67774b337065787a35734b6f58474a5a474c6d45} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH
@@ -595,12 +596,12 @@ PROGRAM{
       32 PLDU
     }>
     DUP
-    3444668425 PUSHINT
+    1008560988 PUSHINT
     EQUAL
     IFJMP:<{
       DROP
       $ProposalInit$_load INLINECALLDICT
-      1 8 BLKDROP2
+      1 9 BLKDROP2
       $Proposal$_internal_binary_ProposalInit INLINECALLDICT
       TRUE
     }>
@@ -615,7 +616,7 @@ PROGRAM{
       TRUE
     }>
     DUP
-    440687993 PUSHINT
+    817223820 PUSHINT
     EQUAL
     IFJMP:<{
       DROP

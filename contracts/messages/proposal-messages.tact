@@ -11,6 +11,7 @@ struct Params {
     title: String;
     description: String;
     quorum: String;
+    hide: Bool;
 }
 
 message ProposalInit {
@@ -23,7 +24,6 @@ message(0x7c420ea2) Vote {
 
 message UpdateProposal {
     updateParams: Params;
-    hide: Bool;
 }
 
 struct ProposalContractState {

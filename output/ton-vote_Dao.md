@@ -3,7 +3,7 @@ Contract: Dao
 BOC Size: 1728 bytes
 
 # Types
-Total Types: 22
+Total Types: 23
 
 ## StateInit
 TLB: `_ code:^cell data:^cell = StateInit`
@@ -36,6 +36,10 @@ Signature: `ChangeOwner{queryId:uint64,newOwner:address}`
 ## ChangeOwnerOk
 TLB: `change_owner_ok#327b2b4a queryId:uint64 newOwner:address = ChangeOwnerOk`
 Signature: `ChangeOwnerOk{queryId:uint64,newOwner:address}`
+
+## RouteDeployAndInitDao
+TLB: `route_deploy_and_init_dao#2c10ad33 prodMsgValue:uint64 devMsgValue:uint64 prodRegistry:address devRegistry:address owner:address proposalOwner:address metadata:address = RouteDeployAndInitDao`
+Signature: `RouteDeployAndInitDao{prodMsgValue:uint64,devMsgValue:uint64,prodRegistry:address,devRegistry:address,owner:address,proposalOwner:address,metadata:address}`
 
 ## DeployAndInitDao
 TLB: `deploy_and_init_dao#c95b9b64 owner:address proposalOwner:address metadata:address = DeployAndInitDao`

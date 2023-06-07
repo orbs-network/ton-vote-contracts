@@ -42,7 +42,7 @@ contract ProposalDeployer with Deployable {
             value: 0, 
             bounce: false,
             mode: SendRemainingValue,
-            body: UpdateProposal{updateParams: msg.updateParams, hide: msg.hide}.toCell()
+            body: UpdateProposal{updateParams: msg.updateParams}.toCell()
         });
     }
 

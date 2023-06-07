@@ -93,11 +93,11 @@ _ $Context$_get_value((int, slice, int, slice) v) inline;
 ;; $RegistryContractState$_to_external
 (int, int, slice, int, int) $RegistryContractState$_to_external(((int, int, slice, int, int)) v) inline;
 
-;; $Dao$init$_store
-builder $Dao$init$_store(builder build_0, (slice, int) v) inline;
-
 ;; $Registry$init$_load
 (slice, ((int))) $Registry$init$_load(slice sc_0) inline;
+
+;; $Dao$init$_store
+builder $Dao$init$_store(builder build_0, (slice, int) v) inline;
 
 ;; $Registry$_contract_init
 (int, int, slice, int, int) $Registry$_contract_init(int $registryId) impure inline_ref;
@@ -117,9 +117,6 @@ slice $global_contractAddress((cell, cell) $s) impure inline;
 ;; $Dao$_init_child
 (cell, cell) $Dao$_init_child(cell sys', slice $registry, int $daoIndex) inline_ref;
 
-;; $SendParameters$_constructor_bounce_to_value_mode_body_code_data
-((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_bounce_to_value_mode_body_code_data(int bounce, slice to, int value, int mode, cell body, cell code, cell data) inline;
-
 ;; $Registry$_fun_getDaoStateInit
 ((int, int, slice, int, int), (cell, cell)) $Registry$_fun_getDaoStateInit((int, int, slice, int, int) $self, int $daoIndex) impure inline_ref;
 
@@ -134,6 +131,9 @@ slice $global_contractAddress((cell, cell) $s) impure inline;
 
 ;; $Registry$_fun_daoAddress
 ((int, int, slice, int, int), slice) $Registry$_fun_daoAddress((int, int, slice, int, int) $self, int $daoId) impure inline_ref;
+
+;; $SendParameters$_constructor_bounce_to_value_mode_body_code_data
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_bounce_to_value_mode_body_code_data(int bounce, slice to, int value, int mode, cell body, cell code, cell data) inline;
 
 ;; $Registry$_fun_forward
 ((int, int, slice, int, int), ()) $Registry$_fun_forward((int, int, slice, int, int) $self, slice $to, cell $body, int $bounce, tuple $init) impure inline_ref;

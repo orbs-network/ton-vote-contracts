@@ -14,5 +14,4 @@ message SendProposalInit {
 message SendUpdateProposal {
     proposalAddress: Address;
     updateParams: Params;
-    hide: Bool;
 }

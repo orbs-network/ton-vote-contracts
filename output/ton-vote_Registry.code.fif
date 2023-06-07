@@ -29,20 +29,20 @@ PROGRAM{
   DECLPROC $StateInit$_not_null
   DECLPROC $Context$_get_value
   DECLPROC $RegistryContractState$_to_external
-  DECLPROC $Dao$init$_store
   DECLPROC $Registry$init$_load
+  DECLPROC $Dao$init$_store
   DECLPROC $Registry$_contract_init
   DECLPROC $Registry$_contract_load
   DECLPROC $Registry$_contract_store
   DECLPROC $global_contractAddress
   DECLPROC $global_send
   DECLPROC $Dao$_init_child
-  DECLPROC $SendParameters$_constructor_bounce_to_value_mode_body_code_data
   DECLPROC $Registry$_fun_getDaoStateInit
   DECLPROC $RegistryContractState$_constructor_registryId_nextDaoId_admin_deployAndInitDaoFee_newDaosfwdMsgFee
   DECLPROC $Registry$_fun_state
   DECLPROC $Registry$_fun_nextDaoId
   DECLPROC $Registry$_fun_daoAddress
+  DECLPROC $SendParameters$_constructor_bounce_to_value_mode_body_code_data
   DECLPROC $Registry$_fun_forward
   DECLPROC $Registry$_fun_notify
   DECLPROC $SendParameters$_constructor_to_value_bounce_mode_body_code_data
@@ -292,16 +292,16 @@ PROGRAM{
   }>
   $RegistryContractState$_to_external PROCINLINE:<{
   }>
+  $Registry$init$_load PROCINLINE:<{
+    257 PUSHINT
+    LDIX
+    SWAP
+  }>
   $Dao$init$_store PROCINLINE:<{
     -ROT
     __tact_store_address INLINECALLDICT
     257 PUSHINT
     STIX
-  }>
-  $Registry$init$_load PROCINLINE:<{
-    257 PUSHINT
-    LDIX
-    SWAP
   }>
   $Registry$_contract_init PROCREF:<{
     0 PUSHINT
@@ -479,8 +479,6 @@ PROGRAM{
     $Dao$init$_store INLINECALLDICT
     ENDC
   }>
-  $SendParameters$_constructor_bounce_to_value_mode_body_code_data PROCINLINE:<{
-  }>
   $Registry$_fun_getDaoStateInit PROCREF:<{
     __tact_context_sys GETGLOB
     MYADDR
@@ -500,6 +498,8 @@ PROGRAM{
   $Registry$_fun_daoAddress PROCREF:<{
     $Registry$_fun_getDaoStateInit INLINECALLDICT
     $global_contractAddress INLINECALLDICT
+  }>
+  $SendParameters$_constructor_bounce_to_value_mode_body_code_data PROCINLINE:<{
   }>
   $Registry$_fun_forward PROCREF:<{
     PUSHNULL
@@ -665,7 +665,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d653431385734776e7a6a33626264544274664e48686959424e3642744334614a5a666d736634476978637446} PUSHSLICE
+    x{697066733a2f2f516d516655456976527048484e6846676b433375527a34764c7544766f764d584a6f51766376706e6d4471324172} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH

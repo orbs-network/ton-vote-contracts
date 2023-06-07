@@ -29,9 +29,9 @@ PROGRAM{
   DECLPROC $Dao$_contract_load
   DECLPROC $Dao$_contract_store
   DECLPROC $global_send
+  DECLPROC $SendParameters$_constructor_bounce_to_value_mode_body_code_data
   DECLPROC $DaoContractState$_constructor_registry_owner_proposalOwner_metadata_daoIndex_fwdMsgFee
   DECLPROC $Dao$_fun_state
-  DECLPROC $SendParameters$_constructor_bounce_to_value_mode_body_code_data
   DECLPROC $Dao$_fun_forward
   DECLPROC $Dao$_fun_notify
   DECLPROC $DeployOk$_constructor_queryId
@@ -433,14 +433,14 @@ PROGRAM{
     SWAP
     SENDRAWMSG
   }>
+  $SendParameters$_constructor_bounce_to_value_mode_body_code_data PROCINLINE:<{
+  }>
   $DaoContractState$_constructor_registry_owner_proposalOwner_metadata_daoIndex_fwdMsgFee PROCINLINE:<{
   }>
   $Dao$_fun_state PROCREF:<{
     s4 s5 s3 PUSH3
     s4 s5 s3 PUSH3
     $DaoContractState$_constructor_registry_owner_proposalOwner_metadata_daoIndex_fwdMsgFee INLINECALLDICT
-  }>
-  $SendParameters$_constructor_bounce_to_value_mode_body_code_data PROCINLINE:<{
   }>
   $Dao$_fun_forward PROCREF:<{
     PUSHNULL
@@ -563,7 +563,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d5867625754787a784766744431656b7a534867693561584c33624b7633784b386d427844487037375037624d} PUSHSLICE
+    x{697066733a2f2f516d52646a666448755171417069357a42745352515039505261714479595a336d58786b385663317a704d444a6e} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH

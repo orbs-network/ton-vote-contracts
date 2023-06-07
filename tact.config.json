@@ -39,6 +39,14 @@
             "options": {
                 "debug": true
             }
+        },
+        {
+            "name": "ton-vote",
+            "path": "./contracts/router.tact",
+            "output": "./output",
+            "options": {
+                "debug": true
+            }
         }
     ]
 }
