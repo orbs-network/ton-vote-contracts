@@ -31,6 +31,9 @@ contract Metadata with Deployable {
         self.dns = dns;
     }
 
+    receive() {
+    }
+    
     get fun state(): MetadataState {
         return MetadataState {
             avatar: self.avatar,

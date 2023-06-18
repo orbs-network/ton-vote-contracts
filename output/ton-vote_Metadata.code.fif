@@ -25,6 +25,7 @@ PROGRAM{
   DECLPROC $Metadata$_fun_forward
   DECLPROC $Metadata$_fun_notify
   DECLPROC $DeployOk$_constructor_queryId
+  DECLPROC %$Metadata$_internal_empty
   DECLPROC $Metadata$_internal_binary_Deploy
   77589 DECLMETHOD %state
   113617 DECLMETHOD supported_interfaces
@@ -448,6 +449,8 @@ PROGRAM{
   }>
   $DeployOk$_constructor_queryId PROCINLINE:<{
   }>
+  %$Metadata$_internal_empty PROCINLINE:<{
+  }>
   $Metadata$_internal_binary_Deploy PROCINLINE:<{
     $DeployOk$_constructor_queryId INLINECALLDICT
     $DeployOk$_store_cell INLINECALLDICT
@@ -467,7 +470,7 @@ PROGRAM{
     209474421377847335869795010607481022628 PUSHINT
   }>
   get_abi_ipfs PROC:<{
-    x{697066733a2f2f516d506e5a5578736b76596f784c566a56715264425973735375624e44626d756f54676153737239526846734339} PUSHSLICE
+    x{697066733a2f2f516d594b556735613644733468685750756d7a5a3347623347507a383675646d7652647148376b77554e6e763474} PUSHSLICE
   }>
   lazy_deployment_completed PROC:<{
     c4 PUSH
@@ -489,6 +492,17 @@ PROGRAM{
       DROP
       DUP
       32 PLDU
+    }>
+    DUP
+    0 EQINT
+    s2 PUSH
+    SBITS
+    33 LESSINT
+    AND
+    IFJMP:<{
+      2DROP
+      %$Metadata$_internal_empty INLINECALLDICT
+      TRUE
     }>
     2490013878 PUSHINT
     EQUAL

@@ -1,6 +1,6 @@
 # TACT Compilation Report
 Contract: Metadata
-BOC Size: 1008 bytes
+BOC Size: 1021 bytes
 
 # Types
 Total Types: 7
